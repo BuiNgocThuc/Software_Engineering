@@ -86,11 +86,11 @@ CREATE TABLE [NhomQuyen] (
 GO
 
 CREATE TABLE [ChiTietQuyen] (
+  [MaCTQ] int IDENTITY(1,1) Primary key,
   [MaQuyen] int,
   [MaCN] int,
   [HanhDong] nvarchar(100) DEFAULT (NULL),
-  [TinhTrang] BIT DEFAULT (NULL)
-  primary key([MaQuyen],[MaCN])
+  [TinhTrang] BIT DEFAULT (NULL) 
 )
 GO
 
@@ -116,6 +116,7 @@ GO
 
 ALTER TABLE [SanPham] ADD FOREIGN KEY ([MaTL]) REFERENCES [TheLoai] ([MaTL])
 GO
+
 
 ALTER TABLE [PhieuNhap] ADD FOREIGN KEY ([MaNCC]) REFERENCES [NhaCungCap] ([MaNCC])
 GO
@@ -175,8 +176,6 @@ VALUES
 (N'Bí ẩn', 1),
 (N'Lãng mạn', 1),
 (N'Kịch', 1);
-
-DELETE FROM TheLoai
 
 INSERT INTO HoaDon(TenTK, NgayTao, TongTien, TinhTrang)
 VALUES

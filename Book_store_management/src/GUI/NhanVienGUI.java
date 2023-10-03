@@ -8,12 +8,12 @@ package GUI;
  *
  * @author NGOC THUC
  */
-public class NhapHangGUI extends javax.swing.JPanel {
+public class NhanVienGUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form NhapHangGUI
+     * Creates new form NhanVienGUI
      */
-    public NhapHangGUI() {
+    public NhanVienGUI() {
         initComponents();
     }
 

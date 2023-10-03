@@ -17,16 +17,19 @@ public class ConnectDB {
 
     public static Connection getConnection() {
 
-        Connection connection = null;
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName=QLBS;user=sa;password=123456;encrypt=false");
-        } catch (ClassNotFoundException | SQLException e) {
+    Connection connection = null;
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:1433/QLBS"; // Update with your MySQL server address and database name
+        String user = "sa"; // Replace with your MySQL username
+        String password = "123456"; // Replace with your MySQL password
+        connection = DriverManager.getConnection(url, user, password);
+    } catch (ClassNotFoundException | SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return connection;
+        e.printStackTrace();
     }
+    return connection;
+}
 
     public static void closeConnection(Connection c) {
         try {

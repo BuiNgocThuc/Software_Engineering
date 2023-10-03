@@ -12,14 +12,12 @@ import java.util.ArrayList;
 
 import Connection.ConnectDB;
 
-
 /**
  *
  * @author NGOC THUC
  */
 public class testDAO {
 
-    
     public ArrayList<testDTO> selectAll() {
         ArrayList<testDTO> ketQua = new ArrayList<>();
         try {

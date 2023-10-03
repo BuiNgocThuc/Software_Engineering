@@ -86,11 +86,11 @@ CREATE TABLE [NhomQuyen] (
 GO
 
 CREATE TABLE [ChiTietQuyen] (
+  [MaCTQ] int IDENTITY(1,1) Primary key,
   [MaQuyen] int,
   [MaCN] int,
   [HanhDong] nvarchar(100) DEFAULT (NULL),
   [TinhTrang] BIT DEFAULT (NULL)
-  primary key([MaQuyen],[MaCN])
 )
 GO
 

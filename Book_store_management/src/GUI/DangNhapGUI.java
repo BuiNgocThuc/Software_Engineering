@@ -6,6 +6,8 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JTextField;
 
 /**
@@ -16,11 +18,27 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
     /**
      * Creates new form DangNhapGUI
-     */
+     */private int mouseX, mouseY;
     public DangNhapGUI() {
         initComponents();
         addPlaceholderStyle(jTextFieldUsername, "Username");
-        addPlaceholderStyle(jTextFieldPassword, "Password");
+        addPlaceholderStyle(jPasswordField1, "Password");
+          jPanelOverview.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+        });
+
+        jPanelOverview.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - mouseX, y - mouseY);
+            }
+        });
     }
 
     private void addPlaceholderStyle(JTextField textField, String name) {
@@ -48,18 +66,19 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jLabelLogo = new javax.swing.JLabel();
         jLabelDangNhap = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancel = new javax.swing.JButton();
         BTNdangNhap = new Components.ButtonRadius();
         jpanel2 = new Components.Jpanel();
         jTextFieldUsername = new javax.swing.JTextField();
         jLabelUsername1 = new javax.swing.JLabel();
         jpanel3 = new Components.Jpanel();
-        jTextFieldPassword = new javax.swing.JTextField();
         jLabelUsername2 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
         jPanelPoster = new javax.swing.JPanel();
         jLabelPoster = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanelOverview.setBackground(new java.awt.Color(159, 189, 226));
 
@@ -83,9 +102,14 @@ public class DangNhapGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
-        jButton2.setBorder(null);
+        jButtonCancel.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
+        jButtonCancel.setBorder(null);
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
 
         BTNdangNhap.setBackground(new java.awt.Color(251, 233, 189));
         BTNdangNhap.setBorder(null);
@@ -108,7 +132,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jpanel2.setRoundTopRight(40);
 
         jTextFieldUsername.setBackground(new java.awt.Color(243, 243, 244));
-        jTextFieldUsername.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextFieldUsername.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jTextFieldUsername.setForeground(new java.awt.Color(149, 181, 221));
         jTextFieldUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextFieldUsername.setText("Username");
@@ -162,30 +186,27 @@ public class DangNhapGUI extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldPassword.setBackground(new java.awt.Color(243, 243, 244));
-        jTextFieldPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextFieldPassword.setForeground(new java.awt.Color(149, 181, 221));
-        jTextFieldPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextFieldPassword.setText("Password");
-        jTextFieldPassword.setBorder(null);
-        jTextFieldPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextFieldPasswordFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldPasswordFocusLost(evt);
-            }
-        });
-        jTextFieldPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPasswordActionPerformed(evt);
-            }
-        });
-
         jLabelUsername2.setBackground(new java.awt.Color(243, 243, 244));
         jLabelUsername2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/password.png"))); // NOI18N
         jLabelUsername2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jPasswordField1.setBackground(new java.awt.Color(243, 243, 244));
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jPasswordField1.setForeground(new java.awt.Color(149, 181, 221));
+        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPasswordField1.setText("Password");
+        jPasswordField1.setBorder(null);
+        jPasswordField1.setEchoChar('\u0000');
+        jPasswordField1.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
 
         javax.swing.GroupLayout jpanel3Layout = new javax.swing.GroupLayout(jpanel3);
         jpanel3.setLayout(jpanel3Layout);
@@ -195,13 +216,13 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabelUsername2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jpanel3Layout.setVerticalGroup(
             jpanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabelUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-            .addComponent(jTextFieldPassword)
+            .addComponent(jPasswordField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanelDangNhapLayout = new javax.swing.GroupLayout(jPanelDangNhap);
@@ -218,7 +239,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                     .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanelDangNhapLayout.createSequentialGroup()
                             .addGap(19, 19, 19)
-                            .addComponent(jButton2)
+                            .addComponent(jButtonCancel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton1))
                         .addGroup(jPanelDangNhapLayout.createSequentialGroup()
@@ -238,7 +259,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonCancel))
                 .addGap(28, 28, 28)
                 .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -294,7 +315,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
             .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(952, 522));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -334,29 +355,32 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldUsernameActionPerformed
 
-    private void jTextFieldPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPasswordFocusGained
-        // TODO add your handling code here:
-        if (jTextFieldPassword.getText().equals("Password")) {
-            jTextFieldPassword.setText("");
-            jTextFieldPassword.requestFocus();
-            removePlaceholderStyle(jTextFieldPassword);
-        }
-    }//GEN-LAST:event_jTextFieldPasswordFocusGained
-
-    private void jTextFieldPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldPasswordFocusLost
-        // TODO add your handling code here:
-        if (jTextFieldPassword.getText().equals("")) {
-            addPlaceholderStyle(jTextFieldPassword, "Password");
-        }
-    }//GEN-LAST:event_jTextFieldPasswordFocusLost
-
-    private void jTextFieldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPasswordActionPerformed
-
     private void jpanel3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanel3FocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_jpanel3FocusLost
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        // TODO add your handling code here:
+        if (jPasswordField1.getText().equals("Password")) {
+            jPasswordField1.setText("");
+            jPasswordField1.requestFocus();
+            jPasswordField1.setEchoChar('\u25CF');
+            removePlaceholderStyle(jPasswordField1);
+        }
+    }//GEN-LAST:event_jPasswordField1FocusGained
+
+    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+        // TODO add your handling code here:
+           if (jPasswordField1.getText().equals("")) {
+               jPasswordField1.setEchoChar('\u0000');
+            addPlaceholderStyle(jPasswordField1, "Password");
+        }
+    }//GEN-LAST:event_jPasswordField1FocusLost
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+         this.dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,7 +420,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius BTNdangNhap;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancel;
     private javax.swing.JLabel jLabelDangNhap;
     private javax.swing.JLabel jLabelLogo;
     private javax.swing.JLabel jLabelPoster;
@@ -405,7 +429,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelDangNhap;
     private javax.swing.JPanel jPanelOverview;
     private javax.swing.JPanel jPanelPoster;
-    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextFieldUsername;
     private Components.Jpanel jpanel2;
     private Components.Jpanel jpanel3;

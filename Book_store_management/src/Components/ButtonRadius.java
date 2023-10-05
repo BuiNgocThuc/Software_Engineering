@@ -23,7 +23,7 @@ import javax.swing.JButton;
  * @author ASUS
  */
 public class ButtonRadius extends JButton {
-
+ private boolean shouldDrawBorder = true;
     public boolean isOver() {
         return over;
     }
@@ -76,7 +76,7 @@ public class ButtonRadius extends JButton {
         //  Init Color
 
         setColor(new Color(255, 242, 211));
-        colorOver = new Color(179, 250, 160);
+        colorOver = new Color(255, 255, 204);
         colorClick = new Color(152, 184, 144);
 //        borderColor = new Color(30, 136, 56);
         setHorizontalAlignment(JButton.CENTER);
@@ -117,7 +117,7 @@ public class ButtonRadius extends JButton {
     private boolean over;
     private Color color;
     private Color colorOver;
-    private Color colorClick;
+    private Color colorClick = new Color(255,255,204);
    private final Color borderColor = new Color(251,233,189);
     private int radius = 0;
 
@@ -126,12 +126,18 @@ public class ButtonRadius extends JButton {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //  Paint Border
+        if (shouldDrawBorder){
       g2.setColor(borderColor);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+        }
         g2.setColor(getBackground());
 //          Border set 2 Pix
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         super.paintComponent(grphcs);
+    }
+    public void setShouldDrawBorder(boolean shouldDrawBorder) {
+        this.shouldDrawBorder = shouldDrawBorder;
+        repaint(); // Cập nhật lại nút sau khi thay đổi giá trị shouldDrawBorder
     }
 }
 

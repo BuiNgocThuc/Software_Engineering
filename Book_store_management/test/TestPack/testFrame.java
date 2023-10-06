@@ -86,7 +86,7 @@ public class testFrame extends javax.swing.JFrame {
         lblThongKe = new javax.swing.JLabel();
         lblTaiKhoan = new javax.swing.JLabel();
         lblPhanQuyen = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        pnInfo = new Components.Jpanel();
         pnContent = new javax.swing.JPanel();
         pnSanPham = new javax.swing.JPanel();
         pnBanHang = new javax.swing.JPanel();
@@ -209,17 +209,16 @@ public class testFrame extends javax.swing.JFrame {
 
         spnMenu.setViewportView(pnListItem);
 
-        jPanel1.setBackground(new java.awt.Color(102, 255, 102));
-        jPanel1.setPreferredSize(new java.awt.Dimension(260, 80));
+        pnInfo.setPreferredSize(new java.awt.Dimension(260, 80));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnInfoLayout = new javax.swing.GroupLayout(pnInfo);
+        pnInfo.setLayout(pnInfoLayout);
+        pnInfoLayout.setHorizontalGroup(
+            pnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 260, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnInfoLayout.setVerticalGroup(
+            pnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 80, Short.MAX_VALUE)
         );
 
@@ -229,10 +228,11 @@ public class testFrame extends javax.swing.JFrame {
             pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnSideBarLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(pnLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
+            .addGroup(pnSideBarLayout.createSequentialGroup()
+                .addComponent(pnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnSideBarLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
@@ -244,7 +244,7 @@ public class testFrame extends javax.swing.JFrame {
             .addGroup(pnSideBarLayout.createSequentialGroup()
                 .addComponent(pnLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 520, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnSideBarLayout.createSequentialGroup()
                     .addGap(120, 120, 120)
@@ -469,7 +469,6 @@ public class testFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblCongTy;
@@ -486,6 +485,7 @@ public class testFrame extends javax.swing.JFrame {
     private javax.swing.JPanel pnContainer;
     private javax.swing.JPanel pnContent;
     private javax.swing.JPanel pnHoaDon;
+    private Components.Jpanel pnInfo;
     private javax.swing.JPanel pnListItem;
     private javax.swing.JPanel pnLogo;
     private javax.swing.JPanel pnNhanVien;

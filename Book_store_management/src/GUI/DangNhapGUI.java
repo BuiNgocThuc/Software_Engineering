@@ -68,7 +68,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelDangNhap = new javax.swing.JPanel();
         jLabelLogo = new javax.swing.JLabel();
         jLabelDangNhap = new javax.swing.JLabel();
-        jButtonCancel = new Components.ButtonRadius();
+        jButtonCancel = new javax.swing.JButton();
         BTNdangNhap = new Components.ButtonRadius();
         jpanelUsername = new Components.Jpanel();
         jTextFieldUsername = new javax.swing.JTextField();
@@ -97,7 +97,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jButtonCancel.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCancel.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jLabelUsername1.setBackground(new java.awt.Color(243, 243, 244));
         jLabelUsername1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelUsername1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
+        jLabelUsername1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
         jLabelUsername1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jpanelUsernameLayout = new javax.swing.GroupLayout(jpanelUsername);
@@ -183,7 +183,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jLabelUsername2.setBackground(new java.awt.Color(243, 243, 244));
         jLabelUsername2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/password.png"))); // NOI18N
+        jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/password.png"))); // NOI18N
         jLabelUsername2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPasswordField1.setBackground(new java.awt.Color(243, 243, 244));
@@ -212,7 +212,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addComponent(jLabelUsername2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jpanelPasswordLayout.setVerticalGroup(
             jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +221,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         );
 
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
         eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
         eyePassword.setBorderPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

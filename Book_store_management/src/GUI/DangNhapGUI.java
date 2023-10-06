@@ -97,7 +97,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jButtonCancel.setBackground(new java.awt.Color(255, 255, 255));
         jButtonCancel.setForeground(new java.awt.Color(255, 255, 255));
-        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +149,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jLabelUsername1.setBackground(new java.awt.Color(243, 243, 244));
         jLabelUsername1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelUsername1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
+        jLabelUsername1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
         jLabelUsername1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jpanelUsernameLayout = new javax.swing.GroupLayout(jpanelUsername);
@@ -183,7 +183,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         jLabelUsername2.setBackground(new java.awt.Color(243, 243, 244));
         jLabelUsername2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/password.png"))); // NOI18N
+        jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/password.png"))); // NOI18N
         jLabelUsername2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jPasswordField1.setBackground(new java.awt.Color(243, 243, 244));
@@ -221,7 +221,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         );
 
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
         eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
         eyePassword.setBorderPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -407,10 +407,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
         }else{
          if (jPasswordField1.getEchoChar() == 0) {
         jPasswordField1.setEchoChar('\u25CF'); // Hiển thị mật khẩu 
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_36px/username.png")));
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/username.png")));
     } else {
         jPasswordField1.setEchoChar((char) 0); // Ẩn mật khẩu
-       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_36px/password.png")));
+       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/password.png")));
     }}
     }//GEN-LAST:event_eyePasswordActionPerformed
 

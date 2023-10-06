@@ -4,6 +4,13 @@
  */
 package GUI;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /**
  *
  * @author NGOC THUC
@@ -13,8 +20,39 @@ public class DangNhapGUI extends javax.swing.JFrame {
     /**
      * Creates new form DangNhapGUI
      */
+    private int mouseX, mouseY;
+
     public DangNhapGUI() {
         initComponents();
+        addPlaceholderStyle(jTextFieldUsername, "Username");
+        addPlaceholderStyle(jPasswordField1, "Password");
+        jPanelOverview.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+        });
+
+        jPanelOverview.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - mouseX, y - mouseY);
+            }
+        });
+    }
+
+    private void addPlaceholderStyle(JTextField textField, String name) {
+        Font customFont = new Font("Tahoma", Font.BOLD, 16);
+        textField.setFont(customFont);
+        textField.setForeground(new Color(157, 185, 223));
+        textField.setText(name);
+    }
+
+    public void removePlaceholderStyle(JTextField textFiled) {
+        textFiled.setForeground(Color.black);
     }
 
     /**
@@ -26,21 +64,355 @@ public class DangNhapGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanelOverview = new javax.swing.JPanel();
+        jPanelDangNhap = new javax.swing.JPanel();
+        jLabelLogo = new javax.swing.JLabel();
+        jLabelDangNhap = new javax.swing.JLabel();
+        jButtonCancel = new Components.ButtonRadius();
+        BTNdangNhap = new Components.ButtonRadius();
+        jpanelUsername = new Components.Jpanel();
+        jTextFieldUsername = new javax.swing.JTextField();
+        jLabelUsername1 = new javax.swing.JLabel();
+        jpanelPassword = new Components.Jpanel();
+        jLabelUsername2 = new javax.swing.JLabel();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        eyePassword = new javax.swing.JButton();
+        jPanelPoster = new javax.swing.JPanel();
+        jLabelPoster = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+
+        jPanelOverview.setBackground(new java.awt.Color(159, 189, 226));
+
+        jPanelDangNhap.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/logo/login_logo.png"))); // NOI18N
+
+        jLabelDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelDangNhap.setForeground(new java.awt.Color(134, 172, 218));
+        jLabelDangNhap.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelDangNhap.setText("Đăng nhập");
+
+        jButtonCancel.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonCancel.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
+        jButtonCancel.setBorder(null);
+        jButtonCancel.setBorderPainted(false);
+        jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelActionPerformed(evt);
+            }
+        });
+
+        BTNdangNhap.setBackground(new java.awt.Color(251, 233, 189));
+        BTNdangNhap.setBorder(null);
+        BTNdangNhap.setForeground(new java.awt.Color(152, 179, 214));
+        BTNdangNhap.setText("Đăng nhập ");
+        BTNdangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BTNdangNhap.setPreferredSize(new java.awt.Dimension(124, 35));
+        BTNdangNhap.setRadius(40);
+        BTNdangNhap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNdangNhapActionPerformed(evt);
+            }
+        });
+
+        jpanelUsername.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelUsername.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelUsername.setRoundBottomLeft(40);
+        jpanelUsername.setRoundBottomRight(40);
+        jpanelUsername.setRoundTopLeft(40);
+        jpanelUsername.setRoundTopRight(40);
+
+        jTextFieldUsername.setBackground(new java.awt.Color(243, 243, 244));
+        jTextFieldUsername.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jTextFieldUsername.setForeground(new java.awt.Color(149, 181, 221));
+        jTextFieldUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextFieldUsername.setText("Username");
+        jTextFieldUsername.setBorder(null);
+        jTextFieldUsername.setPreferredSize(new java.awt.Dimension(65, 20));
+        jTextFieldUsername.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldUsernameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldUsernameFocusLost(evt);
+            }
+        });
+        jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUsernameActionPerformed(evt);
+            }
+        });
+
+        jLabelUsername1.setBackground(new java.awt.Color(243, 243, 244));
+        jLabelUsername1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelUsername1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
+        jLabelUsername1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jpanelUsernameLayout = new javax.swing.GroupLayout(jpanelUsername);
+        jpanelUsername.setLayout(jpanelUsernameLayout);
+        jpanelUsernameLayout.setHorizontalGroup(
+            jpanelUsernameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelUsernameLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabelUsername1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpanelUsernameLayout.setVerticalGroup(
+            jpanelUsernameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelUsername1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        jpanelPassword.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelPassword.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelPassword.setRoundBottomLeft(40);
+        jpanelPassword.setRoundBottomRight(40);
+        jpanelPassword.setRoundTopLeft(40);
+        jpanelPassword.setRoundTopRight(40);
+        jpanelPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpanelPasswordFocusLost(evt);
+            }
+        });
+
+        jLabelUsername2.setBackground(new java.awt.Color(243, 243, 244));
+        jLabelUsername2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelUsername2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/password.png"))); // NOI18N
+        jLabelUsername2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+
+        jPasswordField1.setBackground(new java.awt.Color(243, 243, 244));
+        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jPasswordField1.setForeground(new java.awt.Color(149, 181, 221));
+        jPasswordField1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jPasswordField1.setText("Password");
+        jPasswordField1.setBorder(null);
+        jPasswordField1.setEchoChar('\u0000');
+        jPasswordField1.setPreferredSize(new java.awt.Dimension(65, 20));
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusLost(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelPasswordLayout = new javax.swing.GroupLayout(jpanelPassword);
+        jpanelPassword.setLayout(jpanelPasswordLayout);
+        jpanelPasswordLayout.setHorizontalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPasswordLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabelUsername2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
+        );
+        jpanelPasswordLayout.setVerticalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        eyePassword.setBackground(new java.awt.Color(255, 255, 255));
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
+        eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
+        eyePassword.setBorderPainted(false);
+        eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eyePasswordActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelDangNhapLayout = new javax.swing.GroupLayout(jPanelDangNhap);
+        jPanelDangNhap.setLayout(jPanelDangNhapLayout);
+        jPanelDangNhapLayout.setHorizontalGroup(
+            jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDangNhapLayout.createSequentialGroup()
+                .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelDangNhapLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDangNhapLayout.createSequentialGroup()
+                        .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDangNhapLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButtonCancel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDangNhapLayout.createSequentialGroup()
+                                .addGap(116, 116, 116)
+                                .addComponent(jLabelDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelDangNhapLayout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jpanelUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(eyePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
+            .addGroup(jPanelDangNhapLayout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelDangNhapLayout.setVerticalGroup(
+            jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDangNhapLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonCancel)
+                .addGap(34, 34, 34)
+                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jpanelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelPoster.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabelPoster.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelPoster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/poster/login_poster.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanelPosterLayout = new javax.swing.GroupLayout(jPanelPoster);
+        jPanelPoster.setLayout(jPanelPosterLayout);
+        jPanelPosterLayout.setHorizontalGroup(
+            jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelPoster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+        );
+        jPanelPosterLayout.setVerticalGroup(
+            jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelPoster, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanelOverviewLayout = new javax.swing.GroupLayout(jPanelOverview);
+        jPanelOverview.setLayout(jPanelOverviewLayout);
+        jPanelOverviewLayout.setHorizontalGroup(
+            jPanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelOverviewLayout.createSequentialGroup()
+                .addComponent(jPanelDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanelPoster, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelOverviewLayout.setVerticalGroup(
+            jPanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanelPoster, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanelDangNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 964, Short.MAX_VALUE)
+            .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(1004, 522));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void myBTN1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myBTN1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myBTN1MouseClicked
+
+    private void myBTN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myBTN1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myBTN1ActionPerformed
+
+    private void BTNdangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNdangNhapActionPerformed
+        // TODO add your handling code here:
+        String username = jTextFieldUsername.getText();
+        String password = new String(jPasswordField1.getPassword());
+        if (username.equals("Username") && password.equals("Password")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin tài khoản.");
+        } else if (username.equals("Username")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập username.");
+        } else if (password.equals("Password")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu.");
+        } else {
+           
+            JOptionPane.showMessageDialog(this, "Đăng nhập thành công!");
+        }
+    }//GEN-LAST:event_BTNdangNhapActionPerformed
+
+    private void jTextFieldUsernameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldUsernameFocusGained
+        // TODO add your handling code here:
+        if (jTextFieldUsername.getText().equals("Username")) {
+            jTextFieldUsername.setText("");
+            jTextFieldUsername.requestFocus();
+            removePlaceholderStyle(jTextFieldUsername);
+        }
+    }//GEN-LAST:event_jTextFieldUsernameFocusGained
+
+    private void jTextFieldUsernameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldUsernameFocusLost
+        // TODO add your handling code here:
+        if (jTextFieldUsername.getText().equals("")) {
+            addPlaceholderStyle(jTextFieldUsername, "Username");
+        }
+    }//GEN-LAST:event_jTextFieldUsernameFocusLost
+
+    private void jTextFieldUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUsernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsernameActionPerformed
+
+    private void jpanelPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanelPasswordFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpanelPasswordFocusLost
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        // TODO add your handling code here:
+        if (jPasswordField1.getText().equals("Password")) {
+            jPasswordField1.setText("");
+            jPasswordField1.requestFocus();
+            jPasswordField1.setEchoChar('\u25CF');
+            removePlaceholderStyle(jPasswordField1);
+        }
+    }//GEN-LAST:event_jPasswordField1FocusGained
+
+    private void jPasswordField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusLost
+        // TODO add your handling code here:
+        if (jPasswordField1.getText().equals("")) {
+            jPasswordField1.setEchoChar('\u0000');
+            addPlaceholderStyle(jPasswordField1, "Password");
+        }
+    }//GEN-LAST:event_jPasswordField1FocusLost
+
+    private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButtonCancelActionPerformed
+
+    private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
+        // TODO add your handling code here:
+        String password = new String(jPasswordField1.getPassword());
+        if (password.equals("Password")){
+            
+        }else{
+         if (jPasswordField1.getEchoChar() == 0) {
+        jPasswordField1.setEchoChar('\u25CF'); // Hiển thị mật khẩu 
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_36px/username.png")));
+    } else {
+        jPasswordField1.setEchoChar((char) 0); // Ẩn mật khẩu
+       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_36px/password.png")));
+    }}
+    }//GEN-LAST:event_eyePasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +450,20 @@ public class DangNhapGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Components.ButtonRadius BTNdangNhap;
+    private javax.swing.JButton eyePassword;
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JLabel jLabelDangNhap;
+    private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JLabel jLabelPoster;
+    private javax.swing.JLabel jLabelUsername1;
+    private javax.swing.JLabel jLabelUsername2;
+    private javax.swing.JPanel jPanelDangNhap;
+    private javax.swing.JPanel jPanelOverview;
+    private javax.swing.JPanel jPanelPoster;
+    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JTextField jTextFieldUsername;
+    private Components.Jpanel jpanelPassword;
+    private Components.Jpanel jpanelUsername;
     // End of variables declaration//GEN-END:variables
 }

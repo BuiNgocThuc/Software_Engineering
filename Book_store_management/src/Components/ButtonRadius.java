@@ -23,7 +23,9 @@ import javax.swing.JButton;
  * @author ASUS
  */
 public class ButtonRadius extends JButton {
- private boolean shouldDrawBorder = true;
+
+    private boolean shouldDrawBorder = true;
+
     public boolean isOver() {
         return over;
     }
@@ -71,6 +73,11 @@ public class ButtonRadius extends JButton {
     public void setRadius(int radius) {
         this.radius = radius;
     }
+    private static void setButtonBackground(JButton button, String colorCode) {
+            Color color = Color.decode(colorCode);
+            button.setBackground(color);
+     
+    }
 
     public ButtonRadius() {
         //  Init Color
@@ -87,10 +94,11 @@ public class ButtonRadius extends JButton {
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent me) {
-              setBackground(colorOver);
+                setBackground(colorOver);
                 over = true;
             }
 //
+
             @Override
             public void mouseExited(MouseEvent me) {
                 setBackground(color);
@@ -112,32 +120,33 @@ public class ButtonRadius extends JButton {
                 }
             }
         });
-        
+
     }
     private boolean over;
     private Color color;
     private Color colorOver;
-    private Color colorClick = new Color(255,255,204);
-   private final Color borderColor = new Color(251,233,189);
+    private Color colorClick = new Color(255, 255, 204);
+    private final Color borderColor = new Color(251, 233, 189);
     private int radius = 0;
+
 
     @Override
     protected void paintComponent(Graphics grphcs) {
         Graphics2D g2 = (Graphics2D) grphcs;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         //  Paint Border
-        if (shouldDrawBorder){
-      g2.setColor(borderColor);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
+        if (shouldDrawBorder) {
+            g2.setColor(borderColor);
+            g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         }
         g2.setColor(getBackground());
 //          Border set 2 Pix
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         super.paintComponent(grphcs);
     }
+
     public void setShouldDrawBorder(boolean shouldDrawBorder) {
         this.shouldDrawBorder = shouldDrawBorder;
         repaint(); // Cập nhật lại nút sau khi thay đổi giá trị shouldDrawBorder
     }
 }
-

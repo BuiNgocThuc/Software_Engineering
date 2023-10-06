@@ -68,7 +68,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelDangNhap = new javax.swing.JPanel();
         jLabelLogo = new javax.swing.JLabel();
         jLabelDangNhap = new javax.swing.JLabel();
-        jButtonCancel = new javax.swing.JButton();
+        jButtonCancel = new Components.ButtonRadius();
         BTNdangNhap = new Components.ButtonRadius();
         jpanelUsername = new Components.Jpanel();
         jTextFieldUsername = new javax.swing.JTextField();
@@ -96,6 +96,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jLabelDangNhap.setText("Đăng nhập");
 
         jButtonCancel.setBackground(new java.awt.Color(255, 255, 255));
+        jButtonCancel.setForeground(new java.awt.Color(255, 255, 255));
         jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/cancel.png"))); // NOI18N
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
@@ -104,7 +105,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 jButtonCancelActionPerformed(evt);
             }
         });
-        BTNdangNhap.setShouldDrawBorder(true);
+
         BTNdangNhap.setBackground(new java.awt.Color(251, 233, 189));
         BTNdangNhap.setBorder(null);
         BTNdangNhap.setForeground(new java.awt.Color(152, 179, 214));
@@ -218,11 +219,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
             .addComponent(jLabelUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
             .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        
 
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
         eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_36px/username.png"))); // NOI18N
-        eyePassword.setBorder(null);
+        eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
         eyePassword.setBorderPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         eyePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -291,7 +291,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelPoster.setLayout(jPanelPosterLayout);
         jPanelPosterLayout.setHorizontalGroup(
             jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelPoster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabelPoster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
         );
         jPanelPosterLayout.setVerticalGroup(
             jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +324,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
             .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(952, 522));
+        setSize(new java.awt.Dimension(1004, 522));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

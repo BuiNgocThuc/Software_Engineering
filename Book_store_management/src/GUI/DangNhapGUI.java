@@ -212,11 +212,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addComponent(jLabelUsername2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
         jpanelPasswordLayout.setVerticalGroup(
             jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+            .addComponent(jLabelUsername2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPasswordField1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -276,7 +276,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

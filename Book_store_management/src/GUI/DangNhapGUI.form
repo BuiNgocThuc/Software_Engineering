@@ -123,7 +123,7 @@
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="eyePassword" max="32767" attributes="0"/>
-                          <Component id="jpanelPassword" max="32767" attributes="0"/>
+                          <Component id="jpanelPassword" pref="39" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                       <Component id="BTNdangNhap" min="-2" pref="43" max="-2" attributes="0"/>
@@ -162,7 +162,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Assets/icon_36px/cancel.png"/>
+                  <Image iconType="3" name="/Assets/icon_24px/cancel.png"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -264,7 +264,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Assets/icon_36px/username.png"/>
+                      <Image iconType="3" name="/Assets/icon_24px/username.png"/>
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
@@ -296,13 +296,13 @@
                           <Component id="jLabelUsername2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPasswordField1" min="-2" pref="155" max="-2" attributes="0"/>
-                          <EmptySpace pref="91" max="32767" attributes="0"/>
+                          <EmptySpace pref="67" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabelUsername2" pref="37" max="32767" attributes="0"/>
+                      <Component id="jLabelUsername2" max="32767" attributes="0"/>
                       <Component id="jPasswordField1" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
@@ -315,7 +315,7 @@
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Assets/icon_36px/password.png"/>
+                      <Image iconType="3" name="/Assets/icon_24px/password.png"/>
                     </Property>
                     <Property name="horizontalTextPosition" type="int" value="0"/>
                   </Properties>
@@ -354,7 +354,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Assets/icon_36px/username.png"/>
+                  <Image iconType="3" name="/Assets/icon_24px/username.png"/>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">

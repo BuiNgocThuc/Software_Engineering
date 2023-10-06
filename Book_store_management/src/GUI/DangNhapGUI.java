@@ -68,7 +68,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelDangNhap = new javax.swing.JPanel();
         jLabelLogo = new javax.swing.JLabel();
         jLabelDangNhap = new javax.swing.JLabel();
-        jButtonCancel = new Components.ButtonRadius();
+        jButtonCancel = new javax.swing.JButton();
         BTNdangNhap = new Components.ButtonRadius();
         jpanelUsername = new Components.Jpanel();
         jTextFieldUsername = new javax.swing.JTextField();
@@ -221,7 +221,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         );
 
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
         eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
         eyePassword.setBorderPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -255,8 +255,8 @@ public class DangNhapGUI extends javax.swing.JFrame {
                                     .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(eyePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addComponent(eyePassword)
+                .addGap(35, 35, 35))
             .addGroup(jPanelDangNhapLayout.createSequentialGroup()
                 .addGap(134, 134, 134)
                 .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -276,7 +276,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
+                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -407,10 +407,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
         }else{
          if (jPasswordField1.getEchoChar() == 0) {
         jPasswordField1.setEchoChar('\u25CF'); // Hiển thị mật khẩu 
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/username.png")));
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
     } else {
         jPasswordField1.setEchoChar((char) 0); // Ẩn mật khẩu
-       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/password.png")));
+       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
     }}
     }//GEN-LAST:event_eyePasswordActionPerformed
 

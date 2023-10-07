@@ -68,7 +68,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelDangNhap = new javax.swing.JPanel();
         jLabelLogo = new javax.swing.JLabel();
         jLabelDangNhap = new javax.swing.JLabel();
-        jButtonCancel = new javax.swing.JButton();
+        jButtonCancel = new Components.ButtonRadius();
         BTNdangNhap = new Components.ButtonRadius();
         jpanelUsername = new Components.Jpanel();
         jTextFieldUsername = new javax.swing.JTextField();
@@ -76,7 +76,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jpanelPassword = new Components.Jpanel();
         jLabelUsername2 = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
-        eyePassword = new javax.swing.JButton();
+        eyePassword = new Components.ButtonRadius();
         jPanelPoster = new javax.swing.JPanel();
         jLabelPoster = new javax.swing.JLabel();
 
@@ -222,7 +222,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
         eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
-        eyePassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 8));
+        eyePassword.setBorder(null);
         eyePassword.setBorderPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         eyePassword.addActionListener(new java.awt.event.ActionListener() {
@@ -275,8 +275,8 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 .addComponent(jpanelUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(jPanelDangNhapLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                    .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                    .addComponent(jpanelPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
                 .addGap(29, 29, 29)
                 .addComponent(BTNdangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -291,7 +291,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jPanelPoster.setLayout(jPanelPosterLayout);
         jPanelPosterLayout.setHorizontalGroup(
             jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelPoster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+            .addComponent(jLabelPoster, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
         );
         jPanelPosterLayout.setVerticalGroup(
             jPanelPosterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,7 +304,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
             jPanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelOverviewLayout.createSequentialGroup()
                 .addComponent(jPanelDangNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelPoster, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelOverviewLayout.setVerticalGroup(

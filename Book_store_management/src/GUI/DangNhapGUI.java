@@ -100,6 +100,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jButtonCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
+        jButtonCancel.setContentAreaFilled(false);
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
@@ -232,7 +233,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         eyePassword.setBackground(new java.awt.Color(255, 255, 255));
         eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
         eyePassword.setBorder(null);
-        eyePassword.setBorderPainted(false);
+        eyePassword.setContentAreaFilled(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         eyePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

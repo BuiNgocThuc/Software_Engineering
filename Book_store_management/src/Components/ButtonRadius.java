@@ -73,11 +73,6 @@ public class ButtonRadius extends JButton {
     public void setRadius(int radius) {
         this.radius = radius;
     }
-    private static void setButtonBackground(JButton button, String colorCode) {
-            Color color = Color.decode(colorCode);
-            button.setBackground(color);
-     
-    }
 
     public ButtonRadius() {
         //  Init Color

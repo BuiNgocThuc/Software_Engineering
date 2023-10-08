@@ -15,3 +15,12 @@ Two-table-screen Table: 650px x 250px and 325px x 550px
 Buttons: 84px x 34px  
 
 243,243,244
+
++ Blue: 87ACD9
+        + Light Blue : AAD8F4
+	+ Light Yellow: FAE8BD
+	+ Yellow: FDB73A 
+	+ White: FFFFFF
+	+ Black: 000000
+	+ Gray for search bar : F3F3F4
+	+ Gray for menu : F3F3F4

@@ -5,6 +5,7 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -101,6 +102,14 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
         jButtonCancel.setContentAreaFilled(false);
+        jButtonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jButtonCancelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jButtonCancelMouseExited(evt);
+            }
+        });
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
@@ -114,6 +123,14 @@ public class DangNhapGUI extends javax.swing.JFrame {
         BTNdangNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BTNdangNhap.setPreferredSize(new java.awt.Dimension(124, 35));
         BTNdangNhap.setRadius(40);
+        BTNdangNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                BTNdangNhapMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                BTNdangNhapMouseExited(evt);
+            }
+        });
         BTNdangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNdangNhapActionPerformed(evt);
@@ -235,6 +252,14 @@ public class DangNhapGUI extends javax.swing.JFrame {
         eyePassword.setBorder(null);
         eyePassword.setContentAreaFilled(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseExited(evt);
+            }
+        });
         eyePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eyePasswordActionPerformed(evt);
@@ -411,18 +436,50 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
     private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
         // TODO add your handling code here:
-        String password = new String(jPasswordField1.getPassword());
-        if (password.equals("Password")){
-            
-        }else{
-         if (jPasswordField1.getEchoChar() == 0) {
-        jPasswordField1.setEchoChar('\u25CF'); // Hiển thị mật khẩu 
-        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
+    String password = new String(jPasswordField1.getPassword());
+    if (password.equals("Password") || password.isEmpty()) {
+        // Nếu mật khẩu rỗng hoặc là "Password", không thay đổi EchoChar
     } else {
-        jPasswordField1.setEchoChar((char) 0); // Ẩn mật khẩu
-       eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
-    }}
+        if (jPasswordField1.getEchoChar() == 0) {
+            jPasswordField1.setEchoChar('\u25CF'); // Hiển thị mật khẩu 
+            eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
+        } else {
+            jPasswordField1.setEchoChar((char) 0); // Ẩn mật khẩu
+            eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
+        }
+    }
     }//GEN-LAST:event_eyePasswordActionPerformed
+
+    private void BTNdangNhapMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNdangNhapMouseEntered
+        // TODO add your handling code here:
+         BTNdangNhap.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_BTNdangNhapMouseEntered
+
+    private void BTNdangNhapMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTNdangNhapMouseExited
+        // TODO add your handling code here:
+         BTNdangNhap.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_BTNdangNhapMouseExited
+
+    private void eyePasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseEntered
+        // TODO add your handling code here:
+         eyePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        
+    }//GEN-LAST:event_eyePasswordMouseEntered
+
+    private void eyePasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseExited
+        // TODO add your handling code here:
+         eyePassword.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_eyePasswordMouseExited
+
+    private void jButtonCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelMouseEntered
+        // TODO add your handling code here:
+        jButtonCancel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jButtonCancelMouseEntered
+
+    private void jButtonCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonCancelMouseExited
+        // TODO add your handling code here:
+        jButtonCancel.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_jButtonCancelMouseExited
 
     /**
      * @param args the command line arguments

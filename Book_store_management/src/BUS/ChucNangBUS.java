@@ -4,10 +4,17 @@
  */
 package BUS;
 
+import DAO.ChucNangDAO;
+import DTO.ChucNangDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author NGOC THUC
  */
 public class ChucNangBUS {
-    
+    ChucNangDAO cnDAO = new ChucNangDAO();
+    public ArrayList<ChucNangDTO> selectAll() {
+        return cnDAO.selectAll();
+    } 
 }

@@ -171,7 +171,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(243, 243, 244));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\logo\\main_logo.png")); // NOI18N
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel1.setPreferredSize(new java.awt.Dimension(250, 100));
         pnLogo.add(jLabel1);
@@ -194,7 +193,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblSanPham.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(243, 243, 244));
-        lblSanPham.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblSanPham.setText("SẢN PHẨM");
         lblSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblSanPham.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -202,7 +200,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblBanHang.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblBanHang.setForeground(new java.awt.Color(243, 243, 244));
-        lblBanHang.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblBanHang.setText("BÁN HÀNG");
         lblBanHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -210,7 +207,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblNhapHang.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblNhapHang.setForeground(new java.awt.Color(243, 243, 244));
-        lblNhapHang.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblNhapHang.setText("NHẬP HÀNG");
         lblNhapHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhapHang.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -218,7 +214,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblCongTy.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblCongTy.setForeground(new java.awt.Color(243, 243, 244));
-        lblCongTy.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblCongTy.setText("CÔNG TY SÁCH");
         lblCongTy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCongTy.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -226,7 +221,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblNhanVien.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(243, 243, 244));
-        lblNhanVien.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblNhanVien.setText("NHÂN VIÊN");
         lblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhanVien.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -234,7 +228,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblHoaDon.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblHoaDon.setForeground(new java.awt.Color(243, 243, 244));
-        lblHoaDon.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblHoaDon.setText("HÓA ĐƠN");
         lblHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblHoaDon.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -242,7 +235,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblPhieuNhap.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblPhieuNhap.setForeground(new java.awt.Color(243, 243, 244));
-        lblPhieuNhap.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblPhieuNhap.setText("PHIẾU NHẬP");
         lblPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhieuNhap.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -250,7 +242,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblThongKe.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblThongKe.setForeground(new java.awt.Color(243, 243, 244));
-        lblThongKe.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblThongKe.setText("THỐNG KÊ");
         lblThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblThongKe.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -258,7 +249,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblTaiKhoan.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblTaiKhoan.setForeground(new java.awt.Color(243, 243, 244));
-        lblTaiKhoan.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblTaiKhoan.setText("TÀI KHOẢN");
         lblTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblTaiKhoan.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -266,7 +256,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         lblPhanQuyen.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
         lblPhanQuyen.setForeground(new java.awt.Color(243, 243, 244));
-        lblPhanQuyen.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\access\\icon_40px\\product_2.png")); // NOI18N
         lblPhanQuyen.setText("PHÂN QUYỀN");
         lblPhanQuyen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhanQuyen.setPreferredSize(new java.awt.Dimension(260, 80));
@@ -517,7 +506,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Book Store Management System");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\close.png")); // NOI18N
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.setPreferredSize(new java.awt.Dimension(30, 30));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -527,7 +515,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
         });
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\minimize.png")); // NOI18N
         jLabel4.setText("jLabel4");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -552,9 +539,9 @@ public class MainFrameGUI extends javax.swing.JFrame {
         );
         pnHeaderLayout.setVerticalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

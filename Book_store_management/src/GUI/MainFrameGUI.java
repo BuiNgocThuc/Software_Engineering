@@ -26,14 +26,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
     
-    ChucNangBUS cnBUS = new ChucNangBUS();
-    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
+//    ChucNangBUS cnBUS = new ChucNangBUS();
+//    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
 
     public MainFrameGUI() {
-        dscn = cnBUS.selectAll();
-        for(ChucNangDTO cn : dscn) {
-            System.out.println(cn.getTenCN());
-        }
         this.setUndecorated(true);
         initComponents();
         designComp();

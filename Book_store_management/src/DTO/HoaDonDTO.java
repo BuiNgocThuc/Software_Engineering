@@ -4,10 +4,64 @@
  */
 package DTO;
 
+import java.util.Date;
+
 /**
  *
  * @author NGOC THUC
  */
 public class HoaDonDTO {
+    private String MaHD, TenTK, TinhTrang;
+    private Date NgayTao;
+    private double TongTien;
+
+    public HoaDonDTO(String MaHD, String TenTK, double TongTien, String TinhTrang, Date NgayTao) {
+        this.MaHD = MaHD;
+        this.TenTK = TenTK;
+        this.TongTien = TongTien;
+        this.TinhTrang = TinhTrang;
+        this.NgayTao = NgayTao;
+    }
+
+    public String getMaHD() {
+        return MaHD;
+    }
+
+    public void setMaHD(String MaHD) {
+        this.MaHD = MaHD;
+    }
+
+    public String getTenTK() {
+        return TenTK;
+    }
+
+    public void setTenTK(String TenTK) {
+        this.TenTK = TenTK;
+    }
+
+    public double getTongTien() {
+        return TongTien;
+    }
+
+    public void setTongTien(double TongTien) {
+        this.TongTien = TongTien;
+    }
+
+    public String getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(String TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
+
+    public Date getNgayTao() {
+        return NgayTao;
+    }
+
+    public void setNgayTao(Date NgayTao) {
+        this.NgayTao = NgayTao;
+    }
+    
     
 }

@@ -27,14 +27,10 @@ public class MainFrameGUItest extends javax.swing.JFrame {
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
     
-    ChucNangBUS cnBUS = new ChucNangBUS();
-    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
+//    ChucNangBUS cnBUS = new ChucNangBUS();
+//    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
 
     public MainFrameGUItest() {
-        dscn = cnBUS.selectAll();
-        for(ChucNangDTO cn : dscn) {
-            System.out.println(cn.getTenCN());
-        }
         this.setUndecorated(true);
         initComponents();
         designComp();
@@ -76,7 +72,7 @@ public class MainFrameGUItest extends javax.swing.JFrame {
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
+        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
     }
 
     void solveHoverMenu() {

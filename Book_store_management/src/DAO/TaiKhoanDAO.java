@@ -30,14 +30,14 @@ public class TaiKhoanDAO {
 
             while (rs.next()) {
                 String MaTK = rs.getString("MaTK");
-                String TenTK = rs.getString("TenTK");
-                String MatKhau = rs.getString("MatKhau");
+                String TenTK = rs.getNString("TenTK");
+                String MatKhau = rs.getNString("MatKhau");
                 String MaQuyen = rs.getString("MaQuyen");
                 Date NgayTao = rs.getDate("NgayTao");
                 String TrangThai = rs.getString("TinhTrang");
 
-                TaiKhoanDTO a = new TaiKhoanDTO(MaTK, TenTK, MatKhau, MaQuyen, TrangThai, NgayTao);
-                ketQua.add(a);
+                TaiKhoanDTO tk = new TaiKhoanDTO(MaTK, TenTK, MatKhau, MaQuyen, TrangThai, NgayTao);
+                ketQua.add(tk);
             }
 
             ConnectDB.closeConnection(conn);

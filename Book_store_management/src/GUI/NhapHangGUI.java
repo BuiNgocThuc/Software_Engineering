@@ -100,6 +100,8 @@ public class NhapHangGUI extends javax.swing.JPanel {
                         .addContainerGap())))
         );
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(650, 250));
+
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -157,7 +159,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +320,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
+        jPanel6.setPreferredSize(new java.awt.Dimension(650, 300));
 
         jPanel8.setBackground(new java.awt.Color(135, 172, 217));
 
@@ -367,7 +370,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnChon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         btnChon.setText("Chọn");
         btnChon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        btnChon.setPreferredSize(new java.awt.Dimension(110, 40));
+        btnChon.setPreferredSize(new java.awt.Dimension(130, 40));
         btnChon.setRadius(40);
         btnChon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 

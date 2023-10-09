@@ -107,6 +107,8 @@ public class BanHangGUI extends javax.swing.JPanel {
                         .addContainerGap())))
         );
 
+        jPanel2.setPreferredSize(new java.awt.Dimension(650, 250));
+
         jScrollPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -164,7 +166,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,6 +177,7 @@ public class BanHangGUI extends javax.swing.JPanel {
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
+        jPanel5.setPreferredSize(new java.awt.Dimension(320, 580));
 
         jPanel7.setBackground(new java.awt.Color(135, 172, 217));
 
@@ -297,6 +300,11 @@ public class BanHangGUI extends javax.swing.JPanel {
                 btnThanhtoanMouseClicked(evt);
             }
         });
+        btnThanhtoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhtoanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -348,6 +356,7 @@ public class BanHangGUI extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
+        jPanel6.setPreferredSize(new java.awt.Dimension(650, 300));
 
         jPanel8.setBackground(new java.awt.Color(135, 172, 217));
 
@@ -398,7 +407,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         btnChon.setText("Chọn");
         btnChon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnChon.setMargin(new java.awt.Insets(2, 10, 3, 14));
-        btnChon.setPreferredSize(new java.awt.Dimension(110, 40));
+        btnChon.setPreferredSize(new java.awt.Dimension(130, 40));
         btnChon.setRadius(40);
         btnChon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
@@ -507,12 +516,12 @@ public class BanHangGUI extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 1, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -577,8 +586,13 @@ public class BanHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhtoanMouseClicked
         // TODO add your handling code here:
-                
+    XacnhanHoaDonGUI xacnhanHoaDonPanel = new XacnhanHoaDonGUI();
+    xacnhanHoaDonPanel.setVisible(true);
     }//GEN-LAST:event_btnThanhtoanMouseClicked
+
+    private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThanhtoanActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

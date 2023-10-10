@@ -11,16 +11,25 @@ import java.util.Date;
  * @author NGOC THUC
  */
 public class PhieuNhapDTO {
-    private String MaPN, MaNCC, TenTK;
+    private String MaPN, MaNCC, TenTK, TinhTrang;
     private double TongTien;
     private Date NgayTao;
 
-    public PhieuNhapDTO(String MaPN, String MaNCC, String TenTK, double TongTien, Date NgayTao) {
+    public PhieuNhapDTO(String MaPN, String MaNCC, String TenTK, double TongTien, Date NgayTao, String TinhTrang) {
         this.MaPN = MaPN;
         this.MaNCC = MaNCC;
         this.TenTK = TenTK;
         this.TongTien = TongTien;
         this.NgayTao = NgayTao;
+        this.TinhTrang = TinhTrang;
+    }
+
+    public String getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(String TinhTrang) {
+        this.TinhTrang = TinhTrang;
     }
 
     public String getMaPN() {

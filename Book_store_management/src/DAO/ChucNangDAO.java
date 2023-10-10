@@ -47,4 +47,62 @@ public class ChucNangDAO {
         }
         return res;
     }
+    
+    public int Them(ChucNangDTO cn) {
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "INSERT INTO ChucNang(MaCN, TenCN, TinhTrang) "
+                    + " VALUES(?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, cn.getMaCN());
+            pst.setString(2, cn.getTenCN());
+            pst.setString(3, cn.getTinhTrang());
+
+            ketQua = pst.executeUpdate();
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    
+    public int Sua(ChucNangDTO cn) {
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+             String sql = "UPDATE ChucNang "
+                    + " SET TenCN=?"
+                    + " WHERE MaCN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, cn.getTenCN());
+            pst.setString(2, cn.getMaCN());
+
+            ketQua = pst.executeUpdate();
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    
+    public int Xoa(ChucNangDTO cn) {
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+             String sql = "DELETE FROM ChucNang "
+                    + " WHERE MaCN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, cn.getMaCN());
+
+            ketQua = pst.executeUpdate();
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
 }

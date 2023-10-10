@@ -30,7 +30,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
 //    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
 
     public MainFrameGUI() {
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);

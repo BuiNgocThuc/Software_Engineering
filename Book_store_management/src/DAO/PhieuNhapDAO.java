@@ -32,8 +32,9 @@ public class PhieuNhapDAO {
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
                 double TongTien = rs.getFloat("TongTien");
+                String TinhTrang = rs.getString("TinhTrang");
 
-                PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao);
+                PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
                 ketQua.add(pn);
             }
             ConnectDB.closeConnection(c);

@@ -14,6 +14,9 @@ import javax.swing.UIManager;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.UIManager;
 
 /**
@@ -170,7 +173,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
         // Tắt grid lines của header
         // jTable1.getTableHeader().setBorder(null);
-
+        
         // Tăng độ cao của header
         jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao bạn muốn
         // Tạo một renderer tùy chỉnh cho header
@@ -185,7 +188,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                     // header.setUI(new NoBorderTableHeaderUI());
                     Font headerFont = new Font("Arial", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ theo ý muốn
                     header.setFont(headerFont);
-                   
+                       // Tạo renderer tùy chỉnh cho từng ô trong header
+                       for (int i = 0; i < table.getColumnModel().getColumnCount(); i++) {
+                        TableColumn column = table.getColumnModel().getColumn(i);
+                        column.setHeaderRenderer(Components.;
+                    }
                 }
                 setText((value == null) ? "" : value.toString());
                 // setBorder(UIManager.getBorder("TableHeader.cellBorder"));

@@ -149,12 +149,16 @@ public class NhapHangGUI extends javax.swing.JPanel {
             }
         });
         tbSanpham.setGridColor(new java.awt.Color(135, 172, 217));
+        tbSanpham.setRowHeight(30);
         tbSanpham.setSelectionBackground(new java.awt.Color(255, 255, 255));
         tbSanpham.setSelectionForeground(new java.awt.Color(253, 183, 58));
         tbSanpham.setShowGrid(true);
         jScrollPane1.setViewportView(tbSanpham);
         if (tbSanpham.getColumnModel().getColumnCount() > 0) {
-            tbSanpham.getColumnModel().getColumn(0).setPreferredWidth(10);
+            tbSanpham.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tbSanpham.getColumnModel().getColumn(0).setMaxWidth(40);
+            tbSanpham.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tbSanpham.getColumnModel().getColumn(1).setMaxWidth(80);
             tbSanpham.getColumnModel().getColumn(4).setPreferredWidth(20);
             tbSanpham.getColumnModel().getColumn(5).setPreferredWidth(15);
             tbSanpham.getColumnModel().getColumn(6).setPreferredWidth(25);
@@ -245,10 +249,17 @@ public class NhapHangGUI extends javax.swing.JPanel {
             }
         });
         tbPhieunhap.setGridColor(new java.awt.Color(135, 172, 217));
+        tbPhieunhap.setRowHeight(30);
         tbPhieunhap.setSelectionBackground(new java.awt.Color(255, 255, 255));
         tbPhieunhap.setSelectionForeground(new java.awt.Color(253, 183, 58));
         tbPhieunhap.setShowGrid(true);
         jScrollPane2.setViewportView(tbPhieunhap);
+        if (tbPhieunhap.getColumnModel().getColumnCount() > 0) {
+            tbPhieunhap.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tbPhieunhap.getColumnModel().getColumn(1).setMaxWidth(30);
+            tbPhieunhap.getColumnModel().getColumn(2).setPreferredWidth(30);
+            tbPhieunhap.getColumnModel().getColumn(3).setPreferredWidth(30);
+        }
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -258,7 +269,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
         );
 
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
@@ -394,7 +405,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnChon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -413,7 +424,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
                                 .addComponent(tfSoluong, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfDongia)))))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,6 +451,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel9.setPreferredSize(new java.awt.Dimension(162, 60));
 
         jLabel5.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(253, 183, 58));
@@ -463,10 +475,10 @@ public class NhapHangGUI extends javax.swing.JPanel {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -507,16 +519,16 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 0, 0)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGap(20, 20, 20)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
-                .addGap(18, 18, 18))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

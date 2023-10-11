@@ -60,7 +60,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, pnHoaDon));
+        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
         lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, pnPhieuNhap));
         lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));

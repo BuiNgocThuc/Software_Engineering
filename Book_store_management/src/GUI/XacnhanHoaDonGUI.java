@@ -31,18 +31,18 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        buttonRadius1 = new Components.ButtonRadius();
-        buttonRadius2 = new Components.ButtonRadius();
+        btnInHoadon = new Components.ButtonRadius();
+        btnQuaylai = new Components.ButtonRadius();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        tfIDHoadon = new javax.swing.JTextField();
+        tfNgaytao = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        tbHoadon = new javax.swing.JTable();
+        tfTongtien = new javax.swing.JTextField();
+        tfTienkhach = new javax.swing.JTextField();
+        tfTienthoi = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -51,31 +51,31 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        buttonRadius1.setForeground(new java.awt.Color(135, 172, 217));
-        buttonRadius1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
-        buttonRadius1.setText("In hóa đơn");
-        buttonRadius1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        buttonRadius1.setMargin(new java.awt.Insets(2, 0, 2, 0));
-        buttonRadius1.setPreferredSize(new java.awt.Dimension(130, 40));
-        buttonRadius1.setRadius(40);
-        buttonRadius1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInHoadon.setForeground(new java.awt.Color(135, 172, 217));
+        btnInHoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
+        btnInHoadon.setText("In hóa đơn");
+        btnInHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnInHoadon.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        btnInHoadon.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnInHoadon.setRadius(40);
+        btnInHoadon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        buttonRadius2.setForeground(new java.awt.Color(135, 172, 217));
-        buttonRadius2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        buttonRadius2.setText("Quay lại");
-        buttonRadius2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        buttonRadius2.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        buttonRadius2.setPreferredSize(new java.awt.Dimension(130, 40));
-        buttonRadius2.setRadius(40);
-        buttonRadius2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        buttonRadius2.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnQuaylai.setForeground(new java.awt.Color(135, 172, 217));
+        btnQuaylai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnQuaylai.setText("Quay lại");
+        btnQuaylai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnQuaylai.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        btnQuaylai.setPreferredSize(new java.awt.Dimension(130, 40));
+        btnQuaylai.setRadius(40);
+        btnQuaylai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnQuaylai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonRadius2MouseClicked(evt);
+                btnQuaylaiMouseClicked(evt);
             }
         });
-        buttonRadius2.addActionListener(new java.awt.event.ActionListener() {
+        btnQuaylai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRadius2ActionPerformed(evt);
+                btnQuaylaiActionPerformed(evt);
             }
         });
 
@@ -88,9 +88,9 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(buttonRadius1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(buttonRadius2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnQuaylai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -101,25 +101,27 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonRadius1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonRadius2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnInHoadon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnQuaylai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(23, 23, 23))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/logo/bill_logo.png"))); // NOI18N
 
-        jTextField1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jTextField1.setText("Hóa đơn số: ");
-        jTextField1.setBorder(null);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfIDHoadon.setText("Hóa đơn số: ");
+        tfIDHoadon.setBorder(null);
+        tfIDHoadon.setFocusable(false);
+        tfIDHoadon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfIDHoadonActionPerformed(evt);
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jTextField2.setText("Ngày:");
-        jTextField2.setBorder(null);
+        tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfNgaytao.setText("Ngày:");
+        tfNgaytao.setBorder(null);
+        tfNgaytao.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         jLabel2.setText("Hóa đơn mua hàng");
@@ -127,8 +129,19 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbHoadon.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        tbHoadon.setForeground(new java.awt.Color(135, 172, 217));
+        tbHoadon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -155,31 +168,39 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        tbHoadon.setGridColor(new java.awt.Color(135, 172, 217));
+        tbHoadon.setRowHeight(30);
+        tbHoadon.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tbHoadon.setSelectionForeground(new java.awt.Color(253, 183, 58));
+        tbHoadon.setShowGrid(true);
+        jScrollPane1.setViewportView(tbHoadon);
+        if (tbHoadon.getColumnModel().getColumnCount() > 0) {
+            tbHoadon.getColumnModel().getColumn(0).setResizable(false);
+            tbHoadon.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tbHoadon.getColumnModel().getColumn(1).setResizable(false);
+            tbHoadon.getColumnModel().getColumn(2).setResizable(false);
+            tbHoadon.getColumnModel().getColumn(3).setResizable(false);
         }
 
-        jTextField3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jTextField3.setText("Tổng tiền:");
-        jTextField3.setBorder(null);
+        tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfTongtien.setText("Tổng tiền:");
+        tfTongtien.setBorder(null);
+        tfTongtien.setFocusable(false);
 
-        jTextField4.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jTextField4.setText("Tiền khách đưa:");
-        jTextField4.setBorder(null);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        tfTienkhach.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfTienkhach.setText("Tiền khách đưa:");
+        tfTienkhach.setBorder(null);
+        tfTienkhach.setFocusable(false);
+        tfTienkhach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                tfTienkhachActionPerformed(evt);
             }
         });
 
-        jTextField5.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jTextField5.setText("Tiền thối");
-        jTextField5.setBorder(null);
+        tfTienthoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfTienthoi.setText("Tiền thối:");
+        tfTienthoi.setBorder(null);
+        tfTienthoi.setFocusable(false);
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(135, 172, 217));
@@ -210,17 +231,17 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
                                         .addComponent(jLabel1)
                                         .addGap(26, 26, 26)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfNgaytao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
                                         .addGap(16, 16, 16))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(tfTienthoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfTienkhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -244,19 +265,19 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
                         .addComponent(jLabel1))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfNgaytao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfTienkhach, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfTienthoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -281,27 +302,27 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfIDHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDHoadonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfIDHoadonActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void tfTienkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTienkhachActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_tfTienkhachActionPerformed
 
-    private void buttonRadius2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRadius2ActionPerformed
+    private void btnQuaylaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuaylaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_buttonRadius2ActionPerformed
+    }//GEN-LAST:event_btnQuaylaiActionPerformed
 
-    private void buttonRadius2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonRadius2MouseClicked
+    private void btnQuaylaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuaylaiMouseClicked
         // TODO add your handling code here:
-        XacnhanHoaDonGUI.this.setVisible(false);
-    }//GEN-LAST:event_buttonRadius2MouseClicked
+        this.setVisible(false);
+    }//GEN-LAST:event_btnQuaylaiMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Components.ButtonRadius buttonRadius1;
-    private Components.ButtonRadius buttonRadius2;
+    private Components.ButtonRadius btnInHoadon;
+    private Components.ButtonRadius btnQuaylai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -311,11 +332,11 @@ public class XacnhanHoaDonGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tbHoadon;
+    private javax.swing.JTextField tfIDHoadon;
+    private javax.swing.JTextField tfNgaytao;
+    private javax.swing.JTextField tfTienkhach;
+    private javax.swing.JTextField tfTienthoi;
+    private javax.swing.JTextField tfTongtien;
     // End of variables declaration//GEN-END:variables
 }

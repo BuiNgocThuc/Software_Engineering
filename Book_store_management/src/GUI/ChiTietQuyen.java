@@ -6,12 +6,14 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -32,6 +34,7 @@ public class ChiTietQuyen extends javax.swing.JFrame {
     public ChiTietQuyen() {
         initComponents();
         editTable(jTable1);
+        setValueTable(jTable1);
     }
 
     /**
@@ -61,7 +64,7 @@ public class ChiTietQuyen extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(148, 181, 222));
         jLabel1.setText("ID Quyền");
 
@@ -107,15 +110,15 @@ public class ChiTietQuyen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.setCellSelectionEnabled(true);
+        jTable1.setColumnSelectionAllowed(true);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTable1.setFocusCycleRoot(true);
         jTable1.setFocusTraversalPolicyProvider(true);
-        jTable1.setRowSelectionAllowed(false);
         jTable1.setShowGrid(true);
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
         jTable1.setSurrendersFocusOnKeystroke(true);
         jScrollPane1.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(100);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
@@ -124,7 +127,7 @@ public class ChiTietQuyen extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(1).setMaxWidth(100);
             jTable1.getColumnModel().getColumn(3).setMinWidth(50);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(100);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(50);
             jTable1.getColumnModel().getColumn(3).setHeaderValue(getTitle());
         }
@@ -132,11 +135,11 @@ public class ChiTietQuyen extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(148, 181, 222));
         jLabel3.setText("Chi tiết quyền");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(148, 181, 222));
         jLabel4.setText("Tên nhóm quyền");
 
@@ -151,7 +154,7 @@ public class ChiTietQuyen extends javax.swing.JFrame {
         jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(148, 181, 222));
         jLabel5.setText("Mô tả");
 
@@ -162,6 +165,14 @@ public class ChiTietQuyen extends javax.swing.JFrame {
         btnLuu.setFocusPainted(false);
         btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLuu.setRadius(40);
+        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLuuMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLuuMouseExited(evt);
+            }
+        });
 
         btnHuy.setBorder(null);
         btnHuy.setForeground(new java.awt.Color(134, 172, 218));
@@ -170,6 +181,14 @@ public class ChiTietQuyen extends javax.swing.JFrame {
         btnHuy.setFocusPainted(false);
         btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHuy.setRadius(40);
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHuyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHuyMouseExited(evt);
+            }
+        });
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
@@ -184,31 +203,31 @@ public class ChiTietQuyen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 8, Short.MAX_VALUE)
                                 .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(268, 268, 268)
                                 .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
-                                            .addGap(0, 0, Short.MAX_VALUE))
-                                        .addComponent(jTextField3)))
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                        .addGap(14, 14, 14))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jTextField3)))
+                            .addComponent(jTextField1))
+                        .addGap(26, 26, 26))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,6 +278,30 @@ public class ChiTietQuyen extends javax.swing.JFrame {
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnHuyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseEntered
+        // TODO add your handling code here:
+        // Đặt con trỏ thành biểu tượng bàn tay khi di vào
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnHuyMouseEntered
+
+    private void btnHuyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseExited
+        // TODO add your handling code here:
+        // Đặt lại con trỏ thành con trỏ mặc định khi di ra
+        setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnHuyMouseExited
+
+    private void btnLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseEntered
+        // TODO add your handling code here:
+        // Đặt con trỏ thành biểu tượng bàn tay khi di vào
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLuuMouseEntered
+
+    private void btnLuuMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseExited
+        // TODO add your handling code here:
+        // Đặt lại con trỏ thành con trỏ mặc định khi di ra
+        setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLuuMouseExited
 
     /**
      * @param args the command line arguments
@@ -317,17 +360,33 @@ public class ChiTietQuyen extends javax.swing.JFrame {
         }
         JTableHeader header = table.getTableHeader();
         header.setBorder(BorderFactory.createLineBorder(new Color(139, 175, 219), 1));
-        
+
         // Đặt độ cao cho từng dòng (trừ header) (nếu cần)
         int rowHeight = 25;
         table.setRowHeight(rowHeight);
- 
-        headerRenderer.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png"))); // Đặt hình ảnh ô vuông có dấu tích
 
+//        
         // Đặt renderer cho cột "Hình ảnh"
-        table.getColumnModel().getColumn(3).setHeaderValue(headerRenderer);
     }
 
+    public void setValueTable(JTable table) {
+//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() ;
+//       
+//        headerRenderer.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png"))); // Đặt hình ảnh ô vuông có dấu tích
+//        table.getColumnModel().getColumn(table.getColumnCount() - 1).setHeaderRenderer(headerRenderer);
+//    TableCellRenderer checkBoxRenderer = new TableCellRenderer() {
+//            JCheckBox checkBox = new JCheckBox();
+//
+//            @Override
+//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+//                return checkBox;
+//            }
+//        };
+
+        // Đặt TableCellRenderer cho tiêu đề cột
+        table.getColumnModel().getColumn(3).setCellRenderer(new Components.CenteredCheckBoxRenderer());
+        table.getColumnModel().getColumn(3).setHeaderRenderer(new Components.CenteredCheckBoxRenderer());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnHuy;

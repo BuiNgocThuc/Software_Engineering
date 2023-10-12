@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package DemoConnectDB;
 
+import GUI.*;
 import BUS.ChucNangBUS;
 import DTO.ChucNangDTO;
 import java.awt.Color;
@@ -18,7 +19,7 @@ import javax.swing.JLabel;
  *
  * @author NGOC THUC
  */
-public class MainFrameGUI extends javax.swing.JFrame {
+public class MainFrameGUItest extends javax.swing.JFrame {
 
     /**
      * Creates new form MainFrameGUI
@@ -29,8 +30,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
 //    ChucNangBUS cnBUS = new ChucNangBUS();
 //    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
 
-    public MainFrameGUI() {
-        //this.setUndecorated(true);
+    public MainFrameGUItest() {
+        this.setUndecorated(true);
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
@@ -71,7 +72,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
+        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
     }
 
     void solveHoverMenu() {
@@ -105,6 +106,17 @@ public class MainFrameGUI extends javax.swing.JFrame {
                 }
             });
         }
+    }
+    
+    void createNewMenu(String name) {
+        JLabel lbl = new JLabel();
+        lbl.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lbl.setForeground(new java.awt.Color(243, 243, 244));
+        lbl.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/product_2.png"))); // NOI18N
+        lbl.setText("SẢN PHẨM");
+        lbl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbl.setPreferredSize(new java.awt.Dimension(260, 80));
+        pnListItem.add(lblSanPham);
     }
 
     /**
@@ -615,20 +627,21 @@ public class MainFrameGUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameGUItest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameGUItest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameGUItest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFrameGUItest.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainFrameGUI().setVisible(true);
+                new MainFrameGUItest().setVisible(true);
             }
         });
     }

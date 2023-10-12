@@ -4,21 +4,22 @@
  */
 package GUI;
 
+
+
+
 import java.awt.Color;
-import java.awt.Component;
+
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+
 import javax.swing.table.DefaultTableCellRenderer;
+
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 
@@ -26,7 +27,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author ASUS
  */
-public class ChiTietQuyen extends javax.swing.JFrame {
+public final class ChiTietQuyen extends javax.swing.JFrame {
 
     /**
      * Creates new form ChiTietQuyen
@@ -96,7 +97,7 @@ public class ChiTietQuyen extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, true
@@ -110,26 +111,29 @@ public class ChiTietQuyen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setCellSelectionEnabled(true);
-        jTable1.setColumnSelectionAllowed(true);
+        jTable1.setColumnSelectionAllowed(false);
         jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.setDoubleBuffered(true);
+        jTable1.setDragEnabled(true);
+        jTable1.setFillsViewportHeight(true);
         jTable1.setFocusCycleRoot(true);
         jTable1.setFocusTraversalPolicyProvider(true);
+        jTable1.setInheritsPopupMenu(true);
+        jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        jTable1.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jTable1.setShowGrid(true);
         jTable1.setSurrendersFocusOnKeystroke(true);
         jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMinWidth(100);
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(100);
             jTable1.getColumnModel().getColumn(0).setMaxWidth(100);
-            jTable1.getColumnModel().getColumn(1).setMinWidth(100);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(100);
-            jTable1.getColumnModel().getColumn(1).setMaxWidth(100);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
             jTable1.getColumnModel().getColumn(3).setMinWidth(50);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
             jTable1.getColumnModel().getColumn(3).setMaxWidth(50);
-            jTable1.getColumnModel().getColumn(3).setHeaderValue(getTitle());
         }
 
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
@@ -339,53 +343,32 @@ public class ChiTietQuyen extends javax.swing.JFrame {
     }
 
     public void editTable(JTable table) {
-        // Đặt renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                label.setForeground(new Color(253, 186, 68)); // Đặt màu chữ
-                label.setFont(label.getFont().deriveFont(Font.BOLD, 16)); // Đặt cỡ chữ và font
-
-                return label;
-            }
-        };
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 30)); // Điều chỉnh  độ cao
-        table.setGridColor(new Color(139, 175, 219));//      border mỗi ô
-        // Đặt renderer tùy chỉnh cho từng cột trong header
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setHeaderRenderer(headerRenderer);
-        }
         JTableHeader header = table.getTableHeader();
-        header.setBorder(BorderFactory.createLineBorder(new Color(139, 175, 219), 1));
+
+        header.setBackground(Color.WHITE);
+        header.setPreferredSize(new java.awt.Dimension(0, 30)); // Điều chỉnh  độ cao    
+        header.setForeground(new Color(253, 186, 68));
+        header.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        ((DefaultTableCellRenderer) header.getDefaultRenderer()).setHorizontalAlignment(JLabel.CENTER);
 
         // Đặt độ cao cho từng dòng (trừ header) (nếu cần)
         int rowHeight = 25;
         table.setRowHeight(rowHeight);
-
-//        
-        // Đặt renderer cho cột "Hình ảnh"
+        table.setGridColor(new Color(139, 175, 219));//      border mỗi ô
+        table.setBackground(Color.WHITE);
     }
 
     public void setValueTable(JTable table) {
-//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() ;
-//       
-//        headerRenderer.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png"))); // Đặt hình ảnh ô vuông có dấu tích
-//        table.getColumnModel().getColumn(table.getColumnCount() - 1).setHeaderRenderer(headerRenderer);
-//    TableCellRenderer checkBoxRenderer = new TableCellRenderer() {
-//            JCheckBox checkBox = new JCheckBox();
-//
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-//                return checkBox;
-//            }
-//        };
+        // Tạo một biểu tượng ImageIcon từ tệp ảnh của bạn
+      
 
-        // Đặt TableCellRenderer cho tiêu đề cột
-        table.getColumnModel().getColumn(3).setCellRenderer(new Components.CenteredCheckBoxRenderer());
-        table.getColumnModel().getColumn(3).setHeaderRenderer(new Components.CenteredCheckBoxRenderer());
+// Tạo một TableCellRenderer cho header
+         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
+        renderer.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/tickbox.png"))); // Đặt hình ảnh ô vuông có dấu tích
+
+        // Đặt renderer cho cột "Hình ảnh"
+        table.getColumnModel().getColumn(3).setHeaderRenderer(renderer);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -403,4 +386,5 @@ public class ChiTietQuyen extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
+
 }

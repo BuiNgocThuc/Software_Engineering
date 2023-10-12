@@ -11,6 +11,11 @@ package DTO;
 public class TheLoaiDTO {
     private String MaTL, TenTL, TinhTrang;
 
+    public TheLoaiDTO(String TenTL, String TinhTrang) {
+        this.TenTL = TenTL;
+        this.TinhTrang = TinhTrang;
+    }
+
     public TheLoaiDTO(String MaTL, String TenTL, String TinhTrang) {
         this.MaTL = MaTL;
         this.TenTL = TenTL;

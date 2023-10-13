@@ -79,13 +79,13 @@ public class TheLoaiDAO {
         return ketQua;
     }
 
-    public int Xoa(int maTL) {
+    public int Xoa(String maTL) {
         int ketQua = 0;
         try {
             Connection conn = ConnectDB.getConnection();
             String sql = "DELETE FROM TheLoai WHERE MaTL=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setInt(1, maTL);
+            pst.setInt(1, Integer.parseInt(maTL));
 
             ketQua = pst.executeUpdate();
 
@@ -107,11 +107,11 @@ public class TheLoaiDAO {
         }
 
          // Thêm một TheLoai mới
-         TheLoaiDTO newTheLoai = new TheLoaiDTO("Thể Loại Mới","0");
-         int themKetQua = theLoaiDAO.Them(newTheLoai);
-         if (themKetQua > 0) {
-             System.out.println("Đã thêm thành công TheLoai mới.");
-         }
+        //  TheLoaiDTO newTheLoai = new TheLoaiDTO("Thể Loại Mới","0");
+        //  int themKetQua = theLoaiDAO.Them(newTheLoai);
+        //  if (themKetQua > 0) {
+        //      System.out.println("Đã thêm thành công TheLoai mới.");
+        //  }
 
         // // Sửa một TheLoai
         // TheLoai updateTheLoai = new TheLoai(1, "Thể Loại Sửa", false);
@@ -121,11 +121,15 @@ public class TheLoaiDAO {
         // }
 
         // Xóa một TheLoai (thay đổi maTL thành mã thể loại cần xóa)
-        // int maTheLoaiCanXoa = 1;
-        // int xoaKetQua = theLoaiDAO.Xoa(maTheLoaiCanXoa);
-        // if (xoaKetQua > 0) {
-        //     System.out.println("Đã xóa thành công TheLoai.");
-        // }
+        String maTheLoaiCanXoa = "12";
+        int xoaKetQua = theLoaiDAO.Xoa(maTheLoaiCanXoa);
+        if (xoaKetQua > 0) {
+            System.out.println("Đã xóa thành công TheLoai.");
+        }
+         for (TheLoaiDTO tl : theLoais) {
+            System.out.println("Mã TL: " + tl.getMaTL() + ", Tên TL: " + tl.getTenTL() + ", Tình trạng: " + tl.getTinhTrang());
+        }
+        
     }
 }
 

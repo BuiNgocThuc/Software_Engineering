@@ -23,6 +23,14 @@ public class TaiKhoanDTO {
         this.NgayTao = NgayTao;
     }
 
+    public TaiKhoanDTO(String TenTK, String MatKhau, String MaQuyen, String TinhTrang, Date NgayTao) {
+        this.TenTK = TenTK;
+        this.MatKhau = MatKhau;
+        this.MaQuyen = MaQuyen;
+        this.TinhTrang = TinhTrang;
+        this.NgayTao = NgayTao;
+    }
+
     public String getMaTK() {
         return MaTK;
     }

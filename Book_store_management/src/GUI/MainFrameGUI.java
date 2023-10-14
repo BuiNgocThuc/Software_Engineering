@@ -34,6 +34,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
+        
     }
 
     void designComp() {
@@ -62,6 +63,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     void solveActionMenu() {
+        PhanQuyenGUI pntPhanQuyen = new PhanQuyenGUI();
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
@@ -70,7 +72,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
+        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent,new PhanQuyenGUInew() ));
         lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
     }
 

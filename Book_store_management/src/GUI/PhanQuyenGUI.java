@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import Components.CustomTabRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -17,23 +16,21 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
  *
  * @author NGOC THUC
  */
-public class PhanQuyenGUI extends javax.swing.JPanel {
+public final class PhanQuyenGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form PhanQuyenGUI
      */
     public PhanQuyenGUI() {
         initComponents();
-        EditTable(jTable1);
-     Border border = BorderFactory.createLineBorder(Color.RED);
-        
-       
+        EditHeaderTable(jTable1);
     }
 
     /**
@@ -47,7 +44,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonRadius2 = new Components.ButtonRadius();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        btnTimKiem = new Components.ButtonRadius();
         jPanelTimKiem = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -57,19 +55,35 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        buttonRadius1 = new Components.ButtonRadius();
-        buttonRadius4 = new Components.ButtonRadius();
-        buttonRadius3 = new Components.ButtonRadius();
+        btnThem = new Components.ButtonRadius();
+        btnSua = new Components.ButtonRadius();
+        btnXoa2 = new Components.ButtonRadius();
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        buttonRadius2.setBorder(null);
-        buttonRadius2.setForeground(new java.awt.Color(134, 172, 218));
-        buttonRadius2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
-        buttonRadius2.setText("Tìm");
-        buttonRadius2.setFocusPainted(false);
-        buttonRadius2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonRadius2.setRadius(40);
+        btnTimKiem.setBorder(null);
+        btnTimKiem.setForeground(new java.awt.Color(134, 172, 218));
+        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
+        btnTimKiem.setText("Tìm");
+        btnTimKiem.setFocusPainted(false);
+        btnTimKiem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnTimKiem.setRadius(40);
+        btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemActionPerformed(evt);
+            }
+        });
 
         jPanelTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         jPanelTimKiem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(162, 198, 231), 2));
@@ -87,11 +101,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanelTimKiemLayout.setHorizontalGroup(
             jPanelTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelTimKiemLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169))
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
         jPanelTimKiemLayout.setVerticalGroup(
             jPanelTimKiemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,6 +117,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jTabbedPane2.setForeground(new java.awt.Color(253, 183, 59));
         jTabbedPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jTabbedPane2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+
+        jPanel3.setOpaque(false);
 
         jTable1.setBackground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -151,13 +167,13 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 977, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane2.addTab("Phân quyền", new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/division_1.png")), jPanel3); // NOI18N
@@ -168,11 +184,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 859, Short.MAX_VALUE)
+            .addGap(0, 975, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addGap(0, 510, Short.MAX_VALUE)
         );
 
         jTabbedPane2.addTab("Chức năng", new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/division_1.png")), jPanel2, ""); // NOI18N
@@ -180,75 +196,77 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        buttonRadius1.setBorder(null);
-        buttonRadius1.setForeground(new java.awt.Color(134, 172, 218));
-        buttonRadius1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        buttonRadius1.setText("Thêm");
-        buttonRadius1.setBorderPainted(false);
-        buttonRadius1.setFocusPainted(false);
-        buttonRadius1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonRadius1.setRadius(40);
-        buttonRadius1.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.setBorder(null);
+        btnThem.setForeground(new java.awt.Color(134, 172, 218));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setFocusPainted(false);
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThem.setRadius(40);
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRadius1ActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonRadius1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 0, 95, 43));
+        jPanel1.add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 86, 43));
 
-        buttonRadius4.setBorder(null);
-        buttonRadius4.setForeground(new java.awt.Color(134, 172, 218));
-        buttonRadius4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
-        buttonRadius4.setText("Sửa");
-        buttonRadius4.setFocusPainted(false);
-        buttonRadius4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonRadius4.setRadius(40);
-        buttonRadius4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRadius4ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(buttonRadius4, new org.netbeans.lib.awtextra.AbsoluteConstraints(119, 0, 86, 43));
+        btnSua.setBorder(null);
+        btnSua.setForeground(new java.awt.Color(134, 172, 218));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.setFocusPainted(false);
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSua.setRadius(40);
+        jPanel1.add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 86, 43));
 
-        buttonRadius3.setBorder(null);
-        buttonRadius3.setForeground(new java.awt.Color(134, 172, 218));
-        buttonRadius3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/minimize.png"))); // NOI18N
-        buttonRadius3.setText("Xóa");
-        buttonRadius3.setFocusPainted(false);
-        buttonRadius3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonRadius3.setRadius(40);
-        jPanel1.add(buttonRadius3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 86, 43));
+        btnXoa2.setBorder(null);
+        btnXoa2.setForeground(new java.awt.Color(134, 172, 218));
+        btnXoa2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/minimize.png"))); // NOI18N
+        btnXoa2.setText("Xóa");
+        btnXoa2.setFocusPainted(false);
+        btnXoa2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXoa2.setRadius(40);
+        jPanel1.add(btnXoa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 86, 43));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTabbedPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 861, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 722, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRadius2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(27, 27, 27))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(buttonRadius2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanelTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(27, 27, 27)
+                .addGap(47, 47, 47)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane2))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void buttonRadius1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_buttonRadius1ActionPerformed
         // TODO add your handling code here:
@@ -258,22 +276,9 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_buttonRadius4ActionPerformed
 
-    public void EditTable(JTable table) {
-        int rowHeight = 30; // Độ cao của từng dòng (không tính header)
-        // int columnWidth = 100; // Độ rộng của từng cột
-
-        // // Đặt độ rộng cho từng cột (trừ header)
-        // for (int i = 0; i < jTable1.getColumnCount(); i++) {
-        //     jTable1.getColumnModel().getColumn(i).setPreferredWidth(columnWidth);
-        // }
-        // Đặt độ cao cho từng dòng (trừ header)
-        jTable1.setRowHeight(rowHeight);
-        // Tắt grid lines của header
-        // jTable1.getTableHeader().setBorder(null);
-
+    public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
-        jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // bạn muốn
+        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
         // Tạo một renderer tùy chỉnh cho header
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
@@ -283,9 +288,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                 if (header != null) {
                     setForeground(new Color(251, 252, 254)); // Đặt màu chữ
                     setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    // header.setUI(new NoBorderTableHeaderUI());
                     Font headerFont = new Font("Segoe UI", Font.BOLD, 16); // Điều chỉnh font và cỡ chữ
-                    // theo ý muốn
                     header.setFont(headerFont);
                     JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
                             isSelected, hasFocus, row, column);
@@ -293,13 +296,36 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                     label.setFont(headerFont);
                 }
                 setText((value == null) ? "" : value.toString());
-                // setBorder(UIManager.getBorder("TableHeader.cellBorder"));
                 return this;
             }
         };
-
         // Đặt renderer tùy chỉnh cho header
-        jTable1.getTableHeader().setDefaultRenderer(headerRenderer);
+        table.getTableHeader().setDefaultRenderer(headerRenderer);
+    }
+
+    public static void editTableContent(JTable table) {
+        // Đặt độ cao cho từng dòng (trừ header)
+        int rowHeight = 30;
+        table.setRowHeight(rowHeight);
+        table.setGridColor(Color.gray);
+        table.setShowGrid(true);
+        table.setBackground(Color.WHITE);
+    }
+
+    public static JTable createTablePhanQuyen() {
+        // Tiêu đề của các cột
+        String[] columnNames = {"STT", "ID Nhóm quyền", "Tên nhóm quyền", "Mô tả"};
+        // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columnNames);
+        // Tạo JTable với DefaultTableModel
+        JTable table = new JTable(model);
+        EditHeaderTable(table);
+        editTableContent(table);
+        return table;
+    }
+
+    public void loadTable() {
 
     }
 
@@ -322,11 +348,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private Components.ButtonRadius buttonRadius1;
-    private Components.ButtonRadius buttonRadius2;
-    private Components.ButtonRadius buttonRadius3;
-    private Components.ButtonRadius buttonRadius4;
+    private Components.ButtonRadius btnSua;
+    private Components.ButtonRadius btnThem;
+    private Components.ButtonRadius btnTimKiem;
+    private Components.ButtonRadius btnXoa2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

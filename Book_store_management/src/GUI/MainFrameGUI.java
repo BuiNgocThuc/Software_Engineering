@@ -61,10 +61,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
         lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, pnHoaDon));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, pnPhieuNhap));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
+        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
+        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
+        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
         lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
     }
@@ -517,6 +517,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Book Store Management System");
 
+        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\close.png")); // NOI18N
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.setPreferredSize(new java.awt.Dimension(30, 30));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -526,6 +527,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         });
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\minimize.png")); // NOI18N
         jLabel4.setText("jLabel4");
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.setPreferredSize(new java.awt.Dimension(30, 30));

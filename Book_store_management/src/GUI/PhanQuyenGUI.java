@@ -458,7 +458,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
 
-    public static void editTableContent(JTable table) {
+    public  void editTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
@@ -535,23 +535,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
-    public static void main(String[] args) {
-        // Tạo và hiển thị JFrame (cửa sổ chứa JPanel của bạn)
-        javax.swing.JFrame frame = new javax.swing.JFrame("PhanQuyenGUI");
-        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-
-        // Tạo một phiên bản của lớp PhanQuyenGUI
-        PhanQuyenGUI phanQuyenGUI = new PhanQuyenGUI();
-
-        // Thêm JPanel của bạn vào JFrame
-        frame.getContentPane().add(phanQuyenGUI);
-
-        // Thiết lập kích thước của JFrame
-        // frame.setSize(1280, 720);
-        frame.pack();
-        // Hiển thị JFrame
-        frame.setVisible(true);
-    }
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnSua;

@@ -24,15 +24,15 @@ import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author NGOC THUC
+ * @author ASUS
  */
 public class SanPhamGUI extends javax.swing.JPanel {
 
     /**
-     * Creates new form SanPhamGUI
+     * Creates new form PhanQuyenGUInew
      */
     public SanPhamGUI() {
-        initComponents();
+             initComponents();
         addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
 //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableSanPham = createTableSanPham();
@@ -53,7 +53,6 @@ public class SanPhamGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         btnTimKiem = new Components.ButtonRadius();
         jPanelTimKiem = new javax.swing.JPanel();
         txtTimKiem = new javax.swing.JTextField();
@@ -66,7 +65,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         btnSua = new Components.ButtonRadius();
         btnXoa1 = new Components.ButtonRadius();
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
 
         btnTimKiem.setBorder(null);
         btnTimKiem.setForeground(new java.awt.Color(134, 172, 218));
@@ -180,7 +179,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 583, Short.MAX_VALUE)
         );
 
         btnThêm.setBorder(null);
@@ -281,99 +280,38 @@ public class SanPhamGUI extends javax.swing.JPanel {
                         .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(jPanelTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
-                .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                    .addComponent(jPanelTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1ActionPerformed
-
-    private void btnXoa1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseExited
-
-    private void btnXoa1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseEntered
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSuaActionPerformed
-
-    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
-        // TODO add your handling code here:
-        btnSua.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnSuaMouseExited
-
-    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
-        // TODO add your handling code here:
-        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnSuaMouseEntered
-
-    private void btnThêmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThêmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnThêmActionPerformed
-
-    private void btnThêmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseExited
-        // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnThêmMouseExited
-
-    private void btnThêmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseEntered
-        // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnThêmMouseEntered
-
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
+     jPanel2.removeAll();
                 jPanel2.setPreferredSize(new Dimension(1003, 506));
         JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
@@ -385,11 +323,12 @@ public class SanPhamGUI extends javax.swing.JPanel {
         jPanel2.add(scrollPaneSanPham);
         jPanel2.revalidate();
         jPanel2.repaint();
+
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
+    jPanel2.removeAll();
         //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
@@ -401,19 +340,62 @@ public class SanPhamGUI extends javax.swing.JPanel {
         jPanel2.add(scrollPaneTheLoai);
         jPanel2.revalidate();
         jPanel2.repaint();
+
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
-    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemActionPerformed
+    }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void txtTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseExited
+    private void btnThêmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThêmActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemMouseExited
+    }//GEN-LAST:event_btnThêmActionPerformed
 
-    private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemMouseEntered
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
+        // TODO add your handling code here:
+        btnTimKiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+    }//GEN-LAST:event_btnTimKiemMouseEntered
+
+    private void btnTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseExited
+        // TODO add your handling code here:
+        btnTimKiem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnTimKiemMouseExited
+
+    private void btnThêmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseEntered
+        // TODO add your handling code here:
+        btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnThêmMouseEntered
+
+    private void btnThêmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseExited
+        // TODO add your handling code here:
+        btnThêm.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnThêmMouseExited
+
+    private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
+        // TODO add your handling code here: 
+        btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+    }//GEN-LAST:event_btnSuaMouseEntered
+
+    private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
+        // TODO add your handling code here:
+        btnSua.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnSuaMouseExited
+
+    private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
+        // TODO add your handling code here:
+        if (txtTimKiem.getText().equals("Tìm kiếm")) {
+            txtTimKiem.setText("");
+
+//            txtTimKiem.requestFocus();
+            removePlaceholderStyle(txtTimKiem);
+        }
+    }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
         // TODO add your handling code here:
@@ -423,30 +405,31 @@ public class SanPhamGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtTimKiemFocusLost
 
-    private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
+    private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
         // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("Tìm kiếm")) {
-            txtTimKiem.setText("");
 
-            //            txtTimKiem.requestFocus();
-            removePlaceholderStyle(txtTimKiem);
-        }
-    }//GEN-LAST:event_txtTimKiemFocusGained
+    }//GEN-LAST:event_txtTimKiemMouseEntered
 
-    private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
+    private void txtTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void btnTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseExited
+    }//GEN-LAST:event_txtTimKiemMouseExited
+
+    private void btnXoa1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseEntered
         // TODO add your handling code here:
-        btnTimKiem.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnTimKiemMouseExited
+    }//GEN-LAST:event_btnXoa1MouseEntered
 
-    private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
+    private void btnXoa1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseExited
         // TODO add your handling code here:
-        btnTimKiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnTimKiemMouseEntered
+    }//GEN-LAST:event_btnXoa1MouseExited
 
+    private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoa1ActionPerformed
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemActionPerformed
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -507,13 +490,13 @@ public class SanPhamGUI extends javax.swing.JPanel {
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(model);
          TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(50); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(100); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(300); // Độ rộng cột 2
-          columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
-        columnModel.getColumn(4).setPreferredWidth(150); // Độ rộng cột 4
-        columnModel.getColumn(5).setPreferredWidth(100); // Độ rộng cột 5
-          columnModel.getColumn(6).setPreferredWidth(100); // Độ rộng cột 6
+        columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(120); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(250); // Độ rộng cột 2
+          columnModel.getColumn(3).setPreferredWidth(209); // Độ rộng cột 3
+        columnModel.getColumn(4).setPreferredWidth(120); // Độ rộng cột 4
+        columnModel.getColumn(5).setPreferredWidth(120); // Độ rộng cột 5
+          columnModel.getColumn(6).setPreferredWidth(120); // Độ rộng cột 6
 
         EditHeaderTable(table);
         editTableContent(table);
@@ -579,30 +562,13 @@ public class SanPhamGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
-    public static void main(String[] args) {
-        // Tạo và hiển thị JFrame (cửa sổ chứa JPanel của bạn)
-        javax.swing.JFrame frame = new javax.swing.JFrame("SanPhamGUI");
-        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 
-        // Tạo một phiên bản của lớp SanPhamGUI
-        SanPhamGUI sanPhamGui = new SanPhamGUI();
-
-        // Thêm JPanel của bạn vào JFrame
-        frame.getContentPane().add(sanPhamGui);
-
-        // Thiết lập kích thước của JFrame
-        // frame.setSize(1280, 720);
-        frame.pack();
-        // Hiển thị JFrame
-        frame.setVisible(true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThêm;
     private Components.ButtonRadius btnTimKiem;
     private Components.ButtonRadius btnXoa1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;

@@ -95,6 +95,13 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 formMousePressed(evt);
             }
         });
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanelOverview.setBackground(new java.awt.Color(159, 189, 226));
         jPanelOverview.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -180,6 +187,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jTextFieldUsernameFocusLost(evt);
+            }
+        });
+        jTextFieldUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextFieldUsernameMouseClicked(evt);
             }
         });
         jTextFieldUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -414,7 +426,6 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jTextFieldUsername.getText().equals("Username")) {
             jTextFieldUsername.setText("");
-            jTextFieldUsername.requestFocus();
             removePlaceholderStyle(jTextFieldUsername);
         }
     }//GEN-LAST:event_jTextFieldUsernameFocusGained
@@ -522,6 +533,14 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jPanelOverviewMousePressed
+
+    private void jTextFieldUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldUsernameMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUsernameMouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowGainedFocus
 
 /**
  * @param args the command line arguments

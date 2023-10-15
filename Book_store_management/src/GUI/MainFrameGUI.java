@@ -63,7 +63,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     void solveActionMenu() {
-        PhanQuyenGUI pntPhanQuyen = new PhanQuyenGUI();
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
@@ -72,7 +71,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent,new PhanQuyenGUInew() ));
+        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent,new PhanQuyenGUI() ));
         lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
     }
 
@@ -165,6 +164,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
         puSetting.add(itemLogOut);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         pnContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -599,6 +605,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        this.requestFocusInWindow();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

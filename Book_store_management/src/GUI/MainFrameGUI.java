@@ -61,10 +61,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
         lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, pnPhieuNhap));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
+        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
+        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
+        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
         lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
     }
@@ -151,10 +151,17 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        itemChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
         itemChangePass.setText("Đổi mật khẩu");
         puSetting.add(itemChangePass);
 
+        itemLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/exit.png"))); // NOI18N
         itemLogOut.setText("Đăng xuất");
+        itemLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLogOutActionPerformed(evt);
+            }
+        });
         puSetting.add(itemLogOut);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -287,7 +294,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblRole.setForeground(new java.awt.Color(250, 232, 189));
         lblRole.setText("Admin");
 
-        lblSetting.setText("icon");
+        lblSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/clock.png"))); // NOI18N
         lblSetting.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         lblSetting.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -517,7 +524,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Book Store Management System");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\close.png")); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/close.png"))); // NOI18N
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.setPreferredSize(new java.awt.Dimension(30, 30));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -526,9 +534,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Y3_S1\\Software_Engineering\\Software_Engineering\\Book_store_management\\src\\Assets\\icon_24px\\minimize.png")); // NOI18N
-        jLabel4.setText("jLabel4");
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/minimize.png"))); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.setPreferredSize(new java.awt.Dimension(30, 30));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -592,6 +599,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void itemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogOutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemLogOutActionPerformed
 
     /**
      * @param args the command line arguments

@@ -16,7 +16,6 @@ public class handleMouseEvent implements MouseListener{
     private JPanel pnContent, pnComponent;
 
     public handleMouseEvent(JPanel pnM, JPanel pnC) {
-        System.out.println("here!!");
         this.pnContent = pnM;
         this.pnComponent = pnC;
     }

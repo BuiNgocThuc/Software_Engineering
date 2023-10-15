@@ -38,11 +38,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         JTable tablePhanQuyen = createTablePhanQuyen();
         tablePhanQuyen.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         JScrollPane scrollPanePhanQuyen = new JScrollPane(tablePhanQuyen);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPanePhanQuyen.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPanePhanQuyen);
-        
+
     }
 
     /**
@@ -180,7 +180,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 583, Short.MAX_VALUE)
         );
 
         btnThêm.setBorder(null);
@@ -281,7 +281,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                         .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -318,7 +318,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         tablePhanQuyen.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         tablePhanQuyen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPanePhanQuyen = new JScrollPane(tablePhanQuyen);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPanePhanQuyen.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPanePhanQuyen);
@@ -330,12 +330,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     private void lblChucNangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChucNangMouseClicked
         // TODO add your handling code here:
         jPanel2.removeAll();
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
+//       jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableChucNang = createTableChucNang();
         tableChucNang.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         tableChucNang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneChucNang = new JScrollPane(tableChucNang);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneChucNang.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPaneChucNang);
@@ -358,41 +358,41 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
         // TODO add your handling code here:
-                btnTimKiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+        btnTimKiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
     }//GEN-LAST:event_btnTimKiemMouseEntered
 
     private void btnTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseExited
         // TODO add your handling code here:
-         btnTimKiem.setCursor(Cursor.getDefaultCursor());
+        btnTimKiem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnTimKiemMouseExited
 
     private void btnThêmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseEntered
         // TODO add your handling code here:
-              btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnThêmMouseEntered
 
     private void btnThêmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseExited
         // TODO add your handling code here:
-          btnThêm.setCursor(Cursor.getDefaultCursor());
+        btnThêm.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnThêmMouseExited
 
     private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
         // TODO add your handling code here: 
         btnSua.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
     }//GEN-LAST:event_btnSuaMouseEntered
 
     private void btnSuaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseExited
         // TODO add your handling code here:
-          btnSua.setCursor(Cursor.getDefaultCursor());
+        btnSua.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
         // TODO add your handling code here:
-                if (txtTimKiem.getText().equals("Tìm kiếm")) {
+        if (txtTimKiem.getText().equals("Tìm kiếm")) {
             txtTimKiem.setText("");
-                 
+
 //            txtTimKiem.requestFocus();
             removePlaceholderStyle(txtTimKiem);
         }
@@ -400,20 +400,20 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
         // TODO add your handling code here:
-         if (txtTimKiem.getText().equals("")) {
+        if (txtTimKiem.getText().equals("")) {
             addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-                  System.out.println("hi1"+txtTimKiem.getText());
+            System.out.println("hi1" + txtTimKiem.getText());
         }
     }//GEN-LAST:event_txtTimKiemFocusLost
 
     private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
         // TODO add your handling code here:
- 
+
     }//GEN-LAST:event_txtTimKiemMouseEntered
 
     private void txtTimKiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseExited
         // TODO add your handling code here:
-         
+
     }//GEN-LAST:event_txtTimKiemMouseExited
 
     private void btnXoa1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseEntered
@@ -486,9 +486,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         editTableContent(table);
         return table;
     }
+
     public void loadTable() {
 
     }
+
     public JTable createTableChucNang() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Chức Năng", "Tên chức năng", "Tình trạng"};
@@ -504,8 +506,6 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         return table;
     }
 
-
-
     public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
 
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
@@ -515,25 +515,26 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         int fixedColumnsWidth = column1 + column2 + column3;
 //    
 //    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        System.out.println(table.getPreferredSize().width);
+        int column4 = 999 - fixedColumnsWidth;
+//        System.out.println(table.getPreferredSize().width);
         columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
         columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
     }
-  private void addPlaceholderStyle(JTextField textField, String name) {
+
+    private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);
         textField.setFont(customFont);
         textField.setForeground(new Color(157, 185, 223));
         textField.setText(name);
-        
+
     }
 
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }
+
     public static void main(String[] args) {
         // Tạo và hiển thị JFrame (cửa sổ chứa JPanel của bạn)
         javax.swing.JFrame frame = new javax.swing.JFrame("PhanQuyenGUI");

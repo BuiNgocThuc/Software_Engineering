@@ -60,13 +60,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, pnHoaDon));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
+        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
+        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, pnPhieuNhap));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, pnNhanVien));
+        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, pnCongTy));
+        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, pnTaiKhoan));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, pnThongKe));
+        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
     }
 
     void solveHoverMenu() {

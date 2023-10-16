@@ -23,15 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="PanelOverview" alignment="0" max="32767" attributes="0"/>
+          <Component id="PanelOverview" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="PanelOverview" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <Component id="PanelOverview" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -52,22 +49,22 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lblID" min="-2" pref="128" max="-2" attributes="0"/>
-                          <EmptySpace pref="338" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="btnLuu" min="-2" pref="86" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="255" max="-2" attributes="0"/>
-                                  <Component id="btnHuy" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblTenTheLoai" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="btnHuy" min="-2" pref="86" max="-2" attributes="0"/>
+                                      <EmptySpace pref="182" max="32767" attributes="0"/>
+                                      <Component id="btnLuu" min="-2" pref="86" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="txtID" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="lblTenChucNang" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
-                              <Component id="lblMoTa" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                              <Component id="txtID" alignment="0" pref="436" max="32767" attributes="0"/>
-                              <Component id="txtName" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtMoTa" alignment="0" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -82,19 +79,15 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="txtID" min="-2" pref="29" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblTenChucNang" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="lblTenTheLoai" min="-2" pref="26" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtName" min="-2" pref="29" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblMoTa" min="-2" pref="26" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="txtMoTa" min="-2" pref="70" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="txtName" min="-2" pref="108" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnLuu" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                       <Component id="btnHuy" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -108,7 +101,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="de" green="b5" red="94" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="ID Ch&#x1ee9;c N&#x103;ng"/>
+            <Property name="text" type="java.lang.String" value="ID Th&#x1ec3; lo&#x1ea1;i"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblThongTinChiTiet">
@@ -129,21 +122,7 @@
             <Property name="opaque" type="boolean" value="true"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtMoTa">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder thickness="2">
-                  <Color PropertyName="color" blue="eb" green="d2" red="be" type="rgb"/>
-                </LineBorder>
-              </Border>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblTenChucNang">
+        <Component class="javax.swing.JLabel" name="lblTenTheLoai">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="16" style="1"/>
@@ -151,7 +130,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="de" green="b5" red="94" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="T&#xea;n ch&#x1ee9;c n&#x103;ng"/>
+            <Property name="text" type="java.lang.String" value="T&#xea;n th&#x1ec3; lo&#x1ea1;i"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtID">
@@ -185,18 +164,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblMoTa">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="16" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="de" green="b5" red="94" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="M&#xf4; t&#x1ea3;"/>
-          </Properties>
-        </Component>
-        <Component class="Components.ButtonRadius" name="btnHuy">
+        <Component class="Components.ButtonRadius" name="btnLuu">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -215,11 +183,11 @@
             <Property name="radius" type="int" value="40"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseExited"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLuuMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLuuMouseExited"/>
           </Events>
         </Component>
-        <Component class="Components.ButtonRadius" name="btnLuu">
+        <Component class="Components.ButtonRadius" name="btnHuy">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -238,9 +206,9 @@
             <Property name="radius" type="int" value="40"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLuuMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnLuuMouseExited"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuActionPerformed"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseEntered"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseExited"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

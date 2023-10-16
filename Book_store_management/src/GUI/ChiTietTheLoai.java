@@ -10,12 +10,12 @@ import java.awt.Cursor;
  *
  * @author ASUS
  */
-public class ChiTietChucNang extends javax.swing.JFrame {
+public class ChiTietTheLoai extends javax.swing.JFrame {
 
     /**
      * Creates new form ChiTietChucNang
      */
-    public ChiTietChucNang() {
+    public ChiTietTheLoai() {
         initComponents();
     }
 
@@ -31,13 +31,11 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         PanelOverview = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
         lblThongTinChiTiet = new javax.swing.JLabel();
-        txtMoTa = new javax.swing.JTextField();
-        lblTenChucNang = new javax.swing.JLabel();
+        lblTenTheLoai = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        lblMoTa = new javax.swing.JLabel();
-        btnHuy = new Components.ButtonRadius();
         btnLuu = new Components.ButtonRadius();
+        btnHuy = new Components.ButtonRadius();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,7 +43,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
 
         lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblID.setForeground(new java.awt.Color(148, 181, 222));
-        lblID.setText("ID Chức Năng");
+        lblID.setText("ID Thể loại");
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
         lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -56,12 +54,9 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setOpaque(true);
 
-        txtMoTa.setBackground(new java.awt.Color(255, 255, 255));
-        txtMoTa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-
-        lblTenChucNang.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblTenChucNang.setForeground(new java.awt.Color(148, 181, 222));
-        lblTenChucNang.setText("Tên chức năng");
+        lblTenTheLoai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTenTheLoai.setForeground(new java.awt.Color(148, 181, 222));
+        lblTenTheLoai.setText("Tên thể loại");
 
         txtID.setBackground(new java.awt.Color(255, 255, 255));
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
@@ -74,30 +69,10 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         txtName.setBackground(new java.awt.Color(255, 255, 255));
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
-        lblMoTa.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblMoTa.setForeground(new java.awt.Color(148, 181, 222));
-        lblMoTa.setText("Mô tả");
-
-        btnHuy.setBorder(null);
-        btnHuy.setForeground(new java.awt.Color(134, 172, 218));
-        btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
-        btnHuy.setText("Hủy");
-        btnHuy.setFocusPainted(false);
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnHuy.setRadius(40);
-        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnHuyMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnHuyMouseExited(evt);
-            }
-        });
-
         btnLuu.setBorder(null);
         btnLuu.setForeground(new java.awt.Color(134, 172, 218));
-        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
-        btnLuu.setText("Lưu");
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
+        btnLuu.setText("Hủy");
         btnLuu.setFocusPainted(false);
         btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLuu.setRadius(40);
@@ -109,9 +84,25 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 btnLuuMouseExited(evt);
             }
         });
-        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+
+        btnHuy.setBorder(null);
+        btnHuy.setForeground(new java.awt.Color(134, 172, 218));
+        btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
+        btnHuy.setText("Lưu");
+        btnHuy.setFocusPainted(false);
+        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHuy.setRadius(40);
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHuyMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHuyMouseExited(evt);
+            }
+        });
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuuActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -125,19 +116,18 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelOverviewLayout.createSequentialGroup()
                         .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(338, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelOverviewLayout.createSequentialGroup()
-                        .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(PanelOverviewLayout.createSequentialGroup()
-                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(255, 255, 255)
-                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblTenChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
-                            .addComponent(txtName)
-                            .addComponent(txtMoTa))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblTenTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(PanelOverviewLayout.createSequentialGroup()
+                                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(0, 23, Short.MAX_VALUE))))
         );
         PanelOverviewLayout.setVerticalGroup(
             PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,31 +138,25 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTenChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblTenTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtMoTa, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(PanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -181,18 +165,6 @@ public class ChiTietChucNang extends javax.swing.JFrame {
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDActionPerformed
-
-    private void btnHuyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseEntered
-        // TODO add your handling code here:
-        // Đặt con trỏ thành biểu tượng bàn tay khi di vào
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnHuyMouseEntered
-
-    private void btnHuyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseExited
-        // TODO add your handling code here:
-        // Đặt lại con trỏ thành con trỏ mặc định khi di ra
-        setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnHuyMouseExited
 
     private void btnLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseEntered
         // TODO add your handling code here:
@@ -206,9 +178,21 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnLuuMouseExited
 
-    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+    private void btnHuyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLuuActionPerformed
+        // Đặt con trỏ thành biểu tượng bàn tay khi di vào
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnHuyMouseEntered
+
+    private void btnHuyMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseExited
+        // TODO add your handling code here:
+        // Đặt lại con trỏ thành con trỏ mặc định khi di ra
+        setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnHuyMouseExited
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,20 +211,21 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ChiTietChucNang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ChiTietChucNang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ChiTietChucNang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ChiTietChucNang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietChucNang().setVisible(true);
+                new ChiTietTheLoai().setVisible(true);
             }
         });
     }
@@ -250,11 +235,9 @@ public class ChiTietChucNang extends javax.swing.JFrame {
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnLuu;
     private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblMoTa;
-    private javax.swing.JLabel lblTenChucNang;
+    private javax.swing.JLabel lblTenTheLoai;
     private javax.swing.JLabel lblThongTinChiTiet;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtMoTa;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

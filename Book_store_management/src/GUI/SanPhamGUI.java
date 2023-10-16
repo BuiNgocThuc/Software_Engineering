@@ -36,12 +36,12 @@ public class SanPhamGUI extends javax.swing.JPanel {
         addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
 //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableSanPham = createTableSanPham();
-        tableSanPham.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
+        tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPaneSanPham);
+        PanelTable.setLayout(new BorderLayout());
+        PanelTable.add(scrollPaneSanPham);
     }
 
     /**
@@ -60,7 +60,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         jPanelBody = new javax.swing.JPanel();
         lblTheLoai = new javax.swing.JLabel();
         lblSanPham = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        PanelTable = new javax.swing.JPanel();
         btnThêm = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
         btnXoa1 = new Components.ButtonRadius();
@@ -169,16 +169,16 @@ public class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        PanelTable.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
+        PanelTable.setLayout(PanelTableLayout);
+        PanelTableLayout.setHorizontalGroup(
+            PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        PanelTableLayout.setVerticalGroup(
+            PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 583, Short.MAX_VALUE)
         );
 
@@ -255,7 +255,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -279,7 +279,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
                         .addComponent(btnThêm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -311,35 +311,35 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
-        jPanel2.setPreferredSize(new Dimension(1003, 506));
+        PanelTable.removeAll();
+        PanelTable.setPreferredSize(new Dimension(1003, 506));
         JTable tableSanPham = createTableSanPham();
-        tableSanPham.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
+        tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPaneSanPham);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        PanelTable.setLayout(new BorderLayout());
+        PanelTable.add(scrollPaneSanPham);
+        PanelTable.revalidate();
+        PanelTable.repaint();
 
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
+        PanelTable.removeAll();
         //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableTheLoai = createTableTheLoai();
-        tableTheLoai.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
+        tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneTheLoai.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPaneTheLoai);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        PanelTable.setLayout(new BorderLayout());
+        PanelTable.add(scrollPaneTheLoai);
+        PanelTable.revalidate();
+        PanelTable.repaint();
 
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
@@ -564,11 +564,11 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThêm;
     private Components.ButtonRadius btnTimKiem;
     private Components.ButtonRadius btnXoa1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblSanPham;

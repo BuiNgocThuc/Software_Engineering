@@ -32,13 +32,13 @@ public class SanPhamGUI extends javax.swing.JPanel {
      * Creates new form PhanQuyenGUInew
      */
     public SanPhamGUI() {
-             initComponents();
+        initComponents();
         addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
 //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPaneSanPham);
@@ -311,13 +311,13 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-     jPanel2.removeAll();
-                jPanel2.setPreferredSize(new Dimension(1003, 506));
+        jPanel2.removeAll();
+        jPanel2.setPreferredSize(new Dimension(1003, 506));
         JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPaneSanPham);
@@ -328,13 +328,13 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
-    jPanel2.removeAll();
+        jPanel2.removeAll();
         //        jPanel2.setPreferredSize(new Dimension(928, 506));
         JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
-        MatteBorder matteBorder = new MatteBorder(0, 2, 2, 2, new Color(32, 171, 218));
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneTheLoai.setBorder(matteBorder);
         jPanel2.setLayout(new BorderLayout());
         jPanel2.add(scrollPaneTheLoai);
@@ -489,14 +489,14 @@ public class SanPhamGUI extends javax.swing.JPanel {
         model.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(model);
-         TableColumnModel columnModel = table.getColumnModel();
+        TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(120); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(250); // Độ rộng cột 2
-          columnModel.getColumn(3).setPreferredWidth(209); // Độ rộng cột 3
+        columnModel.getColumn(3).setPreferredWidth(209); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(120); // Độ rộng cột 4
         columnModel.getColumn(5).setPreferredWidth(120); // Độ rộng cột 5
-          columnModel.getColumn(6).setPreferredWidth(120); // Độ rộng cột 6
+        columnModel.getColumn(6).setPreferredWidth(120); // Độ rộng cột 6
 
         EditHeaderTable(table);
         editTableContent(table);
@@ -561,7 +561,6 @@ public class SanPhamGUI extends javax.swing.JPanel {
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

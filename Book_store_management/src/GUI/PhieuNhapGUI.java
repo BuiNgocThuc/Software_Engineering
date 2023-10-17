@@ -43,6 +43,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jPanel1.setMaximumSize(new java.awt.Dimension(1020, 750));
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 750));
 
+        jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N

@@ -55,6 +55,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         jPanel1.setMaximumSize(new java.awt.Dimension(1020, 750));
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 750));
 
+        jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
@@ -64,6 +65,16 @@ public class CongTyGUI extends javax.swing.JPanel {
         jTextField1.setForeground(new java.awt.Color(135, 172, 217));
         jTextField1.setText("Tìm kiếm sản phẩm");
         jTextField1.setBorder(null);
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -153,11 +164,6 @@ public class CongTyGUI extends javax.swing.JPanel {
         jButton3.setText("Xoá");
         jButton3.setToolTipText("");
         jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
 
         jButton4.setBackground(new java.awt.Color(250, 232, 189));
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -232,9 +238,15 @@ public class CongTyGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+        jTextField1.setText("");
+    }//GEN-LAST:event_jTextField1MouseClicked
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        if(jTextField1.getText().length()==0){
+            jTextField1.setText("Tìm kiếm công ty");
+        }
+    }//GEN-LAST:event_jTextField1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

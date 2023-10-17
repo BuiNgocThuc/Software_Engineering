@@ -155,7 +155,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             }
         });
 
-        lblPhanQuyen.setBackground(new java.awt.Color(255, 255, 255));
+        lblPhanQuyen.setBackground(new java.awt.Color(229, 231, 230));
         lblPhanQuyen.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblPhanQuyen.setForeground(new java.awt.Color(254, 201, 116));
         lblPhanQuyen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -171,6 +171,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -325,6 +330,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel2.revalidate();
         jPanel2.repaint();
 
+        lblPhanQuyen.setBackground(new Color(229, 231, 230));
+        lblChucNang.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblPhanQuyenMouseClicked
 
     private void lblChucNangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChucNangMouseClicked
@@ -342,6 +349,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel2.revalidate();
         jPanel2.repaint();
 
+        lblChucNang.setBackground(new Color(229, 231, 230));
+        lblPhanQuyen.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblChucNangMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -418,10 +427,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
         // TODO add your handling code here:
+           btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnXoaMouseEntered
 
     private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
         // TODO add your handling code here:
+           btnThem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnXoaMouseExited
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -431,6 +442,10 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseClicked
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -458,7 +473,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
 
-    public  void editTableContent(JTable table) {
+    public void editTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
@@ -535,7 +550,6 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnSua;

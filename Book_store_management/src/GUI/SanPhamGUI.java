@@ -61,9 +61,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
         lblTheLoai = new javax.swing.JLabel();
         lblSanPham = new javax.swing.JLabel();
         PanelTable = new javax.swing.JPanel();
-        btnThêm = new Components.ButtonRadius();
+        btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
-        btnXoa1 = new Components.ButtonRadius();
+        btnXoa = new Components.ButtonRadius();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -154,7 +154,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        lblSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        lblSanPham.setBackground(new java.awt.Color(229, 231, 230));
         lblSanPham.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(254, 201, 116));
         lblSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -182,25 +182,25 @@ public class SanPhamGUI extends javax.swing.JPanel {
             .addGap(0, 583, Short.MAX_VALUE)
         );
 
-        btnThêm.setBorder(null);
-        btnThêm.setForeground(new java.awt.Color(134, 172, 218));
-        btnThêm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThêm.setText("Thêm");
-        btnThêm.setFocusPainted(false);
-        btnThêm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnThêm.setPreferredSize(new java.awt.Dimension(50, 25));
-        btnThêm.setRadius(40);
-        btnThêm.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnThem.setBorder(null);
+        btnThem.setForeground(new java.awt.Color(134, 172, 218));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setFocusPainted(false);
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThem.setPreferredSize(new java.awt.Dimension(50, 25));
+        btnThem.setRadius(40);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnThêmMouseEntered(evt);
+                btnThemMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnThêmMouseExited(evt);
+                btnThemMouseExited(evt);
             }
         });
-        btnThêm.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThêmActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -226,25 +226,25 @@ public class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        btnXoa1.setBorder(null);
-        btnXoa1.setForeground(new java.awt.Color(134, 172, 218));
-        btnXoa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
-        btnXoa1.setText("Xóa");
-        btnXoa1.setFocusPainted(false);
-        btnXoa1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXoa1.setPreferredSize(new java.awt.Dimension(50, 25));
-        btnXoa1.setRadius(40);
-        btnXoa1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnXoa.setBorder(null);
+        btnXoa.setForeground(new java.awt.Color(134, 172, 218));
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.setFocusPainted(false);
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXoa.setPreferredSize(new java.awt.Dimension(50, 25));
+        btnXoa.setRadius(40);
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnXoa1MouseEntered(evt);
+                btnXoaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnXoa1MouseExited(evt);
+                btnXoaMouseExited(evt);
             }
         });
-        btnXoa1.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa1ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -261,9 +261,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(lblTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(383, 383, 383)
-                        .addComponent(btnThêm, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -276,8 +276,8 @@ public class SanPhamGUI extends javax.swing.JPanel {
                     .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThêm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
                 .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -324,6 +324,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.revalidate();
         PanelTable.repaint();
 
+        lblSanPham.setBackground(new Color(229, 231, 230));
+        lblTheLoai.setBackground(new Color(255, 255, 255));
+
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
@@ -340,16 +343,17 @@ public class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.add(scrollPaneTheLoai);
         PanelTable.revalidate();
         PanelTable.repaint();
-
+        lblTheLoai.setBackground(new Color(229, 231, 230));
+        lblSanPham.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void btnThêmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThêmActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThêmActionPerformed
+    }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
@@ -366,15 +370,15 @@ public class SanPhamGUI extends javax.swing.JPanel {
         btnTimKiem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnTimKiemMouseExited
 
-    private void btnThêmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseEntered
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
         // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnThêmMouseEntered
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnThemMouseEntered
 
-    private void btnThêmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseExited
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
         // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnThêmMouseExited
+        btnThem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnThemMouseExited
 
     private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
         // TODO add your handling code here: 
@@ -415,17 +419,19 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtTimKiemMouseExited
 
-    private void btnXoa1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseEntered
+    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseEntered
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnXoaMouseEntered
 
-    private void btnXoa1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseExited
+    private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseExited
+        btnThem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnXoaMouseExited
 
-    private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1ActionPerformed
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
@@ -566,9 +572,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnSua;
-    private Components.ButtonRadius btnThêm;
+    private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;
-    private Components.ButtonRadius btnXoa1;
+    private Components.ButtonRadius btnXoa;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblSanPham;

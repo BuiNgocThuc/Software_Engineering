@@ -4,10 +4,18 @@
  */
 package BUS;
 
+import DAO.TaiKhoanDAO;
+import DTO.TaiKhoanDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author NGOC THUC
  */
 public class TaiKhoanBUS {
+    TaiKhoanDAO tkDAO = new TaiKhoanDAO();
     
+    public ArrayList<TaiKhoanDTO> selectAll() {
+        return tkDAO.selectAll();
+    }
 }

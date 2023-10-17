@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 public class testBUS {
 
     testDAO testDAO = new testDAO();
-    private ArrayList<testDTO> arrTH;
     
     public ArrayList<testDTO> selectALL() {
         return testDAO.selectAll();

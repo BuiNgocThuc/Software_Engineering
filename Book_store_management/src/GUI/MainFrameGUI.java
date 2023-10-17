@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import BUS.ChucNangBUS;
+import DTO.ChucNangDTO;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,12 +25,16 @@ public class MainFrameGUI extends javax.swing.JFrame {
      */
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
+    
+//    ChucNangBUS cnBUS = new ChucNangBUS();
+//    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
 
     public MainFrameGUI() {
-        this.setUndecorated(true);
+        //this.setUndecorated(true);
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
+        
     }
 
     void designComp() {
@@ -165,6 +171,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
         puSetting.add(itemLogOut);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         pnContainer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -600,9 +613,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         this.setState(this.ICONIFIED);
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void itemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogOutActionPerformed
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
-    }//GEN-LAST:event_itemLogOutActionPerformed
+        this.requestFocusInWindow();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

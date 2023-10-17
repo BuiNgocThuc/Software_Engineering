@@ -9,5 +9,55 @@ package DTO;
  * @author NGOC THUC
  */
 public class CongTyDTO {
+    private String MaNCC, TenNCC, SDT, DiaChi, TinhTrang;
+
+    public CongTyDTO(String MaNCC, String TenNCC, String SDT, String DiaChi, String TinhTrang) {
+        this.MaNCC = MaNCC;
+        this.TenNCC = TenNCC;
+        this.SDT = SDT;
+        this.DiaChi = DiaChi;
+        this.TinhTrang = TinhTrang;
+    }
+
+    public String getMaNCC() {
+        return MaNCC;
+    }
+
+    public void setMaNCC(String MaNCC) {
+        this.MaNCC = MaNCC;
+    }
+
+    public String getTenNCC() {
+        return TenNCC;
+    }
+
+    public void setTenNCC(String TenNCC) {
+        this.TenNCC = TenNCC;
+    }
+
+    public String getSDT() {
+        return SDT;
+    }
+
+    public void setSDT(String SDT) {
+        this.SDT = SDT;
+    }
+
+    public String getDiaChi() {
+        return DiaChi;
+    }
+
+    public void setDiaChi(String DiaChi) {
+        this.DiaChi = DiaChi;
+    }
+
+    public String getTinhTrang() {
+        return TinhTrang;
+    }
+
+    public void setTinhTrang(String TinhTrang) {
+        this.TinhTrang = TinhTrang;
+    }
+    
     
 }

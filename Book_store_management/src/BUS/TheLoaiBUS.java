@@ -6,7 +6,8 @@ package BUS;
 
 import DAO.TheLoaiDAO;
 import DTO.TheLoaiDTO;
-import java.awt.List;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +20,9 @@ public class TheLoaiBUS {
         theLoaiDAO = new TheLoaiDAO(); // Khởi tạo lớp DAO
     }
 
+    public ArrayList <TheLoaiDTO> getAll(){
+       return theLoaiDAO.selectAll();
+    }
     // Hàm load dữ liệu từ DAO và trả về một danh sách các thể loại
  
 

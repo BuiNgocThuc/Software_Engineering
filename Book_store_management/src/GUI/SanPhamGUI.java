@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import BUS.TheLoaiBUS;
+import DTO.TheLoaiDTO;
 import static DemoConnectDB.NewJFrame.createTablePhanQuyen;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -11,6 +13,7 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -31,6 +34,8 @@ public class SanPhamGUI extends javax.swing.JPanel {
     /**
      * Creates new form PhanQuyenGUInew
      */
+    TheLoaiBUS theloaBUS = new TheLoaiBUS();
+
     public SanPhamGUI() {
         initComponents();
         addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
@@ -343,6 +348,8 @@ public class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.add(scrollPaneTheLoai);
         PanelTable.revalidate();
         PanelTable.repaint();
+
+        //Khi click chuột vào sẽ đổi màu giúp nhận biết đang ở bảng nào
         lblTheLoai.setBackground(new Color(229, 231, 230));
         lblSanPham.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblTheLoaiMouseClicked
@@ -470,6 +477,18 @@ public class SanPhamGUI extends javax.swing.JPanel {
         table.setGridColor(new Color(153, 184, 224));
         table.setShowGrid(true);
         table.setBackground(Color.WHITE);
+        table.setSelectionBackground(Color.WHITE);
+        table.setSelectionForeground(new Color(253, 191, 84));
+        table.setFocusable(false);
+        table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Font font = new Font("Segoe UI", Font.PLAIN, 16);
+        table.setFont(font);
+        // Căn giữa nội dung trong các ô chữ
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
         // Vô hiệu hóa sắp xếp cột tự động
         // table.setAutoCreateRowSorter(false);
         // Vô hiệu hóa kéo cột
@@ -536,6 +555,18 @@ public class SanPhamGUI extends javax.swing.JPanel {
         columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(729); // Độ rộng cột 2
+
+        //  Load data lên bảng 
+        ArrayList<TheLoaiDTO> arr = theloaBUS.getAll();
+        System.out.println(arr.size());
+        int STT = 1;
+        for (TheLoaiDTO theloai : arr) {
+            String maTheLoai = String.format("TL%02d", Integer.valueOf(theloai.getMaTL()));
+            String tenTheLoai = theloai.getTenTL();
+            Object[] row = {STT++, maTheLoai, tenTheLoai};
+            model.addRow(row);
+        }
+
         return table;
     }
 

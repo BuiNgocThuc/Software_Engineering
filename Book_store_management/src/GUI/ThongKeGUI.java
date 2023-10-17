@@ -270,6 +270,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
         cbFilter.setFont(new java.awt.Font("Josefin Sans Medium", 0, 16)); // NOI18N
         cbFilter.setForeground(new java.awt.Color(135, 172, 217));
         cbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doanh thu bán hàng", "Sản phẩm bán chạy" }));
+        cbFilter.setAutoscrolls(true);
+        cbFilter.setBorder(null);
+        cbFilter.setLightWeightPopupEnabled(false);
+        cbFilter.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

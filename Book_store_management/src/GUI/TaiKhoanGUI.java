@@ -43,6 +43,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         jPanel1.setMaximumSize(new java.awt.Dimension(1020, 750));
         jPanel1.setPreferredSize(new java.awt.Dimension(1020, 750));
 
+        jPanel2.setBackground(new java.awt.Color(243, 243, 243));
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
@@ -69,10 +70,10 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addContainerGap())
-                    .addComponent(jTextField1)))
+                        .addContainerGap())))
         );
 
         jButton1.setBackground(new java.awt.Color(250, 232, 189));

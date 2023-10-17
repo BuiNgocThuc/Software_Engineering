@@ -59,10 +59,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
     void solveActionMenu() {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
-        lblSanPham.addMouseListener(new handleMouseEvent(pnContent,pnSanPham));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, pnHoaDon));
+        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
+        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
         lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent,new NhanVienGUI()));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
         lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));

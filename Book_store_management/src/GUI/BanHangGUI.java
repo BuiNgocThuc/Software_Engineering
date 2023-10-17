@@ -8,13 +8,12 @@ package GUI;
  * @author NGOC THUC
  */
 public class BanHangGUI extends javax.swing.JPanel {
-    private final XacnhanHoaDonGUI bill = new XacnhanHoaDonGUI(); 
+ 
     /**
      * Creates new form BanHangGUI
      */
     public BanHangGUI() {
         initComponents();
-        bill.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -597,7 +596,7 @@ public class BanHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhtoanMouseClicked
         // TODO add your handling code here:
-        bill.setVisible(true);
+      
     }//GEN-LAST:event_btnThanhtoanMouseClicked
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed

@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -65,13 +67,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
     void solveActionMenu() {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
-        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, pnSanPham));
+        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, new SanPhamGUI()));
         lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
         lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
         lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
         lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
         lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, pnPhanQuyen));
+        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, new PhanQuyenGUI()));
         lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
     }
 
@@ -163,11 +165,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         itemLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/exit.png"))); // NOI18N
         itemLogOut.setText("Đăng xuất");
-        itemLogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemLogOutActionPerformed(evt);
-            }
-        });
         puSetting.add(itemLogOut);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -642,6 +639,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
+                | UnsupportedLookAndFeelException e) {
+
         }
         //</editor-fold>
 

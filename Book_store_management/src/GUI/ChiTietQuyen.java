@@ -17,6 +17,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -332,7 +334,6 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ChiTietQuyen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -31,6 +31,7 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tfMatkhaucu = new javax.swing.JTextField();
         tfMatkhaumoi = new javax.swing.JTextField();
+        tfXacnhanmatkhau = new javax.swing.JTextField();
         btnXacnhan = new Components.ButtonRadius();
         btnHuy = new Components.ButtonRadius();
 
@@ -66,12 +67,14 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
         tfMatkhaumoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfMatkhaumoi.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu mới", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Josefin Sans SemiBold", 0, 14), new java.awt.Color(135, 172, 217))); // NOI18N
 
+        tfXacnhanmatkhau.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        tfXacnhanmatkhau.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Xác nhận mật khẩu mới", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Josefin Sans SemiBold", 0, 14), new java.awt.Color(135, 172, 217))); // NOI18N
+
         btnXacnhan.setBackground(new java.awt.Color(250, 232, 189));
         btnXacnhan.setForeground(new java.awt.Color(135, 172, 217));
         btnXacnhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnXacnhan.setText("Xác nhận");
         btnXacnhan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        btnXacnhan.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnXacnhan.setIconTextGap(-1);
         btnXacnhan.setMargin(new java.awt.Insets(2, 0, 3, 0));
         btnXacnhan.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -99,9 +102,10 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
                     .addComponent(tfMatkhaucu)
                     .addComponent(tfMatkhaumoi)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfXacnhanmatkhau, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -113,10 +117,12 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(tfMatkhaumoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(tfXacnhanmatkhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -127,7 +133,7 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -177,5 +183,6 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField tfMatkhaucu;
     private javax.swing.JTextField tfMatkhaumoi;
+    private javax.swing.JTextField tfXacnhanmatkhau;
     // End of variables declaration//GEN-END:variables
 }

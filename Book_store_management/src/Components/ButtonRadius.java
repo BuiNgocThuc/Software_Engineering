@@ -77,9 +77,9 @@ public class ButtonRadius extends JButton {
     public ButtonRadius() {
         //  Init Color
 
-        setColor(new Color(255, 242, 211));
-        colorOver = new Color(255, 255, 204);
-        colorClick = new Color(152, 184, 144);
+        setColor(new Color(250,232,189));
+        colorOver = new Color(250,241,192);
+        colorClick = new Color(250,214,183);
 //        borderColor = new Color(30, 136, 56);
         setHorizontalAlignment(JButton.CENTER);
         setVerticalAlignment(JButton.CENTER);

@@ -56,8 +56,9 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnHuy.setText("Hủy");
         btnHuy.setFocusPainted(false);
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHuy.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnHuy.setRadius(40);
+        btnHuy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHuyMouseEntered(evt);
@@ -72,8 +73,9 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnLuu.setText("Lưu");
         btnLuu.setFocusPainted(false);
-        btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLuu.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnLuu.setRadius(40);
+        btnLuu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLuuMouseEntered(evt);
@@ -88,19 +90,20 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
         panelContent.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblID.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblID.setForeground(new java.awt.Color(148, 181, 222));
         lblID.setText("ID Sản phẩm");
 
-        lblTenSanPham.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTenSanPham.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblTenSanPham.setForeground(new java.awt.Color(148, 181, 222));
         lblTenSanPham.setText("Tên sản phẩm");
 
-        txtTenSanPham.setBackground(new java.awt.Color(255, 255, 255));
         txtTenSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtTenSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,11 +111,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        lblTacGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTacGia.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblTacGia.setForeground(new java.awt.Color(148, 181, 222));
         lblTacGia.setText("Tác giả");
 
-        txtID.setBackground(new java.awt.Color(255, 255, 255));
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +122,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        txtTacGia.setBackground(new java.awt.Color(255, 255, 255));
         txtTacGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtTacGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,11 +129,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        lblSoLuong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblSoLuong.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblSoLuong.setForeground(new java.awt.Color(148, 181, 222));
         lblSoLuong.setText("Số lượng");
 
-        txtSoLuong.setBackground(new java.awt.Color(255, 255, 255));
         txtSoLuong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +140,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        txtITheLoai.setBackground(new java.awt.Color(255, 255, 255));
         txtITheLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtITheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,15 +147,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
-        lblTheLoai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblTheLoai.setForeground(new java.awt.Color(148, 181, 222));
         lblTheLoai.setText("Thể loại");
 
-        lblDonGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblDonGia.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblDonGia.setForeground(new java.awt.Color(148, 181, 222));
         lblDonGia.setText("Đơn giá");
 
-        txtDonGia.setBackground(new java.awt.Color(255, 255, 255));
         txtDonGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtDonGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,28 +239,28 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(PannelOverviewLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PannelOverviewLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
+                        .addGap(24, 24, 24)
                         .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         PannelOverviewLayout.setVerticalGroup(
             PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PannelOverviewLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(21, 21, 21)
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
@@ -278,7 +276,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PannelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PannelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(

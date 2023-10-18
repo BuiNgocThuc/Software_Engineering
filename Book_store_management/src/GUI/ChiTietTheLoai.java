@@ -41,12 +41,12 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
 
         PanelOverview.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblID.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblID.setForeground(new java.awt.Color(148, 181, 222));
         lblID.setText("ID Thể loại");
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
-        lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblThongTinChiTiet.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblThongTinChiTiet.setForeground(new java.awt.Color(238, 242, 250));
         lblThongTinChiTiet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setText("Thông tin chi tiết");
@@ -54,11 +54,10 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setOpaque(true);
 
-        lblTenTheLoai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTenTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblTenTheLoai.setForeground(new java.awt.Color(148, 181, 222));
         lblTenTheLoai.setText("Tên thể loại");
 
-        txtID.setBackground(new java.awt.Color(255, 255, 255));
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,7 +65,6 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
             }
         });
 
-        txtName.setBackground(new java.awt.Color(255, 255, 255));
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
         btnLuu.setBorder(null);
@@ -74,8 +72,9 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnLuu.setText("Hủy");
         btnLuu.setFocusPainted(false);
-        btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLuu.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnLuu.setRadius(40);
+        btnLuu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLuuMouseEntered(evt);
@@ -90,8 +89,9 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnHuy.setText("Lưu");
         btnHuy.setFocusPainted(false);
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHuy.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnHuy.setRadius(40);
+        btnHuy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHuyMouseEntered(evt);
@@ -118,16 +118,15 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                         .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelOverviewLayout.createSequentialGroup()
-                        .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblTenTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(PanelOverviewLayout.createSequentialGroup()
-                                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
-                                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 23, Short.MAX_VALUE))))
+                            .addGroup(PanelOverviewLayout.createSequentialGroup()
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtName)
+                            .addComponent(txtID))
+                        .addGap(0, 24, Short.MAX_VALUE))))
         );
         PanelOverviewLayout.setVerticalGroup(
             PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,18 +140,18 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                 .addComponent(lblTenTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(18, 18, 18)
                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(PanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

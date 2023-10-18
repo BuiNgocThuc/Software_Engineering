@@ -67,7 +67,7 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
 
         PanelOverview.setBackground(new java.awt.Color(255, 255, 255));
 
-        lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblID.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblID.setForeground(new java.awt.Color(148, 181, 222));
         lblID.setText("ID Quyền");
 
@@ -80,8 +80,10 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
         lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setOpaque(true);
 
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
         tableChiTietQuyen.setAutoCreateRowSorter(true);
-        tableChiTietQuyen.setBackground(new java.awt.Color(255, 255, 255));
         tableChiTietQuyen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(136, 173, 219)));
         tableChiTietQuyen.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,18 +139,16 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
             tableChiTietQuyen.getColumnModel().getColumn(3).setMaxWidth(50);
         }
 
-        txtMoTa.setBackground(new java.awt.Color(255, 255, 255));
         txtMoTa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
-        lblChiTietQuyen.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblChiTietQuyen.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblChiTietQuyen.setForeground(new java.awt.Color(148, 181, 222));
         lblChiTietQuyen.setText("Chi tiết quyền");
 
-        lblTenNhomQuyen.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTenNhomQuyen.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblTenNhomQuyen.setForeground(new java.awt.Color(148, 181, 222));
         lblTenNhomQuyen.setText("Tên nhóm quyền");
 
-        txtID.setBackground(new java.awt.Color(255, 255, 255));
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,10 +156,9 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
             }
         });
 
-        txtTenNhomQuyen.setBackground(new java.awt.Color(255, 255, 255));
         txtTenNhomQuyen.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
-        lblMoTa.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblMoTa.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblMoTa.setForeground(new java.awt.Color(148, 181, 222));
         lblMoTa.setText("Mô tả");
 
@@ -168,8 +167,9 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnLuu.setText("Hủy");
         btnLuu.setFocusPainted(false);
-        btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLuu.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnLuu.setRadius(40);
+        btnLuu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLuuMouseEntered(evt);
@@ -184,8 +184,9 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnHuy.setText("Lưu");
         btnHuy.setFocusPainted(false);
-        btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHuy.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnHuy.setRadius(40);
+        btnHuy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnHuyMouseEntered(evt);
@@ -212,10 +213,10 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
                         .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(PanelOverviewLayout.createSequentialGroup()
-                                .addGap(0, 8, Short.MAX_VALUE)
-                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(268, 268, 268)
-                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(240, 240, 240)
+                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelOverviewLayout.createSequentialGroup()
                                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblID, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +225,7 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
                                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(PanelOverviewLayout.createSequentialGroup()
                                         .addComponent(lblTenNhomQuyen)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGap(0, 82, Short.MAX_VALUE))
                                     .addComponent(txtTenNhomQuyen)))
                             .addComponent(txtMoTa))
                         .addGap(26, 26, 26))

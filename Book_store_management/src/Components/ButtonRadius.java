@@ -79,7 +79,7 @@ public class ButtonRadius extends JButton {
 
         setColor(new Color(250,232,189));
         colorOver = new Color(250,241,192);
-        colorClick = new Color(250,214,183);
+        colorClick = new Color(246,227,183);
 //        borderColor = new Color(30, 136, 56);
         setHorizontalAlignment(JButton.CENTER);
         setVerticalAlignment(JButton.CENTER);
@@ -101,10 +101,10 @@ public class ButtonRadius extends JButton {
 
             }
 
-//            @Override
-//            public void mousePressed(MouseEvent me) {
-//                setBackground(colorClick);
-//            }
+            @Override
+            public void mousePressed(MouseEvent me) {
+                setBackground(colorClick);
+            }
 
             @Override
             public void mouseReleased(MouseEvent me) {

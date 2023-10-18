@@ -16,6 +16,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -46,7 +47,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     public SanPhamGUI() {
         initComponents();
-        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+//        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
         // Tạo bảng sản phẩm
         tableSanPham = createTableSanPham();
         // Tạo bản thể loại
@@ -392,11 +393,15 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
+//       findTheLoaiByMaTL();
+        findTheLoaiByTenTL();
+
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        ChiTietTheLoai ct = new ChiTietTheLoai("", "");
+        String maTL = theloaBUS.getMaTheLoaiMax();
+        ChiTietTheLoai ct = new ChiTietTheLoai(maTL, "");
         ct.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -448,21 +453,21 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
-        // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("Tìm kiếm")) {
-            txtTimKiem.setText("");
-
-//            txtTimKiem.requestFocus();
-            removePlaceholderStyle(txtTimKiem);
-        }
+//        // TODO add your handling code here:
+//        if (txtTimKiem.getText().equals("Tìm kiếm")) {
+//            txtTimKiem.setText("");
+//
+////            txtTimKiem.requestFocus();
+//            removePlaceholderStyle(txtTimKiem);
+//        }
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
-        // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("")) {
-            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-            System.out.println("hi1" + txtTimKiem.getText());
-        }
+//        // TODO add your handling code here:
+//        if (txtTimKiem.getText().equals("")) {
+//            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+//            System.out.println("hi1" + txtTimKiem.getText());
+//        }
     }//GEN-LAST:event_txtTimKiemFocusLost
 
     private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
@@ -662,6 +667,53 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
+    private void findTheLoaiByMaTL() {
+        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
+        String maTL = txtTimKiem.getText();
+        if (maTL.isEmpty()) {
+            // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            TheLoaiDTO theLoai = theloaBUS.findTheLoaiByMaTL(maTL);
+            if (theLoai != null) {
+                // Xóa tất cả dòng hiện có trong bảng
+                modelTheLoai.setRowCount(0);
+                // Thêm kết quả tìm kiếm vào bảng            
+                Object[] row = {1, theLoai.getMaTL(), theLoai.getTenTL()};
+
+                modelTheLoai.addRow(row);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
+    private void findTheLoaiByTenTL() {
+        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
+        String maTL = txtTimKiem.getText();
+        if (maTL.isEmpty()) {
+            // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            ArrayList<TheLoaiDTO> theLoai = theloaBUS.findTheLoaiByTenTL(maTL);
+            if (!theLoai.isEmpty()) {
+                // Xóa tất cả dòng hiện có trong bảng
+                modelTheLoai.setRowCount(0);
+                // Thêm kết quả tìm kiếm vào bảng     
+                for (TheLoaiDTO tl : theLoai) {
+                    Object[] row = {1, tl.getMaTL(), tl.getTenTL()};
+                    modelTheLoai.addRow(row);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;

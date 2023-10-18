@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,16 +25,15 @@ public class MainFrameGUI extends javax.swing.JFrame {
      */
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
-    
+
 //    ChucNangBUS cnBUS = new ChucNangBUS();
 //    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
-
     public MainFrameGUI() {
         //this.setUndecorated(true);
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     void designComp() {
@@ -55,7 +55,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         listItems.add(lblThongKe);
         listItems.add(lblTaiKhoan);
         listItems.add(lblPhanQuyen);
-        
+
         lblSanPham.setBackground(Color.decode("#AAD8F4"));
         lblSanPham.setForeground(Color.white);
         lblSanPham.setOpaque(true);
@@ -637,7 +637,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException

@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import javax.swing.table.TableCellEditor;
+
 /**
  *
  * @author ASUS
@@ -31,11 +33,12 @@ public class NewJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "2", "3", null},
-                {null, null, null, null},
-                {null, null, null, null},
+                {"2", "2", "3", "4"},
+                {"4", "5", "4", null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
@@ -46,7 +49,9 @@ public class NewJFrame extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.setFillsViewportHeight(true);
         jTable1.setFocusable(false);
+        jTable1.setRequestFocusEnabled(false);
         jTable1.setSelectionBackground(new java.awt.Color(255, 255, 255));
         jTable1.setSelectionForeground(new java.awt.Color(153, 153, 0));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -75,9 +80,18 @@ public class NewJFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+//
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
+//          if (e.getClickCount() == 2) { // Check for a double-click
+//                    int row = JTable1.getSelectedRow();
+//                    int col = table.getSelectedColumn();
+//                    TableCellEditor editor = table.getCellEditor(row, col);
+//                    if (editor != null) {
+//                        editor.stopCellEditing();
+//                    }
+//                }
+//            }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**

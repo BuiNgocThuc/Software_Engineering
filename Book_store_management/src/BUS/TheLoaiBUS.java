@@ -19,12 +19,18 @@ public class TheLoaiBUS {
     public TheLoaiBUS() {
         theLoaiDAO = new TheLoaiDAO(); // Khởi tạo lớp DAO
     }
-
+  // Hàm load dữ liệu từ DAO và trả về một danh sách các thể loại
     public ArrayList <TheLoaiDTO> getAll(){
        return theLoaiDAO.selectAll();
     }
-    // Hàm load dữ liệu từ DAO và trả về một danh sách các thể loại
- 
-
-    
+    // 
+    public  String getMaTheLoaiMax(){
+        return theLoaiDAO.getMaTheLoaiMax();
+    }
+  public TheLoaiDTO findTheLoaiByMaTL(String maTL) { 
+            return theLoaiDAO.findTheLoaiByMaTL(maTL);   
+    }
+       public ArrayList<TheLoaiDTO> findTheLoaiByTenTL(String tenTL) {
+           return theLoaiDAO.findTheLoaiByTenTL(tenTL);
+       }
 }

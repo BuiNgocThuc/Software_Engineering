@@ -126,7 +126,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnSideBar = new javax.swing.JPanel();
         pnLogo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jSeparator1 = new javax.swing.JSeparator();
         spnMenu = new javax.swing.JScrollPane();
         pnListItem = new javax.swing.JPanel();
         lblSanPham = new javax.swing.JLabel();
@@ -193,11 +192,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
         jLabel1.setPreferredSize(new java.awt.Dimension(250, 100));
         pnLogo.add(jLabel1);
 
-        jSeparator1.setBackground(new java.awt.Color(243, 243, 244));
-        jSeparator1.setForeground(new java.awt.Color(243, 243, 244));
-        jSeparator1.setPreferredSize(new java.awt.Dimension(250, 10));
-        pnLogo.add(jSeparator1);
-
         spnMenu.setBorder(null);
         spnMenu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         spnMenu.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -205,107 +199,107 @@ public class MainFrameGUI extends javax.swing.JFrame {
         spnMenu.setPreferredSize(new java.awt.Dimension(260, 570));
         spnMenu.setRequestFocusEnabled(false);
 
-        pnListItem.setBackground(new java.awt.Color(135, 172, 217));
+        pnListItem.setBackground(new java.awt.Color(152, 192, 230));
         pnListItem.setAutoscrolls(true);
         pnListItem.setPreferredSize(new java.awt.Dimension(260, 850));
+        pnListItem.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
-        lblSanPham.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblSanPham.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(243, 243, 244));
         lblSanPham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/product_2.png"))); // NOI18N
-        lblSanPham.setText("SẢN PHẨM");
+        lblSanPham.setText("Sản phẩm");
         lblSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblSanPham.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblSanPham);
 
-        lblBanHang.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblBanHang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblBanHang.setForeground(new java.awt.Color(243, 243, 244));
         lblBanHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/cart_2.png"))); // NOI18N
-        lblBanHang.setText("BÁN HÀNG");
+        lblBanHang.setText("Bán hàng");
         lblBanHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblBanHang);
 
-        lblNhapHang.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblNhapHang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblNhapHang.setForeground(new java.awt.Color(243, 243, 244));
         lblNhapHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/pack_2.png"))); // NOI18N
-        lblNhapHang.setText("NHẬP HÀNG");
+        lblNhapHang.setText("Nhập hàng");
         lblNhapHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhapHang.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblNhapHang);
 
-        lblCongTy.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblCongTy.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblCongTy.setForeground(new java.awt.Color(243, 243, 244));
         lblCongTy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/emplyee_2.png"))); // NOI18N
-        lblCongTy.setText("CÔNG TY SÁCH");
+        lblCongTy.setText("Công ty sách");
         lblCongTy.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblCongTy.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblCongTy);
 
-        lblNhanVien.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblNhanVien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblNhanVien.setForeground(new java.awt.Color(243, 243, 244));
         lblNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/emplyee_2.png"))); // NOI18N
-        lblNhanVien.setText("NHÂN VIÊN");
+        lblNhanVien.setText("Nhân viên");
         lblNhanVien.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhanVien.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblNhanVien);
 
-        lblHoaDon.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblHoaDon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblHoaDon.setForeground(new java.awt.Color(243, 243, 244));
         lblHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/order_2.png"))); // NOI18N
-        lblHoaDon.setText("HÓA ĐƠN");
+        lblHoaDon.setText("Hóa đơn");
         lblHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblHoaDon.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblHoaDon);
 
-        lblPhieuNhap.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblPhieuNhap.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblPhieuNhap.setForeground(new java.awt.Color(243, 243, 244));
         lblPhieuNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/order_2.png"))); // NOI18N
-        lblPhieuNhap.setText("PHIẾU NHẬP");
+        lblPhieuNhap.setText("Phiếu nhập");
         lblPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhieuNhap.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblPhieuNhap);
 
-        lblThongKe.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblThongKe.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblThongKe.setForeground(new java.awt.Color(243, 243, 244));
         lblThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/dashboard_2.png"))); // NOI18N
-        lblThongKe.setText("THỐNG KÊ");
+        lblThongKe.setText("Thống kê");
         lblThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblThongKe.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblThongKe);
 
-        lblTaiKhoan.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblTaiKhoan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblTaiKhoan.setForeground(new java.awt.Color(243, 243, 244));
         lblTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/account_2.png"))); // NOI18N
-        lblTaiKhoan.setText("TÀI KHOẢN");
+        lblTaiKhoan.setText("Tài khoản");
         lblTaiKhoan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblTaiKhoan.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblTaiKhoan);
 
-        lblPhanQuyen.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        lblPhanQuyen.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblPhanQuyen.setForeground(new java.awt.Color(243, 243, 244));
         lblPhanQuyen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/division_2.png"))); // NOI18N
-        lblPhanQuyen.setText("PHÂN QUYỀN");
+        lblPhanQuyen.setText("Phân quyền");
         lblPhanQuyen.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhanQuyen.setPreferredSize(new java.awt.Dimension(260, 80));
         pnListItem.add(lblPhanQuyen);
 
         spnMenu.setViewportView(pnListItem);
 
-        pnInfo.setBackground(new java.awt.Color(170, 216, 244));
+        pnInfo.setBackground(new java.awt.Color(152, 192, 230));
         pnInfo.setMinimumSize(new java.awt.Dimension(260, 60));
-        pnInfo.setRoundTopLeft(50);
-        pnInfo.setRoundTopRight(50);
+        pnInfo.setRoundTopLeft(40);
+        pnInfo.setRoundTopRight(40);
 
-        lblName.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        lblName.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("Nguyễn Văn A");
 
-        lblRole.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblRole.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         lblRole.setForeground(new java.awt.Color(250, 232, 189));
         lblRole.setText("Admin");
 
         lblSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/clock.png"))); // NOI18N
-        lblSetting.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 255)));
         lblSetting.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSettingMouseClicked(evt);
@@ -319,9 +313,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGroup(pnInfoLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(pnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                    .addGroup(pnInfoLayout.createSequentialGroup()
+                        .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 27, Short.MAX_VALUE))
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(lblSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
         );
@@ -354,7 +350,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
                 .addGroup(pnSideBarLayout.createSequentialGroup()
                     .addGap(0, 0, 0)
                     .addComponent(spnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(61, 61, 61)))
+                    .addGap(0, 0, 0)))
         );
         pnSideBarLayout.setVerticalGroup(
             pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,8 +361,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnSideBarLayout.createSequentialGroup()
                     .addGap(120, 120, 120)
-                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(60, Short.MAX_VALUE)))
+                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pnContainer.add(pnSideBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 750));
@@ -529,7 +525,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnHeader.setBackground(new java.awt.Color(250, 232, 189));
         pnHeader.setPreferredSize(new java.awt.Dimension(1280, 30));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(135, 172, 217));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Book Store Management System");
@@ -559,9 +555,9 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnHeaderLayout.setHorizontalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnHeaderLayout.createSequentialGroup()
-                .addContainerGap(552, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(378, 378, 378)
+                .addContainerGap(517, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(418, 418, 418)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -569,10 +565,15 @@ public class MainFrameGUI extends javax.swing.JFrame {
         );
         pnHeaderLayout.setVerticalGroup(
             pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(pnHeaderLayout.createSequentialGroup()
+                .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnHeaderLayout.createSequentialGroup()
+                        .addGroup(pnHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(2, 2, 2))
         );
 
         pnContainer.add(pnHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -597,7 +598,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     private void lblSettingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSettingMouseClicked
         // TODO add your handling code here:
-        puSetting.show(lblSetting, -60, -60);
+        puSetting.show(lblSetting, -86, -100);
     }//GEN-LAST:event_lblSettingMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -664,7 +665,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblCongTy;
     private javax.swing.JLabel lblHoaDon;

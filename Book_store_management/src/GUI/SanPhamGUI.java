@@ -4,9 +4,10 @@
  */
 package GUI;
 
+import BUS.SanPhamBUS;
 import BUS.TheLoaiBUS;
+import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
-import static DemoConnectDB.NewJFrame.createTablePhanQuyen;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -20,6 +21,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -29,19 +32,51 @@ import javax.swing.table.TableColumnModel;
  *
  * @author ASUS
  */
-public class SanPhamGUI extends javax.swing.JPanel {
+public final class SanPhamGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form PhanQuyenGUInew
      */
+    private final JTable tableSanPham;
+    private final JTable tableTheLoai;
+    private DefaultTableModel modelTheLoai;
+    private DefaultTableModel modelSanPham;
+    SanPhamBUS sanPhamBUS = new SanPhamBUS();
     TheLoaiBUS theloaBUS = new TheLoaiBUS();
 
     public SanPhamGUI() {
         initComponents();
         addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tableSanPham = createTableSanPham();
+        // Tạo bảng sản phẩm
+        tableSanPham = createTableSanPham();
+        // Tạo bản thể loại
+        tableTheLoai = createTableTheLoai();
+//        tableTheLoai.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+//            if (!event.getValueIsAdjusting()) {
+//                int selectedRow = tableTheLoai.getSelectedRow();
+//                if (selectedRow >= 0) {
+//                    // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+//                    int stt = (int) tableTheLoai.getValueAt(selectedRow, 0);
+//                    String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
+//                    String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
+//
+//                    // Tạo frame hoặc dialog để chỉnh sửa thông tin
+//                   ChiTietTheLoai ct = new ChiTietTheLoai();
+//                    ct.setVisible(true);
+//                }
+//            }
+//        });
+        // Load data bảng sản phẩm 
+        loadTableSanPham();
+        // Load data bảng thể loại
+        loadTableTheLoai();
+        // Set kích thước bảng bằng với panel chứa nó
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
+
+//        Dimension preferredSize = tableSanPham.getPreferredSize();
+//        int width = preferredSize.width;
+//        int height = preferredSize.height;
+//        System.out.println("Kích thước ưa thích của bảng: " + width + "x" + height);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
@@ -175,6 +210,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         });
 
         PanelTable.setBackground(new java.awt.Color(255, 255, 255));
+        PanelTable.setPreferredSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
         PanelTable.setLayout(PanelTableLayout);
@@ -260,7 +296,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -284,7 +320,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -318,7 +354,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         PanelTable.removeAll();
         PanelTable.setPreferredSize(new Dimension(1003, 506));
-        JTable tableSanPham = createTableSanPham();
+//        JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
@@ -338,7 +374,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         PanelTable.removeAll();
         //        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tableTheLoai = createTableTheLoai();
+//        JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
@@ -360,10 +396,23 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        ChiTietTheLoai ct = new ChiTietTheLoai("", "");
+        ct.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tableTheLoai.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+            int stt = (int) tableTheLoai.getValueAt(selectedRow, 0);
+            String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
+            String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
+
+            // Tạo frame hoặc dialog để chỉnh sửa thông tin
+            ChiTietTheLoai ct = new ChiTietTheLoai(maTheLoai, tenTheLoai);
+            ct.setVisible(true);
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
@@ -500,7 +549,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
-        DefaultTableModel model = new DefaultTableModel() {
+        modelSanPham = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
@@ -511,9 +560,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelSanPham.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelSanPham);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(120); // Độ rộng cột 1
@@ -528,15 +577,41 @@ public class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTable() {
+    public void loadTableSanPham() {
+        modelSanPham.setRowCount(0);
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        int STT = 1;
+        for (SanPhamDTO sanPham : listSanPham) {
+            String maSanPham = sanPham.getMaSP();
+            String maTheLoai = sanPham.getMaTL();
+            String tenSanPham = sanPham.getTenSP();
+            String tenTacGia = sanPham.getTacGia();
+//            int namXuatBan = sanPham.getNamXB();
+            int soLuong = sanPham.getSoLuong();
+            double donGia = sanPham.getDonGia();
+            Object[] row = {STT++, maSanPham, tenSanPham, tenTacGia, maTheLoai, soLuong, donGia};
+            modelSanPham.addRow(row);
+        }
+    }
 
+    public void loadTableTheLoai() {
+        //  Load data lên bảng 
+        modelTheLoai.setRowCount(0);
+        ArrayList<TheLoaiDTO> arr = theloaBUS.getAll();
+        int STT = 1;
+        for (TheLoaiDTO theloai : arr) {
+            String maTheLoai = theloai.getMaTL();
+            String tenTheLoai = theloai.getTenTL();
+            Object[] row = {STT++, maTheLoai, tenTheLoai};
+            modelTheLoai.addRow(row);
+        }
     }
 
     public JTable createTableTheLoai() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Thể loại", "Tên thể loại"};
         // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
-        DefaultTableModel model = new DefaultTableModel() {
+        modelTheLoai = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0) { // Cột STT 
@@ -545,28 +620,16 @@ public class SanPhamGUI extends javax.swing.JPanel {
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelTheLoai.setColumnIdentifiers(columnNames);
 
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelTheLoai);
         EditHeaderTable(table);
         editTableContent(table);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(729); // Độ rộng cột 2
-
-        //  Load data lên bảng 
-        ArrayList<TheLoaiDTO> arr = theloaBUS.getAll();
-        System.out.println(arr.size());
-        int STT = 1;
-        for (TheLoaiDTO theloai : arr) {
-            String maTheLoai = String.format("TL%02d", Integer.valueOf(theloai.getMaTL()));
-            String tenTheLoai = theloai.getTenTL();
-            Object[] row = {STT++, maTheLoai, tenTheLoai};
-            model.addRow(row);
-        }
-
         return table;
     }
 

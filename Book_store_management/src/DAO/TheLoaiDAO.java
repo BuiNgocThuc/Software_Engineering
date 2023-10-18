@@ -27,7 +27,7 @@ public class TheLoaiDAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maTL =String.valueOf(rs.getInt("MaTL")) ;
+                String maTL = String.format("TL%02d", rs.getInt("MaTL"));
                 String tenTL = rs.getString("TenTL");
                 String tinhTrang = rs.getBoolean("TinhTrang") ? "1" : "0";
 

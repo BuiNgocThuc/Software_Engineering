@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class TheLoaiBUS {
-    private TheLoaiDAO theLoaiDAO;
+    private final TheLoaiDAO theLoaiDAO;
 
     public TheLoaiBUS() {
         theLoaiDAO = new TheLoaiDAO(); // Khởi tạo lớp DAO

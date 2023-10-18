@@ -5,6 +5,10 @@
 package GUI;
 
 import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -15,8 +19,45 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
-    public ChiTietTheLoai() {
+    private int mouseX, mouseY;
+
+    public ChiTietTheLoai(String maTheLoai,String tenTheLoai) {
         initComponents();
+        txtID.setText(maTheLoai); 
+        txtName.setText(tenTheLoai);
+        PanelOverview.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+        });
+
+        PanelOverview.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - mouseX, y - mouseY);
+            }
+        });
+        lblThongTinChiTiet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getXOnScreen() - getLocation().x;
+                mouseY = e.getYOnScreen() - getLocation().y;
+            }
+        });
+
+        lblThongTinChiTiet.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen() - mouseX;
+                int y = e.getYOnScreen() - mouseY;
+                setLocation(x, y);
+            }
+        });
+
     }
 
     /**
@@ -38,6 +79,12 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         btnHuy = new Components.ButtonRadius();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         PanelOverview.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -58,8 +105,15 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         lblTenTheLoai.setForeground(new java.awt.Color(148, 181, 222));
         lblTenTheLoai.setText("Tên thể loại");
 
+        txtID.setEditable(false);
         txtID.setBackground(new java.awt.Color(255, 255, 255));
+        txtID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtID.setDisabledTextColor(new java.awt.Color(187, 187, 187));
+        txtID.setEnabled(false);
+        txtID.setOpaque(true);
+        txtID.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
@@ -67,7 +121,13 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         });
 
         txtName.setBackground(new java.awt.Color(255, 255, 255));
+        txtName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
 
         btnLuu.setBorder(null);
         btnLuu.setForeground(new java.awt.Color(134, 172, 218));
@@ -82,6 +142,11 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnLuuMouseExited(evt);
+            }
+        });
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
             }
         });
 
@@ -160,6 +225,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
@@ -194,6 +260,20 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnHuyActionPerformed
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_formWindowClosing
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // TODO add your handling code here:
+        dispose(); // Đóng frame
+    }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -225,7 +305,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietTheLoai().setVisible(true);
+                new ChiTietTheLoai("123","a").setVisible(true);
             }
         });
     }

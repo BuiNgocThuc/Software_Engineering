@@ -26,15 +26,15 @@ public class SanPhamDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaSP = rs.getString("MaTL");
-                String MaTL = rs.getString("MaTL");
+                String MaSP = String.format("SP%02d",  rs.getInt("MaSP"));
+                String MaTL = String.format("TL%02d",  rs.getInt("MaTL"));
                 String TenSP = rs.getNString("TenSP");
                 String TacGia = rs.getNString("TacGia");
                 String HinhAnh = rs.getNString("HinhAnh");
                 double DonGia = rs.getFloat("DonGia");
                 int SoLuong = rs.getInt("SoLuong");
                 int NamXB = rs.getInt("NamXB");
-                String TinhTrang = rs.getString("TinhTrang");
+                boolean TinhTrang = rs.getBoolean("TinhTrang");
 
                 SanPhamDTO sp = new SanPhamDTO(MaSP, MaTL, TenSP, HinhAnh, TacGia, TinhTrang, DonGia, SoLuong, NamXB);
                 ketQua.add(sp);

@@ -152,6 +152,7 @@ public class BillFormGUI extends javax.swing.JFrame {
         btnInHoadon.setForeground(new java.awt.Color(135, 172, 217));
         btnInHoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
         btnInHoadon.setText("In hóa đơn");
+        btnInHoadon.setFocusPainted(false);
         btnInHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnInHoadon.setMargin(new java.awt.Insets(2, 0, 2, 0));
         btnInHoadon.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -161,6 +162,7 @@ public class BillFormGUI extends javax.swing.JFrame {
         btnQuaylai.setForeground(new java.awt.Color(135, 172, 217));
         btnQuaylai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
         btnQuaylai.setText("Quay lại");
+        btnQuaylai.setFocusPainted(false);
         btnQuaylai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnQuaylai.setMargin(new java.awt.Insets(2, 0, 3, 0));
         btnQuaylai.setPreferredSize(new java.awt.Dimension(130, 40));

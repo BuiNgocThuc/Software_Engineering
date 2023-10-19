@@ -42,7 +42,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
         JTable tableChitiet = createTableChitietSanpham();
-        tableSanPham.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
+        tableChitiet.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
         JScrollPane scrollPaneChitiet = new JScrollPane(tableChitiet);
         scrollPaneChitiet.setBorder(matteBorder);
         PanelTable2.setLayout(new BorderLayout());
@@ -130,6 +130,7 @@ public class BanHangGUI extends javax.swing.JPanel {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        PanelTable1.setBackground(new java.awt.Color(255, 255, 255));
         PanelTable1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
         PanelTable1.setPreferredSize(new java.awt.Dimension(650, 300));
 
@@ -209,6 +210,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         btnHuydon.setForeground(new java.awt.Color(135, 172, 217));
         btnHuydon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnHuydon.setText("Hủy đơn");
+        btnHuydon.setFocusPainted(false);
         btnHuydon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnHuydon.setIconTextGap(3);
         btnHuydon.setPreferredSize(new java.awt.Dimension(140, 40));
@@ -218,6 +220,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         btnThanhtoan.setForeground(new java.awt.Color(135, 172, 217));
         btnThanhtoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/dolar.png"))); // NOI18N
         btnThanhtoan.setText("Thanh toán");
+        btnThanhtoan.setFocusPainted(false);
         btnThanhtoan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnThanhtoan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnThanhtoan.setIconTextGap(0);
@@ -236,10 +239,11 @@ public class BanHangGUI extends javax.swing.JPanel {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(135, 172, 217));
         jLabel7.setText("Chi tiết hóa đơn");
 
+        PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
         PanelTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
         javax.swing.GroupLayout PanelTable2Layout = new javax.swing.GroupLayout(PanelTable2);
@@ -343,6 +347,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         btnChon.setForeground(new java.awt.Color(135, 172, 217));
         btnChon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         btnChon.setText("Chọn");
+        btnChon.setFocusPainted(false);
         btnChon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnChon.setMargin(new java.awt.Insets(2, 10, 3, 14));
         btnChon.setPreferredSize(new java.awt.Dimension(130, 40));
@@ -477,6 +482,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
         btnTimkiem.setText("Tìm");
+        btnTimkiem.setFocusPainted(false);
         btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnTimkiem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -582,7 +588,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 if (header != null) {
                     setForeground(new Color(251, 252, 254)); // Đặt màu chữ
                     setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Josefin Sans SemiBold", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
+                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
                     header.setFont(headerFont);
                     JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
                             isSelected, hasFocus, row, column);
@@ -608,7 +614,7 @@ public class BanHangGUI extends javax.swing.JPanel {
             if (header != null) {
                 setForeground(new Color(254, 194, 92)); // Set text color
                 setBackground(new Color(255, 255, 255)); // Set background color
-                Font headerFont = new Font("Josefin Sans SemiBold", Font.BOLD, 14); // Adjust font and font size
+                Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
                 header.setFont(headerFont);
                 JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content

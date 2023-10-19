@@ -77,6 +77,7 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
         btnXacnhan.setForeground(new java.awt.Color(135, 172, 217));
         btnXacnhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnXacnhan.setText("Xác nhận");
+        btnXacnhan.setFocusPainted(false);
         btnXacnhan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnXacnhan.setIconTextGap(-1);
         btnXacnhan.setMargin(new java.awt.Insets(2, 0, 3, 0));
@@ -87,6 +88,7 @@ public class DoiMatKhauGUI extends javax.swing.JFrame {
         btnHuy.setForeground(new java.awt.Color(135, 172, 217));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnHuy.setText("Hủy");
+        btnHuy.setFocusPainted(false);
         btnHuy.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnHuy.setMargin(new java.awt.Insets(2, 10, 3, 14));
         btnHuy.setPreferredSize(new java.awt.Dimension(130, 40));

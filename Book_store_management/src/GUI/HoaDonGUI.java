@@ -164,6 +164,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
         btnInHoadon.setForeground(new java.awt.Color(135, 172, 217));
         btnInHoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
         btnInHoadon.setText("In hóa đơn");
+        btnInHoadon.setFocusPainted(false);
         btnInHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnInHoadon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnInHoadon.setIconTextGap(0);

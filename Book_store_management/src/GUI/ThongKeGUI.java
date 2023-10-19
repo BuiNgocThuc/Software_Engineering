@@ -266,6 +266,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         btnApdung.setForeground(new java.awt.Color(135, 172, 217));
         btnApdung.setText("Áp dụng");
+        btnApdung.setFocusPainted(false);
         btnApdung.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnApdung.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnApdung.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -318,6 +319,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
         btnTimkiem.setText("Tìm");
+        btnTimkiem.setFocusPainted(false);
         btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnTimkiem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));

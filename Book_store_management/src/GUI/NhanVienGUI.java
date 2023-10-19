@@ -70,6 +70,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
         btnTimkiem.setText("Tìm");
+        btnTimkiem.setFocusPainted(false);
         btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnTimkiem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -122,6 +123,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         btnSua.setForeground(new java.awt.Color(135, 172, 217));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setFocusPainted(false);
         btnSua.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnSua.setMaximumSize(new java.awt.Dimension(100, 40));
         btnSua.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -145,6 +147,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         btnXoa.setForeground(new java.awt.Color(135, 172, 217));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.setFocusPainted(false);
         btnXoa.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnXoa.setMaximumSize(new java.awt.Dimension(100, 40));
         btnXoa.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -160,6 +163,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(135, 172, 217));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setFocusPainted(false);
         btnThem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -222,9 +226,9 @@ public class NhanVienGUI extends javax.swing.JPanel {
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

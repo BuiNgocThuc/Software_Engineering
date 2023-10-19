@@ -78,7 +78,7 @@
                       <Component id="btnTimkiem" alignment="0" max="32767" attributes="0"/>
                       <Component id="jPanel4" alignment="0" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jLabel5" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
@@ -86,9 +86,9 @@
                       <Component id="btnThem" max="32767" attributes="0"/>
                       <Component id="btnSua" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="PanelTable" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="26" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                  <Component id="PanelTable" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -106,6 +106,7 @@
               <Image iconType="3" name="/Assets/icon_24px/search.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="T&#xec;m"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="17" style="0"/>
             </Property>
@@ -209,6 +210,7 @@
               <Image iconType="3" name="/Assets/icon_24px/fix.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="17" style="0"/>
             </Property>
@@ -261,6 +263,7 @@
               <Image iconType="3" name="/Assets/icon_24px/cancel.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="17" style="0"/>
             </Property>
@@ -289,6 +292,7 @@
               <Image iconType="3" name="/Assets/icon_24px/add.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="17" style="0"/>
             </Property>

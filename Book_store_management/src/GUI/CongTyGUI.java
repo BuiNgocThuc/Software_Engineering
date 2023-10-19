@@ -30,7 +30,7 @@ public class CongTyGUI extends javax.swing.JPanel {
      */
     public CongTyGUI() {
         initComponents();
-        JTable tableNhanvien = createTableNhanvien();
+        JTable tableNhanvien = createTableCongty();
         tableNhanvien.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableNhanvien);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
@@ -38,7 +38,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,6 +80,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
         btnTimkiem.setText("Tìm");
+        btnTimkiem.setFocusPainted(false);
         btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnTimkiem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -132,6 +133,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         btnSua.setForeground(new java.awt.Color(135, 172, 217));
         btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnSua.setText("Sửa");
+        btnSua.setFocusPainted(false);
         btnSua.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnSua.setMaximumSize(new java.awt.Dimension(100, 40));
         btnSua.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -155,6 +157,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         btnXoa.setForeground(new java.awt.Color(135, 172, 217));
         btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.setFocusPainted(false);
         btnXoa.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnXoa.setMaximumSize(new java.awt.Dimension(100, 40));
         btnXoa.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -170,6 +173,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         btnThem.setForeground(new java.awt.Color(135, 172, 217));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.setFocusPainted(false);
         btnThem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -181,8 +185,6 @@ public class CongTyGUI extends javax.swing.JPanel {
             }
         });
 
-        PanelTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
-
         javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
         PanelTable.setLayout(PanelTableLayout);
         PanelTableLayout.setHorizontalGroup(
@@ -191,7 +193,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         );
         PanelTableLayout.setVerticalGroup(
             PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 618, Short.MAX_VALUE)
+            .addGap(0, 610, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -215,7 +217,7 @@ public class CongTyGUI extends javax.swing.JPanel {
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(PanelTable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         jPanel1Layout.setVerticalGroup(
@@ -232,9 +234,9 @@ public class CongTyGUI extends javax.swing.JPanel {
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -246,13 +248,14 @@ public class CongTyGUI extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
     private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
@@ -313,7 +316,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         table.getTableHeader().setResizingAllowed(false);
     }
 
-    public JTable createTableNhanvien() {
+    public JTable createTableCongty() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Công ty","Tên công ty","Số điện thoại","Địa chỉ" };
         DefaultTableModel model = new DefaultTableModel() {

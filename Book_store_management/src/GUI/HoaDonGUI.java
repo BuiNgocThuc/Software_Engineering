@@ -31,9 +31,9 @@ public class HoaDonGUI extends javax.swing.JPanel {
      */
     public HoaDonGUI() {
         initComponents();
-        JTable tableSanPham = createTableSanPham();
-        tableSanPham.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
-        JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
+        JTable tableHoadon = createTableSanPham();
+        tableHoadon.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
+        JScrollPane scrollPaneSanPham = new JScrollPane(tableHoadon);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());

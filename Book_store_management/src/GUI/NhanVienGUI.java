@@ -32,9 +32,9 @@ public class NhanVienGUI extends javax.swing.JPanel {
      */
     public NhanVienGUI() {
         initComponents();
-        JTable tableSanPham = createTableNhanvien();
-        tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
-        JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
+        JTable tableNhanvien = createTableNhanvien();
+        tableNhanvien.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
+        JScrollPane scrollPaneSanPham = new JScrollPane(tableNhanvien);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());

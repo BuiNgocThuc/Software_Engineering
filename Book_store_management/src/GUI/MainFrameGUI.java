@@ -27,16 +27,15 @@ public class MainFrameGUI extends javax.swing.JFrame {
      */
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
-    
+
 //    ChucNangBUS cnBUS = new ChucNangBUS();
 //    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
-
     public MainFrameGUI() {
         //this.setUndecorated(true);
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
-        
+
     }
 
     void designComp() {
@@ -58,7 +57,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         listItems.add(lblThongKe);
         listItems.add(lblTaiKhoan);
         listItems.add(lblPhanQuyen);
-        
+
         lblSanPham.setBackground(Color.decode("#AAD8F4"));
         lblSanPham.setForeground(Color.white);
         lblSanPham.setOpaque(true);
@@ -108,6 +107,86 @@ public class MainFrameGUI extends javax.swing.JFrame {
                 }
             });
         }
+    }
+
+    public JLabel getLblBanHang() {
+        return lblBanHang;
+    }
+
+    public void setLblBanHang(JLabel lblBanHang) {
+        this.lblBanHang = lblBanHang;
+    }
+
+    public JLabel getLblCongTy() {
+        return lblCongTy;
+    }
+
+    public void setLblCongTy(JLabel lblCongTy) {
+        this.lblCongTy = lblCongTy;
+    }
+
+    public JLabel getLblHoaDon() {
+        return lblHoaDon;
+    }
+
+    public void setLblHoaDon(JLabel lblHoaDon) {
+        this.lblHoaDon = lblHoaDon;
+    }
+
+    public JLabel getLblNhanVien() {
+        return lblNhanVien;
+    }
+
+    public void setLblNhanVien(JLabel lblNhanVien) {
+        this.lblNhanVien = lblNhanVien;
+    }
+
+    public JLabel getLblNhapHang() {
+        return lblNhapHang;
+    }
+
+    public void setLblNhapHang(JLabel lblNhapHang) {
+        this.lblNhapHang = lblNhapHang;
+    }
+
+    public JLabel getLblPhanQuyen() {
+        return lblPhanQuyen;
+    }
+
+    public void setLblPhanQuyen(JLabel lblPhanQuyen) {
+        this.lblPhanQuyen = lblPhanQuyen;
+    }
+
+    public JLabel getLblPhieuNhap() {
+        return lblPhieuNhap;
+    }
+
+    public void setLblPhieuNhap(JLabel lblPhieuNhap) {
+        this.lblPhieuNhap = lblPhieuNhap;
+    }
+
+    public JLabel getLblSanPham() {
+        return lblSanPham;
+    }
+
+    public void setLblSanPham(JLabel lblSanPham) {
+        this.lblSanPham = lblSanPham;
+    }
+
+    public JLabel getLblTaiKhoan() {
+        return lblTaiKhoan;
+    }
+
+    public void setLblTaiKhoan(JLabel lblTaiKhoan) {
+        this.lblTaiKhoan = lblTaiKhoan;
+    }
+
+    public JLabel getLblThongKe() {
+        return lblThongKe;
+    }
+
+    public void setLblThongKe(JLabel lblThongKe) {
+        this.lblThongKe = lblThongKe;
     }
 
     /**
@@ -641,7 +720,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrameGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException

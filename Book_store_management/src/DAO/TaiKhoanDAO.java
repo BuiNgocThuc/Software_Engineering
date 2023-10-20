@@ -24,6 +24,33 @@ import java.util.Date;
  */
 public class TaiKhoanDAO {
 
+    public TaiKhoanDTO selectByUsername(String username) {
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "SELECT * FROM TaiKhoan where TenTK = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String MaTK = rs.getString("MaTK");
+                String TenTK = rs.getNString("TenTK");
+                String MatKhau = rs.getNString("MatKhau");
+                String MaQuyen = rs.getString("MaQuyen");
+                Date NgayTao = rs.getDate("NgayTao");
+                String TrangThai = rs.getString("TinhTrang");
+
+                TaiKhoanDTO tk = new TaiKhoanDTO(MaTK, TenTK, MatKhau, MaQuyen, TrangThai, NgayTao);
+                return tk;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return null;
+    }
+
     public ArrayList<TaiKhoanDTO> selectAll() {
         ArrayList<TaiKhoanDTO> ketQua = new ArrayList<>();
         try {
@@ -119,12 +146,11 @@ public class TaiKhoanDAO {
 //        {
 //            System.out.println(tk.getTinhTrang());
 //        }
-        
+
         // SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng ngày tháng
         // String userInput = "2023-10-13";
         // Date ngayTao = dateFormat.parse(userInput)
         // TaiKhoanDTO tk = new TaiKhoanDTO("nhanvien11", "123456", "1", "1", ngayTao);
-
 //        int ketqua = a.Xoa("15");
 //        if (ketqua > 0) {
 //            System.out.println("Xoa thanh cong");

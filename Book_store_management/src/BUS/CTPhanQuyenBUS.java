@@ -4,10 +4,17 @@
  */
 package BUS;
 
+import DAO.CTPhanQuyenDAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author NGOC THUC
  */
 public class CTPhanQuyenBUS {
+    CTPhanQuyenDAO ctpqDAO = new CTPhanQuyenDAO();
     
+    public ArrayList<String> getPerByRole(String MaQuyen) {
+        return ctpqDAO.getPerByRole(MaQuyen);
+    }
 }

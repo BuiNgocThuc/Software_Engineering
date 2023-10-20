@@ -94,6 +94,8 @@ CREATE TABLE [ChiTietQuyen] (
 )
 GO
 
+Drop table ChiTietQuyen
+
 CREATE TABLE [NhanVien] (
   [MaNV] nvarchar(20) PRIMARY KEY NOT NULL,
   [TenNV] nvarchar(50) DEFAULT (NULL),
@@ -233,15 +235,14 @@ INSERT INTO ChucNang(TenCN, TinhTrang)
 VALUES
 (N'Tài khoản', 1),			--1
 (N'Phân quyền', 1),			--2		
-(N'Thể loại' , 1),			--3
-(N'Sản phẩm' , 1),			--4
-(N'Nhập hàng' , 1),			--5
-(N'Bán hàng' , 1),			--6
-(N'Phiếu nhập' , 1),		--7
-(N'Hóa đơn', 1),			--8
-(N'Nhân viên' , 1),			--9
-(N'Nhà cung cấp' , 1),		--10
-(N'Thống kê' , 1);			--11
+(N'Sản phẩm' , 1),			--3
+(N'Nhập hàng' , 1),			--4
+(N'Bán hàng' , 1),			--5
+(N'Phiếu nhập' , 1),		--6
+(N'Hóa đơn', 1),			--7
+(N'Nhân viên' , 1),			--8
+(N'Nhà cung cấp' , 1),		--9
+(N'Thống kê' , 1);			--10
 
 INSERT INTO SanPham(MaTL, TenSP, HinhAnh, DonGia, SoLuong, TacGia, TinhTrang)
 VALUES
@@ -282,35 +283,30 @@ VALUES
 (1,2, N'Sửa', 1),
 
 --Quyền thủ kho
-(4,3,N'Đọc', 1), --Thể loại
+(4,3,N'Đọc', 1), --Thể loại --Sản phẩm
 (4,3,N'Thêm', 1),
 (4,3,N'Xóa', 1),
 (4,3,N'Sửa', 1),
-(4,4,N'Đọc', 1), --Sản phẩm
-(4,4,N'Thêm', 1),
-(4,4,N'Xóa', 1),
-(4,4,N'Sửa', 1),
-(4,5,N'Đọc', 1), --Nhập hàng
-(4,10, N'Đọc', 1), --nhà cung cấp
-(4,10, N'Thêm', 1), 
-(4,10, N'Xóa', 1), 
-(4,10, N'Sửa', 1), 
+(4,4,N'Đọc', 1), --Nhập hàng
+(4,9, N'Đọc', 1), --nhà cung cấp
+(4,9, N'Thêm', 1), 
+(4,9, N'Xóa', 1), 
+(4,9, N'Sửa', 1), 
 
 --Quyền bán hàng
-(3,3,N'Đọc', 1), --Thể loại
-(3,4,N'Đọc  ', 1), --Sản phẩm
-(3,6,N'Đọc ', 1), --bán hàng
+(3,3,N'Đọc', 1), --Thể loại --Sản phẩm 
+(3,5,N'Đọc ', 1), --bán hàng
 
 --Quyền quản lý
-(2,7,N'Đọc', 1), --Phiếu Nhập
-(2,7,N'Sửa', 1),
-(2,7,N'Xóa',1),
-(2,8,N'Đọc',1),--Hóa đơn
-(2,9,N'Đọc', 1),-- Nhân viên
-(2,9,N'Thêm', 1),		
-(2,9,N'Xóa', 1),					
-(2,9,N'Sửa', 1),					
-(2,11,N'Đọc', 1); --Thống kê
+(2,6,N'Đọc', 1), --Phiếu Nhập
+(2,6,N'Sửa', 1),
+(2,6,N'Xóa',1),
+(2,7,N'Đọc',1),--Hóa đơn
+(2,8,N'Đọc', 1),-- Nhân viên
+(2,8,N'Thêm', 1),		
+(2,8,N'Xóa', 1),					
+(2,8,N'Sửa', 1),					
+(2,10,N'Đọc', 1); --Thống kê
 
 INSERT INTO NhanVien(MaNV, TenNV, SDT, GioiTinh, DiaChi, Email, TinhTrang)
 VALUES

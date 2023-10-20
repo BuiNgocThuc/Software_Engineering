@@ -22,4 +22,5 @@ public class SanPhamBUS {
         return sanPhamDAO.selectAll();
     }
     
+    
 }

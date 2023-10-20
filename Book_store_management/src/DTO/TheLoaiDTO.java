@@ -23,6 +23,11 @@ public class TheLoaiDTO {
         this.TinhTrang = TinhTrang;
     }
 
+    public TheLoaiDTO(String MaTL, String TenTL) {
+        this.MaTL = MaTL;
+        this.TenTL = TenTL;
+    }
+
     public String getMaTL() {
         return MaTL;
     }

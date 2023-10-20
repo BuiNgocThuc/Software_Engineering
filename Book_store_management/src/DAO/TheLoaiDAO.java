@@ -25,7 +25,7 @@ public class TheLoaiDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM TheLoai";
+            String sql = "SELECT * FROM TheLoai where TinhTrang = 1";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -65,7 +65,7 @@ public class TheLoaiDAO {
     // Tìm thể loại dựa trên tên thể loại
     public ArrayList<TheLoaiDTO> findTheLoaiByTenTL(String tenTL) {
         ArrayList<TheLoaiDTO> theLoaiList = new ArrayList<>();
-        String sql = "SELECT * FROM TheLoai WHERE TenTL LIKE ? or MATL LIKE ?";
+        String sql = "SELECT * FROM TheLoai WHERE (TenTL LIKE ? or MATL LIKE ?)and TinhTrang = 1 ";
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -137,16 +137,18 @@ public class TheLoaiDAO {
     }
 
     // Xóa thể loại dựa trên mã thể loại
-    public boolean deleteTheLoaiByMaTL(String maTL) {
+    public boolean deleteTheLoaiByMaTL(int maTL) {
         boolean rowDelete = false;
         try {
             Connection conn = ConnectDB.getConnection();
-            String sql = "DELETE FROM TheLoai WHERE MaTL = ?";
+           String sql = "UPDATE TheLoai SET TinhTrang=? WHERE MaTL=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, maTL);
+            pst.setBoolean(1, false);
+            pst.setInt(2, maTL);
             rowDelete = pst.executeUpdate() > 0;
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return rowDelete;
     }

@@ -38,10 +38,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     /**
      * Creates new form PhanQuyenGUInew
      */
-    private final JTable tableSanPham;
-    private final JTable tableTheLoai;
-    private DefaultTableModel modelTheLoai;
-    private DefaultTableModel modelSanPham;
+    private static JTable tableSanPham;
+    private static JTable tableTheLoai;
+    private static DefaultTableModel modelTheLoai;
+    private static DefaultTableModel modelSanPham;
+
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     TheLoaiBUS theloaBUS = new TheLoaiBUS();
 
@@ -134,6 +135,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         jPanelTimKiem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(162, 198, 231), 2));
 
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
+        txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTimKiem.setBorder(null);
         txtTimKiem.setOpaque(true);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -401,7 +403,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         String maTL = theloaBUS.getMaTheLoaiMax();
-        ChiTietTheLoai ct = new ChiTietTheLoai(maTL, "");
+        int rowCount = modelTheLoai.getRowCount();
+        int STT = rowCount + 1;
+        ChiTietTheLoai ct = new ChiTietTheLoai(STT, maTL);
         ct.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -409,14 +413,15 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = tableTheLoai.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
-            int stt = (int) tableTheLoai.getValueAt(selectedRow, 0);
+// Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
             String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
             String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
 
-            // Tạo frame hoặc dialog để chỉnh sửa thông tin
-            ChiTietTheLoai ct = new ChiTietTheLoai(maTheLoai, tenTheLoai);
+            // Tạo frame để chỉnh sửa thông tin
+            ChiTietTheLoai ct = new ChiTietTheLoai(selectedRow, maTheLoai, tenTheLoai);
             ct.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -492,6 +497,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        XoaTheLoai();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -690,6 +696,35 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
+    public static void addTheLoaiTable(TheLoaiDTO tl, int STT) {
+        modelTheLoai.addRow(new Object[]{STT, tl.getMaTL(), tl.getTenTL()});
+    }
+     public static void updateTheLoaiTable(TheLoaiDTO tl, int STT) {
+        modelTheLoai.setValueAt(tl.getTenTL(), STT, 2); 
+    }
+ 
+    private void XoaTheLoai() {
+        int selectedRowIndex = tableTheLoai.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                // Lấy mã thể loại từ dòng được chọn trong bảng
+                String maTL = (String) modelTheLoai.getValueAt(selectedRowIndex, 1);
+                int maTLNumber = Integer.parseInt(maTL.substring(2));
+                // Gọi lớp BUS để xóa thể loại dựa trên mã thể loại
+                if (theloaBUS.deleteTheLoaiByMaTL(maTLNumber)) {
+                    // Xóa dòng khỏi bảng
+                    modelTheLoai.removeRow(selectedRowIndex);
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
     private void findTheLoaiByTenTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
@@ -703,8 +738,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 // Xóa tất cả dòng hiện có trong bảng
                 modelTheLoai.setRowCount(0);
                 // Thêm kết quả tìm kiếm vào bảng     
+                int stt = 1;
                 for (TheLoaiDTO tl : theLoai) {
-                    Object[] row = {1, tl.getMaTL(), tl.getTenTL()};
+                    Object[] row = {stt++, tl.getMaTL(), tl.getTenTL()};
                     modelTheLoai.addRow(row);
                 }
 
@@ -714,6 +750,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
 
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;

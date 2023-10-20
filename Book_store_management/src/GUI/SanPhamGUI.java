@@ -4,19 +4,26 @@
  */
 package GUI;
 
-import static DemoConnectDB.NewJFrame.createTablePhanQuyen;
+import BUS.SanPhamBUS;
+import BUS.TheLoaiBUS;
+import DTO.SanPhamDTO;
+import DTO.TheLoaiDTO;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -26,17 +33,52 @@ import javax.swing.table.TableColumnModel;
  *
  * @author ASUS
  */
-public class SanPhamGUI extends javax.swing.JPanel {
+public final class SanPhamGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form PhanQuyenGUInew
      */
+    private static JTable tableSanPham;
+    private static JTable tableTheLoai;
+    private static DefaultTableModel modelTheLoai;
+    private static DefaultTableModel modelSanPham;
+
+    SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    TheLoaiBUS theloaBUS = new TheLoaiBUS();
+
     public SanPhamGUI() {
         initComponents();
-        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tableSanPham = createTableSanPham();
+//        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+        // Tạo bảng sản phẩm
+        tableSanPham = createTableSanPham();
+        // Tạo bản thể loại
+        tableTheLoai = createTableTheLoai();
+//        tableTheLoai.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+//            if (!event.getValueIsAdjusting()) {
+//                int selectedRow = tableTheLoai.getSelectedRow();
+//                if (selectedRow >= 0) {
+//                    // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+//                    int stt = (int) tableTheLoai.getValueAt(selectedRow, 0);
+//                    String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
+//                    String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
+//
+//                    // Tạo frame hoặc dialog để chỉnh sửa thông tin
+//                   ChiTietTheLoai ct = new ChiTietTheLoai();
+//                    ct.setVisible(true);
+//                }
+//            }
+//        });
+        // Load data bảng sản phẩm 
+        loadTableSanPham();
+        // Load data bảng thể loại
+        loadTableTheLoai();
+        // Set kích thước bảng bằng với panel chứa nó
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
+
+//        Dimension preferredSize = tableSanPham.getPreferredSize();
+//        int width = preferredSize.width;
+//        int height = preferredSize.height;
+//        System.out.println("Kích thước ưa thích của bảng: " + width + "x" + height);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
@@ -61,9 +103,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
         lblTheLoai = new javax.swing.JLabel();
         lblSanPham = new javax.swing.JLabel();
         PanelTable = new javax.swing.JPanel();
-        btnThêm = new Components.ButtonRadius();
+        btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
-        btnXoa1 = new Components.ButtonRadius();
+        btnXoa = new Components.ButtonRadius();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,6 +135,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         jPanelTimKiem.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(162, 198, 231), 2));
 
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
+        txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTimKiem.setBorder(null);
         txtTimKiem.setOpaque(true);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -154,7 +197,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        lblSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        lblSanPham.setBackground(new java.awt.Color(229, 231, 230));
         lblSanPham.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(254, 201, 116));
         lblSanPham.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,6 +213,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         });
 
         PanelTable.setBackground(new java.awt.Color(255, 255, 255));
+        PanelTable.setPreferredSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
         PanelTable.setLayout(PanelTableLayout);
@@ -182,25 +226,25 @@ public class SanPhamGUI extends javax.swing.JPanel {
             .addGap(0, 583, Short.MAX_VALUE)
         );
 
-        btnThêm.setBorder(null);
-        btnThêm.setForeground(new java.awt.Color(134, 172, 218));
-        btnThêm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThêm.setText("Thêm");
-        btnThêm.setFocusPainted(false);
-        btnThêm.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnThêm.setPreferredSize(new java.awt.Dimension(50, 25));
-        btnThêm.setRadius(40);
-        btnThêm.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnThem.setBorder(null);
+        btnThem.setForeground(new java.awt.Color(134, 172, 218));
+        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem.setText("Thêm");
+        btnThem.setFocusPainted(false);
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnThem.setPreferredSize(new java.awt.Dimension(50, 25));
+        btnThem.setRadius(40);
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnThêmMouseEntered(evt);
+                btnThemMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnThêmMouseExited(evt);
+                btnThemMouseExited(evt);
             }
         });
-        btnThêm.addActionListener(new java.awt.event.ActionListener() {
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThêmActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
 
@@ -226,25 +270,25 @@ public class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        btnXoa1.setBorder(null);
-        btnXoa1.setForeground(new java.awt.Color(134, 172, 218));
-        btnXoa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
-        btnXoa1.setText("Xóa");
-        btnXoa1.setFocusPainted(false);
-        btnXoa1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnXoa1.setPreferredSize(new java.awt.Dimension(50, 25));
-        btnXoa1.setRadius(40);
-        btnXoa1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnXoa.setBorder(null);
+        btnXoa.setForeground(new java.awt.Color(134, 172, 218));
+        btnXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
+        btnXoa.setText("Xóa");
+        btnXoa.setFocusPainted(false);
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnXoa.setPreferredSize(new java.awt.Dimension(50, 25));
+        btnXoa.setRadius(40);
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnXoa1MouseEntered(evt);
+                btnXoaMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnXoa1MouseExited(evt);
+                btnXoaMouseExited(evt);
             }
         });
-        btnXoa1.addActionListener(new java.awt.event.ActionListener() {
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoa1ActionPerformed(evt);
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -255,15 +299,15 @@ public class SanPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(lblTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(383, 383, 383)
-                        .addComponent(btnThêm, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
-                        .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -276,10 +320,10 @@ public class SanPhamGUI extends javax.swing.JPanel {
                     .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThêm, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -313,7 +357,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         PanelTable.removeAll();
         PanelTable.setPreferredSize(new Dimension(1003, 506));
-        JTable tableSanPham = createTableSanPham();
+//        JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
@@ -324,13 +368,16 @@ public class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.revalidate();
         PanelTable.repaint();
 
+        lblSanPham.setBackground(new Color(229, 231, 230));
+        lblTheLoai.setBackground(new Color(255, 255, 255));
+
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
         PanelTable.removeAll();
         //        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tableTheLoai = createTableTheLoai();
+//        JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
@@ -341,18 +388,41 @@ public class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.revalidate();
         PanelTable.repaint();
 
+        //Khi click chuột vào sẽ đổi màu giúp nhận biết đang ở bảng nào
+        lblTheLoai.setBackground(new Color(229, 231, 230));
+        lblSanPham.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
+//       findTheLoaiByMaTL();
+        findTheLoaiByTenTL();
+
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
-    private void btnThêmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThêmActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThêmActionPerformed
+        String maTL = theloaBUS.getMaTheLoaiMax();
+        int rowCount = modelTheLoai.getRowCount();
+        int STT = rowCount + 1;
+        ChiTietTheLoai ct = new ChiTietTheLoai(STT, maTL);
+        ct.setVisible(true);
+    }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tableTheLoai.getSelectedRow();
+        if (selectedRow >= 0) {
+// Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+            String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
+            String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
+
+            // Tạo frame để chỉnh sửa thông tin
+            ChiTietTheLoai ct = new ChiTietTheLoai(selectedRow, maTheLoai, tenTheLoai);
+            ct.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
@@ -366,15 +436,15 @@ public class SanPhamGUI extends javax.swing.JPanel {
         btnTimKiem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnTimKiemMouseExited
 
-    private void btnThêmMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseEntered
+    private void btnThemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseEntered
         // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_btnThêmMouseEntered
+        btnThem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnThemMouseEntered
 
-    private void btnThêmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThêmMouseExited
+    private void btnThemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseExited
         // TODO add your handling code here:
-        btnThêm.setCursor(Cursor.getDefaultCursor());
-    }//GEN-LAST:event_btnThêmMouseExited
+        btnThem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnThemMouseExited
 
     private void btnSuaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseEntered
         // TODO add your handling code here: 
@@ -388,21 +458,21 @@ public class SanPhamGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
-        // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("Tìm kiếm")) {
-            txtTimKiem.setText("");
-
-//            txtTimKiem.requestFocus();
-            removePlaceholderStyle(txtTimKiem);
-        }
+//        // TODO add your handling code here:
+//        if (txtTimKiem.getText().equals("Tìm kiếm")) {
+//            txtTimKiem.setText("");
+//
+////            txtTimKiem.requestFocus();
+//            removePlaceholderStyle(txtTimKiem);
+//        }
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
-        // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("")) {
-            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-            System.out.println("hi1" + txtTimKiem.getText());
-        }
+//        // TODO add your handling code here:
+//        if (txtTimKiem.getText().equals("")) {
+//            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+//            System.out.println("hi1" + txtTimKiem.getText());
+//        }
     }//GEN-LAST:event_txtTimKiemFocusLost
 
     private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
@@ -415,17 +485,20 @@ public class SanPhamGUI extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtTimKiemMouseExited
 
-    private void btnXoa1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseEntered
+    private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseEntered
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnXoaMouseEntered
 
-    private void btnXoa1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoa1MouseExited
+    private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1MouseExited
+        btnThem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnXoaMouseExited
 
-    private void btnXoa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoa1ActionPerformed
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnXoa1ActionPerformed
+        XoaTheLoai();
+    }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
@@ -464,6 +537,18 @@ public class SanPhamGUI extends javax.swing.JPanel {
         table.setGridColor(new Color(153, 184, 224));
         table.setShowGrid(true);
         table.setBackground(Color.WHITE);
+        table.setSelectionBackground(Color.WHITE);
+        table.setSelectionForeground(new Color(253, 191, 84));
+        table.setFocusable(false);
+        table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Font font = new Font("Segoe UI", Font.PLAIN, 16);
+        table.setFont(font);
+        // Căn giữa nội dung trong các ô chữ
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
         // Vô hiệu hóa sắp xếp cột tự động
         // table.setAutoCreateRowSorter(false);
         // Vô hiệu hóa kéo cột
@@ -475,7 +560,7 @@ public class SanPhamGUI extends javax.swing.JPanel {
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
-        DefaultTableModel model = new DefaultTableModel() {
+        modelSanPham = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
@@ -486,9 +571,9 @@ public class SanPhamGUI extends javax.swing.JPanel {
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelSanPham.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelSanPham);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(120); // Độ rộng cột 1
@@ -503,15 +588,41 @@ public class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTable() {
+    public void loadTableSanPham() {
+        modelSanPham.setRowCount(0);
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        int STT = 1;
+        for (SanPhamDTO sanPham : listSanPham) {
+            String maSanPham = sanPham.getMaSP();
+            String maTheLoai = sanPham.getMaTL();
+            String tenSanPham = sanPham.getTenSP();
+            String tenTacGia = sanPham.getTacGia();
+//            int namXuatBan = sanPham.getNamXB();
+            int soLuong = sanPham.getSoLuong();
+            double donGia = sanPham.getDonGia();
+            Object[] row = {STT++, maSanPham, tenSanPham, tenTacGia, maTheLoai, soLuong, donGia};
+            modelSanPham.addRow(row);
+        }
+    }
 
+    public void loadTableTheLoai() {
+        //  Load data lên bảng 
+        modelTheLoai.setRowCount(0);
+        ArrayList<TheLoaiDTO> arr = theloaBUS.getAll();
+        int STT = 1;
+        for (TheLoaiDTO theloai : arr) {
+            String maTheLoai = theloai.getMaTL();
+            String tenTheLoai = theloai.getTenTL();
+            Object[] row = {STT++, maTheLoai, tenTheLoai};
+            modelTheLoai.addRow(row);
+        }
     }
 
     public JTable createTableTheLoai() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Thể loại", "Tên thể loại"};
         // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
-        DefaultTableModel model = new DefaultTableModel() {
+        modelTheLoai = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0) { // Cột STT 
@@ -520,10 +631,10 @@ public class SanPhamGUI extends javax.swing.JPanel {
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelTheLoai.setColumnIdentifiers(columnNames);
 
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelTheLoai);
         EditHeaderTable(table);
         editTableContent(table);
         TableColumnModel columnModel = table.getColumnModel();
@@ -562,13 +673,91 @@ public class SanPhamGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
+    private void findTheLoaiByMaTL() {
+        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
+        String maTL = txtTimKiem.getText();
+        if (maTL.isEmpty()) {
+            // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            TheLoaiDTO theLoai = theloaBUS.findTheLoaiByMaTL(maTL);
+            if (theLoai != null) {
+                // Xóa tất cả dòng hiện có trong bảng
+                modelTheLoai.setRowCount(0);
+                // Thêm kết quả tìm kiếm vào bảng            
+                Object[] row = {1, theLoai.getMaTL(), theLoai.getTenTL()};
+
+                modelTheLoai.addRow(row);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
+    public static void addTheLoaiTable(TheLoaiDTO tl, int STT) {
+        modelTheLoai.addRow(new Object[]{STT, tl.getMaTL(), tl.getTenTL()});
+    }
+     public static void updateTheLoaiTable(TheLoaiDTO tl, int STT) {
+        modelTheLoai.setValueAt(tl.getTenTL(), STT, 2); 
+    }
+ 
+    private void XoaTheLoai() {
+        int selectedRowIndex = tableTheLoai.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                // Lấy mã thể loại từ dòng được chọn trong bảng
+                String maTL = (String) modelTheLoai.getValueAt(selectedRowIndex, 1);
+                int maTLNumber = Integer.parseInt(maTL.substring(2));
+                // Gọi lớp BUS để xóa thể loại dựa trên mã thể loại
+                if (theloaBUS.deleteTheLoaiByMaTL(maTLNumber)) {
+                    // Xóa dòng khỏi bảng
+                    modelTheLoai.removeRow(selectedRowIndex);
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private void findTheLoaiByTenTL() {
+        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
+        String maTL = txtTimKiem.getText();
+        if (maTL.isEmpty()) {
+            // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            ArrayList<TheLoaiDTO> theLoai = theloaBUS.findTheLoaiByTenTL(maTL);
+            if (!theLoai.isEmpty()) {
+                // Xóa tất cả dòng hiện có trong bảng
+                modelTheLoai.setRowCount(0);
+                // Thêm kết quả tìm kiếm vào bảng     
+                int stt = 1;
+                for (TheLoaiDTO tl : theLoai) {
+                    Object[] row = {stt++, tl.getMaTL(), tl.getTenTL()};
+                    modelTheLoai.addRow(row);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnSua;
-    private Components.ButtonRadius btnThêm;
+    private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;
-    private Components.ButtonRadius btnXoa1;
+    private Components.ButtonRadius btnXoa;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblSanPham;

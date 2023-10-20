@@ -4,10 +4,23 @@
  */
 package BUS;
 
+import DAO.SanPhamDAO;
+import DTO.SanPhamDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author NGOC THUC
  */
 public class SanPhamBUS {
+    private final SanPhamDAO sanPhamDAO ;
+
+    public SanPhamBUS() {
+        sanPhamDAO = new SanPhamDAO();
+    }
+    public ArrayList<SanPhamDTO> getAllSanPham(){
+        return sanPhamDAO.selectAll();
+    }
+    
     
 }

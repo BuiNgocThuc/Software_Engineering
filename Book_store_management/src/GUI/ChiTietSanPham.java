@@ -45,6 +45,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblTheLoai = new javax.swing.JLabel();
         lblDonGia = new javax.swing.JLabel();
         txtDonGia = new javax.swing.JTextField();
+        lblTheLoai1 = new javax.swing.JLabel();
         lblThongTinChiTiet = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -231,6 +232,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
+        lblTheLoai1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblTheLoai1.setForeground(new java.awt.Color(148, 181, 222));
+        lblTheLoai1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTheLoai1.setText("Hình ảnh");
+
         javax.swing.GroupLayout PannelOverviewLayout = new javax.swing.GroupLayout(PannelOverview);
         PannelOverview.setLayout(PannelOverviewLayout);
         PannelOverviewLayout.setHorizontalGroup(
@@ -243,24 +249,29 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PannelOverviewLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(45, 45, 45)
+                        .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(lblTheLoai1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(33, 33, 33)
                         .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         PannelOverviewLayout.setVerticalGroup(
             PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PannelOverviewLayout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PannelOverviewLayout.createSequentialGroup()
+                        .addComponent(lblTheLoai1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
@@ -392,6 +403,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     private javax.swing.JLabel lblTacGia;
     private javax.swing.JLabel lblTenSanPham;
     private javax.swing.JLabel lblTheLoai;
+    private javax.swing.JLabel lblTheLoai1;
     private javax.swing.JLabel lblThongTinChiTiet;
     private javax.swing.JPanel panelContent;
     private javax.swing.JTextField txtDonGia;

@@ -9,11 +9,12 @@ package DTO;
  * @author NGOC THUC
  */
 public class SanPhamDTO {
-    private String MaSP, MaTL, TenSP, HinhAnh, TacGia, TinhTrang;
+    private String MaSP, MaTL, TenSP, HinhAnh, TacGia;
+    private boolean  TinhTrang;
     private double DonGia;
     private int SoLuong, NamXB;
 
-    public SanPhamDTO(String MaSP, String MaTL, String TenSP, String HinhAnh, String TacGia, String TinhTrang, double DonGia, int SoLuong, int NamXB) {
+    public SanPhamDTO(String MaSP, String MaTL, String TenSP, String HinhAnh, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {
         this.MaSP = MaSP;
         this.MaTL = MaTL;
         this.TenSP = TenSP;
@@ -65,11 +66,11 @@ public class SanPhamDTO {
         this.TacGia = TacGia;
     }
 
-    public String getTinhTrang() {
+    public boolean getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(String TinhTrang) {
+    public void setTinhTrang(boolean TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
 

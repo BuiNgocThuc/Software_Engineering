@@ -25,6 +25,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author NGOC THUC
  */
+
 public class ThongKeGUI extends javax.swing.JPanel {
 
     /**
@@ -68,8 +69,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
         btnApdung = new Components.ButtonRadius();
         jPanel3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        dateNgaybatdau = new com.toedter.calendar.JDateChooser();
-        dateNgayketthuc = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
@@ -283,28 +282,18 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jSeparator1.setForeground(new java.awt.Color(135, 172, 217));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        dateNgaybatdau.setForeground(new java.awt.Color(135, 172, 217));
-        dateNgaybatdau.setFont(new java.awt.Font("Josefin Sans Medium", 0, 16)); // NOI18N
-
-        dateNgayketthuc.setForeground(new java.awt.Color(135, 172, 217));
-        dateNgayketthuc.setFont(new java.awt.Font("Josefin Sans Medium", 0, 16)); // NOI18N
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addComponent(dateNgaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGap(166, 166, 166)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(dateNgayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(166, 166, 166))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addComponent(dateNgayketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(dateNgaybatdau, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel6.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
@@ -562,8 +551,6 @@ public static void EditHeaderTable(JTable table) {
     private Components.ButtonRadius btnApdung;
     private Components.ButtonRadius btnTimkiem;
     private javax.swing.JComboBox<String> cbFilter;
-    private com.toedter.calendar.JDateChooser dateNgaybatdau;
-    private com.toedter.calendar.JDateChooser dateNgayketthuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

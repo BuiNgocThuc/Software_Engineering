@@ -9,17 +9,23 @@ package DTO;
  * @author NGOC THUC
  */
 public class TheLoaiDTO {
-    private String MaTL, TenTL, TinhTrang;
+    private String MaTL, TenTL;
+    private Boolean TinhTrang;
 
-    public TheLoaiDTO(String TenTL, String TinhTrang) {
+    public TheLoaiDTO(String TenTL, Boolean TinhTrang) {
         this.TenTL = TenTL;
         this.TinhTrang = TinhTrang;
     }
 
-    public TheLoaiDTO(String MaTL, String TenTL, String TinhTrang) {
+    public TheLoaiDTO(String MaTL, String TenTL, Boolean TinhTrang) {
         this.MaTL = MaTL;
         this.TenTL = TenTL;
         this.TinhTrang = TinhTrang;
+    }
+
+    public TheLoaiDTO(String MaTL, String TenTL) {
+        this.MaTL = MaTL;
+        this.TenTL = TenTL;
     }
 
     public String getMaTL() {
@@ -38,11 +44,11 @@ public class TheLoaiDTO {
         this.TenTL = TenTL;
     }
 
-    public String getTinhTrang() {
+    public Boolean getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(String TinhTrang) {
+    public void setTinhTrang(Boolean TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
     

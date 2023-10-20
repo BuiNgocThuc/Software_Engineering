@@ -25,7 +25,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
      * Creates new form ChiTietChucNang
      */
     private int mouseX, mouseY;
-    private int STT = 0;
+    private int STT = -1;
     private String MaTL, TenTL;
 
     public ChiTietTheLoai(int STT, String MaTL, String TenTL) {
@@ -245,7 +245,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-        if (STT != 0 && MaTL != null && TenTL != null) {
+        if (STT != -1 && MaTL != null && TenTL != null) {
             // Xử lý khi có cả ba tham số
             SuaTheLoai();
         } else {

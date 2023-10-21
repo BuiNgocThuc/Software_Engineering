@@ -5,21 +5,19 @@
 package GUI;
 
 import BUS.TheLoaiBUS;
+import Components.DraggableFrame;
 import DTO.TheLoaiDTO;
 import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author ASUS
  */
-public class ChiTietTheLoai extends javax.swing.JFrame {
+public class ChiTietTheLoai extends  DraggableFrame {
 
     /**
      * Creates new form ChiTietChucNang
@@ -92,14 +90,12 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         lblTenTheLoai.setText("Tên thể loại");
 
         txtID.setEditable(false);
-        txtID.setBackground(new java.awt.Color(255, 255, 255));
-        txtID.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.setDisabledTextColor(new java.awt.Color(187, 187, 187));
         txtID.setEnabled(false);
         txtID.setOpaque(true);
-        txtID.setSelectedTextColor(new java.awt.Color(0, 0, 0));
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
@@ -107,7 +103,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         });
 
         txtName.setBackground(new java.awt.Color(255, 255, 255));
-        txtName.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +139,9 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnLuu.setText("Lưu");
         btnLuu.setFocusPainted(false);
-        btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLuu.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         btnLuu.setRadius(40);
+        btnLuu.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLuuMouseEntered(evt);
@@ -180,7 +177,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGap(0, 23, Short.MAX_VALUE))))
+                        .addGap(0, 24, Short.MAX_VALUE))))
         );
         PanelOverviewLayout.setVerticalGroup(
             PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,7 +195,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                 .addGroup(PanelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -354,38 +351,38 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-//    public static void main(String args[]) {
-//        /* Set the Nimbus look and feel */
-//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-//         */
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ChiTietTheLoai("123", "a").setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(ChiTietTheLoai.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+             
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelOverview;

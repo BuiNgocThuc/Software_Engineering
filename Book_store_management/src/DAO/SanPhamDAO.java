@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -44,6 +45,25 @@ public class SanPhamDAO {
             e.printStackTrace();
         }
         return ketQua;
+    }
+     public String getMaSPMax() {
+        String maSP = "";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT Max(MaSP) as MaxMaSP FROM SanPham";
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                int maxMaSP = rs.getInt("MaxMaSP");
+                maSP = String.format("SP%02d", maxMaSP + 1);
+            } else {
+                maSP = "SP01"; // Bảng thể loại chưa có dữ liệu
+            }
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maSP;
     }
     
 }

@@ -22,8 +22,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -376,8 +374,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
         PanelTable.removeAll();
-        //        jPanel2.setPreferredSize(new Dimension(928, 506));
-//        JTable tableTheLoai = createTableTheLoai();
+//        jPanel2.setPreferredSize(new Dimension(928, 506));
+        //JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
@@ -395,33 +393,73 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
-//       findTheLoaiByMaTL();
-        findTheLoaiByTenTL();
 
+        Color currentBackgroundColor = lblTheLoai.getBackground();
+        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
+        Color targetColor = new Color(229, 231, 230);
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
+        if (currentBackgroundColor.equals(targetColor)) {
+            findTheLoaiByTenTL();
+        } else {
+
+        }
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        String maTL = theloaBUS.getMaTheLoaiMax();
-        int rowCount = modelTheLoai.getRowCount();
-        int STT = rowCount + 1;
-        ChiTietTheLoai ct = new ChiTietTheLoai(STT, maTL);
-        ct.setVisible(true);
+        Color currentBackgroundColor = lblTheLoai.getBackground();
+        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
+        Color targetColor = new Color(229, 231, 230);
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
+        if (currentBackgroundColor.equals(targetColor)) {
+            String maTL = theloaBUS.getMaTheLoaiMax();
+            int rowCount = modelTheLoai.getRowCount();
+            int STT = rowCount + 1;
+            ChiTietTheLoai cttl = new ChiTietTheLoai(STT, maTL);
+            cttl.setVisible(true);
+        } else {
+            String maSP = sanPhamBUS.getMaSPMax();
+           int rowCount = modelSanPham.getRowCount();
+            int STT = rowCount + 1;
+            ChiTietSanPham ctsp = new ChiTietSanPham(STT,maSP);
+            ctsp.setVisible(true);
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        int selectedRow = tableTheLoai.getSelectedRow();
-        if (selectedRow >= 0) {
-// Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
-            String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
-            String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
+        Color currentBackgroundColor = lblTheLoai.getBackground();
+        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
+        Color targetColor = new Color(229, 231, 230);
+        if (currentBackgroundColor.equals(targetColor)) {
+            int selectedRow = tableTheLoai.getSelectedRow();
+            if (selectedRow >= 0) {
+                // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+                String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
+                String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
 
-            // Tạo frame để chỉnh sửa thông tin
-            ChiTietTheLoai ct = new ChiTietTheLoai(selectedRow, maTheLoai, tenTheLoai);
-            ct.setVisible(true);
+                // Tạo frame để chỉnh sửa thông tin
+                ChiTietTheLoai ct = new ChiTietTheLoai(selectedRow, maTheLoai, tenTheLoai);
+                ct.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+              int selectedRow = tableSanPham.getSelectedRow();
+            if (selectedRow >= 0) {
+                // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
+                String maSP = (String) tableSanPham.getValueAt(selectedRow, 1);
+                String tenSP = (String) tableSanPham.getValueAt(selectedRow, 2);
+                String tacGia =(String) tableSanPham.getValueAt(selectedRow, 3);
+                String theLoai= (String) tableSanPham.getValueAt(selectedRow, 4);
+                int soLuong = (int)tableSanPham.getValueAt(selectedRow, 5);
+                double donGia = (double)tableSanPham.getValueAt(selectedRow, 6);
+                // Tạo frame để chỉnh sửa thông tin
+                ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, "", soLuong, donGia);
+                ctsp.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -497,7 +535,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        XoaTheLoai();
+        Color currentBackgroundColor = lblTheLoai.getBackground();
+        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
+        Color targetColor = new Color(229, 231, 230);
+        if (currentBackgroundColor.equals(targetColor)) {
+            XoaTheLoai();
+        } else {
+
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
@@ -699,10 +744,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     public static void addTheLoaiTable(TheLoaiDTO tl, int STT) {
         modelTheLoai.addRow(new Object[]{STT, tl.getMaTL(), tl.getTenTL()});
     }
-     public static void updateTheLoaiTable(TheLoaiDTO tl, int STT) {
-        modelTheLoai.setValueAt(tl.getTenTL(), STT, 2); 
+
+    public static void updateTheLoaiTable(TheLoaiDTO tl, int STT) {
+        modelTheLoai.setValueAt(tl.getTenTL(), STT, 2);
     }
- 
+
     private void XoaTheLoai() {
         int selectedRowIndex = tableTheLoai.getSelectedRow();
         if (selectedRowIndex != -1) {

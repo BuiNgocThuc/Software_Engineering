@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Components.DraggableFrame;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
@@ -21,7 +22,7 @@ import javax.swing.JTextField;
  *
  * @author NGOC THUC
  */
-public class DangNhapGUI extends javax.swing.JFrame {
+public class DangNhapGUI extends  DraggableFrame {
 
     /**
      * Creates new form DangNhapGUI
@@ -31,7 +32,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     public DangNhapGUI() {
         initComponents();
 
-        moveLayout();
+//        moveLayout();
     }
 
     public JPasswordField getTxtPassword() {
@@ -414,7 +415,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
             .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1004, 522));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -491,7 +492,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
         // TODO add your handling code here:
         String password = new String(txtPassword.getPassword());
-        if (password.equals("Password") || password.isEmpty()) {
+        if (password.equals("Password") || password.equals("")) {
             // Nếu mật khẩu rỗng hoặc là "Password", không thay đổi EchoChar
         } else {
             if (txtPassword.getEchoChar() == 0) {

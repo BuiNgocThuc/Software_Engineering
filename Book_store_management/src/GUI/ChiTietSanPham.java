@@ -15,8 +15,39 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
+    private int STT = -1;
+    private String maSP, tenSP,tenTacGia,theLoai,hinhAnh;
+    private int soLuong;
+    private double donGia;
+
     public ChiTietSanPham() {
         initComponents();
+    }
+
+    public ChiTietSanPham(int STT,String maSP, String tenSP, String tacGia, String theLoai,String hinhAnh, int soLuong, double donGia) {
+         initComponents();
+        this.STT = STT;
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.tenTacGia = tacGia;
+        this.theLoai = theLoai;
+        this.hinhAnh = hinhAnh;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        txtID.setText(maSP);
+        txtTenSP.setText(tenSP);
+        txtTacGia.setText(tacGia);
+        txtITheLoai.setText(theLoai);
+        txtSoLuong.setText(String.valueOf(soLuong));
+        txtDonGia.setText(String.valueOf(donGia));
+    }
+
+    public ChiTietSanPham(int STT,String maSP) {
+         initComponents();
+        this.STT = STT;
+        this.maSP = maSP;
+        txtID.setText(maSP);
+        
     }
 
     /**
@@ -28,6 +59,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jToolBar1 = new javax.swing.JToolBar();
         PannelOverview = new javax.swing.JPanel();
         btnHuy = new Components.ButtonRadius();
         btnLuu = new Components.ButtonRadius();
@@ -35,7 +67,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         panelContent = new javax.swing.JPanel();
         lblID = new javax.swing.JLabel();
         lblTenSanPham = new javax.swing.JLabel();
-        txtTenSanPham = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
         lblTacGia = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtTacGia = new javax.swing.JTextField();
@@ -48,7 +80,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblTheLoai1 = new javax.swing.JLabel();
         lblThongTinChiTiet = new javax.swing.JLabel();
 
+        jToolBar1.setRollover(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         PannelOverview.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -66,6 +101,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnHuyMouseExited(evt);
+            }
+        });
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyActionPerformed(evt);
             }
         });
 
@@ -105,10 +145,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblTenSanPham.setForeground(new java.awt.Color(148, 181, 222));
         lblTenSanPham.setText("Tên sản phẩm");
 
-        txtTenSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-        txtTenSanPham.addActionListener(new java.awt.event.ActionListener() {
+        txtTenSP.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtTenSP.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtTenSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenSanPhamActionPerformed(evt);
+                txtTenSPActionPerformed(evt);
             }
         });
 
@@ -116,13 +157,17 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblTacGia.setForeground(new java.awt.Color(148, 181, 222));
         lblTacGia.setText("Tác giả");
 
+        txtID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtID.setDisabledTextColor(new java.awt.Color(187, 187, 187));
+        txtID.setEnabled(false);
         txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDActionPerformed(evt);
             }
         });
 
+        txtTacGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtTacGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtTacGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +179,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblSoLuong.setForeground(new java.awt.Color(148, 181, 222));
         lblSoLuong.setText("Số lượng");
 
+        txtSoLuong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtSoLuong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +187,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         });
 
+        txtITheLoai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtITheLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtITheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +203,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblDonGia.setForeground(new java.awt.Color(148, 181, 222));
         lblDonGia.setText("Đơn giá");
 
+        txtDonGia.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         txtDonGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtDonGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +223,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                             .addGroup(panelContentLayout.createSequentialGroup()
                                 .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelContentLayout.createSequentialGroup()
                                 .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -189,8 +237,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                     .addGroup(panelContentLayout.createSequentialGroup()
                         .addComponent(lblTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))
+                        .addComponent(lblTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(109, 109, 109))
                     .addGroup(panelContentLayout.createSequentialGroup()
                         .addComponent(txtTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,7 +259,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                     .addComponent(lblTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTenSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addGroup(panelContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,7 +301,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                         .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
                             .addComponent(lblTheLoai1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(33, 33, 33)
+                        .addGap(45, 45, 45)
                         .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
@@ -267,11 +315,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                         .addComponent(lblTheLoai1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31)
+                .addGap(30, 30, 30)
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
@@ -294,12 +342,13 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(PannelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
@@ -334,9 +383,9 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLuuActionPerformed
 
-    private void txtTenSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenSanPhamActionPerformed
+    private void txtTenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenSPActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenSanPhamActionPerformed
+    }//GEN-LAST:event_txtTenSPActionPerformed
 
     private void txtTacGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTacGiaActionPerformed
         // TODO add your handling code here:
@@ -353,6 +402,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     private void txtDonGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDonGiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDonGiaActionPerformed
+
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        // TODO add your handling code here:
+        dispose(); // Đóng frame
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,6 +450,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     private javax.swing.JPanel PannelOverview;
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnLuu;
+    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JLabel lblDonGia;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblImage;
@@ -411,6 +466,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     private javax.swing.JTextField txtITheLoai;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTacGia;
-    private javax.swing.JTextField txtTenSanPham;
+    private javax.swing.JTextField txtTenSP;
     // End of variables declaration//GEN-END:variables
 }

@@ -89,7 +89,7 @@ public class TheLoaiDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT Max(MaTL) as MaxMaTL FROM TheLoai"; // Alias for Max(MaTL) as MaxMaTL
+            String sql = "SELECT Max(MaTL) as MaxMaTL FROM TheLoai";
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 int maxMaTL = rs.getInt("MaxMaTL");

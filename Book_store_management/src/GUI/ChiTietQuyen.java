@@ -178,6 +178,11 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
                 btnLuuMouseExited(evt);
             }
         });
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
 
         btnHuy.setBorder(null);
         btnHuy.setForeground(new java.awt.Color(134, 172, 218));
@@ -308,6 +313,11 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
         // Đặt lại con trỏ thành con trỏ mặc định khi di ra
         setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnLuuMouseExited
+
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // TODO add your handling code here:
+         dispose(); // Đóng frame
+    }//GEN-LAST:event_btnLuuActionPerformed
 
     /**
      * @param args the command line arguments

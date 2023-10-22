@@ -9,12 +9,14 @@ package DTO;
  * @author NGOC THUC
  */
 public class SanPhamDTO {
-    private String MaSP, MaTL, TenSP, HinhAnh, TacGia;
-    private boolean  TinhTrang;
+
+    private String MaSP, MaTL, TenSP, TacGia;
+    private boolean TinhTrang;
     private double DonGia;
     private int SoLuong, NamXB;
+    private byte[] HinhAnh;
 
-    public SanPhamDTO(String MaSP, String MaTL, String TenSP, String HinhAnh, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {
+    public SanPhamDTO(String MaSP, String MaTL, String TenSP,  byte[] HinhAnh, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {
         this.MaSP = MaSP;
         this.MaTL = MaTL;
         this.TenSP = TenSP;
@@ -24,6 +26,22 @@ public class SanPhamDTO {
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
         this.NamXB = NamXB;
+    }
+
+    public SanPhamDTO( byte[] HinhAnh, int NamXB) {
+        this.HinhAnh = HinhAnh;
+        this.NamXB = NamXB;
+    }
+
+    public SanPhamDTO(String MaTL, String TenSP, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB, byte[] HinhAnh) {
+        this.MaTL = MaTL;
+        this.TenSP = TenSP;
+        this.TacGia = TacGia;
+        this.TinhTrang = TinhTrang;
+        this.DonGia = DonGia;
+        this.SoLuong = SoLuong;
+        this.NamXB = NamXB;
+        this.HinhAnh = HinhAnh;
     }
 
     public String getMaSP() {
@@ -50,11 +68,11 @@ public class SanPhamDTO {
         this.TenSP = TenSP;
     }
 
-    public String getHinhAnh() {
+    public byte[]  getHinhAnh() {
         return HinhAnh;
     }
 
-    public void setHinhAnh(String HinhAnh) {
+    public void setHinhAnh(byte[] HinhAnh) {
         this.HinhAnh = HinhAnh;
     }
 
@@ -97,6 +115,5 @@ public class SanPhamDTO {
     public void setNamXB(int NamXB) {
         this.NamXB = NamXB;
     }
-    
-    
+
 }

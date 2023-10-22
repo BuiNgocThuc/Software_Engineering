@@ -6,6 +6,7 @@ package DAO;
 
 import Connection.ConnectDB;
 import DTO.SanPhamDTO;
+import DTO.TheLoaiDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,20 +19,23 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class SanPhamDAO {
+
     public ArrayList<SanPhamDTO> selectAll() {
         ArrayList<SanPhamDTO> ketQua = new ArrayList<>();
         try {
             Connection c = ConnectDB.getConnection();
-            String sql = "SELECT * FROM SanPham";
+            String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL where sp.TinhTrang = 1";
             PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaSP = String.format("SP%02d",  rs.getInt("MaSP"));
-                String MaTL = String.format("TL%02d",  rs.getInt("MaTL"));
+                String MaSP = String.format("SP%02d", rs.getInt("MaSP"));
+//                String MaTL = String.format("TL%02d",  rs.getInt("TenTL"));
+                String MaTL = rs.getString("TenTL");
+
                 String TenSP = rs.getNString("TenSP");
                 String TacGia = rs.getNString("TacGia");
-                String HinhAnh = rs.getNString("HinhAnh");
+                byte[] HinhAnh = rs.getBytes("HinhAnh");
                 double DonGia = rs.getFloat("DonGia");
                 int SoLuong = rs.getInt("SoLuong");
                 int NamXB = rs.getInt("NamXB");
@@ -46,7 +50,8 @@ public class SanPhamDAO {
         }
         return ketQua;
     }
-     public String getMaSPMax() {
+
+    public String getMaSPMax() {
         String maSP = "";
         try {
             Connection conn = ConnectDB.getConnection();
@@ -65,5 +70,113 @@ public class SanPhamDAO {
         }
         return maSP;
     }
-    
+
+    public boolean deleteSPByMaSP(int maSP) {
+        boolean rowDelete = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE SanPham SET TinhTrang=? WHERE MaSP=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setBoolean(1, false);
+            pst.setInt(2, maSP);
+            rowDelete = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowDelete;
+    }
+
+    public boolean addSanPham(SanPhamDTO sp) {
+        boolean rowInsert = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "INSERT INTO SanPham( TenSP,TacGia,MaTL,HinhAnh,SoLuong,NamXB,DonGia,TinhTrang) VALUES ( ?, ?,?,?,?,?,?,?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, sp.getTenSP());
+            pst.setString(2, sp.getTacGia());
+            pst.setString(3, sp.getMaTL());
+            pst.setBytes(4, sp.getHinhAnh());
+            pst.setInt(5, sp.getSoLuong());
+            pst.setInt(6, sp.getNamXB());
+            pst.setDouble(7, sp.getDonGia());
+            pst.setBoolean(8, sp.getTinhTrang());
+            rowInsert = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInsert;
+    }
+
+    public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
+        ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE (TenSP LIKE ? or MaSP LIKE ?)and TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + temp + "%");
+            stmt.setString(2, "%" + temp + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                String maSanPham = String.format("SP%02d", resultSet.getInt("MaSP"));
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                byte[] hinhAnh = resultSet.getBytes("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+        }
+        return sanPhamList;
+    }
+
+    public SanPhamDTO getHinhAnhandNamXB(String maSP) {
+        SanPhamDTO sp = null;
+        String sql = "SELECT HinhAnh, NamXB FROM SanPham WHERE MaSP = ?";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, maSP); // Đặt giá trị của tham số maSP
+
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                byte[] hinhAnh = resultSet.getBytes("HinhAnh");
+                int namXB = resultSet.getInt("NamXB");
+                sp = new SanPhamDTO(hinhAnh, namXB);
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sp;
+    }
+
+    public boolean Update(SanPhamDTO sp) {
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE SanPham SET TenSP=?, TacGia = ?,NamXB=?,MaTL = ?,SoLuong=?,DonGia=?,TinhTrang=? WHERE MaSP =?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, sp.getTenSP());
+            pst.setString(2, sp.getTacGia());
+             pst.setInt(3, sp.getNamXB());
+            pst.setString(4, sp.getMaTL());          
+            pst.setInt(5, sp.getSoLuong());        
+            pst.setDouble(6, sp.getDonGia());
+            pst.setBoolean(7, sp.getTinhTrang());
+            pst.setString(8, sp.getMaSP());
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
+    }
+
 }

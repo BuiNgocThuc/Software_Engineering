@@ -50,4 +50,7 @@ public class TheLoaiBUS {
     public boolean updateTheLoai(TheLoaiDTO tl) {
         return theLoaiDAO.Update(tl);
     }
+    public int getMaTLbyTenTL(String tenTL){
+        return theLoaiDAO.getMaTLbyTenTL(tenTL);
+    }
 }

@@ -152,6 +152,29 @@ public class TheLoaiDAO {
         }
         return rowDelete;
     }
+    
+    public int getMaTLbyTenTL(String TenTL) {
+    int maTL = -1; // Gán một giá trị mặc định nếu không tìm thấy
+
+    try {
+        System.out.println(TenTL);
+        Connection conn = ConnectDB.getConnection();
+        String sql = "SELECT MaTL FROM TheLoai WHERE TenTL = ?";
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, TenTL);
+
+        ResultSet rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            maTL = rs.getInt("MaTL");
+        }
+
+        ConnectDB.closeConnection(conn);
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return maTL;
+}
 
 //    public static void main(String[] args) {
 //        // Tạo một đối tượng TheLoaiDAO

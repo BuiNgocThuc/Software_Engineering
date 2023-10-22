@@ -519,12 +519,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
-    // Hàm lưu đường dẫn hình ảnh vào cơ sở dữ liệu
-
-    private static void saveImagePathToDatabase(String imagePath) {
-        // Đặt mã logic lưu đường dẫn hình ảnh vào cơ sở dữ liệu ở đây
-        System.out.println("Đã lưu đường dẫn hình ảnh vào cơ sở dữ liệu: " + imagePath);
-    }
 
     // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
     private static ImageIcon scaleImage(String imageData, int width, int height) {

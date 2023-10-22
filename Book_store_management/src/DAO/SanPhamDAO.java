@@ -6,7 +6,6 @@ package DAO;
 
 import Connection.ConnectDB;
 import DTO.SanPhamDTO;
-import DTO.TheLoaiDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,7 +110,7 @@ public class SanPhamDAO {
 
     public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
         ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
-        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE (TenSP LIKE ? or MaSP LIKE ?)and TinhTrang = 1 ";
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE (TenSP LIKE ? or MaSP LIKE ?) and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -131,6 +130,7 @@ public class SanPhamDAO {
                 sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
             }
         } catch (SQLException e) {
+            e.printStackTrace();
         }
         return sanPhamList;
     }

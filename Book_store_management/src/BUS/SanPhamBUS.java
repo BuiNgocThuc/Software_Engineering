@@ -27,17 +27,24 @@ public class SanPhamBUS {
     public String getMaSPMax() {
         return sanPhamDAO.getMaSPMax();
     }
-    public SanPhamDTO getHinhAnhandNamXB(String maSP){
+
+    public SanPhamDTO getHinhAnhandNamXB(String maSP) {
         return sanPhamDAO.getHinhAnhandNamXB(maSP);
     }
+
     public boolean deleteSanPhamByMaSP(int maSP) {
         return sanPhamDAO.deleteSPByMaSP(maSP);
     }
-      public boolean  addSanPham(SanPhamDTO sp){
+
+    public boolean addSanPham(SanPhamDTO sp) {
         return sanPhamDAO.addSanPham(sp);
-      }
-      public boolean updateSanPham(SanPhamDTO sp){
-          return sanPhamDAO.Update(sp);
-      }
-             
+    }
+
+    public boolean updateSanPham(SanPhamDTO sp) {
+        return sanPhamDAO.Update(sp);
+    }
+
+    public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
+        return sanPhamDAO.findSPByTenSP(temp);
+    }
 }

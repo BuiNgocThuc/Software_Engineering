@@ -40,10 +40,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private static JTable tableTheLoai;
     private static DefaultTableModel modelTheLoai;
     private static DefaultTableModel modelSanPham;
-    
+
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     TheLoaiBUS theloaBUS = new TheLoaiBUS();
-    
+
     public SanPhamGUI() {
         initComponents();
 //        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
@@ -365,7 +365,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.add(scrollPaneSanPham);
         PanelTable.revalidate();
         PanelTable.repaint();
-        
+
         lblSanPham.setBackground(new Color(229, 231, 230));
         lblTheLoai.setBackground(new Color(255, 255, 255));
 
@@ -401,7 +401,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         if (currentBackgroundColor.equals(targetColor)) {
             findTheLoaiByTenTL();
         } else {
-            
+            findSanPhamByTenSPandMaSP();
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
@@ -455,7 +455,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 int soLuong = (int) tableSanPham.getValueAt(selectedRow, 5);
                 double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
                 // Tạo frame để chỉnh sửa thông tin
-               
+
                 ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, donGia);
                 ctsp.setVisible(true);
             } else {
@@ -575,7 +575,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // Đặt renderer tùy chỉnh cho header
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
-    
+
     public static void editTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
@@ -602,7 +602,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // Vô hiệu hóa kéo dãng cột
         table.getTableHeader().setResizingAllowed(false);
     }
-    
+
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
@@ -633,7 +633,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         editTableContent(table);
         return table;
     }
-    
+
     public void loadTableSanPham() {
         modelSanPham.setRowCount(0);
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
@@ -650,7 +650,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             modelSanPham.addRow(row);
         }
     }
-    
+
     public void loadTableTheLoai() {
         //  Load data lên bảng 
         modelTheLoai.setRowCount(0);
@@ -663,7 +663,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             modelTheLoai.addRow(row);
         }
     }
-    
+
     public JTable createTableTheLoai() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Thể loại", "Tên thể loại"};
@@ -689,9 +689,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         columnModel.getColumn(2).setPreferredWidth(729); // Độ rộng cột 2
         return table;
     }
-    
+
     public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-        
+
         table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
 //       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         TableColumnModel columnModel = table.getColumnModel();
@@ -700,25 +700,25 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 //    
 //    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
         int column4 = 1003 - fixedColumnsWidth;
-        
+
         columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
         columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
     }
-    
+
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);
         textField.setFont(customFont);
         textField.setForeground(new Color(157, 185, 223));
         textField.setText(name);
-        
+
     }
-    
+
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }
-    
+
     private void findTheLoaiByMaTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
@@ -733,29 +733,36 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 modelTheLoai.setRowCount(0);
                 // Thêm kết quả tìm kiếm vào bảng            
                 Object[] row = {1, theLoai.getMaTL(), theLoai.getTenTL()};
-                
+
                 modelTheLoai.addRow(row);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        
+
     }
-    
+
     public static void addTheLoaiTable(TheLoaiDTO tl, int STT) {
         modelTheLoai.addRow(new Object[]{STT, tl.getMaTL(), tl.getTenTL()});
     }
 
-    public static void addSanPhamTable(SanPhamDTO sp, int STT,String tenTL) {
-        modelSanPham.addRow(new Object[]{STT, sp.getMaSP(),sp.getTenSP(),sp.getTacGia(),tenTL,sp.getSoLuong(),sp.getDonGia()});
+    public static void addSanPhamTable(SanPhamDTO sp, int STT, String tenTL) {
+        modelSanPham.addRow(new Object[]{STT, sp.getMaSP(), sp.getTenSP(), sp.getTacGia(), tenTL, sp.getSoLuong(), sp.getDonGia()});
     }
-        public static void updateSanPhamTable(SanPhamDTO sp, int STT,String tenTL) {
-        modelSanPham.addRow(new Object[]{STT, sp.getMaSP(),sp.getTenSP(),sp.getTacGia(),tenTL,sp.getSoLuong(),sp.getDonGia()});
+
+    public static void updateSanPhamTable(SanPhamDTO sp, int STT, String tenTL) {
+        modelSanPham.setValueAt(sp.getTenSP(), STT, 2);
+        modelSanPham.setValueAt(sp.getTacGia(), STT, 3);
+        modelSanPham.setValueAt(tenTL, STT, 4);
+        modelSanPham.setValueAt(sp.getSoLuong(), STT, 5);
+        modelSanPham.setValueAt(sp.getDonGia(), STT, 6);
+
     }
+
     public static void updateTheLoaiTable(TheLoaiDTO tl, int STT) {
         modelTheLoai.setValueAt(tl.getTenTL(), STT, 2);
     }
-    
+
     private void XoaTheLoai() {
         int selectedRowIndex = tableTheLoai.getSelectedRow();
         if (selectedRowIndex != -1) {
@@ -768,6 +775,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 if (theloaBUS.deleteTheLoaiByMaTL(maTLNumber)) {
                     // Xóa dòng khỏi bảng
                     modelTheLoai.removeRow(selectedRowIndex);
+                    for (int i = 0; i < modelTheLoai.getRowCount(); i++) {
+                        modelTheLoai.setValueAt(i + 1, i, 0);
+                    }
                     JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -777,7 +787,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn thể loại cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private void XoaSanPham() {
         int selectedRowIndex = tableSanPham.getSelectedRow();
         if (selectedRowIndex != -1) {
@@ -791,6 +801,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 if (sanPhamBUS.deleteSanPhamByMaSP(maSpNumber)) {
                     // Xóa dòng khỏi bảng
                     modelSanPham.removeRow(selectedRowIndex);
+                    // Cập nhật lại giá trị STT
+                    for (int i = 0; i < modelSanPham.getRowCount(); i++) {
+                        modelSanPham.setValueAt(i + 1, i, 0);
+                    }
                     JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "Lỗi khi xóa sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -800,13 +814,13 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     private void findTheLoaiByTenTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
         if (maTL.isEmpty()) {
             // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên thể loại cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
             ArrayList<TheLoaiDTO> theLoai = theloaBUS.findTheLoaiByTenTL(maTL);
@@ -819,14 +833,39 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                     Object[] row = {stt++, tl.getMaTL(), tl.getTenTL()};
                     modelTheLoai.addRow(row);
                 }
-                
+
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        
+
     }
 
+    private void findSanPhamByTenSPandMaSP() {
+        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
+        String maSP = txtTimKiem.getText();
+        if (maSP.isEmpty()) {
+            // Nếu maSP rỗng, thông báo cho người dùng nhập mã hoặc tên
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            ArrayList<SanPhamDTO> sanPham = sanPhamBUS.findSPByTenSP(maSP);
+            if (!sanPham.isEmpty()) {
+                // Xóa tất cả dòng hiện có trong bảng
+                modelSanPham.setRowCount(0);
+                // Thêm kết quả tìm kiếm vào bảng     
+                int stt = 1;
+                for (SanPhamDTO sp : sanPham) {
+                    Object[] row = {stt++, sp.getMaSP(), sp.getTenSP(), sp.getTacGia(), sp.getMaTL(), sp.getSoLuong(), sp.getDonGia()};
+                    modelSanPham.addRow(row);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;

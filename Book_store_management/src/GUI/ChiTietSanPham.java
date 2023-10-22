@@ -10,6 +10,8 @@ import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
 import java.awt.Cursor;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +29,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
+    private int mouseX, mouseY;
     private int STT = -1, soLuong = 0, namXB = 0;
     private String maSP, tenSP, tenTacGia, theLoai;
     private double donGia = 0;
@@ -36,10 +39,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     public ChiTietSanPham() {
         initComponents();
+
     }
 
     public ChiTietSanPham(int STT, String maSP, String tenSP, String tacGia, String theloai, int soLuong, double donGia) { // sử dụng khi sửa sản phẩm
         initComponents();
+        moveFrame();
         this.STT = STT;
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -91,6 +96,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     public ChiTietSanPham(int STT, String maSP) { // Sử dụng khi thêm sản phẩm
         initComponents();
+        moveFrame();
         this.STT = STT;
         this.maSP = maSP;
         txtID.setText(maSP); // gán mã sản phẩm tự động
@@ -464,12 +470,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-        if ( tenSP == null) {
+        if (tenSP == null) {
             ThemSanPham();
         } else {
             SuaSanPham();
         }
-      
+
     }//GEN-LAST:event_btnLuuActionPerformed
 
     private void txtTenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenSPActionPerformed
@@ -595,6 +601,42 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    private void moveFrame() {
+
+        PannelOverview.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getX();
+                mouseY = e.getY();
+            }
+        });
+
+        PannelOverview.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen();
+                int y = e.getYOnScreen();
+                setLocation(x - mouseX, y - mouseY);
+            }
+        });
+        lblThongTinChiTiet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                mouseX = e.getXOnScreen() - getLocation().x;
+                mouseY = e.getYOnScreen() - getLocation().y;
+            }
+        });
+
+        lblThongTinChiTiet.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                int x = e.getXOnScreen() - mouseX;
+                int y = e.getYOnScreen() - mouseY;
+                setLocation(x, y);
+            }
+        });
     }
 
     /**

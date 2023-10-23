@@ -89,7 +89,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfTimkiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
-        btnLammoi1 = new Components.ButtonRadius();
+        btnLammoi2 = new Components.ButtonRadius();
 
         setPreferredSize(new java.awt.Dimension(1020, 750));
 
@@ -503,16 +503,17 @@ public class NhapHangGUI extends javax.swing.JPanel {
             }
         });
 
-        btnLammoi1.setBorder(null);
-        btnLammoi1.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi1.setText("Làm mới");
-        btnLammoi1.setFocusPainted(false);
-        btnLammoi1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi1.setIconTextGap(0);
-        btnLammoi1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi1.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi1.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi1.setRadius(40);
+        btnLammoi2.setBorder(null);
+        btnLammoi2.setForeground(new java.awt.Color(135, 172, 217));
+        btnLammoi2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLammoi2.setText("Làm mới");
+        btnLammoi2.setFocusPainted(false);
+        btnLammoi2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLammoi2.setIconTextGap(0);
+        btnLammoi2.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLammoi2.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLammoi2.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLammoi2.setRadius(40);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -535,8 +536,8 @@ public class NhapHangGUI extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(237, 237, 237)
-                                .addComponent(btnLammoi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(217, 217, 217)
+                                .addComponent(btnLammoi2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -546,14 +547,12 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLammoi1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0)
+                        .addComponent(btnLammoi2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(PanelTable1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -773,7 +772,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
     private javax.swing.JPanel PanelTable2;
     private Components.ButtonRadius btnChon;
     private Components.ButtonRadius btnHuydon;
-    private Components.ButtonRadius btnLammoi1;
+    private Components.ButtonRadius btnLammoi2;
     private Components.ButtonRadius btnThanhtoan;
     private Components.ButtonRadius btnTimkiem;
     private javax.swing.JComboBox<String> jComboBox1;

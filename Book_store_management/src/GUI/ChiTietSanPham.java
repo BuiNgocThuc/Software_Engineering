@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
  *
@@ -39,12 +40,13 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     public ChiTietSanPham() {
         initComponents();
-
+        AutoCompleteDecorator.decorate(listTheLoai);
     }
 
     public ChiTietSanPham(int STT, String maSP, String tenSP, String tacGia, String theloai, int soLuong, double donGia) { // sử dụng khi sửa sản phẩm
         initComponents();
         moveFrame();
+
         this.STT = STT;
         this.maSP = maSP;
         this.tenSP = tenSP;
@@ -67,6 +69,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                 listTheLoai.addItem(tl.getTenTL());
             }
         }
+        AutoCompleteDecorator.decorate(listTheLoai);
         int maSPNumber = Integer.parseInt(maSP.substring(2));
         String maSP1 = String.valueOf(maSPNumber);
         // Lấy đối tượng SanPhamDTO từ SanPhamBUS
@@ -105,8 +108,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
         for (TheLoaiDTO tl : theLoaiList) {
             listTheLoai.addItem(tl.getTenTL());  // gán danh sách thể loại tự động
-        }
+        } 
+        AutoCompleteDecorator.decorate (listTheLoai);
+        
     }
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -208,6 +215,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
         lblImage.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        lblImage.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblImageMouseClicked(evt);
@@ -295,8 +303,17 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         });
 
         listTheLoai.setBackground(new java.awt.Color(255, 255, 255));
+        listTheLoai.setEditable(true);
         listTheLoai.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        listTheLoai.setForeground(new java.awt.Color(131, 169, 214));
+        listTheLoai.setForeground(new java.awt.Color(0, 0, 0));
+        listTheLoai.setBorder(null);
+        listTheLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        listTheLoai.setOpaque(true);
+        listTheLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listTheLoaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelContentLayout = new javax.swing.GroupLayout(panelContent);
         panelContent.setLayout(panelContentLayout);
@@ -379,13 +396,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         PannelOverviewLayout.setHorizontalGroup(
             PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PannelOverviewLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
-            .addGroup(PannelOverviewLayout.createSequentialGroup()
                 .addGroup(PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PannelOverviewLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PannelOverviewLayout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(lblTheLoai1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -394,7 +410,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                         .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(50, 50, 50))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         PannelOverviewLayout.setVerticalGroup(
             PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,6 +541,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lblImageMouseClicked
+
+    private void listTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTheLoaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listTheLoaiActionPerformed
 
     // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
     private static ImageIcon scaleImage(String imageData, int width, int height) {

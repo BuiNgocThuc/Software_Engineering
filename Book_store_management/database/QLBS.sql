@@ -359,4 +359,3 @@ VALUES
 (N'CÔNG TY CỔ PHẦN VĂN HÓA HUY HOÀNG', '0903262626', N'Số 110D, phố Ngọc Hà - Phường Đội Cấn - Quận Ba Đình - Hà Nội.', 1),
 (N'CÔNG TY TNHH VĂN HOÁ MINH TÂN - NHÀ SÁCH MINH THẮNG', '0283891074', N'Số nhà 200, B3 - Khu tập thể Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Thành phố Hà Nội, Việt Nam', 0),
 (N'CHI NHÁNH CÔNG TY CỔ PHẦN VĂN HÓA VÀ TRUYỀN THÔNG NHÃ NAM', '0903244248', N'185 Hoa Lan, Phường 02, Quận Phú Nhuận, Thành phố Hồ Chí Minh, Việt Nam', 1);
-select * from SanPham

@@ -11,7 +11,7 @@ CREATE TABLE [TaiKhoan] (
 )
 GO
 
-CREATE TABLE TheLoai (
+CREATE TABLE [TheLoai] (
   [MaTL] int IDENTITY(1,1) Primary key,
   [TenTL] nvarchar(50) DEFAULT (NULL),
   [TinhTrang] BIT 
@@ -23,7 +23,6 @@ CREATE TABLE [HoaDon] (
   [TenTK] nvarchar(20) DEFAULT (NULL),
   [NgayTao] date DEFAULT (NULL),
   [TongTien] float DEFAULT (NULL),
-  [TinhTrang] BIT
 )
 GO
 
@@ -94,12 +93,10 @@ CREATE TABLE [ChiTietQuyen] (
 )
 GO
 
-Drop table ChiTietQuyen
-
 CREATE TABLE [NhanVien] (
   [MaNV] nvarchar(20) PRIMARY KEY NOT NULL,
   [TenNV] nvarchar(50) DEFAULT (NULL),
-  [SDT] nvarchar(10) DEFAULT (NULL),
+  [SDT] nvarchar(11) DEFAULT (NULL),
   [GioiTinh] nvarchar(10) DEFAULT (NULL),
   [DiaChi] nvarchar(255) DEFAULT (NULL),
   [Email] nvarchar(100) DEFAULT (NULL),  
@@ -109,9 +106,9 @@ GO
 
 CREATE TABLE [NhaCungCap] (
   [MaNCC] int IDENTITY(1,1) Primary key,
-  [TenNCC] nvarchar(50) DEFAULT (NULL),
-  [SDT] nvarchar(10) DEFAULT (NULL),
-  [DiaChi] nvarchar(255) DEFAULT (NULL),
+  [TenNCC] nvarchar(255) DEFAULT (NULL),
+  [SDT] nvarchar(11) DEFAULT (NULL),
+  [DiaChi] nvarchar(355) DEFAULT (NULL),
   [TinhTrang] BIT DEFAULT (NULL)
 )
 GO
@@ -155,81 +152,136 @@ GO
 
 INSERT INTO TaiKhoan(TenTK, MatKhau, MaQuyen, NgayTao, TinhTrang)
 VALUES
-('NhanVien1', 'password1', 1, '2023-09-22', 1),
-('NhanVien2', 'password2', 2, '2023-09-23', 1),
-('NhanVien3', 'password3', 1, '2023-09-24', 0),
-('NhanVien4', 'password4', 3, '2023-09-25', 1),
-('NhanVien5', 'password5', 2, '2023-09-26', 0),
-('NhanVien6', 'password6', 1, '2023-09-27', 1),
-('NhanVien7', 'password7', 3, '2023-09-28', 1),
-('NhanVien8', 'password8', 1, '2023-09-29', 0),
-('NhanVien9', 'password9', 2, '2023-09-30', 1),
-('NhanVien10', 'password10', 3, '2023-10-01', 1);
+('NV001', 'Mk@VN1234', 1, '2021-09-22', 1), --admin
+('NV002', 'SecuR!ty20', 2, '2021-09-22', 1), --Quản lý
+('NV003', 'P@ssw0rd!', 2, '2021-09-22', 1),
+('NV004', 'Str0ngP@55', 3, '2021-09-22', 1), --Bán hàng
+('NV005', 'ChAnG3Me!', 3, '2021-09-26', 1),
+('NV006', 'S3cuR1t!X', 3, '2023-01-27', 0),
+('NV007', 'V13tn@mPwd', 4, '2023-03-28', 1), --Thủ kho
+('NV008', '#P@ssw0rd', 4, '2023-03-29', 1),
+('NV009', 'Qu3sTi0n?', 4, '2021-09-22', 1),
+('NV010', 'L0ngP@ssw', 4, '2021-09-22', 0);
 
 INSERT INTO TheLoai(TenTL, TinhTrang)
 VALUES
-(N'Hành động', 1),
-(N'Phiêu lưu', 1),
+(N'Tiểu thuyết', 1),
 (N'Khoa học viễn tưởng', 1),
-(N'Hài hước', 1),
-(N'Kịch tính', 1),
-(N'Fantasy', 1),
-(N'Kinh dị', 1),
-(N'Bí ẩn', 1),
-(N'Lãng mạn', 1),
-(N'Kịch', 1);
+(N'Huyền bí', 1),
+(N'Lịch sử', 1),
+(N'Trinh thám', 1),
+(N'Khoa học', 1),
+(N'Tôn giáo và tâm linh', 1),
+(N'Self-help', 1),
+(N'Ngôn tình', 1);
 
-INSERT INTO HoaDon(TenTK, NgayTao, TongTien, TinhTrang)
+INSERT INTO HoaDon(TenTK, NgayTao, TongTien)
 VALUES
-('nhanvien3', '2023-09-22', 100.00, 1),
-('nhanvien3', '2023-09-23', 150.00, 0),
-('nhanvien3', '2023-09-24', 200.00, 1),
-('nhanvien3', '2023-09-25', 0, 0),
-('nhanvien3', '2023-09-26', 120.00, 1),
-('nhanvien3', '2023-09-27', 85.00, 1),
-('nhanvien3', '2023-09-28', 95.00, 0),
-('nhanvien3', '2023-09-29', 60.00, 1),
-('nhanvien3', '2023-09-30', 110.00, 1),
-('nhanvien3', '2023-10-01', 180.00, 0);
+('NV004', '2023-03-30', 140.00),
+('NV002', '2022-09-23', 340.00),
+('NV004', '2022-09-24', 130.00),
+('NV004', '2022-09-25', 310.00),
+('NV004', '2022-09-26', 230.00),
+('NV004', '2022-09-27', 180.00),
+('NV004', '2022-09-28', 480.00),
+('NV004', '2022-09-29', 210.00),
+('NV004', '2022-09-30', 500.00);
+
 
 INSERT INTO ChiTietHoaDon(MaHD, MaSP, DonGia, SoLuong)
 VALUES
-(1, 1, 10.00, 5),
-(2, 2, 12.50, 8),
-(3, 3, 8.00, 10),
-(4, 4, 15.00, 4),
-(5, 5, 11.50, 7),
-(6, 6, 9.00, 9),
-(7, 7, 13.75, 6),
-(8, 8, 7.50, 8),
-(9, 9, 12.25, 7),
-(10, 10, 14.00, 10);
+(2, 1, 140.00, 1),
+(3, 2, 340.00, 1),
+(4, 3, 130.00, 1),
+(5, 4, 310.00, 1),
+(6, 5, 230.00, 1),
+(7, 6, 180.00, 1),
+(8, 7, 480.00, 1),
+(9, 8, 210.00, 1),
+(10, 9, 500.00, 1);
 
 INSERT INTO PhieuNhap(MaNCC, TenTK, NgayTao, TongTien, TinhTrang)
 VALUES
-(1, 'nhanvien1', '2023-09-22', 250.00, 1),
-(2, 'nhanvien1', '2023-09-23', 180.00, 0),
-(3, 'nhanvien2', '2023-09-24', 300.00, 1),
-(4, 'nhanvien4', '2023-09-25', 200.00, 0),
-(5, 'nhanvien5', '2023-09-26', 350.00, 1),
-(6, 'nhanvien5', '2023-09-27', 210.00, 1),
-(7, 'nhanvien2', '2023-09-28', 280.00, 0),
-(8, 'nhanvien2', '2023-09-29', 180.00, 1),
-(9, 'nhanvien2', '2023-09-30', 320.00, 1),
-(10, 'nhanvien2', '2023-10-01', 250.00, 0);
+(1, 'NV007', '2022-09-22', 2500.00, 1),
+(2, 'NV009', '2022-09-23', 1800.00, 1),
+(3, 'NV008', '2022-09-24', 3600.00, 1),
+(4, 'NV007', '2022-09-25', 2000.00, 1),
+(5, 'NV009', '2022-09-26', 3500.00, 1),
+(6, 'NV008', '2022-09-27', 4800.00, 1),
+(3, 'NV007', '2022-09-28', 2800.00, 1),
+(4, 'NV009', '2022-09-29', 1800.00, 1),
+(5, 'NV008', '2022-09-30', 3200.00, 1);
+
+
 
 INSERT INTO ChiTietPhieuNhap(MaSP, MaPN, DonGiaNhap, SoLuong)
 VALUES
-(1, 1, 9.00, 10),
-(2, 2, 11.50, 8),
-(3, 3, 7.50, 12),
-(4, 4, 14.00, 6),
-(5, 5, 10.25, 15),
-(6, 6, 8.75, 9),
-(7, 7, 12.50, 11),
-(8, 8, 6.75, 14),
-(9, 9, 10.00, 12),
-(10, 10, 13.25, 8);
+(2, 1, 250.00, 10),
+(6, 2, 180.00, 10),
+(15, 3, 180.00, 20),
+(8, 4, 200.00, 10),
+(9, 5, 350.00, 10),
+(22, 6, 180.00, 30),
+(26, 7, 140.00, 20),
+(31, 8, 180.00, 10),
+(41, 9, 160.00, 20);
+
+INSERT INTO SanPham(MaTL, TenSP, HinhAnh, DonGia, SoLuong, TacGia, NamXB, TinhTrang)
+VALUES
+(1, N'To Kill a Mockingbird', N'sp01.jpg', 140.00, 50, N'Harper Lee', 1960, 1),
+(1, N'1984', N'sp02.jpg', 340.00, 40, N'George Orwell', 1949, 1),
+(1, N'Pride and Prejudice', N'sp03.jpg', 130.00, 60, N'Jane Austen', 1984, 1),
+(1, N'The Great Gatsby', N'sp04.jpg', 310.00, 30, N'F. Scott Fitzgerald', 1999, 0),
+(1, N'Harry Potter and the Philosophers Stone', N'sp05.jpg', 230.00, 70, N'J.K. Rowling', 1997, 1),
+(2, N'Dune', N'sp06.jpg', 180.00, 45, N'Frank Herbert', 1965, 1),
+(2, N'The Hitchhikers Guide to the Galaxy', N'sp07.jpg', 480.00, 55, N'Douglas Adams', 1980,0),
+(2, N'Enders Game', N'sp08.jpg', 210.00, 38, N'Orson Scott Card', 1985, 1),
+(2, N'Brave New World', N'sp09.jpg', 500.00, 48, N'Aldous Huxley', 1932, 1),
+(2, N'Neuromancer', N'sp10.jpg', 310.00, 42, N'William Gibson', 1984, 0),
+(3, N'The Da Vinci Code', N'sp11.jpg', 340.00, 50, N'Dan Brown', 2000, 1),
+(3, N'Gone Girl', N'sp12.jpg', 340.00, 40, N'Gillian Flynn', 2012, 1),
+(3, N'The Girl with the Dragon Tattoo', N'sp13.jpg', 230.00, 60, N'Stieg Larsson', 2004, 1),
+(3, N'The Hound of the Baskervilles', N'sp14.jpg', 370.00, 30, N'Arthur Conan Doyle', 1939, 0),
+(3, N'The Secret History', N'sp15.jpg', 230.00, 70, N'Donna Tartt', 1992, 1),
+(4, N'A Peoples History of the United States', N'sp16.jpg', 180.00, 45, N'Howard Zinn', 1980, 1),
+(4, N'Guns, Germs, and Steel', N'sp17.jpg', 480.00, 55, N'Jared Diamond', 1997, 0),
+(4, N'The Diary of a Young Girl', N'sp18.jpg', 210.00, 38, N'Anne Frank', 1947, 1),
+(4, N'The Guns of August', N'sp19.jpg', 500.00, 48, N'Barbara W. Tuchman', 1962, 1),
+(4, N'The Rise and Fall of the Third Reich', N'sp20.jpg', 310.00, 42, N'William L. Shirer', 1960, 1),
+(5, N'The Poet', N'sp21.jpg', 230.00, 70, N'Michael Connelly', 1996, 0),
+(5, N'The Cuckoos Calling', N'sp22.jpg', 180.00, 45, N'Robert Galbraith', 1988, 1),
+(5, N'The Silence of the Lambs', N'sp23.jpg', 480.00, 55, N'Thomas Harris', 1980, 0),
+(5, N'In the Woods', N'sp24.jpg', 210.00, 38, N'Tana French', 2007, 1),
+(5, N'The Secret History', N'sp25.jpg', 500.00, 48, N'Donna Tartt', 1992, 1),
+(6, N'A Brief History of Time', N'sp26.jpg', 140.00, 50, N'Stephen Hawking', 1988, 1),
+(6, N'The Selfish Gene', N'sp27.jpg', 340.00, 40, N'Richard Dawkins', 1976, 1),
+(6, N'Sapiens: A Brief History of Humankind', N'sp28.jpg', 130.00, 60, N'Yuval Noah Harari', 2011, 1),
+(6, N'The Origin of Species', N'sp29.jpg', 310.00, 30, N'Charles Darwin', 1859, 0),
+(6, N'The Double Helix', N'sp30.jpg', 230.00, 70, N'James D. Watson', 1968, 1),
+(7, N'The Alchemist', N'sp31.jpg', 180.00, 45, N'Paulo Coelho', 1988, 1),
+(7, N'The Power of Now', N'sp32.jpg', 480.00, 55, N'Eckhart Tolle', 1997, 0),
+(7, N'The Celestine Prophecy', N'sp33.jpg', 210.00, 38, N'James Redfield', 1993, 1),
+(7, N'Mere Christianity', N'sp34.jpg', 500.00, 48, N'C.S. Lewis ', 1952, 1),
+(7, N'The Tao of Pooh', N'sp35.jpg', 310.00, 42, N'Benjamin Hoff', 1982, 0),
+(8, N'Daring Greatly', N'sp36.jpg', 340.00, 50, N'Brené Brown', 2012, 1),
+(8, N'Girl, Wash Your Face', N'sp37.jpg', 340.00, 40, N'Rachel Hollis', 2018, 1),
+(8, N'The Power of Now', N'sp38.jpg', 230.00, 60, N'Eckhart Tolle', 1997, 1),
+(8, N'The Four Agreements', N'sp39.jpg', 370.00, 30, N'Don Miguel Ruiz', 1997, 0),
+(8, N'Start with Why', N'sp40.jpg', 230.00, 70, N'Simon Sinek', 2009, 1),
+(9, N'The Notebook', N'sp41.jpg', 180.00, 45, N'Nicholas Sparks', 1996, 1),
+(9, N'Outlander', N'sp42.jpg', 480.00, 55, N'Diana Gabaldon', 1991, 0),
+(9, N'The Rosie Project', N'43.jpg', 210.00, 38, N'Graeme Simsion', 2013, 1),
+(9, N'The Fault in Our Stars', N'sp44.jpg', 500.00, 48, N'John Green', 2012, 1),
+(9, N'Me Before You', N'sp45.jpg', 310.00, 42, N'Jojo Moyes', 2012, 1);
+
+Delete PhieuNhap
+
+INSERT INTO NhomQuyen(TenNQ, MoTa, TinhTrang)
+VALUES
+(N'Quản trị viên', N'Quản trị hệ thống', 1),
+(N'Quản lý', N'Vai trò quản lý', 1),
+(N'Nhân viên bán hàng', N'Vai trò bán hàng', 1),
+(N'Nhân viên thủ kho', N'Vai trò quản lý kho', 1)
 
 INSERT INTO ChucNang(TenCN, TinhTrang)
 VALUES
@@ -243,26 +295,6 @@ VALUES
 (N'Nhân viên' , 1),			--8
 (N'Nhà cung cấp' , 1),		--9
 (N'Thống kê' , 1);			--10
-
-INSERT INTO SanPham(MaTL, TenSP, HinhAnh, DonGia, SoLuong, TacGia, TinhTrang)
-VALUES
-(1, N'Sản phẩm 1', N'sanpham1.jpg', 15.00, 50, N'Tác giả 1', 1),
-(2, N'Sản phẩm 2', N'sanpham2.jpg', 12.50, 40, N'Tác giả 2', 1),
-(3, N'Sản phẩm 3', N'sanpham3.jpg', 18.00, 60, N'Tác giả 3', 1),
-(4, N'Sản phẩm 4', N'sanpham4.jpg', 10.00, 30, N'Tác giả 4', 0),
-(5, N'Sản phẩm 5', N'sanpham5.jpg', 20.00, 70, N'Tác giả 5', 1),
-(6, N'Sản phẩm 6', N'sanpham6.jpg', 14.50, 45, N'Tác giả 6', 1),
-(7, N'Sản phẩm 7', N'sanpham7.jpg', 9.75, 55, N'Tác giả 7', 0),
-(8, N'Sản phẩm 8', N'sanpham8.jpg', 11.25, 38, N'Tác giả 8', 1),
-(9, N'Sản phẩm 9', N'sanpham9.jpg', 16.80, 48, N'Tác giả 9', 1),
-(10, N'Sản phẩm 10', N'sanpham10.jpg', 13.00, 42, N'Tác giả 10', 0);
-
-INSERT INTO NhomQuyen(TenNQ, MoTa, TinhTrang)
-VALUES
-(N'Quản trị viên', N'Quản trị hệ thống', 1),
-(N'Quản lý', N'Vai trò quản lý', 1),
-(N'Nhân viên bán hàng', N'Vai trò bán hàng', 1),
-(N'Nhân viên thủ kho', N'Vai trò quản lý kho', 1)
 
 INSERT INTO ChiTietQuyen(MaQuyen, MaCN, HanhDong, TinhTrang)
 VALUES
@@ -283,7 +315,7 @@ VALUES
 (1,2, N'Sửa', 1),
 
 --Quyền thủ kho
-(4,3,N'Đọc', 1), --Thể loại --Sản phẩm
+(4,3,N'Đọc', 1), --Sản phẩm
 (4,3,N'Thêm', 1),
 (4,3,N'Xóa', 1),
 (4,3,N'Sửa', 1),
@@ -294,7 +326,7 @@ VALUES
 (4,9, N'Sửa', 1), 
 
 --Quyền bán hàng
-(3,3,N'Đọc', 1), --Thể loại --Sản phẩm 
+(3,3,N'Đọc  ', 1), --Sản phẩm
 (3,5,N'Đọc ', 1), --bán hàng
 
 --Quyền quản lý
@@ -306,30 +338,26 @@ VALUES
 (2,8,N'Thêm', 1),		
 (2,8,N'Xóa', 1),					
 (2,8,N'Sửa', 1),					
-(2,10,N'Đọc', 1); --Thống kê
+(2, 10, N'Đọc', 1); --Thống kê
 
 INSERT INTO NhanVien(MaNV, TenNV, SDT, GioiTinh, DiaChi, Email, TinhTrang)
 VALUES
-('nhanvien1', N'John Doe', '1234567890', N'Nam', N'123 Đường Main', 'john@example.com', N'Đang làm việc'),
-('nhanvien2', N'Jane Smith', '9876543210', N'Nữ', N'456 Đường Oak', 'jane@example.com', N'Đang làm việc'),
-('nhanvien3', N'Bob Johnson', '5555555555', N'Nam', N'789 Đường Elm', 'bob@example.com', N'Đang làm việc'),
-('nhanvien4', N'Alice Brown', '3333333333', N'Nữ', N'101 Đường Pine', 'alice@example.com', N'Đang làm việc'),
-('nhanvien5', N'David Lee', '4444444444', N'Nam', N'202 Đường Maple', 'david@example.com', N'Đang làm việc'),
-('nhanvien6', N'Emily Davis', '7777777777', N'Nữ', N'303 Đường Birch', 'emily@example.com', N'Đang làm việc'),
-('nhanvien7', N'Michael Wilson', '1111111111', N'Nam', N'404 Đường Cedar', 'michael@example.com', N'Đang làm việc'),
-('nhanvien8', N'Sara Garcia', '6666666666', N'Nữ', N'505 Đường Redwood', 'sara@example.com', N'Đang làm việc'),
-('nhanvien9', N'Kevin Martinez', '2222222222', N'Nam', N'606 Đường Spruce', 'kevin@example.com', N'Đang làm việc'),
-('nhanvien10', N'Laura Lopez', '9999999999', N'Nữ', N'707 Đường Sequoia', 'laura@example.com', N'Đang làm việc');
+('NV001', N'Nguyễn Huỳnh Hoa', '0987123456', N'Nữ', N'123 Đường Lê Lợi, Quận 1, TP.HCM', 'hoa_nguyen01@gmail.com', N'Đang làm việc'),
+('NV002', N'Trần Tuấn Anh', '0903456789', N'Nam', N'456 Đường Nguyễn Huệ, Quận 1, TP.HCM', 'tuananh0304@gmail.com', N'Đang làm việc'),
+('NV003', N'Lê Thanh Minh', '0912345678', N'Nam', N'789 Đường Võ Văn Tần, Quận 3, TP.HCM', 'le_minh99@gmail.com', N'Đang làm việc'),
+('NV004', N'Võ Thị Nga', '0976987654', N'Nữ', N'321 Đường Lê Duẩn, Quận Tân Bình, TP.HCM', 'nga0nga1@gmail.com', N'Đang làm việc'),
+('NV005', N'Phạm Hồng Đức', '0938123789', N'Nam', N'654 Đường Phan Xích Long, Quận Phú Nhuận, TP.HCM', 'duc_day111@gmail.com', N'Đang làm việc'),
+('NV006', N'Nguyễn Hoàng Quyên', '0945678901', N'Nữ', N'987 Đường Nguyễn Thị Minh Khai, Quận 3, TP.HCM', 'hoangduyen1@gmail.com', N'Đang làm việc'),
+('NV007', N'Bùi Thanh', '0963234567', N'Nam', N'234 Đường Nguyễn Đình Chính, Quận Bình Thạnh, TP.HCM', 'thanh.ai123@gmail.com', N'Đang làm việc'),
+('NV008', N'Nguyễn Thanh Lân', '0914567890', N'Nam', N'567 Đường Cách Mạng Tháng Tám, Quận 10, TP.HCM', 'lanvaban123@gmail.com', N'Đang làm việc'),
+('NV009', N'Nguyễn Trần Vĩnh Khoa', '0985123789', N'Nam', N'210 Đường Hùng Vương, Quận 5, TP.HCM', 'khoadep_trai9@gmail.com', N'Đang làm việc'),
+('NV010', N'Đỗ Lê Viết Văn', '0909345678', N'Nam', N'543 Đường Bến Vân Đồn, Quận 4, TP.HCM', 'viet.van86@gmail.com', N'Đang làm việc');
 
 INSERT INTO NhaCungCap(TenNCC, SDT, DiaChi, TinhTrang)
 VALUES
-(N'Nhà cung cấp 1', '1111111111', N'Địa chỉ 1', 1),
-(N'Nhà cung cấp 2', '2222222222', N'Địa chỉ 2', 1),
-(N'Nhà cung cấp 3', '3333333333', N'Địa chỉ 3', 0),
-(N'Nhà cung cấp 4', '4444444444', N'Địa chỉ 4', 1),
-(N'Nhà cung cấp 5', '5555555555', N'Địa chỉ 5', 0),
-(N'Nhà cung cấp 6', '6666666666', N'Địa chỉ 6', 1),
-(N'Nhà cung cấp 7', '7777777777', N'Địa chỉ 7', 1),
-(N'Nhà cung cấp 8', '8888888888', N'Địa chỉ 8', 0),
-(N'Nhà cung cấp 9', '9999999999', N'Địa chỉ 9', 1),
-(N'Nhà cung cấp 10', '1010101010', N'Địa chỉ 10', 1);
+(N'CÔNG TY CỔ PHẦN VĂN HÓA NHÂN VĂN', '0302229082', N'1 Trường Chinh, Phường 11, Quận Tân Bình, Thành phố Hồ Chí Minh, Việt Nam', 1),
+(N'CÔNG TY TNHH THƯƠNG MẠI VÀ DỊCH VỤ VĂN HOÁ ĐINH TỊ', '0247309338', N'Tổ 9, tập thể Sân Bay, Phường Long Biên, Quận Long Biên, Thành phố Hà Nội, Việt Nam', 1),
+(N'NHÀ XUẤT BẢN KIM ĐỒNG', '1900571595', N'55 Quang Trung - Phường Nguyễn Du - Quận Hai Bà Trưng - Hà Nội.', 1),
+(N'CÔNG TY CỔ PHẦN VĂN HÓA HUY HOÀNG', '0903262626', N'Số 110D, phố Ngọc Hà - Phường Đội Cấn - Quận Ba Đình - Hà Nội.', 1),
+(N'CÔNG TY TNHH VĂN HOÁ MINH TÂN - NHÀ SÁCH MINH THẮNG', '0283891074', N'Số nhà 200, B3 - Khu tập thể Tân Mai, Phường Tân Mai, Quận Hoàng Mai, Thành phố Hà Nội, Việt Nam', 0),
+(N'CHI NHÁNH CÔNG TY CỔ PHẦN VĂN HÓA VÀ TRUYỀN THÔNG NHÃ NAM', '0903244248', N'185 Hoa Lan, Phường 02, Quận Phú Nhuận, Thành phố Hồ Chí Minh, Việt Nam', 1);

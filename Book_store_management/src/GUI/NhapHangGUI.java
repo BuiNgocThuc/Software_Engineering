@@ -138,7 +138,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         );
 
         tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Phiếu nhập", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         tfIDHoadon.setMaximumSize(new java.awt.Dimension(140, 50));
         tfIDHoadon.setPreferredSize(new java.awt.Dimension(140, 50));
 
@@ -148,7 +148,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfIDNhanvien.setPreferredSize(new java.awt.Dimension(140, 50));
 
         tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập phiếu nhập", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         tfNgaytao.setMaximumSize(new java.awt.Dimension(300, 50));
         tfNgaytao.setPreferredSize(new java.awt.Dimension(300, 50));
 
@@ -198,7 +198,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(135, 172, 217));
-        jLabel7.setText("Chi tiết hóa đơn");
+        jLabel7.setText("Chi tiết phiếu nhập");
 
         PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
         PanelTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));

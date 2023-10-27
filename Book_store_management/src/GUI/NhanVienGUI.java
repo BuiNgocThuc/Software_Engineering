@@ -3,9 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
-
-import static GUI.BanHangGUI.EditHeaderTable;
-import static GUI.BanHangGUI.editTableContent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

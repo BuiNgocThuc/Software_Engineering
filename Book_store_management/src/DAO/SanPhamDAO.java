@@ -28,10 +28,8 @@ public class SanPhamDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaSP = String.format("SP%02d", rs.getInt("MaSP"));
-//                String MaTL = String.format("TL%02d",  rs.getInt("TenTL"));
-                String MaTL = rs.getString("TenTL");
-
+                int MaSP = rs.getInt("MaSP");
+                String TenTL = rs.getString("TenTL");
                 String TenSP = rs.getNString("TenSP");
                 String TacGia = rs.getNString("TacGia");
                 byte[] HinhAnh = rs.getBytes("HinhAnh");
@@ -40,7 +38,7 @@ public class SanPhamDAO {
                 int NamXB = rs.getInt("NamXB");
                 boolean TinhTrang = rs.getBoolean("TinhTrang");
 
-                SanPhamDTO sp = new SanPhamDTO(MaSP, MaTL, TenSP, HinhAnh, TacGia, TinhTrang, DonGia, SoLuong, NamXB);
+                SanPhamDTO sp = new SanPhamDTO(MaSP, TenTL, TenSP, HinhAnh, TacGia, TinhTrang, DonGia, SoLuong, NamXB);
                 ketQua.add(sp);
             }
             ConnectDB.closeConnection(c);
@@ -50,18 +48,15 @@ public class SanPhamDAO {
         return ketQua;
     }
 
-    public String getMaSPMax() {
-        String maSP = "";
+    public int getMaSPMax() {
+        int maSP = 0;
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
             String sql = "SELECT Max(MaSP) as MaxMaSP FROM SanPham";
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                int maxMaSP = rs.getInt("MaxMaSP");
-                maSP = String.format("SP%02d", maxMaSP + 1);
-            } else {
-                maSP = "SP01"; // Bảng thể loại chưa có dữ liệu
+                maSP = rs.getInt("MaxMaSP");
             }
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
@@ -94,7 +89,7 @@ public class SanPhamDAO {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, sp.getTenSP());
             pst.setString(2, sp.getTacGia());
-            pst.setString(3, sp.getMaTL());
+            pst.setInt(3, sp.getMaTL());
             pst.setBytes(4, sp.getHinhAnh());
             pst.setInt(5, sp.getSoLuong());
             pst.setInt(6, sp.getNamXB());
@@ -118,7 +113,7 @@ public class SanPhamDAO {
             stmt.setString(2, "%" + temp + "%");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                String maSanPham = String.format("SP%02d", resultSet.getInt("MaSP"));
+                int maSanPham = resultSet.getInt("MaSP");
                 String tenSanPham = resultSet.getString("TenSP");
                 String tenTheLoai = resultSet.getString("TenTL");
                 byte[] hinhAnh = resultSet.getBytes("HinhAnh");
@@ -135,13 +130,13 @@ public class SanPhamDAO {
         return sanPhamList;
     }
 
-    public SanPhamDTO getHinhAnhandNamXB(String maSP) {
+    public SanPhamDTO getHinhAnhandNamXB(int maSP) {
         SanPhamDTO sp = null;
         String sql = "SELECT HinhAnh, NamXB FROM SanPham WHERE MaSP = ?";
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, maSP); // Đặt giá trị của tham số maSP
+            stmt.setInt(1, maSP); 
 
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
@@ -165,12 +160,12 @@ public class SanPhamDAO {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, sp.getTenSP());
             pst.setString(2, sp.getTacGia());
-             pst.setInt(3, sp.getNamXB());
-            pst.setString(4, sp.getMaTL());          
-            pst.setInt(5, sp.getSoLuong());        
+            pst.setInt(3, sp.getNamXB());
+            pst.setInt(4, sp.getMaTL());
+            pst.setInt(5, sp.getSoLuong());
             pst.setDouble(6, sp.getDonGia());
             pst.setBoolean(7, sp.getTinhTrang());
-            pst.setString(8, sp.getMaSP());
+            pst.setInt(8, sp.getMaSP());
             rowUpdate = pst.executeUpdate() > 0;
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {

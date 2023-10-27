@@ -12,7 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.util.ArrayList;
 import javax.swing.JLabel;
@@ -51,32 +50,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         tableSanPham = createTableSanPham();
         // Tạo bản thể loại
         tableTheLoai = createTableTheLoai();
-//        tableTheLoai.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-//            if (!event.getValueIsAdjusting()) {
-//                int selectedRow = tableTheLoai.getSelectedRow();
-//                if (selectedRow >= 0) {
-//                    // Lấy dữ liệu từ bảng dựa trên hàng được chọn (STT, Mã thể loại, Tên thể loại)
-//                    int stt = (int) tableTheLoai.getValueAt(selectedRow, 0);
-//                    String maTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 1);
-//                    String tenTheLoai = (String) tableTheLoai.getValueAt(selectedRow, 2);
-//
-//                    // Tạo frame hoặc dialog để chỉnh sửa thông tin
-//                   ChiTietTheLoai ct = new ChiTietTheLoai();
-//                    ct.setVisible(true);
-//                }
-//            }
-//        });
         // Load data bảng sản phẩm 
-        loadTableSanPham();
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        loadTableSanPham(listSanPham);
         // Load data bảng thể loại
-        loadTableTheLoai();
+        ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
+        loadTableTheLoai(listTheLoai);
         // Set kích thước bảng bằng với panel chứa nó
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
-
-//        Dimension preferredSize = tableSanPham.getPreferredSize();
-//        int width = preferredSize.width;
-//        int height = preferredSize.height;
-//        System.out.println("Kích thước ưa thích của bảng: " + width + "x" + height);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
@@ -354,8 +335,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
         PanelTable.removeAll();
-        PanelTable.setPreferredSize(new Dimension(1003, 506));
-//        JTable tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
@@ -365,7 +344,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.add(scrollPaneSanPham);
         PanelTable.revalidate();
         PanelTable.repaint();
-
         lblSanPham.setBackground(new Color(229, 231, 230));
         lblTheLoai.setBackground(new Color(255, 255, 255));
 
@@ -374,8 +352,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
         PanelTable.removeAll();
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
-        //JTable tableTheLoai = createTableTheLoai();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         JScrollPane scrollPaneTheLoai = new JScrollPane(tableTheLoai);
@@ -399,9 +375,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         Color targetColor = new Color(229, 231, 230);
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
-            findTheLoaiByTenTL();
+            findTheLoaiByMaTL_or_TenTL();
         } else {
-            findSanPhamByTenSPandMaSP();
+            findSanPhamByTenSP_or_MaSP();
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
@@ -412,16 +388,18 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         Color targetColor = new Color(229, 231, 230);
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
-            String maTL = theloaBUS.getMaTheLoaiMax();
-            int rowCount = modelTheLoai.getRowCount();
-            int STT = rowCount + 1;
-            ChiTietTheLoai cttl = new ChiTietTheLoai(STT, maTL);
+            int maTL = theloaBUS.getMaTheLoaiMax() + 1;  // cộng 1 để ra được maTL kế tiếp 
+            String maTLtext = FormatMaTL(maTL); // chuyển mã TL về định dạng TLxx
+            int rowCount = modelTheLoai.getRowCount(); // lấy số dòng của bảng thể loại
+            int STT = rowCount + 1; // cộng 1 để ra số dòng tiếp theo cần thêm
+            ChiTietTheLoai cttl = new ChiTietTheLoai(STT, maTLtext);
             cttl.setVisible(true);
         } else {
-            String maSP = sanPhamBUS.getMaSPMax();
+            int maSP = sanPhamBUS.getMaSPMax() + 1; // cộng 1 để lấy maSP tự động kế tiếp
+            String maSPtext = FormatMaSP(maSP); // chuyển mã SP về định dạng SPxx
             int rowCount = modelSanPham.getRowCount();
             int STT = rowCount + 1;
-            ChiTietSanPham ctsp = new ChiTietSanPham(STT, maSP);
+            ChiTietSanPham ctsp = new ChiTietSanPham(STT, maSPtext);
             ctsp.setVisible(true);
         }
     }//GEN-LAST:event_btnThemActionPerformed
@@ -634,34 +612,42 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableSanPham() {
+    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham) {
         modelSanPham.setRowCount(0);
-        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         int STT = 1;
         for (SanPhamDTO sanPham : listSanPham) {
-            String maSanPham = sanPham.getMaSP();
-            String maTheLoai = sanPham.getMaTL();
+            int maSP = sanPham.getMaSP();
+            String maSPtext = FormatMaSP(maSP);
+            String tenTL = sanPham.getTenTL();
             String tenSanPham = sanPham.getTenSP();
             String tenTacGia = sanPham.getTacGia();
 //            int namXuatBan = sanPham.getNamXB();
             int soLuong = sanPham.getSoLuong();
             double donGia = sanPham.getDonGia();
-            Object[] row = {STT++, maSanPham, tenSanPham, tenTacGia, maTheLoai, soLuong, donGia};
+            Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, donGia};
             modelSanPham.addRow(row);
         }
     }
 
-    public void loadTableTheLoai() {
+    public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai) {
         //  Load data lên bảng 
         modelTheLoai.setRowCount(0);
-        ArrayList<TheLoaiDTO> arr = theloaBUS.getAll();
         int STT = 1;
-        for (TheLoaiDTO theloai : arr) {
-            String maTheLoai = theloai.getMaTL();
+        for (TheLoaiDTO theloai : listTheLoai) {
+            int maTL = theloai.getMaTL();
+            String maTLtext = FormatMaTL(maTL);
             String tenTheLoai = theloai.getTenTL();
-            Object[] row = {STT++, maTheLoai, tenTheLoai};
+            Object[] row = {STT++, maTLtext, tenTheLoai};
             modelTheLoai.addRow(row);
         }
+    }
+
+    public String FormatMaTL(int MaTL) {
+        return String.format("TL%02d", MaTL);
+    }
+
+    public String FormatMaSP(int MaSP) {
+        return String.format("SP%02d", MaSP);
     }
 
     public JTable createTableTheLoai() {
@@ -690,23 +676,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
-    }
-
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);
         textField.setFont(customFont);
@@ -719,35 +688,12 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
-    private void findTheLoaiByMaTL() {
-        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
-        String maTL = txtTimKiem.getText();
-        if (maTL.isEmpty()) {
-            // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
-            TheLoaiDTO theLoai = theloaBUS.findTheLoaiByMaTL(maTL);
-            if (theLoai != null) {
-                // Xóa tất cả dòng hiện có trong bảng
-                modelTheLoai.setRowCount(0);
-                // Thêm kết quả tìm kiếm vào bảng            
-                Object[] row = {1, theLoai.getMaTL(), theLoai.getTenTL()};
-
-                modelTheLoai.addRow(row);
-            } else {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-
+    public static void addTheLoaiTable(TheLoaiDTO tl, int STT, String maTL) {
+        modelTheLoai.addRow(new Object[]{STT, maTL, tl.getTenTL()});
     }
 
-    public static void addTheLoaiTable(TheLoaiDTO tl, int STT) {
-        modelTheLoai.addRow(new Object[]{STT, tl.getMaTL(), tl.getTenTL()});
-    }
-
-    public static void addSanPhamTable(SanPhamDTO sp, int STT, String tenTL) {
-        modelSanPham.addRow(new Object[]{STT, sp.getMaSP(), sp.getTenSP(), sp.getTacGia(), tenTL, sp.getSoLuong(), sp.getDonGia()});
+    public static void addSanPhamTable(SanPhamDTO sp, int STT, String tenTL, String maSP) {
+        modelSanPham.addRow(new Object[]{STT, maSP, sp.getTenSP(), sp.getTacGia(), tenTL, sp.getSoLuong(), sp.getDonGia()});
     }
 
     public static void updateSanPhamTable(SanPhamDTO sp, int STT, String tenTL) {
@@ -796,7 +742,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 // Lấy mã thể loại từ dòng được chọn trong bảng
                 String maSP = (String) modelSanPham.getValueAt(selectedRowIndex, 1);
                 int maSpNumber = Integer.parseInt(maSP.substring(2));
-                System.out.println(maSpNumber);
                 // Gọi lớp BUS để xóa thể loại dựa trên mã thể loại
                 if (sanPhamBUS.deleteSanPhamByMaSP(maSpNumber)) {
                     // Xóa dòng khỏi bảng
@@ -815,7 +760,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
     }
 
-    private void findTheLoaiByTenTL() {
+    private void findTheLoaiByMaTL_or_TenTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
         if (maTL.isEmpty()) {
@@ -823,17 +768,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên thể loại cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
-            ArrayList<TheLoaiDTO> theLoai = theloaBUS.findTheLoaiByTenTL(maTL);
-            if (!theLoai.isEmpty()) {
-                // Xóa tất cả dòng hiện có trong bảng
-                modelTheLoai.setRowCount(0);
-                // Thêm kết quả tìm kiếm vào bảng     
-                int stt = 1;
-                for (TheLoaiDTO tl : theLoai) {
-                    Object[] row = {stt++, tl.getMaTL(), tl.getTenTL()};
-                    modelTheLoai.addRow(row);
-                }
-
+            ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.findTheLoaiByMaTL_or_TenTL(maTL);
+            if (!listTheLoai.isEmpty()) {
+                loadTableTheLoai(listTheLoai);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -841,7 +778,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
-    private void findSanPhamByTenSPandMaSP() {
+    private void findSanPhamByTenSP_or_MaSP() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maSP = txtTimKiem.getText();
         if (maSP.isEmpty()) {
@@ -849,16 +786,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
-            ArrayList<SanPhamDTO> sanPham = sanPhamBUS.findSPByTenSP(maSP);
-            if (!sanPham.isEmpty()) {
-                // Xóa tất cả dòng hiện có trong bảng
-                modelSanPham.setRowCount(0);
-                // Thêm kết quả tìm kiếm vào bảng     
-                int stt = 1;
-                for (SanPhamDTO sp : sanPham) {
-                    Object[] row = {stt++, sp.getMaSP(), sp.getTenSP(), sp.getTacGia(), sp.getMaTL(), sp.getSoLuong(), sp.getDonGia()};
-                    modelSanPham.addRow(row);
-                }
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(maSP);
+            if (!listSanPham.isEmpty()) {
+                loadTableSanPham(listSanPham);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

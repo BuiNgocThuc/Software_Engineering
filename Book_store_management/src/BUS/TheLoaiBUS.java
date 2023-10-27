@@ -27,7 +27,7 @@ public class TheLoaiBUS {
     }
 
     // 
-    public String getMaTheLoaiMax() {
+    public int getMaTheLoaiMax() {
         return theLoaiDAO.getMaTheLoaiMax();
     }
 
@@ -35,8 +35,8 @@ public class TheLoaiBUS {
         return theLoaiDAO.findTheLoaiByMaTL(maTL);
     }
 
-    public ArrayList<TheLoaiDTO> findTheLoaiByTenTL(String tenTL) {
-        return theLoaiDAO.findTheLoaiByTenTL(tenTL);
+    public ArrayList<TheLoaiDTO> findTheLoaiByMaTL_or_TenTL(String tenTL) {
+        return theLoaiDAO.findTheLoaiByMaTL_or_TenTL(tenTL);
     }
 
     public boolean deleteTheLoaiByMaTL(int maTL) {

@@ -12,34 +12,35 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author ASUS
  */
-public class ChiTietTheLoai extends  DraggableFrame {
+public class ChiTietTheLoai extends DraggableFrame {
 
     /**
      * Creates new form ChiTietChucNang
      */
     private int mouseX, mouseY;
     private int STT = -1;
-    private String MaTL, TenTL;
+    private int MaTL = -1;
+    private String TenTL;
 
+    // dùng khi sửa thể loại
     public ChiTietTheLoai(int STT, String MaTL, String TenTL) {
         initComponents();
         moveFrame();
         this.STT = STT;
-        this.MaTL = MaTL;
+        this.MaTL = Integer.parseInt(MaTL.substring(2));
         this.TenTL = TenTL;
         txtID.setText(MaTL);
         txtName.setText(TenTL);
     }
 
+    // dùng khi thêm thể loại
     public ChiTietTheLoai(int STT, String MaTL) {
         initComponents();
         moveFrame();
-        this.MaTL = MaTL;
         this.STT = STT;
         txtID.setText(MaTL);
     }
@@ -243,7 +244,7 @@ public class ChiTietTheLoai extends  DraggableFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-        if (STT != -1 && MaTL != null && TenTL != null) {
+        if (STT != -1 && MaTL != -1 && TenTL != null) {
             // Xử lý khi có cả ba tham số
             SuaTheLoai();
         } else {
@@ -266,22 +267,18 @@ public class ChiTietTheLoai extends  DraggableFrame {
     }//GEN-LAST:event_txtNameActionPerformed
     private void SuaTheLoai() {
         TenTL = txtName.getText();
-        MaTL = txtID.getText();
-
         if (!TenTL.isEmpty()) {
-             int maTLNumber = Integer.parseInt(MaTL.substring(2));
-             MaTL = String.valueOf(maTLNumber);
-            TheLoaiDTO tl = new TheLoaiDTO(MaTL, TenTL,true);
+            TheLoaiDTO tl = new TheLoaiDTO(MaTL, TenTL, true);
             TheLoaiBUS theLoaiBUS = new TheLoaiBUS();
             boolean result = theLoaiBUS.updateTheLoai(tl);
 
             if (result) {
                 // Cập nhật tên thể loại tại chỉ mục selectedRow
                 SanPhamGUI.updateTheLoaiTable(tl, STT);
-                   // Đóng frame ChiTietTheLoai
-                  dispose();
-                JOptionPane.showMessageDialog(this, "Đã sửa thành công","Lỗi",JOptionPane.INFORMATION_MESSAGE);
-            
+                // Đóng frame ChiTietTheLoai
+                dispose();
+                JOptionPane.showMessageDialog(this, "Đã sửa thành công", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
+
             } else {
                 JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
@@ -292,15 +289,15 @@ public class ChiTietTheLoai extends  DraggableFrame {
 
     private void ThemTheLoai() {
         TenTL = txtName.getText();
-        MaTL = txtID.getText();
+        String maTL = txtID.getText();
         if (!TenTL.isEmpty()) {
-            TheLoaiDTO tl = new TheLoaiDTO(MaTL, TenTL, true);
+            TheLoaiDTO tl = new TheLoaiDTO(TenTL, true);
             TheLoaiBUS theLoaiBUS = new TheLoaiBUS();
             boolean result = theLoaiBUS.addTheLoai(tl);
             if (result) {
                 // Thêm thể loại vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
-                SanPhamGUI.addTheLoaiTable(tl, STT);
+                SanPhamGUI.addTheLoaiTable(tl, STT,maTL);
                 dispose();
                 JOptionPane.showMessageDialog(this, "Thêm thể loại thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 // Nếu muốn làm gì đó sau khi thêm thành công, bạn có thể thực hiện ở đây
@@ -379,7 +376,7 @@ public class ChiTietTheLoai extends  DraggableFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-             
+
             }
         });
     }

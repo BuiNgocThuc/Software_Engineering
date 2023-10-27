@@ -31,8 +31,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
      * Creates new form ChiTietChucNang
      */
     private int mouseX, mouseY;
-    private int STT = -1, soLuong = 0, namXB = 0;
-    private String maSP, tenSP, tenTacGia, theLoai;
+    private int STT = -1, maSP = -1, soLuong = 0, namXB = 0;
+    private String tenSP, tenTacGia, theLoai;
     private double donGia = 0;
     private byte[] hinhAnh = null;
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
@@ -46,9 +46,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     public ChiTietSanPham(int STT, String maSP, String tenSP, String tacGia, String theloai, int soLuong, double donGia) { // sử dụng khi sửa sản phẩm
         initComponents();
         moveFrame();
-
         this.STT = STT;
-        this.maSP = maSP;
+        this.maSP =  Integer.parseInt(maSP.substring(2));
         this.tenSP = tenSP;
         this.tenTacGia = tacGia;
         this.theLoai = theloai;
@@ -62,7 +61,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         listTheLoai.addItem(theLoai);
-
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
         for (TheLoaiDTO tl : theLoaiList) {
             if (!tl.getTenTL().equals(theLoai)) {
@@ -70,10 +68,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             }
         }
         AutoCompleteDecorator.decorate(listTheLoai);
-        int maSPNumber = Integer.parseInt(maSP.substring(2));
-        String maSP1 = String.valueOf(maSPNumber);
         // Lấy đối tượng SanPhamDTO từ SanPhamBUS
-        SanPhamDTO sp = sanPhamBUS.getHinhAnhandNamXB(maSP1);
+        SanPhamDTO sp = sanPhamBUS.getHinhAnhandNamXB(this.maSP);
         namXB = sp.getNamXB();
         txtNamXB.setText(String.valueOf(namXB));
         // Lấy hình ảnh từ SanPhamDTO
@@ -101,19 +97,16 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         initComponents();
         moveFrame();
         this.STT = STT;
-        this.maSP = maSP;
         txtID.setText(maSP); // gán mã sản phẩm tự động
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
         for (TheLoaiDTO tl : theLoaiList) {
             listTheLoai.addItem(tl.getTenTL());  // gán danh sách thể loại tự động
-        } 
-        AutoCompleteDecorator.decorate (listTheLoai);
-        
-    }
+        }
+        AutoCompleteDecorator.decorate(listTheLoai);
 
-   
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -486,7 +479,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-        if (tenSP == null) {
+        if (maSP==-1) {
             ThemSanPham();
         } else {
             SuaSanPham();
@@ -560,7 +553,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     }
 
     private void ThemSanPham() {
-        maSP = txtID.getText();
+        String MaSP = txtID.getText();
         tenSP = txtTenSP.getText();
         // Lấy giá trị được chọn từ JComboBox
         Object selectedItem = listTheLoai.getSelectedItem();
@@ -570,15 +563,15 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         namXB = Integer.parseInt(txtNamXB.getText());
         soLuong = Integer.parseInt(txtSoLuong.getText());
         donGia = Double.parseDouble(txtDonGia.getText());
-        String maTL = String.valueOf(theLoaiBUS.getMaTLbyTenTL(tenTL));
+        int maTL = theLoaiBUS.getMaTLbyTenTL(tenTL);
 
         if (!tenSP.isEmpty()) {
-            SanPhamDTO sp = new SanPhamDTO(maSP, maTL, tenSP, hinhAnh, tenTacGia, true, donGia, soLuong, namXB);
+            SanPhamDTO sp = new SanPhamDTO(maTL, tenSP, tenTacGia, rootPaneCheckingEnabled, donGia, soLuong, namXB, hinhAnh);
             boolean result = sanPhamBUS.addSanPham(sp);
             if (result) {
                 // Thêm thể loại vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
-                SanPhamGUI.addSanPhamTable(sp, STT, tenTL);
+                SanPhamGUI.addSanPhamTable(sp, STT, tenTL,MaSP);
                 dispose();
                 JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -590,7 +583,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     }
 
     public void SuaSanPham() {
-        maSP = txtID.getText();
         tenSP = txtTenSP.getText();
         // Lấy giá trị được chọn từ JComboBox
         Object selectedItem = listTheLoai.getSelectedItem();
@@ -600,13 +592,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         namXB = Integer.parseInt(txtNamXB.getText());
         soLuong = Integer.parseInt(txtSoLuong.getText());
         donGia = Double.parseDouble(txtDonGia.getText());
-        String maTL = String.valueOf(theLoaiBUS.getMaTLbyTenTL(theLoai));
-        System.out.println(maTL);
+        int maTL = theLoaiBUS.getMaTLbyTenTL(theLoai);
         if (!tenSP.isEmpty()) {
-            int maSPNumber = Integer.parseInt(maSP.substring(2));
-            maSP = String.valueOf(maSPNumber);
             System.out.println(maSP);
-            SanPhamDTO sp = new SanPhamDTO(maSP, maTL, tenSP, hinhAnh, tenTacGia, true, donGia, soLuong, namXB);
+            SanPhamDTO sp = new SanPhamDTO(maSP, maTL, tenSP, tenTacGia, rootPaneCheckingEnabled, donGia, soLuong, namXB);
             boolean result = sanPhamBUS.updateSanPham(sp);
             if (result) {
                 // Thêm sản phẩm vào bảng

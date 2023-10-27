@@ -24,11 +24,11 @@ public class SanPhamBUS {
         return sanPhamDAO.selectAll();
     }
 
-    public String getMaSPMax() {
+    public int getMaSPMax() {
         return sanPhamDAO.getMaSPMax();
     }
 
-    public SanPhamDTO getHinhAnhandNamXB(String maSP) {
+    public SanPhamDTO getHinhAnhandNamXB(int maSP) {
         return sanPhamDAO.getHinhAnhandNamXB(maSP);
     }
 

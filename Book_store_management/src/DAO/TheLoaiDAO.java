@@ -29,7 +29,7 @@ public class TheLoaiDAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String maTL = String.format("TL%02d", rs.getInt("MaTL"));
+                int maTL = rs.getInt("MaTL");
                 String tenTL = rs.getString("TenTL");
                 boolean tinhTrang = rs.getBoolean("TinhTrang");
 
@@ -52,7 +52,7 @@ public class TheLoaiDAO {
             stmt.setString(1, temp);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                String maTheLoai = String.format("TL%02d", resultSet.getInt("MaTL"));
+                int maTheLoai = resultSet.getInt("MaTL");
                 String tenTheLoai = resultSet.getString("TenTL");
                 Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
                 return new TheLoaiDTO(maTheLoai, tenTheLoai, tinhTrang);
@@ -63,7 +63,7 @@ public class TheLoaiDAO {
     }
 
     // Tìm thể loại dựa trên tên thể loại
-    public ArrayList<TheLoaiDTO> findTheLoaiByTenTL(String tenTL) {
+    public ArrayList<TheLoaiDTO> findTheLoaiByMaTL_or_TenTL(String tenTL) {
         ArrayList<TheLoaiDTO> theLoaiList = new ArrayList<>();
         String sql = "SELECT * FROM TheLoai WHERE (TenTL LIKE ? or MATL LIKE ?)and TinhTrang = 1 ";
         try {
@@ -73,7 +73,7 @@ public class TheLoaiDAO {
             stmt.setString(2, "%" + tenTL + "%");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
-                String maTheLoai = String.format("TL%02d", resultSet.getInt("MaTL"));
+                int maTheLoai = resultSet.getInt("MaTL");
                 String tenTheLoai = resultSet.getString("TenTL");
                 Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
                 theLoaiList.add(new TheLoaiDTO(maTheLoai, tenTheLoai, tinhTrang));
@@ -84,19 +84,16 @@ public class TheLoaiDAO {
     }
 
     // Lấy mã thể loại lớn nhất 
-    public String getMaTheLoaiMax() {
-        String maTL = "";
+    public int getMaTheLoaiMax() {
+        int maTL = 0;
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
             String sql = "SELECT Max(MaTL) as MaxMaTL FROM TheLoai";
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                int maxMaTL = rs.getInt("MaxMaTL");
-                maTL = String.format("TL%02d", maxMaTL + 1);
-            } else {
-                maTL = "TL01"; // Bảng thể loại chưa có dữ liệu
-            }
+                maTL = rs.getInt("MaxMaTL");
+            } 
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,7 +125,7 @@ public class TheLoaiDAO {
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, tl.getTenTL());
             pst.setBoolean(2, tl.getTinhTrang());
-            pst.setString(3, tl.getMaTL());
+            pst.setInt(3, tl.getMaTL());
             rowUpdate = pst.executeUpdate() > 0;
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
@@ -141,7 +138,7 @@ public class TheLoaiDAO {
         boolean rowDelete = false;
         try {
             Connection conn = ConnectDB.getConnection();
-           String sql = "UPDATE TheLoai SET TinhTrang=? WHERE MaTL=?";
+            String sql = "UPDATE TheLoai SET TinhTrang=? WHERE MaTL=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setBoolean(1, false);
             pst.setInt(2, maTL);
@@ -152,29 +149,28 @@ public class TheLoaiDAO {
         }
         return rowDelete;
     }
-    
+
     public int getMaTLbyTenTL(String TenTL) {
-    int maTL = -1; // Gán một giá trị mặc định nếu không tìm thấy
+        int maTL = -1; // Gán một giá trị mặc định nếu không tìm thấy
 
-    try {
-        System.out.println(TenTL);
-        Connection conn = ConnectDB.getConnection();
-        String sql = "SELECT MaTL FROM TheLoai WHERE TenTL = ?";
-        PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, TenTL);
+        try {
+            System.out.println(TenTL);
+            Connection conn = ConnectDB.getConnection();
+            String sql = "SELECT MaTL FROM TheLoai WHERE TenTL = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, TenTL);
+            ResultSet rs = stmt.executeQuery();
 
-        ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                maTL = rs.getInt("MaTL");
+            }
 
-        if (rs.next()) {
-            maTL = rs.getInt("MaTL");
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        ConnectDB.closeConnection(conn);
-    } catch (SQLException e) {
-        e.printStackTrace();
+        return maTL;
     }
-    return maTL;
-}
 
 //    public static void main(String[] args) {
 //        // Tạo một đối tượng TheLoaiDAO

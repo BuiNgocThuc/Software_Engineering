@@ -4,8 +4,6 @@
  */
 package GUI;
 
-import static GUI.SanPhamGUI.EditHeaderTable;
-import static GUI.SanPhamGUI.editTableContent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

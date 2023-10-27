@@ -8,22 +8,18 @@ import BUS.SanPhamBUS;
 import BUS.TheLoaiBUS;
 import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -39,7 +35,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private static JTable tableTheLoai;
     private static DefaultTableModel modelTheLoai;
     private static DefaultTableModel modelSanPham;
-
+    private Color currentBackgroundColor;
+    private final Color targetColor = new Color(229, 231, 230);
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     TheLoaiBUS theloaBUS = new TheLoaiBUS();
 
@@ -63,6 +60,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
+
+        // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
+        currentBackgroundColor = lblTheLoai.getBackground();
+
     }
 
     /**
@@ -370,9 +371,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
 
-        Color currentBackgroundColor = lblTheLoai.getBackground();
-        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
-        Color targetColor = new Color(229, 231, 230);
+        currentBackgroundColor = lblTheLoai.getBackground();
+
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
             findTheLoaiByMaTL_or_TenTL();
@@ -383,9 +383,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        Color currentBackgroundColor = lblTheLoai.getBackground();
-        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
-        Color targetColor = new Color(229, 231, 230);
+        currentBackgroundColor = lblTheLoai.getBackground();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
             int maTL = theloaBUS.getMaTheLoaiMax() + 1;  // cộng 1 để ra được maTL kế tiếp 
@@ -406,9 +404,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        Color currentBackgroundColor = lblTheLoai.getBackground();
-        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
-        Color targetColor = new Color(229, 231, 230);
+        currentBackgroundColor = lblTheLoai.getBackground();
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm         
         if (currentBackgroundColor.equals(targetColor)) {
             int selectedRow = tableTheLoai.getSelectedRow();
             if (selectedRow >= 0) {
@@ -514,9 +511,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        Color currentBackgroundColor = lblTheLoai.getBackground();
-        // Tạo một màu mới với giá trị RGB  ( 229, 231, 230)
-        Color targetColor = new Color(229, 231, 230);
+        currentBackgroundColor = lblTheLoai.getBackground();
         if (currentBackgroundColor.equals(targetColor)) {
             XoaTheLoai();
         } else {
@@ -527,59 +522,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Segoe UI", Font.BOLD, 16); // Điều chỉnh font và cỡ chữ
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                    label.setFont(headerFont);
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-        // Đặt renderer tùy chỉnh cho header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-
-    public static void editTableContent(JTable table) {
-        // Đặt độ cao cho từng dòng (trừ header)
-        int rowHeight = 30;
-        table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(153, 184, 224));
-        table.setShowGrid(true);
-        table.setBackground(Color.WHITE);
-        table.setSelectionBackground(Color.WHITE);
-        table.setSelectionForeground(new Color(253, 191, 84));
-        table.setFocusable(false);
-        table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Font font = new Font("Segoe UI", Font.PLAIN, 16);
-        table.setFont(font);
-        // Căn giữa nội dung trong các ô chữ
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < table.getColumnCount(); i++) {
-            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        }
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
-        // Vô hiệu hóa kéo cột
-        table.getTableHeader().setReorderingAllowed(false);
-        // Vô hiệu hóa kéo dãng cột
-        table.getTableHeader().setResizingAllowed(false);
-    }
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
@@ -596,6 +538,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         };
         modelSanPham.setColumnIdentifiers(columnNames);
+
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(modelSanPham);
         TableColumnModel columnModel = table.getColumnModel();
@@ -607,8 +550,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(120); // Độ rộng cột 5
         columnModel.getColumn(6).setPreferredWidth(120); // Độ rộng cột 6
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 
@@ -621,12 +564,37 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             String tenTL = sanPham.getTenTL();
             String tenSanPham = sanPham.getTenSP();
             String tenTacGia = sanPham.getTacGia();
-//            int namXuatBan = sanPham.getNamXB();
             int soLuong = sanPham.getSoLuong();
             double donGia = sanPham.getDonGia();
             Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, donGia};
             modelSanPham.addRow(row);
         }
+    }
+
+    public JTable createTableTheLoai() {
+        // Tiêu đề của các cột
+        String[] columnNames = {"STT", "ID Thể loại", "Tên thể loại"};
+        // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
+        modelTheLoai = new DefaultTableModel() {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                if (columnIndex == 0) { // Cột STT 
+                    return Integer.class; // Kiểu dữ liệu Integer
+                }
+                return String.class; // Các cột khác có kiểu dữ liệu String
+            }
+        };
+        modelTheLoai.setColumnIdentifiers(columnNames);
+
+        // Tạo JTable với DefaultTableModel
+        JTable table = new JTable(modelTheLoai);
+        TableColumnModel columnModel = table.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(729); // Độ rộng cột 2
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
+        return table;
     }
 
     public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai) {
@@ -648,32 +616,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     public String FormatMaSP(int MaSP) {
         return String.format("SP%02d", MaSP);
-    }
-
-    public JTable createTableTheLoai() {
-        // Tiêu đề của các cột
-        String[] columnNames = {"STT", "ID Thể loại", "Tên thể loại"};
-        // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
-        modelTheLoai = new DefaultTableModel() {
-            @Override
-            public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0) { // Cột STT 
-                    return Integer.class; // Kiểu dữ liệu Integer
-                }
-                return String.class; // Các cột khác có kiểu dữ liệu String
-            }
-        };
-        modelTheLoai.setColumnIdentifiers(columnNames);
-
-        // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(modelTheLoai);
-        EditHeaderTable(table);
-        editTableContent(table);
-        TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(729); // Độ rộng cột 2
-        return table;
     }
 
     private void addPlaceholderStyle(JTextField textField, String name) {

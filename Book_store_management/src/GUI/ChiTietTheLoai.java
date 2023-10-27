@@ -5,7 +5,6 @@
 package GUI;
 
 import BUS.TheLoaiBUS;
-import Components.DraggableFrame;
 import DTO.TheLoaiDTO;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -16,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class ChiTietTheLoai extends DraggableFrame {
+public class ChiTietTheLoai extends  javax.swing.JFrame {
 
     /**
      * Creates new form ChiTietChucNang
@@ -78,7 +77,7 @@ public class ChiTietTheLoai extends DraggableFrame {
         lblID.setText("ID Thể loại");
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
-        lblThongTinChiTiet.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        lblThongTinChiTiet.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
         lblThongTinChiTiet.setForeground(new java.awt.Color(238, 242, 250));
         lblThongTinChiTiet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setText("Thông tin chi tiết");

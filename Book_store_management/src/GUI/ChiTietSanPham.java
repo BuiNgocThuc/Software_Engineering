@@ -8,6 +8,7 @@ import BUS.SanPhamBUS;
 import BUS.TheLoaiBUS;
 import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
+import Util.sharedFunction;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -40,12 +41,13 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     public ChiTietSanPham() {
         initComponents();
+         sharedFunction.moveLayout(this, PannelOverview);
         AutoCompleteDecorator.decorate(listTheLoai);
     }
 
     public ChiTietSanPham(int STT, String maSP, String tenSP, String tacGia, String theloai, int soLuong, double donGia) { // sử dụng khi sửa sản phẩm
         initComponents();
-        moveFrame();
+        sharedFunction.moveLayout(this, PannelOverview);
         this.STT = STT;
         this.maSP =  Integer.parseInt(maSP.substring(2));
         this.tenSP = tenSP;
@@ -403,7 +405,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
                         .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         PannelOverviewLayout.setVerticalGroup(
             PannelOverviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -422,25 +424,22 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         );
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
-        lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblThongTinChiTiet.setForeground(new java.awt.Color(238, 242, 250));
+        lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblThongTinChiTiet.setForeground(new java.awt.Color(255, 255, 255));
         lblThongTinChiTiet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setText("Thông tin chi tiết");
-        lblThongTinChiTiet.setAutoscrolls(true);
-        lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        lblThongTinChiTiet.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(PannelOverview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PannelOverview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(PannelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );

@@ -5,7 +5,6 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
-import Components.Jpanel;
 import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.Cursor;

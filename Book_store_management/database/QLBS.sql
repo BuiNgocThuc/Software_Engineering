@@ -11,7 +11,7 @@ CREATE TABLE [TaiKhoan] (
 )
 GO
 
-CREATE TABLE TheLoai (
+CREATE TABLE [TheLoai] (
   [MaTL] int IDENTITY(1,1) Primary key,
   [TenTL] nvarchar(50) DEFAULT (NULL),
   [TinhTrang] BIT 
@@ -23,7 +23,6 @@ CREATE TABLE [HoaDon] (
   [TenTK] nvarchar(20) DEFAULT (NULL),
   [NgayTao] date DEFAULT (NULL),
   [TongTien] float DEFAULT (NULL),
-  [TinhTrang] BIT
 )
 GO
 
@@ -197,8 +196,8 @@ VALUES
 (6, 5, 230.00, 1),
 (7, 6, 180.00, 1),
 (8, 7, 480.00, 1),
-(9, 8, 210.00, 1);
-
+(9, 8, 210.00, 1),
+(10, 9, 500.00, 1);
 
 INSERT INTO PhieuNhap(MaNCC, TenTK, NgayTao, TongTien, TinhTrang)
 VALUES
@@ -221,58 +220,60 @@ VALUES
 (15, 3, 180.00, 20),
 (8, 4, 200.00, 10),
 (9, 5, 350.00, 10),
-(13, 6, 180.00, 30),
-(12, 7, 140.00, 20),
-(11, 8, 180.00, 10),
-(10, 9, 160.00, 20);
+(22, 6, 180.00, 30),
+(26, 7, 140.00, 20),
+(31, 8, 180.00, 10),
+(41, 9, 160.00, 20);
 
-INSERT INTO SanPham(MaTL, TenSP, DonGia, SoLuong, TacGia, NamXB, TinhTrang)
+INSERT INTO SanPham(MaTL, TenSP, HinhAnh, DonGia, SoLuong, TacGia, NamXB, TinhTrang)
 VALUES
-(1, N'To Kill a Mockingbird', 140.00, 50, N'Harper Lee', 1960, 1),
-(1, N'1984',  340.00, 40, N'George Orwell', 1949, 1),
-(1, N'Pride and Prejudice', 130.00, 60, N'Jane Austen', 1984, 1),
-(1, N'The Great Gatsby', 310.00, 30, N'F. Scott Fitzgerald', 1999, 0),
-(1, N'Harry Potter and the Philosophers Stone', 230.00, 70, N'J.K. Rowling', 1997, 1),
-(2, N'Dune',  180.00, 45, N'Frank Herbert', 1965, 1),
-(2, N'The Hitchhikers Guide to the Galaxy', 480.00, 55, N'Douglas Adams', 1980,0),
-(2, N'Enders Game',  210.00, 38, N'Orson Scott Card', 1985, 1),
-(2, N'Brave New World', 500.00, 48, N'Aldous Huxley', 1932, 1),
-(2, N'Neuromancer', 310.00, 42, N'William Gibson', 1984, 0),
-(3, N'The Da Vinci Code', 340.00, 50, N'Dan Brown', 2000, 1),
-(3, N'Gone Girl', 340.00, 40, N'Gillian Flynn', 2012, 1),
-(3, N'The Girl with the Dragon Tattoo',230.00, 60, N'Stieg Larsson', 2004, 1),
-(3, N'The Hound of the Baskervilles',370.00, 30, N'Arthur Conan Doyle', 1939, 0),
-(3, N'The Secret History',230.00, 70, N'Donna Tartt', 1992, 1),
-(4, N'A Peoples History of the United States', 180.00, 45, N'Howard Zinn', 1980, 1),
-(4, N'Guns, Germs, and Steel', 480.00, 55, N'Jared Diamond', 1997, 0),
-(4, N'The Diary of a Young Girl', 210.00, 38, N'Anne Frank', 1947, 1),
-(4, N'The Guns of August', 500.00, 48, N'Barbara W. Tuchman', 1962, 1),
-(4, N'The Rise and Fall of the Third Reich', 310.00, 42, N'William L. Shirer', 1960, 1),
-(5, N'The Poet', 230.00, 70, N'Michael Connelly', 1996, 0),
-(5, N'The Cuckoos Calling', 180.00, 45, N'Robert Galbraith', 1988, 1),
-(5, N'The Silence of the Lambs',480.00, 55, N'Thomas Harris', 1980, 0),
-(5, N'In the Woods', 210.00, 38, N'Tana French', 2007, 1),
-(5, N'The Secret History', 500.00, 48, N'Donna Tartt', 1992, 1),
-(6, N'A Brief History of Time', 140.00, 50, N'Stephen Hawking', 1988, 1),
-(6, N'The Selfish Gene',340.00, 40, N'Richard Dawkins', 1976, 1),
-(6, N'Sapiens: A Brief History of Humankind', 130.00, 60, N'Yuval Noah Harari', 2011, 1),
-(6, N'The Origin of Species',310.00, 30, N'Charles Darwin', 1859, 0),
-(6, N'The Double Helix',230.00, 70, N'James D. Watson', 1968, 1),
-(7, N'The Alchemist',180.00, 45, N'Paulo Coelho', 1988, 1),
-(7, N'The Power of Now', 480.00, 55, N'Eckhart Tolle', 1997, 0),
-(7, N'The Celestine Prophecy', 210.00, 38, N'James Redfield', 1993, 1),
-(7, N'Mere Christianity',  500.00, 48, N'C.S. Lewis ', 1952, 1),
-(7, N'The Tao of Pooh', 310.00, 42, N'Benjamin Hoff', 1982, 0),
-(8, N'Daring Greatly', 340.00, 50, N'Brené Brown', 2012, 1),
-(8, N'Girl, Wash Your Face',340.00, 40, N'Rachel Hollis', 2018, 1),
-(8, N'The Power of Now', 230.00, 60, N'Eckhart Tolle', 1997, 1),
-(8, N'The Four Agreements', 370.00, 30, N'Don Miguel Ruiz', 1997, 0),
-(8, N'Start with Why',230.00, 70, N'Simon Sinek', 2009, 1),
-(9, N'The Notebook',180.00, 45, N'Nicholas Sparks', 1996, 1),
-(9, N'Outlander', 480.00, 55, N'Diana Gabaldon', 1991, 0),
-(9, N'The Rosie Project', 210.00, 38, N'Graeme Simsion', 2013, 1),
-(9, N'The Fault in Our Stars', 500.00, 48, N'John Green', 2012, 1),
-(9, N'Me Before You', 310.00, 42, N'Jojo Moyes', 2012, 1);
+(1, N'To Kill a Mockingbird', N'sp01.jpg', 140.00, 50, N'Harper Lee', 1960, 1),
+(1, N'1984', N'sp02.jpg', 340.00, 40, N'George Orwell', 1949, 1),
+(1, N'Pride and Prejudice', N'sp03.jpg', 130.00, 60, N'Jane Austen', 1984, 1),
+(1, N'The Great Gatsby', N'sp04.jpg', 310.00, 30, N'F. Scott Fitzgerald', 1999, 0),
+(1, N'Harry Potter and the Philosophers Stone', N'sp05.jpg', 230.00, 70, N'J.K. Rowling', 1997, 1),
+(2, N'Dune', N'sp06.jpg', 180.00, 45, N'Frank Herbert', 1965, 1),
+(2, N'The Hitchhikers Guide to the Galaxy', N'sp07.jpg', 480.00, 55, N'Douglas Adams', 1980,0),
+(2, N'Enders Game', N'sp08.jpg', 210.00, 38, N'Orson Scott Card', 1985, 1),
+(2, N'Brave New World', N'sp09.jpg', 500.00, 48, N'Aldous Huxley', 1932, 1),
+(2, N'Neuromancer', N'sp10.jpg', 310.00, 42, N'William Gibson', 1984, 0),
+(3, N'The Da Vinci Code', N'sp11.jpg', 340.00, 50, N'Dan Brown', 2000, 1),
+(3, N'Gone Girl', N'sp12.jpg', 340.00, 40, N'Gillian Flynn', 2012, 1),
+(3, N'The Girl with the Dragon Tattoo', N'sp13.jpg', 230.00, 60, N'Stieg Larsson', 2004, 1),
+(3, N'The Hound of the Baskervilles', N'sp14.jpg', 370.00, 30, N'Arthur Conan Doyle', 1939, 0),
+(3, N'The Secret History', N'sp15.jpg', 230.00, 70, N'Donna Tartt', 1992, 1),
+(4, N'A Peoples History of the United States', N'sp16.jpg', 180.00, 45, N'Howard Zinn', 1980, 1),
+(4, N'Guns, Germs, and Steel', N'sp17.jpg', 480.00, 55, N'Jared Diamond', 1997, 0),
+(4, N'The Diary of a Young Girl', N'sp18.jpg', 210.00, 38, N'Anne Frank', 1947, 1),
+(4, N'The Guns of August', N'sp19.jpg', 500.00, 48, N'Barbara W. Tuchman', 1962, 1),
+(4, N'The Rise and Fall of the Third Reich', N'sp20.jpg', 310.00, 42, N'William L. Shirer', 1960, 1),
+(5, N'The Poet', N'sp21.jpg', 230.00, 70, N'Michael Connelly', 1996, 0),
+(5, N'The Cuckoos Calling', N'sp22.jpg', 180.00, 45, N'Robert Galbraith', 1988, 1),
+(5, N'The Silence of the Lambs', N'sp23.jpg', 480.00, 55, N'Thomas Harris', 1980, 0),
+(5, N'In the Woods', N'sp24.jpg', 210.00, 38, N'Tana French', 2007, 1),
+(5, N'The Secret History', N'sp25.jpg', 500.00, 48, N'Donna Tartt', 1992, 1),
+(6, N'A Brief History of Time', N'sp26.jpg', 140.00, 50, N'Stephen Hawking', 1988, 1),
+(6, N'The Selfish Gene', N'sp27.jpg', 340.00, 40, N'Richard Dawkins', 1976, 1),
+(6, N'Sapiens: A Brief History of Humankind', N'sp28.jpg', 130.00, 60, N'Yuval Noah Harari', 2011, 1),
+(6, N'The Origin of Species', N'sp29.jpg', 310.00, 30, N'Charles Darwin', 1859, 0),
+(6, N'The Double Helix', N'sp30.jpg', 230.00, 70, N'James D. Watson', 1968, 1),
+(7, N'The Alchemist', N'sp31.jpg', 180.00, 45, N'Paulo Coelho', 1988, 1),
+(7, N'The Power of Now', N'sp32.jpg', 480.00, 55, N'Eckhart Tolle', 1997, 0),
+(7, N'The Celestine Prophecy', N'sp33.jpg', 210.00, 38, N'James Redfield', 1993, 1),
+(7, N'Mere Christianity', N'sp34.jpg', 500.00, 48, N'C.S. Lewis ', 1952, 1),
+(7, N'The Tao of Pooh', N'sp35.jpg', 310.00, 42, N'Benjamin Hoff', 1982, 0),
+(8, N'Daring Greatly', N'sp36.jpg', 340.00, 50, N'Brené Brown', 2012, 1),
+(8, N'Girl, Wash Your Face', N'sp37.jpg', 340.00, 40, N'Rachel Hollis', 2018, 1),
+(8, N'The Power of Now', N'sp38.jpg', 230.00, 60, N'Eckhart Tolle', 1997, 1),
+(8, N'The Four Agreements', N'sp39.jpg', 370.00, 30, N'Don Miguel Ruiz', 1997, 0),
+(8, N'Start with Why', N'sp40.jpg', 230.00, 70, N'Simon Sinek', 2009, 1),
+(9, N'The Notebook', N'sp41.jpg', 180.00, 45, N'Nicholas Sparks', 1996, 1),
+(9, N'Outlander', N'sp42.jpg', 480.00, 55, N'Diana Gabaldon', 1991, 0),
+(9, N'The Rosie Project', N'43.jpg', 210.00, 38, N'Graeme Simsion', 2013, 1),
+(9, N'The Fault in Our Stars', N'sp44.jpg', 500.00, 48, N'John Green', 2012, 1),
+(9, N'Me Before You', N'sp45.jpg', 310.00, 42, N'Jojo Moyes', 2012, 1);
+
+Delete PhieuNhap
 
 INSERT INTO NhomQuyen(TenNQ, MoTa, TinhTrang)
 VALUES

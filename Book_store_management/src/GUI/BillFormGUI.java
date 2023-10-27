@@ -163,7 +163,7 @@ public class BillFormGUI extends javax.swing.JFrame {
         btnQuaylai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
         btnQuaylai.setText("Quay lại");
         btnQuaylai.setFocusPainted(false);
-        btnQuaylai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnQuaylai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 19)); // NOI18N
         btnQuaylai.setMargin(new java.awt.Insets(2, 0, 3, 0));
         btnQuaylai.setPreferredSize(new java.awt.Dimension(130, 40));
         btnQuaylai.setRadius(40);

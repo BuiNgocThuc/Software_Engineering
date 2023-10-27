@@ -237,6 +237,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         itemChangePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/username.png"))); // NOI18N
         itemChangePass.setText("Đổi mật khẩu");
+        itemChangePass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemChangePassActionPerformed(evt);
+            }
+        });
         puSetting.add(itemChangePass);
 
         itemLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/exit.png"))); // NOI18N
@@ -693,6 +698,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.requestFocusInWindow();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void itemChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemChangePassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemChangePassActionPerformed
 
     /**
      * @param args the command line arguments

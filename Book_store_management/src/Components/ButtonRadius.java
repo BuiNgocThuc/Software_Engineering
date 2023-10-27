@@ -11,6 +11,7 @@ package Components;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -84,7 +85,7 @@ public class ButtonRadius extends JButton {
         setHorizontalAlignment(JButton.CENTER);
         setVerticalAlignment(JButton.CENTER);
         setContentAreaFilled(false);
-
+        
         //  Add event mouse
         addMouseListener(new MouseAdapter() {
             @Override

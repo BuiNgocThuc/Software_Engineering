@@ -430,7 +430,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 int soLuong = (int) tableSanPham.getValueAt(selectedRow, 5);
                 double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
                 // Tạo frame để chỉnh sửa thông tin
-
+System.out.println(maSP);
                 ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, donGia);
                 ctsp.setVisible(true);
             } else {

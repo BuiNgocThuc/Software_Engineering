@@ -32,7 +32,7 @@ public class SanPhamDAO {
                 String TenTL = rs.getString("TenTL");
                 String TenSP = rs.getNString("TenSP");
                 String TacGia = rs.getNString("TacGia");
-                byte[] HinhAnh = rs.getBytes("HinhAnh");
+                String HinhAnh = rs.getString("HinhAnh");
                 double DonGia = rs.getFloat("DonGia");
                 int SoLuong = rs.getInt("SoLuong");
                 int NamXB = rs.getInt("NamXB");
@@ -90,7 +90,7 @@ public class SanPhamDAO {
             pst.setString(1, sp.getTenSP());
             pst.setString(2, sp.getTacGia());
             pst.setInt(3, sp.getMaTL());
-            pst.setBytes(4, sp.getHinhAnh());
+            pst.setString(4, sp.getHinhAnh());
             pst.setInt(5, sp.getSoLuong());
             pst.setInt(6, sp.getNamXB());
             pst.setDouble(7, sp.getDonGia());
@@ -116,7 +116,7 @@ public class SanPhamDAO {
                 int maSanPham = resultSet.getInt("MaSP");
                 String tenSanPham = resultSet.getString("TenSP");
                 String tenTheLoai = resultSet.getString("TenTL");
-                byte[] hinhAnh = resultSet.getBytes("HinhAnh");
+                String hinhAnh = resultSet.getString("HinhAnh");
                 Double donGia = resultSet.getDouble("DonGia");
                 int soLuong = resultSet.getInt("SoLuong");
                 String tacGia = resultSet.getString("TacGia");
@@ -136,11 +136,11 @@ public class SanPhamDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, maSP); 
+            stmt.setInt(1, maSP);
 
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
-                byte[] hinhAnh = resultSet.getBytes("HinhAnh");
+                String hinhAnh = resultSet.getString("HinhAnh");
                 int namXB = resultSet.getInt("NamXB");
                 sp = new SanPhamDTO(hinhAnh, namXB);
             }
@@ -152,26 +152,28 @@ public class SanPhamDAO {
         return sp;
     }
 
-    public boolean Update(SanPhamDTO sp) {
-        boolean rowUpdate = false;
-        try {
-            Connection conn = ConnectDB.getConnection();
-            String sql = "UPDATE SanPham SET TenSP=?, TacGia = ?,NamXB=?,MaTL = ?,SoLuong=?,DonGia=?,TinhTrang=? WHERE MaSP =?";
-            PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, sp.getTenSP());
-            pst.setString(2, sp.getTacGia());
-            pst.setInt(3, sp.getNamXB());
-            pst.setInt(4, sp.getMaTL());
-            pst.setInt(5, sp.getSoLuong());
-            pst.setDouble(6, sp.getDonGia());
-            pst.setBoolean(7, sp.getTinhTrang());
-            pst.setInt(8, sp.getMaSP());
-            rowUpdate = pst.executeUpdate() > 0;
-            ConnectDB.closeConnection(conn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rowUpdate;
+  public boolean Update(SanPhamDTO sp) {
+    boolean rowUpdate = false;
+    try {
+        Connection conn = ConnectDB.getConnection();
+        String sql = "UPDATE SanPham SET TenSP=?, TacGia=?, NamXB=?, MaTL=?, SoLuong=?, DonGia=?, TinhTrang=?, HinhAnh=? WHERE MaSP=?";
+        PreparedStatement pst = conn.prepareStatement(sql);
+        pst.setString(1, sp.getTenSP());
+        pst.setString(2, sp.getTacGia());
+        pst.setInt(3, sp.getNamXB());
+        pst.setInt(4, sp.getMaTL());
+        pst.setInt(5, sp.getSoLuong());
+        pst.setDouble(6, sp.getDonGia());
+        pst.setBoolean(7, sp.getTinhTrang());
+        pst.setString(8, sp.getHinhAnh());
+        pst.setInt(9, sp.getMaSP());
+        rowUpdate = pst.executeUpdate() > 0;
+        ConnectDB.closeConnection(conn);
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
+    return rowUpdate;
+}
+
 
 }

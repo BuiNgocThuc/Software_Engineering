@@ -11,14 +11,14 @@ package DTO;
 public final class SanPhamDTO {
 
     private int MaSP,MaTL;
-    private String TenTL, TenSP, TacGia;
+    private String TenTL, TenSP, TacGia,HinhAnh;
     private boolean TinhTrang;
     private double DonGia;
     private int SoLuong, NamXB;
-    private byte[] HinhAnh;
+   
 
     // dùng để chứa dữ liệu sản phẩm khi truy vấn từ database đổ lên bảng sản phẩm
-    public SanPhamDTO(int MaSP, String TenTL, String TenSP, byte[] HinhAnh, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {     
+    public SanPhamDTO(int MaSP, String TenTL, String TenSP, String HinhAnh, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {     
         this.MaSP = MaSP;
         this.TenTL = TenTL;
         this.TenSP = TenSP;
@@ -30,9 +30,9 @@ public final class SanPhamDTO {
         this.NamXB = NamXB;
     }
 
-    // sử dụng khi cần sửa sản phẩm
-    public SanPhamDTO(int MaSP, int MaTL, String TenSP, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB) {
-        this.MaSP = MaSP;
+
+    // sử dụng khi cần thêm sản phẩm 
+    public SanPhamDTO(int MaTL, String TenSP, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB, String HinhAnh) {
         this.MaTL = MaTL;
         this.TenSP = TenSP;
         this.TacGia = TacGia;
@@ -40,10 +40,11 @@ public final class SanPhamDTO {
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
         this.NamXB = NamXB;
+        this.HinhAnh = HinhAnh;
     }
-
-    // sử dụng khi cần thêm sản phẩm 
-    public SanPhamDTO(int MaTL, String TenSP, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB, byte[] HinhAnh) {
+    // sử dụng khi cần sửa sản phẩm 
+    public SanPhamDTO(int MaSP,int MaTL, String TenSP, String TacGia, boolean TinhTrang, double DonGia, int SoLuong, int NamXB, String HinhAnh) {
+        this.MaSP = MaSP;
         this.MaTL = MaTL;
         this.TenSP = TenSP;
         this.TacGia = TacGia;
@@ -56,7 +57,7 @@ public final class SanPhamDTO {
 
    
     // sử dụng khi cần lấy hình ảnh và năm xuất bản
-    public SanPhamDTO(byte[] HinhAnh, int NamXB) {
+    public SanPhamDTO(String HinhAnh, int NamXB) {
         this.HinhAnh = HinhAnh;
         this.NamXB = NamXB;
     }
@@ -87,11 +88,11 @@ public final class SanPhamDTO {
         this.TenSP = TenSP;
     }
 
-    public byte[] getHinhAnh() {
+    public String getHinhAnh() {
         return HinhAnh;
     }
 
-    public void setHinhAnh(byte[] HinhAnh) {
+    public void setHinhAnh(String HinhAnh) {
         this.HinhAnh = HinhAnh;
     }
 

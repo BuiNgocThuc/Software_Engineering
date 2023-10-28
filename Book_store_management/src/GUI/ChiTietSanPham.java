@@ -33,15 +33,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
      */
     private int mouseX, mouseY;
     private int STT = -1, maSP = -1, soLuong = 0, namXB = 0;
-    private String tenSP, tenTacGia, theLoai;
+    private String tenSP, hinhAnh, tenTacGia, theLoai;
     private double donGia = 0;
-    private byte[] hinhAnh = null;
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     TheLoaiBUS theLoaiBUS = new TheLoaiBUS();
 
     public ChiTietSanPham() {
         initComponents();
-         sharedFunction.moveLayout(this, PannelOverview);
+        sharedFunction.moveLayout(this, PannelOverview);
         AutoCompleteDecorator.decorate(listTheLoai);
     }
 
@@ -49,7 +48,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         initComponents();
         sharedFunction.moveLayout(this, PannelOverview);
         this.STT = STT;
-        this.maSP =  Integer.parseInt(maSP.substring(2));
+        this.maSP = Integer.parseInt(maSP.substring(2));
         this.tenSP = tenSP;
         this.tenTacGia = tacGia;
         this.theLoai = theloai;
@@ -77,17 +76,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Lấy hình ảnh từ SanPhamDTO
         hinhAnh = sp.getHinhAnh();
         if (hinhAnh != null) {
-            ImageIcon imageIcon = new ImageIcon(hinhAnh);
-            Image image = imageIcon.getImage();
-
-            // Điều chỉnh kích thước hình ảnh để phù hợp với JLabel
-            Image scaledImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
-
-            // Tạo ImageIcon mới từ hình ảnh đã điều chỉnh kích thước
-            ImageIcon scaledImageIcon = new ImageIcon(scaledImage);
-
-            // Đặt ImageIcon đã điều chỉnh kích thước vào JLabel
-            lblImage.setIcon(scaledImageIcon);
+            String imagePath = "./../Assets/IMG/" + hinhAnh;
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource(imagePath));
+            imageIcon = scaleImage(imageIcon, lblImage.getWidth(), lblImage.getHeight());
+            lblImage.setIcon(imageIcon);
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/add.png")));
 
@@ -478,7 +470,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
-        if (maSP==-1) {
+        if (maSP == -1) {
             ThemSanPham();
         } else {
             SuaSanPham();
@@ -509,29 +501,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
         // TODO add your handling code here:
+        hinhAnh = uploadImage();
 
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        int result = fileChooser.showOpenDialog(this);
-
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String imagePath = selectedFile.getAbsolutePath();
-
-            // Hiển thị hình ảnh trên JLabel với kích thước của JLabel
-            ImageIcon imageIcon = scaleImage(imagePath, lblImage.getWidth(), lblImage.getHeight());
-            lblImage.setIcon(imageIcon);
-
-            try {
-                try (FileInputStream fileInputStream = new FileInputStream(selectedFile)) {
-                    hinhAnh = new byte[(int) selectedFile.length()];
-                    fileInputStream.read(hinhAnh);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void listTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listTheLoaiActionPerformed
@@ -539,15 +510,18 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_listTheLoaiActionPerformed
 
     // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
-    private static ImageIcon scaleImage(String imageData, int width, int height) {
-        if (imageData == null) {
-//          lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/add.png")));
+    private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
+        if (imageIcon == null) {
             return null;
         }
 
-        Image image = new ImageIcon(imageData).getImage();
+        // Lấy hình ảnh từ ImageIcon
+        Image image = imageIcon.getImage();
+
+        // Điều chỉnh kích thước hình ảnh
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
+        // Tạo một ImageIcon mới từ hình ảnh đã điều chỉnh kích thước
         return new ImageIcon(scaledImage);
     }
 
@@ -563,14 +537,13 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         soLuong = Integer.parseInt(txtSoLuong.getText());
         donGia = Double.parseDouble(txtDonGia.getText());
         int maTL = theLoaiBUS.getMaTLbyTenTL(tenTL);
-
         if (!tenSP.isEmpty()) {
             SanPhamDTO sp = new SanPhamDTO(maTL, tenSP, tenTacGia, rootPaneCheckingEnabled, donGia, soLuong, namXB, hinhAnh);
             boolean result = sanPhamBUS.addSanPham(sp);
             if (result) {
                 // Thêm thể loại vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
-                SanPhamGUI.addSanPhamTable(sp, STT, tenTL,MaSP);
+                SanPhamGUI.addSanPhamTable(sp, STT, tenTL, MaSP);
                 dispose();
                 JOptionPane.showMessageDialog(this, "Thêm sản phẩm thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -593,9 +566,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         donGia = Double.parseDouble(txtDonGia.getText());
         int maTL = theLoaiBUS.getMaTLbyTenTL(theLoai);
         if (!tenSP.isEmpty()) {
-            System.out.println(maSP);
-            SanPhamDTO sp = new SanPhamDTO(maSP, maTL, tenSP, tenTacGia, rootPaneCheckingEnabled, donGia, soLuong, namXB);
+            SanPhamDTO sp = new SanPhamDTO(maSP,maTL, tenSP, tenTacGia, true, donGia, soLuong, namXB, hinhAnh);
+       
             boolean result = sanPhamBUS.updateSanPham(sp);
+            System.out.println(result);
             if (result) {
                 // Thêm sản phẩm vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
@@ -609,6 +583,30 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
+    }
+
+    private String uploadImage() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+        int result = fileChooser.showOpenDialog(this);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String imagePath = selectedFile.getName(); // Lấy tên ảnh
+            String imageName = imagePath; // Lưu tên ảnh vào biến
+
+            // Hiển thị hình ảnh trên JLabel với kích thước của JLabel
+            ImageIcon imageIcon = new ImageIcon(getClass().getResource("./../Assets/IMG/" + imagePath));
+            imageIcon = scaleImage(imageIcon, lblImage.getWidth(), lblImage.getHeight());
+            lblImage.setIcon(imageIcon);
+
+            // Trả về tên hình ảnh
+            return imageName;
+        } else {
+            // Trường hợp không tải lên ảnh thì trả về tên ảnh ban đầu khi chưa thay đổi
+            return hinhAnh;
+        }
     }
 
     private void moveFrame() {

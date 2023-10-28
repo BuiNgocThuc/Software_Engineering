@@ -11,20 +11,10 @@ import java.awt.Color;
 
 import java.awt.Cursor;
 import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-
 import javax.swing.table.DefaultTableCellRenderer;
-
 import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-
 /**
  *
  * @author ASUS

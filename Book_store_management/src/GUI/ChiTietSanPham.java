@@ -11,11 +11,7 @@ import DTO.TheLoaiDTO;
 import Util.sharedFunction;
 import java.awt.Cursor;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -31,7 +27,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
-    private int mouseX, mouseY;
     private int STT = -1, maSP = -1, soLuong = 0, namXB = 0;
     private String tenSP, hinhAnh, tenTacGia, theLoai;
     private double donGia = 0;
@@ -89,7 +84,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     public ChiTietSanPham(int STT, String maSP) { // Sử dụng khi thêm sản phẩm
         initComponents();
-        moveFrame();
+        sharedFunction.moveLayout(this, PannelOverview);
         this.STT = STT;
         txtID.setText(maSP); // gán mã sản phẩm tự động
         // Gọi lớp BUS để lấy danh sách thể loại
@@ -416,23 +411,26 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         );
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
-        lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblThongTinChiTiet.setForeground(new java.awt.Color(255, 255, 255));
+        lblThongTinChiTiet.setFont(new java.awt.Font("Josefin Sans SemiBold", 1, 18)); // NOI18N
+        lblThongTinChiTiet.setForeground(new java.awt.Color(238, 242, 250));
         lblThongTinChiTiet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setText("Thông tin chi tiết");
+        lblThongTinChiTiet.setAutoscrolls(true);
+        lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblThongTinChiTiet.setOpaque(true);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(PannelOverview, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE)
-                .addGap(0, 0, 0)
+                .addComponent(lblThongTinChiTiet, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(PannelOverview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -509,21 +507,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listTheLoaiActionPerformed
 
-    // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
-    private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
-        if (imageIcon == null) {
-            return null;
-        }
-
-        // Lấy hình ảnh từ ImageIcon
-        Image image = imageIcon.getImage();
-
-        // Điều chỉnh kích thước hình ảnh
-        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-        // Tạo một ImageIcon mới từ hình ảnh đã điều chỉnh kích thước
-        return new ImageIcon(scaledImage);
-    }
+   
 
     private void ThemSanPham() {
         String MaSP = txtID.getText();
@@ -608,43 +592,21 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             return hinhAnh;
         }
     }
+     // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
+    private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
+        if (imageIcon == null) {
+            return null;
+        }
 
-    private void moveFrame() {
+        // Lấy hình ảnh từ ImageIcon
+        Image image = imageIcon.getImage();
 
-        PannelOverview.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mouseX = e.getX();
-                mouseY = e.getY();
-            }
-        });
+        // Điều chỉnh kích thước hình ảnh
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 
-        PannelOverview.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int x = e.getXOnScreen();
-                int y = e.getYOnScreen();
-                setLocation(x - mouseX, y - mouseY);
-            }
-        });
-        lblThongTinChiTiet.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mouseX = e.getXOnScreen() - getLocation().x;
-                mouseY = e.getYOnScreen() - getLocation().y;
-            }
-        });
-
-        lblThongTinChiTiet.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int x = e.getXOnScreen() - mouseX;
-                int y = e.getYOnScreen() - mouseY;
-                setLocation(x, y);
-            }
-        });
+        // Tạo một ImageIcon mới từ hình ảnh đã điều chỉnh kích thước
+        return new ImageIcon(scaledImage);
     }
-
     /**
      * @param args the command line arguments
      */

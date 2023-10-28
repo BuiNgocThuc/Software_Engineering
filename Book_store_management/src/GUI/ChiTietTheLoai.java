@@ -6,16 +6,15 @@ package GUI;
 
 import BUS.TheLoaiBUS;
 import DTO.TheLoaiDTO;
+import Util.sharedFunction;
 import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author ASUS
  */
-public class ChiTietTheLoai extends  javax.swing.JFrame {
+public class ChiTietTheLoai extends javax.swing.JFrame {
 
     /**
      * Creates new form ChiTietChucNang
@@ -28,7 +27,7 @@ public class ChiTietTheLoai extends  javax.swing.JFrame {
     // dùng khi sửa thể loại
     public ChiTietTheLoai(int STT, String MaTL, String TenTL) {
         initComponents();
-        moveFrame();
+        sharedFunction.moveLayout(this, PanelOverview);
         this.STT = STT;
         this.MaTL = Integer.parseInt(MaTL.substring(2));
         this.TenTL = TenTL;
@@ -39,7 +38,7 @@ public class ChiTietTheLoai extends  javax.swing.JFrame {
     // dùng khi thêm thể loại
     public ChiTietTheLoai(int STT, String MaTL) {
         initComponents();
-        moveFrame();
+        sharedFunction.moveLayout(this, PanelOverview);
         this.STT = STT;
         txtID.setText(MaTL);
     }
@@ -296,7 +295,7 @@ public class ChiTietTheLoai extends  javax.swing.JFrame {
             if (result) {
                 // Thêm thể loại vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
-                SanPhamGUI.addTheLoaiTable(tl, STT,maTL);
+                SanPhamGUI.addTheLoaiTable(tl, STT, maTL);
                 dispose();
                 JOptionPane.showMessageDialog(this, "Thêm thể loại thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 // Nếu muốn làm gì đó sau khi thêm thành công, bạn có thể thực hiện ở đây
@@ -307,43 +306,6 @@ public class ChiTietTheLoai extends  javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-    private void moveFrame() {
-
-        PanelOverview.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mouseX = e.getX();
-                mouseY = e.getY();
-            }
-        });
-
-        PanelOverview.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int x = e.getXOnScreen();
-                int y = e.getYOnScreen();
-                setLocation(x - mouseX, y - mouseY);
-            }
-        });
-        lblThongTinChiTiet.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                mouseX = e.getXOnScreen() - getLocation().x;
-                mouseY = e.getYOnScreen() - getLocation().y;
-            }
-        });
-
-        lblThongTinChiTiet.addMouseMotionListener(new MouseAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                int x = e.getXOnScreen() - mouseX;
-                int y = e.getYOnScreen() - mouseY;
-                setLocation(x, y);
-            }
-        });
-    }
-
     /**
      * @param args the command line arguments
      */

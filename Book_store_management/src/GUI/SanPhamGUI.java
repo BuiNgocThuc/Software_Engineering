@@ -13,16 +13,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
 import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -795,30 +791,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
 
     }
-
-//    public void nhapNhay() {
-//        SwingUtilities.invokeLater(() -> {
-//            Timer timer = new Timer(500, new ActionListener() {
-//                boolean visible = true;
-//                int blinkCount = 0;
-//                int maxBlinkCount = 2; // Số lần nhấp nháy
-//
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    if (blinkCount < maxBlinkCount) {
-//                        tableSanPham.setVisible(visible);
-//                        visible = !visible;
-//                        blinkCount++;
-//                    } else {
-//                        ((Timer) e.getSource()).stop(); // Dừng timer sau khi nhấp nháy đủ số lần
-//                    }
-//                }
-//            });
-//
-//            timer.start();
-//        });
-//
-//    }
 
     private void findSanPhamByTenSP_or_MaSP() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS

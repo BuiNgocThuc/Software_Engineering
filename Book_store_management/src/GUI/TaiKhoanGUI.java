@@ -4,11 +4,14 @@
  */
 package GUI;
 
+import BUS.TaiKhoanBUS;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -28,15 +31,25 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
     /**
      * Creates new form TaiKhoanGUI
      */
+    JTable tableTaikhoan = new JTable();
+    private static DefaultTableModel modelTaiKhoan;
+    TaiKhoanBUS tkBUS = new TaiKhoanBUS();
+
     public TaiKhoanGUI() {
         initComponents();
-        JTable tableTaikhoan = createTableTaikhoan();
+        createTable();
+    }
+
+    public void createTable() {
+        tableTaikhoan = createTableTaikhoan();
         tableTaikhoan.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableTaikhoan);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
+        
+        tkBUS.createTableAccount(modelTaiKhoan);
     }
 
     /**
@@ -283,8 +296,34 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        XoaTaiKhoan();
     }//GEN-LAST:event_btnXoaActionPerformed
-
+    public void XoaTaiKhoan() {
+        int selectedRowIndex = tableTaikhoan.getSelectedRow();
+        if (selectedRowIndex != -1) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa ?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                // Lấy mã thể loại từ dòng được chọn trong bảng
+                String maTK = (String) modelTaiKhoan.getValueAt(selectedRowIndex, 1);
+                int maSpNumber = Integer.parseInt(maTK.substring(2));
+                // Gọi lớp BUS để xóa thể loại dựa trên mã thể loại
+                if (tkBUS.XoaTaiKhoan(maSpNumber)) {
+                    // Xóa dòng khỏi bảng
+                    modelTaiKhoan.removeRow(selectedRowIndex);
+                    // Cập nhật lại giá trị STT
+                    for (int i = 0; i < modelTaiKhoan.getRowCount(); i++) {
+                        modelTaiKhoan.setValueAt(i + 1, i, 0);
+                    }
+                    JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa tài khoản.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn tài khoản cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
@@ -296,65 +335,22 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLammoiActionPerformed
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                    label.setFont(headerFont);
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-        // Đặt renderer tùy chỉnh cho header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-
-    public static void editTableContent(JTable table) {
-        // Đặt độ cao cho từng dòng (trừ header)
-        int rowHeight = 30;
-        table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(135, 172, 217));
-        table.setShowGrid(true);
-        table.setBackground(Color.WHITE);
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
-        // Vô hiệu hóa kéo cột
-        table.getTableHeader().setReorderingAllowed(false);
-        // Vô hiệu hóa kéo dãng cột
-        table.getTableHeader().setResizingAllowed(false);
-    }
 
     public JTable createTableTaikhoan() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT", "ID Tài khoản", "Tên tài khoản", "Mật khẩu", "Ngày lập", "Phân quyền", "Trạng thái"};
-        DefaultTableModel model = new DefaultTableModel() {
+        String[] columnNames = {"STT", "ID Tài khoản", "Tên tài khoản", "Mật khẩu", "Nhóm quyền", "Ngày lập"};
+        modelTaiKhoan = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
-                }
+                } 
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelTaiKhoan.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelTaiKhoan);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(150); // Độ rộng cột 1
@@ -362,10 +358,9 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(250); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(200); // Độ rộng cột 4
         columnModel.getColumn(5).setPreferredWidth(200); // Độ rộng cột 5
-        columnModel.getColumn(6).setPreferredWidth(200); // Độ rộng cột 5
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 

@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.NhomQuyenDAO;
 import DAO.TaiKhoanDAO;
 import DTO.NhanVienDTO;
 import DTO.TaiKhoanDTO;
@@ -13,6 +14,7 @@ import GUI.MatKhauCu;
 import GUI.MatKhauMoiGUI;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,11 +23,27 @@ import javax.swing.JOptionPane;
 public class TaiKhoanBUS {
 
     TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+    NhomQuyenDAO nqDAO = new NhomQuyenDAO();
     private String tenTK, matKhau;
-    public static TaiKhoanDTO currentAcc;
+    private static TaiKhoanDTO currentAcc;
 
     public ArrayList<TaiKhoanDTO> selectAll() {
         return tkDAO.selectAll();
+    }
+    
+    public void createTableAccount(DefaultTableModel modelTaiKhoan) {
+        ArrayList<TaiKhoanDTO> listAccount = selectAll();
+        modelTaiKhoan.setRowCount(0);
+        int STT = 1;
+        for (TaiKhoanDTO acc : listAccount) {
+            String MaTK = "TK" + acc.getMaTK();
+            String TenTK = acc.getTenTK();
+            String MatKhau = acc.getMatKhau();
+            String TenNQ = nqDAO.selectNameByID(acc.getMaQuyen());
+            String NgayTao = acc.getNgayTao().toString();
+            Object[] row = {STT++, MaTK, TenTK, MatKhau, TenNQ, NgayTao};
+            modelTaiKhoan.addRow(row);
+        }
     }
 
     public TaiKhoanDTO selectByUsername(String username) {
@@ -141,5 +159,9 @@ public class TaiKhoanBUS {
                 newPass.dispose();
             }
         }
+    }
+    
+    public boolean XoaTaiKhoan(int ID) {
+        return tkDAO.Xoa(ID) != 0;
     }
 }

@@ -47,6 +47,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         PanelTable2.setLayout(new BorderLayout());
         PanelTable2.add(scrollPaneChitiet);
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

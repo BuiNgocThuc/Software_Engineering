@@ -156,7 +156,7 @@ public class TaiKhoanDAO {
             pst.setString(2, taiKhoan.getMatKhau());
             pst.setString(3, taiKhoan.getMaQuyen());
             pst.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(taiKhoan.getNgayTao()));
-            pst.setBoolean(5, Boolean.parseBoolean(taiKhoan.getTinhTrang()));
+            pst.setBoolean(5, true);
 
             ketQua = pst.executeUpdate();
 

@@ -30,16 +30,20 @@ public class NhapHangGUI extends javax.swing.JPanel {
     /**
      * Creates new form NhapHangGUI
      */
+    JTable tableSanPham, tableChitiet;
     public NhapHangGUI() {
         initComponents();
-        JTable tableSanPham = createTableSanPham();
+    }
+    
+    public void createTable() {
+        tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
-        JTable tableChitiet = createTableChitietSanpham();
+        tableChitiet = createTableChitietSanpham();
         tableChitiet.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
         JScrollPane scrollPaneChitiet = new JScrollPane(tableChitiet);
         scrollPaneChitiet.setBorder(matteBorder);

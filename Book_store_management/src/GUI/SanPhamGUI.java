@@ -828,6 +828,7 @@ public String formatAmountToVND(double amount) {
     return formattedAmount;
 }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnLamMoi;

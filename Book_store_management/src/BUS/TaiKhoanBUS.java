@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class TaiKhoanBUS {
 
     TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-    private String tenTK, matKhau;
+    private  String tenTK, matKhau;
     public static TaiKhoanDTO currentAcc;
 
     public ArrayList<TaiKhoanDTO> selectAll() {
@@ -142,4 +142,6 @@ public class TaiKhoanBUS {
             }
         }
     }
+
+
 }

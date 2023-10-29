@@ -11,22 +11,24 @@ import java.util.Date;
  * @author NGOC THUC
  */
 public class HoaDonDTO {
-    private String MaHD, TenTK;
+
+    private int MaHD;
+    private String TenTK;
     private Date NgayTao;
     private double TongTien;
 
-    public HoaDonDTO(String MaHD, String TenTK, double TongTien, Date NgayTao) {
+    public HoaDonDTO(int MaHD, String TenTK, double TongTien, Date NgayTao) {
         this.MaHD = MaHD;
         this.TenTK = TenTK;
         this.TongTien = TongTien;
         this.NgayTao = NgayTao;
     }
 
-    public String getMaHD() {
+    public int getMaHD() {
         return MaHD;
     }
 
-    public void setMaHD(String MaHD) {
+    public void setMaHD(int MaHD) {
         this.MaHD = MaHD;
     }
 
@@ -53,6 +55,5 @@ public class HoaDonDTO {
     public void setNgayTao(Date NgayTao) {
         this.NgayTao = NgayTao;
     }
-    
-    
+
 }

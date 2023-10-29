@@ -286,6 +286,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         btnLamMoi.setMaximumSize(new java.awt.Dimension(100, 40));
         btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 40));
         btnLamMoi.setRadius(40);
+        btnLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseExited(evt);
+            }
+        });
         btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLamMoiActionPerformed(evt);
@@ -594,6 +602,16 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_timKiemTheoActionPerformed
+
+    private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
+        // TODO add your handling code here:
+            btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLamMoiMouseEntered
+
+    private void btnLamMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseExited
+        // TODO add your handling code here:
+             btnLamMoi.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLamMoiMouseExited
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột

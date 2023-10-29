@@ -28,7 +28,7 @@ public class HoaDonDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaHD = rs.getString("MaHD");
+                int MaHD = rs.getInt("MaHD");
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
                 double TongTien = rs.getFloat("TongTien");
@@ -43,7 +43,7 @@ public class HoaDonDAO {
         return ketQua;
     }
     
-    // Lấy mã thể loại lớn nhất 
+    // Lấy mã hóa đơn lớn nhất 
     public int getMaHoaDonMax() {
         int maHD = 0;
         try {

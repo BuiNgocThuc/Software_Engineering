@@ -162,6 +162,9 @@
             <Property name="radius" type="int" value="40"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnXacnhanMouseClicked"/>
+          </Events>
         </Component>
         <Component class="Components.ButtonRadius" name="btnHuy">
           <Properties>
@@ -185,6 +188,9 @@
             <Property name="radius" type="int" value="40"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnHuyMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import BUS.TaiKhoanBUS;
+import javax.swing.JTextField;
+
 /**
  *
  * @author tnpqu
@@ -14,8 +17,13 @@ public class MatKhauCu extends javax.swing.JFrame {
      * Creates new form ForgetPasswordGUI
      */
     public MatKhauCu() {
+        this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
+    }
+
+    public JTextField getTfMatkhaucu() {
+        return tfMatkhaucu;
     }
 
     /**
@@ -74,6 +82,11 @@ public class MatKhauCu extends javax.swing.JFrame {
         btnXacnhan.setPreferredSize(new java.awt.Dimension(130, 40));
         btnXacnhan.setRadius(40);
         btnXacnhan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnXacnhan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXacnhanMouseClicked(evt);
+            }
+        });
 
         btnHuy.setForeground(new java.awt.Color(135, 172, 217));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
@@ -84,6 +97,11 @@ public class MatKhauCu extends javax.swing.JFrame {
         btnHuy.setPreferredSize(new java.awt.Dimension(130, 40));
         btnHuy.setRadius(40);
         btnHuy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHuyMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,6 +144,16 @@ public class MatKhauCu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnHuyMouseClicked
+
+    private void btnXacnhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacnhanMouseClicked
+        // TODO add your handling code here:
+        new TaiKhoanBUS().checkOldPass(this);
+    }//GEN-LAST:event_btnXacnhanMouseClicked
 
     /**
      * @param args the command line arguments

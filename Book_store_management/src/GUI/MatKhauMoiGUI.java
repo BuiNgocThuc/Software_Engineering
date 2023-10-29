@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import BUS.TaiKhoanBUS;
+import javax.swing.JTextField;
+
 /**
  *
  * @author tnpqu
@@ -14,7 +17,25 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
      * Creates new form MatKhauMoiGUI
      */
     public MatKhauMoiGUI() {
+        this.setUndecorated(true);
         initComponents();
+        this.setLocationRelativeTo(null);
+    }
+
+    public JTextField getTxtConfirmPass() {
+        return txtConfirmPass;
+    }
+
+    public void setTxtConfirmPass(JTextField txtConfirmPass) {
+        this.txtConfirmPass = txtConfirmPass;
+    }
+
+    public JTextField getTxtNewPass() {
+        return txtNewPass;
+    }
+
+    public void setTxtNewPass(JTextField txtNewPass) {
+        this.txtNewPass = txtNewPass;
     }
 
     /**
@@ -29,10 +50,10 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfMatkhaucu = new javax.swing.JTextField();
+        txtNewPass = new javax.swing.JTextField();
         btnXacnhan = new Components.ButtonRadius();
         btnHuy = new Components.ButtonRadius();
-        tfMatkhaucu1 = new javax.swing.JTextField();
+        txtConfirmPass = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,9 +81,9 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfMatkhaucu.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfMatkhaucu.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu mới", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfMatkhaucu.setPreferredSize(new java.awt.Dimension(64, 50));
+        txtNewPass.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        txtNewPass.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu mới", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtNewPass.setPreferredSize(new java.awt.Dimension(64, 50));
 
         btnXacnhan.setForeground(new java.awt.Color(135, 172, 217));
         btnXacnhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
@@ -74,6 +95,11 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         btnXacnhan.setPreferredSize(new java.awt.Dimension(130, 40));
         btnXacnhan.setRadius(40);
         btnXacnhan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnXacnhan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXacnhanMouseClicked(evt);
+            }
+        });
 
         btnHuy.setForeground(new java.awt.Color(135, 172, 217));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
@@ -84,10 +110,15 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         btnHuy.setPreferredSize(new java.awt.Dimension(130, 40));
         btnHuy.setRadius(40);
         btnHuy.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHuy.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHuyMouseClicked(evt);
+            }
+        });
 
-        tfMatkhaucu1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfMatkhaucu1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Nhập lại mật khẩu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfMatkhaucu1.setPreferredSize(new java.awt.Dimension(64, 50));
+        txtConfirmPass.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        txtConfirmPass.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Nhập lại mật khẩu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtConfirmPass.setPreferredSize(new java.awt.Dimension(64, 50));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -97,12 +128,12 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfMatkhaucu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tfMatkhaucu1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtConfirmPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -110,9 +141,9 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(tfMatkhaucu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfMatkhaucu1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,6 +164,16 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHuyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHuyMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnHuyMouseClicked
+
+    private void btnXacnhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacnhanMouseClicked
+        // TODO add your handling code here:
+        new TaiKhoanBUS().DoiMatKhau(this);
+    }//GEN-LAST:event_btnXacnhanMouseClicked
 
     /**
      * @param args the command line arguments
@@ -175,7 +216,7 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tfMatkhaucu;
-    private javax.swing.JTextField tfMatkhaucu1;
+    private javax.swing.JTextField txtConfirmPass;
+    private javax.swing.JTextField txtNewPass;
     // End of variables declaration//GEN-END:variables
 }

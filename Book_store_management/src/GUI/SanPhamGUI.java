@@ -13,6 +13,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -63,7 +64,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
         // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
         currentBackgroundColor = lblTheLoai.getBackground();
-        timKiemTheo.setBackground(Color.YELLOW);
     }
 
     /**
@@ -86,7 +86,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
         btnXoa = new Components.ButtonRadius();
-        btnLammoi = new Components.ButtonRadius();
+        btnLamMoi = new Components.ButtonRadius();
+        jPanelCombobox = new javax.swing.JPanel();
         timKiemTheo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -274,22 +275,24 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        btnLammoi.setBorder(null);
-        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnLammoi.setText("Làm mới");
-        btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi.setIconTextGap(0);
-        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setRadius(40);
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBorder(null);
+        btnLamMoi.setForeground(new java.awt.Color(135, 172, 217));
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setFocusPainted(false);
+        btnLamMoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLamMoi.setIconTextGap(0);
+        btnLamMoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLamMoi.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setRadius(40);
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
+
+        jPanelCombobox.setBackground(new java.awt.Color(255, 255, 255));
 
         timKiemTheo.setBackground(new java.awt.Color(250, 232, 189));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -298,6 +301,22 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         timKiemTheo.setBorder(null);
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         timKiemTheo.setOpaque(true);
+        timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timKiemTheoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanelComboboxLayout = new javax.swing.GroupLayout(jPanelCombobox);
+        jPanelCombobox.setLayout(jPanelComboboxLayout);
+        jPanelComboboxLayout.setHorizontalGroup(
+            jPanelComboboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanelComboboxLayout.setVerticalGroup(
+            jPanelComboboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         javax.swing.GroupLayout jPanelBodyLayout = new javax.swing.GroupLayout(jPanelBody);
         jPanelBody.setLayout(jPanelBodyLayout);
@@ -306,6 +325,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -316,14 +336,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanelBodyLayout.createSequentialGroup()
-                        .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))))
+                        .addGap(30, 30, 30)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanelCombobox, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(6, 6, 6))
         );
         jPanelBodyLayout.setVerticalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,12 +348,15 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSanPham, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelBodyLayout.createSequentialGroup()
+                        .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanelCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)))
                 .addGap(0, 0, 0)
                 .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
         );
@@ -369,6 +389,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
+          timKiemTheo.setVisible(true); 
         PanelTable.removeAll();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -386,6 +407,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
+         timKiemTheo.setVisible(false); 
         PanelTable.removeAll();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -556,9 +578,22 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLammoiActionPerformed
+        currentBackgroundColor = lblTheLoai.getBackground();
+        if (currentBackgroundColor.equals(targetColor)) {
+            ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
+            loadTableTheLoai(listTheLoai);
+//            nhapNhay();
+        } else {
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+            loadTableSanPham(listSanPham);
+        }
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timKiemTheoActionPerformed
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
@@ -775,15 +810,33 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
 
     }
+public String formatAmountToVND(double amount) {
+    String amountStr = String.valueOf(amount);
+    int amountLength = amountStr.length();
+    String formattedAmount;
+
+    DecimalFormat format = new DecimalFormat("#,###");
+
+    formattedAmount = switch (amountLength) {
+            case 4 -> format.format(amount) + " VND";
+            case 5 -> format.format(amount / 10) + " VND";
+            case 6 -> format.format(amount / 100) + " VND";
+            case 7 -> format.format(amount / 1000) + " VND";
+            default -> format.format(amount) + " VND";
+        }; 
+
+    return formattedAmount;
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
-    private Components.ButtonRadius btnLammoi;
+    private Components.ButtonRadius btnLamMoi;
     private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;
     private Components.ButtonRadius btnXoa;
     private javax.swing.JPanel jPanelBody;
+    private javax.swing.JPanel jPanelCombobox;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblSanPham;
     private javax.swing.JLabel lblTheLoai;

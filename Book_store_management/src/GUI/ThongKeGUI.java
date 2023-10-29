@@ -4,8 +4,7 @@
  */
 package GUI;
 
-import static GUI.BanHangGUI.EditHeaderTable;
-import static GUI.BanHangGUI.editTableContent;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

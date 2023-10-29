@@ -50,10 +50,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         tableTheLoai = createTableTheLoai();
         // Load data bảng sản phẩm 
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
-        loadTableSanPham(listSanPham);
+        loadTableSanPham(listSanPham, modelSanPham);
         // Load data bảng thể loại
         ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
-        loadTableTheLoai(listTheLoai);
+        loadTableTheLoai(listTheLoai, modelTheLoai);
         // Set kích thước bảng bằng với panel chứa nó
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
@@ -389,7 +389,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
-          timKiemTheo.setVisible(true); 
+        timKiemTheo.setVisible(true);
         PanelTable.removeAll();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -407,7 +407,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
-         timKiemTheo.setVisible(false); 
+        timKiemTheo.setVisible(false);
         PanelTable.removeAll();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -433,7 +433,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         if (currentBackgroundColor.equals(targetColor)) {
             findTheLoaiByMaTL_or_TenTL();
         } else {
-            findSanPhamByTenSP_or_MaSP();
+            findSanPhamByTenSP_or_MaSP(txtTimKiem.getText(), modelSanPham);
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
@@ -583,11 +583,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         currentBackgroundColor = lblTheLoai.getBackground();
         if (currentBackgroundColor.equals(targetColor)) {
             ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
-            loadTableTheLoai(listTheLoai);
+            loadTableTheLoai(listTheLoai, modelTheLoai);
 //            nhapNhay();
         } else {
             ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
-            loadTableSanPham(listSanPham);
+            loadTableSanPham(listSanPham, modelSanPham);
         }
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -627,7 +627,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham) {
+    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham, DefaultTableModel modelSanPham) {
         modelSanPham.setRowCount(0);
         int STT = 1;
         for (SanPhamDTO sanPham : listSanPham) {
@@ -669,7 +669,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai) {
+    public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai, DefaultTableModel modelTheLoai) {
         //  Load data lên bảng 
         modelTheLoai.setRowCount(0);
         int STT = 1;
@@ -682,11 +682,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
     }
 
-    public String FormatMaTL(int MaTL) {
+    public static String FormatMaTL(int MaTL) {
         return String.format("TL%02d", MaTL);
     }
 
-    public String FormatMaSP(int MaSP) {
+    public static String FormatMaSP(int MaSP) {
         return String.format("SP%02d", MaSP);
     }
 
@@ -784,7 +784,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
             ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.findTheLoaiByMaTL_or_TenTL(maTL);
             if (!listTheLoai.isEmpty()) {
-                loadTableTheLoai(listTheLoai);
+                loadTableTheLoai(listTheLoai, modelTheLoai);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -792,9 +792,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
-    private void findSanPhamByTenSP_or_MaSP() {
+    public void findSanPhamByTenSP_or_MaSP(String maSP, DefaultTableModel model) {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
-        String maSP = txtTimKiem.getText();
+
         if (maSP.isEmpty()) {
             // Nếu maSP rỗng, thông báo cho người dùng nhập mã hoặc tên
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -802,7 +802,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
             ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(maSP);
             if (!listSanPham.isEmpty()) {
-                loadTableSanPham(listSanPham);
+                loadTableSanPham(listSanPham, model);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -810,23 +810,29 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
 
     }
-public String formatAmountToVND(double amount) {
-    String amountStr = String.valueOf(amount);
-    int amountLength = amountStr.length();
-    String formattedAmount;
 
-    DecimalFormat format = new DecimalFormat("#,###");
+    public String formatAmountToVND(double amount) {
+        String amountStr = String.valueOf(amount);
+        int amountLength = amountStr.length();
+        String formattedAmount;
 
-    formattedAmount = switch (amountLength) {
-            case 4 -> format.format(amount) + " VND";
-            case 5 -> format.format(amount / 10) + " VND";
-            case 6 -> format.format(amount / 100) + " VND";
-            case 7 -> format.format(amount / 1000) + " VND";
-            default -> format.format(amount) + " VND";
-        }; 
+        DecimalFormat format = new DecimalFormat("#,###");
 
-    return formattedAmount;
-}
+        formattedAmount = switch (amountLength) {
+            case 4 ->
+                format.format(amount) + " VND";
+            case 5 ->
+                format.format(amount / 10) + " VND";
+            case 6 ->
+                format.format(amount / 100) + " VND";
+            case 7 ->
+                format.format(amount / 1000) + " VND";
+            default ->
+                format.format(amount) + " VND";
+        };
+
+        return formattedAmount;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

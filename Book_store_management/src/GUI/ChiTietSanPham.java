@@ -645,12 +645,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             errors.add("Vui lòng nhập năm xuất bản");
             errorComponents.add(txtNamXB);
             txtNamXB.setBorder(redBorder);
-        } else if (!isPositiveInteger(txtNamXB.getText())) {
+        } else if (!isNumeric(txtNamXB.getText())) {
             errors.add("Năm xuất bản không hợp lệ");
             errorComponents.add(txtNamXB);
             txtNamXB.setBorder(redBorder);
         } else if (Integer.parseInt(txtNamXB.getText()) < 0) {
-            errors.add("Năm xuất bản phải lớn hơn 0.");
+            errors.add("Năm xuất bản phải lớn hơ hoặc 0.");
             errorComponents.add(txtNamXB);
             txtNamXB.setBorder(redBorder);
         } else {
@@ -662,12 +662,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             errors.add("Vui lòng nhập số lượng");
             errorComponents.add(txtSoLuong);
             txtSoLuong.setBorder(redBorder);
-        } else if (!isPositiveInteger(txtSoLuong.getText())) {
+        } else if (!isNumeric(txtSoLuong.getText())) {
             errors.add("Số lượng không hợp lệ");
             errorComponents.add(txtSoLuong);
             txtSoLuong.setBorder(redBorder);
-        } else if (Integer.parseInt(txtSoLuong.getText()) <= 0) {
-            errors.add("Số lượng phải lớn hơn 0.");
+        } else if (Integer.parseInt(txtSoLuong.getText()) < 0) {
+            errors.add("Số lượng phải lớn hơn hoặc bằng 0.");
             errorComponents.add(txtSoLuong);
             txtSoLuong.setBorder(redBorder);
         } else {
@@ -679,12 +679,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             errors.add("Vui lòng nhập đơn giá");
             errorComponents.add(txtDonGia);
             txtDonGia.setBorder(redBorder);
-        } else if (!isPositiveDouble(txtDonGia.getText())) {
+        } else if (!isNumeric(txtDonGia.getText())) {
             errors.add("Đơn giá không hợp lệ.");
             errorComponents.add(txtDonGia);
             txtDonGia.setBorder(redBorder);
-        } else if (Double.parseDouble(txtDonGia.getText()) <= 0) {
-            errors.add("Đơn giá phải lớn hơn 0.");
+        } else if (Double.parseDouble(txtDonGia.getText()) < 0) {
+            errors.add("Đơn giá phải lớn hơn hoặc bằng 0.");
             errorComponents.add(txtDonGia);
             txtDonGia.setBorder(redBorder);
         } else {
@@ -705,23 +705,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         }
     }
 
-    private boolean isPositiveInteger(String s) {
-        try {
-            int value = Integer.parseInt(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+   private boolean isNumeric(String s) {
+    try {
+        Double.parseDouble(s);
+        return true;
+    } catch (NumberFormatException e) {
+        return false;
     }
-
-    private boolean isPositiveDouble(String s) {
-        try {
-            double value = Double.parseDouble(s);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
+}
 
     /**
      * @param args the command line arguments

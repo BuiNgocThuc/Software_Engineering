@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -25,7 +24,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author NGOC THUC
  */
-public class NhapHangGUI extends javax.swing.JPanel {
+public final class NhapHangGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form NhapHangGUI

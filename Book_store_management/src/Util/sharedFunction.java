@@ -4,18 +4,21 @@
  */
 package Util;
 
+import DTO.SanPhamDTO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -83,7 +86,7 @@ public class sharedFunction {
         table.setSelectionForeground(new Color(253, 191, 84));
         table.setFocusable(false);
         table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Font font = new Font("Segoe UI", Font.PLAIN, 16);
+        Font font = new Font("Segoe UI", Font.PLAIN, 14);
         table.setFont(font);
         // Căn giữa nội dung trong các ô chữ
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

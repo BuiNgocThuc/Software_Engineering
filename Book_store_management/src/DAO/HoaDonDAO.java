@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -41,4 +42,23 @@ public class HoaDonDAO {
         }
         return ketQua;
     }
+    
+    // Lấy mã thể loại lớn nhất 
+    public int getMaHoaDonMax() {
+        int maHD = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT Max(MaHD) as MaxMaHD FROM HoaDon";
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                maHD = rs.getInt("MaxMaHD");
+            } 
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return maHD;
+    }
+
 }

@@ -4,10 +4,19 @@
  */
 package BUS;
 
+import DAO.HoaDonDAO;
+
 /**
  *
  * @author NGOC THUC
  */
 public class HoaDonBUS {
-    
+    private HoaDonDAO hoaDonDAO;
+
+    public HoaDonBUS() {
+        hoaDonDAO = new HoaDonDAO();
+    }
+     public int getMaHoaDonMax() {
+        return hoaDonDAO.getMaHoaDonMax();
+    }
 }

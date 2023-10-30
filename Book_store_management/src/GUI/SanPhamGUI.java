@@ -15,6 +15,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -305,10 +306,24 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         timKiemTheo.setBackground(new java.awt.Color(250, 232, 189));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         timKiemTheo.setForeground(new java.awt.Color(135, 172, 217));
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Tác giả", "Thể loại ", "Giá" }));
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Tác giả ", "Thể loại ", "Đơn giá" }));
         timKiemTheo.setBorder(null);
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         timKiemTheo.setOpaque(true);
+        timKiemTheo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                timKiemTheoFocusGained(evt);
+            }
+        });
+        timKiemTheo.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+            }
+            public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
+                timKiemTheoPopupMenuWillBecomeInvisible(evt);
+            }
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            }
+        });
         timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 timKiemTheoActionPerformed(evt);
@@ -319,7 +334,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         jPanelCombobox.setLayout(jPanelComboboxLayout);
         jPanelComboboxLayout.setHorizontalGroup(
             jPanelComboboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanelComboboxLayout.createSequentialGroup()
+                .addComponent(timKiemTheo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelComboboxLayout.setVerticalGroup(
             jPanelComboboxLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,13 +622,33 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
         // TODO add your handling code here:
-            btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnLamMoiMouseEntered
 
     private void btnLamMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseExited
         // TODO add your handling code here:
-             btnLamMoi.setCursor(Cursor.getDefaultCursor());
+        btnLamMoi.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnLamMoiMouseExited
+
+    private void timKiemTheoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_timKiemTheoPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+
+// Lấy mô hình của ComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) timKiemTheo.getModel();
+
+// Kiểm tra xem mục đầu tiên có phải là "Chọn thể loại" không
+        if (model.getElementAt(0).equals("Tìm kiếm theo")) {
+            // Ẩn hoặc thay đổi mục "Chọn thể loại"
+            model.removeElement("Tìm kiếm theo"); // Để xóa mục
+            // Hoặc model.setElementAt("Một lựa chọn khác", 0); để thay đổi nó
+        }
+    }//GEN-LAST:event_timKiemTheoPopupMenuWillBecomeInvisible
+
+    private void timKiemTheoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_timKiemTheoFocusGained
+        // TODO add your handling code here:
+            // Xóa "Chọn thể loại" khi ComboBox được focus
+//                timKiemTheo.removeItem("Tìm kiếm theo");
+    }//GEN-LAST:event_timKiemTheoFocusGained
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột

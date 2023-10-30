@@ -61,6 +61,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         listTheLoai.addItem(theLoai);
+
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
         for (TheLoaiDTO tl : theLoaiList) {
             if (!tl.getTenTL().equals(theLoai)) {
@@ -94,6 +95,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
+        listTheLoai.addItem("Chọn thể loại");
         for (TheLoaiDTO tl : theLoaiList) {
             listTheLoai.addItem(tl.getTenTL());  // gán danh sách thể loại tự động
         }
@@ -295,6 +297,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         listTheLoai.setBorder(null);
         listTheLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listTheLoai.setOpaque(true);
+        listTheLoai.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                listTheLoaiFocusGained(evt);
+            }
+        });
         listTheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listTheLoaiActionPerformed(evt);
@@ -511,6 +518,12 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listTheLoaiActionPerformed
 
+    private void listTheLoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listTheLoaiFocusGained
+        // TODO add your handling code here:
+            // Xóa "Chọn thể loại" khi ComboBox được focus
+                listTheLoai.removeItem("Chọn thể loại");
+    }//GEN-LAST:event_listTheLoaiFocusGained
+
     private void ThemSanPham() {
 
         if (validateInput()) {
@@ -591,6 +604,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             return hinhAnh;
         }
     }
+
     // Hàm thay đổi kích thước hình ảnh vừa với JLabel
     private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
         if (imageIcon == null) {
@@ -704,14 +718,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         }
     }
 
-   private boolean isNumeric(String s) {
-    try {
-        Double.parseDouble(s);
-        return true;
-    } catch (NumberFormatException e) {
-        return false;
+    private boolean isNumeric(String s) {
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
-}
 
     /**
      * @param args the command line arguments

@@ -67,7 +67,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         PanelTable2.setLayout(new BorderLayout());
         PanelTable2.add(scrollPaneHoaDon);
 
-        setText_ID_NgayTao();
+//        setText_ID_NgayTao();
         tableSanPham.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
                 loadDataThongTinChiTiet();

@@ -4,8 +4,6 @@
  */
 package GUI;
 
-import static GUI.NhapHangGUI.EditHeaderTable2;
-import static GUI.NhapHangGUI.editTableContent;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

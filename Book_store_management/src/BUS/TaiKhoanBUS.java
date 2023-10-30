@@ -30,7 +30,11 @@ public class TaiKhoanBUS {
     public ArrayList<TaiKhoanDTO> selectAll() {
         return tkDAO.selectAll();
     }
-    
+
+    public static TaiKhoanDTO getCurrentAcc() {
+        return currentAcc;
+    }
+
     public void createTableAccount(DefaultTableModel modelTaiKhoan) {
         ArrayList<TaiKhoanDTO> listAccount = selectAll();
         modelTaiKhoan.setRowCount(0);
@@ -91,11 +95,14 @@ public class TaiKhoanBUS {
             }
         }
     }
-    
+    public String selectNameStaff(String TenTK) {
+        return tkDAO.selectStaffByID(TenTK);
+    }
+
     public void displayName(TaiKhoanDTO staff, MainFrameGUI layout) {
-        String tenNV = tkDAO.selectStaffByID(staff.getTenTK());
+        String tenNV = selectNameStaff(staff.getTenTK());
         String chucVu = tkDAO.selectRoleByID(staff.getMaQuyen());
-        
+
         layout.getLblName().setText(tenNV);
         layout.getLblRole().setText(chucVu);
     }
@@ -127,7 +134,7 @@ public class TaiKhoanBUS {
                     PhanQuyen(lisrPer, layout);
                     acc.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-                    System.out.println(currentAcc.getTenTK());
+//                    System.out.println(currentAcc.getTenTK());
                 }
             }
         }
@@ -160,7 +167,7 @@ public class TaiKhoanBUS {
             }
         }
     }
-    
+
     public boolean XoaTaiKhoan(int ID) {
         return tkDAO.Xoa(ID) != 0;
     }

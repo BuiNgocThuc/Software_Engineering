@@ -191,7 +191,7 @@
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jComboBox1" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
+                          <Component id="cbCongTy" alignment="0" min="-2" pref="298" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   </Group>
@@ -215,7 +215,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jComboBox1" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="cbCongTy" min="-2" pref="31" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="tfTongtien" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -303,7 +303,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder justification="1" position="1" title="ID. Nh&#xe2;n vi&#xea;n">
+                    <TitledBorder justification="1" position="1" title="Nh&#xe2;n vi&#xea;n">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder roundedCorners="true" thickness="2">
                           <Color PropertyName="color" blue="d9" green="ac" red="87" type="rgb"/>
@@ -321,6 +321,9 @@
                   <Dimension value="[140, 50]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfIDNhanvienActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfNgaytao">
               <Properties>
@@ -366,6 +369,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 50]"/>
                 </Property>
@@ -403,6 +407,9 @@
                 <Property name="radius" type="int" value="40"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuydonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="Components.ButtonRadius" name="btnThanhtoan">
               <Properties>
@@ -480,7 +487,7 @@
                 </DimensionLayout>
               </Layout>
             </Container>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="cbCongTy">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Josefin Sans SemiBold" size="14" style="0"/>
@@ -489,11 +496,8 @@
                   <Color blue="d9" green="ac" red="87" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
+                  <StringArray count="1">
+                    <StringItem index="0" value="--- Ch&#x1ecd;n c&#xf4;ng ty s&#xe1;ch ---"/>
                   </StringArray>
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -556,7 +560,7 @@
                                           <Component id="tfTheloai" min="-2" pref="176" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="tfIDSanpham" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <Component id="tfIDSanPham" min="-2" pref="170" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="tfTenSanpham" min="-2" pref="254" max="-2" attributes="0"/>
                                       </Group>
@@ -583,7 +587,7 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="tfIDSanpham" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfIDSanPham" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="tfTenSanpham" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
@@ -676,6 +680,9 @@
                 <Property name="radius" type="int" value="40"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
@@ -690,7 +697,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="tfIDSanpham">
+            <Component class="javax.swing.JTextField" name="tfIDSanPham">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Josefin Sans Medium" size="14" style="0"/>
@@ -708,6 +715,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[64, 50]"/>
                 </Property>
@@ -716,7 +724,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfIDSanphamjTextField1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfIDSanPhamjTextField1ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfTenSanpham">
@@ -737,6 +745,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[64, 50]"/>
                 </Property>
@@ -763,6 +772,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[64, 50]"/>
                 </Property>
@@ -789,6 +799,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[64, 50]"/>
                 </Property>
@@ -1047,6 +1058,9 @@
             </Property>
             <Property name="radius" type="int" value="40"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLammoi2ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

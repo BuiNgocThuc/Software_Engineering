@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -14,6 +15,7 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.ColorUIResource;
 
 /**
  *
@@ -34,6 +36,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         initComponents();
         designComp();
         this.setLocationRelativeTo(null);
+        sharedFunction.moveLayout(this, pnContainer);
 
     }
 
@@ -195,8 +198,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
     public JLabel getLblRole() {
         return lblRole;
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -767,10 +768,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
                 | UnsupportedLookAndFeelException e) {
-
         }
         //</editor-fold>
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

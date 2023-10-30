@@ -4,13 +4,21 @@
  */
 package GUI;
 
+import BUS.PhieuNhapBUS;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -30,11 +38,98 @@ public class NhapHangGUI extends javax.swing.JPanel {
     /**
      * Creates new form NhapHangGUI
      */
+    PhieuNhapBUS pnBUS = new PhieuNhapBUS();
+    private static DefaultTableModel modelSanPham, modelCartImport;
+    private static ArrayList<Object[]> listCart = new ArrayList<>();
     JTable tableSanPham, tableChitiet;
+
     public NhapHangGUI() {
         initComponents();
+        createTable();
+        selectProduct();
+        createCart();
     }
-    
+
+    public void selectProduct() {
+        tableSanPham.getSelectionModel().addListSelectionListener((e) -> {
+            if (!e.getValueIsAdjusting()) {
+                pnBUS.loadData(this, getTableSanPham().getSelectedRow());
+            }
+        });
+
+        tableChitiet.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tableChitiet.rowAtPoint(e.getPoint());
+                int column = tableChitiet.columnAtPoint(e.getPoint());
+
+                if(column == 3) {
+                    pnBUS.loadDataFromCart(NhapHangGUI.this, row);
+                } else if(column == 4) {
+                    modelCartImport.removeRow(row);
+                    getTotalCart();
+                }
+            }
+        });
+    }
+
+    public void createCart() {
+        pnBUS.createCart(this);
+        getTotalCart();
+    }
+
+    public JComboBox<String> getCbCongTy() {
+        return cbCongTy;
+    }
+
+    public JTextField getTfIDHoadon() {
+        return tfIDHoadon;
+    }
+
+    public JTextField getTfIDNhanvien() {
+        return tfIDNhanvien;
+    }
+
+    public JTextField getTfNgaytao() {
+        return tfNgaytao;
+    }
+
+    public JTextField getTfTongtien() {
+        return tfTongtien;
+    }
+
+    public JTable getTableSanPham() {
+        return tableSanPham;
+    }
+
+    public JTable getTableChitiet() {
+        return tableChitiet;
+    }
+
+    public JTextField getTfDongia() {
+        return tfDongia;
+    }
+
+    public JTextField getTfIDSanPham() {
+        return tfIDSanPham;
+    }
+
+    public JTextField getTfSoluong() {
+        return tfSoluong;
+    }
+
+    public JTextField getTfTenSanpham() {
+        return tfTenSanpham;
+    }
+
+    public JTextField getTfTenTacgia() {
+        return tfTenTacgia;
+    }
+
+    public JTextField getTfTheloai() {
+        return tfTheloai;
+    }
+
     public void createTable() {
         tableSanPham = createTableSanPham();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
@@ -43,6 +138,9 @@ public class NhapHangGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
+
+        pnBUS.createTableProduct(modelSanPham);
+
         tableChitiet = createTableChitietSanpham();
         tableChitiet.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
         JScrollPane scrollPaneChitiet = new JScrollPane(tableChitiet);
@@ -73,14 +171,14 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnThanhtoan = new Components.ButtonRadius();
         jLabel7 = new javax.swing.JLabel();
         PanelTable2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbCongTy = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnChon = new Components.ButtonRadius();
         jLabel4 = new javax.swing.JLabel();
-        tfIDSanpham = new javax.swing.JTextField();
+        tfIDSanPham = new javax.swing.JTextField();
         tfTenSanpham = new javax.swing.JTextField();
         tfTenTacgia = new javax.swing.JTextField();
         tfTheloai = new javax.swing.JTextField();
@@ -147,9 +245,14 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfIDHoadon.setPreferredSize(new java.awt.Dimension(140, 50));
 
         tfIDNhanvien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         tfIDNhanvien.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         tfIDNhanvien.setPreferredSize(new java.awt.Dimension(140, 50));
+        tfIDNhanvien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfIDNhanvienActionPerformed(evt);
+            }
+        });
 
         tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập phiếu nhập", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
@@ -158,6 +261,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
 
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongtien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTongtien.setFocusable(false);
         tfTongtien.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         tfTongtien.setMinimumSize(new java.awt.Dimension(64, 40));
         tfTongtien.setPreferredSize(new java.awt.Dimension(64, 50));
@@ -177,6 +281,11 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnHuydon.setPreferredSize(new java.awt.Dimension(140, 40));
         btnHuydon.setRadius(40);
         btnHuydon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnHuydon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuydonActionPerformed(evt);
+            }
+        });
 
         btnThanhtoan.setForeground(new java.awt.Color(135, 172, 217));
         btnThanhtoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
@@ -221,10 +330,10 @@ public class NhapHangGUI extends javax.swing.JPanel {
             .addGap(0, 244, Short.MAX_VALUE)
         );
 
-        jComboBox1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(135, 172, 217));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
+        cbCongTy.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        cbCongTy.setForeground(new java.awt.Color(135, 172, 217));
+        cbCongTy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--- Chọn công ty sách ---" }));
+        cbCongTy.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
         jLabel8.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(135, 172, 217));
@@ -260,7 +369,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
                                         .addComponent(PanelTable2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel7))))
                             .addGap(0, 0, Short.MAX_VALUE)))
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCongTy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12))
         );
         jPanel5Layout.setVerticalGroup(
@@ -280,8 +389,8 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
                 .addGap(1, 1, 1)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addComponent(cbCongTy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,33 +434,42 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnChon.setPreferredSize(new java.awt.Dimension(130, 40));
         btnChon.setRadius(40);
         btnChon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnChon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChonActionPerformed(evt);
+            }
+        });
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Hình ảnh");
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
-        tfIDSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        tfIDSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDSanpham.setMinimumSize(new java.awt.Dimension(64, 50));
-        tfIDSanpham.setPreferredSize(new java.awt.Dimension(64, 50));
-        tfIDSanpham.addActionListener(new java.awt.event.ActionListener() {
+        tfIDSanPham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        tfIDSanPham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfIDSanPham.setFocusable(false);
+        tfIDSanPham.setMinimumSize(new java.awt.Dimension(64, 50));
+        tfIDSanPham.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfIDSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfIDSanphamjTextField1ActionPerformed(evt);
+                tfIDSanPhamjTextField1ActionPerformed(evt);
             }
         });
 
         tfTenSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         tfTenSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTenSanpham.setFocusable(false);
         tfTenSanpham.setMinimumSize(new java.awt.Dimension(64, 50));
         tfTenSanpham.setPreferredSize(new java.awt.Dimension(64, 50));
 
         tfTenTacgia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         tfTenTacgia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên tác giả", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTenTacgia.setFocusable(false);
         tfTenTacgia.setMinimumSize(new java.awt.Dimension(64, 50));
         tfTenTacgia.setPreferredSize(new java.awt.Dimension(64, 50));
 
         tfTheloai.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         tfTheloai.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Thể loại", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTheloai.setFocusable(false);
         tfTheloai.setMinimumSize(new java.awt.Dimension(64, 50));
         tfTheloai.setPreferredSize(new java.awt.Dimension(64, 50));
 
@@ -383,7 +501,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(tfTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                    .addComponent(tfIDSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfIDSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(tfTenSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
@@ -402,7 +520,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
                         .addGroup(jPanel6Layout.createSequentialGroup()
                             .addGap(12, 12, 12)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(tfIDSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfIDSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfTenSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(80, 80, 80)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -418,7 +536,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
                             .addComponent(tfTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnChon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel9.setBackground(new java.awt.Color(255, 255, 255));
@@ -487,7 +605,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
@@ -519,6 +637,11 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnLammoi2.setMaximumSize(new java.awt.Dimension(100, 40));
         btnLammoi2.setPreferredSize(new java.awt.Dimension(100, 40));
         btnLammoi2.setRadius(40);
+        btnLammoi2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLammoi2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -592,11 +715,26 @@ public class NhapHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
         // TODO add your handling code here:
+        if(validateInput()) {
+            pnBUS.NhapHang(this);
+            createCart();
+            modelCartImport.setRowCount(0);
+            getCbCongTy().setSelectedIndex(0);
+        }
     }//GEN-LAST:event_btnThanhtoanActionPerformed
-
-    private void tfIDSanphamjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDSanphamjTextField1ActionPerformed
+    public boolean validateInput() {
+        if(modelCartImport.getRowCount() == 0) {
+            displayErrorMessage("Vui lòng thêm sản phẩm cần nhập");
+            return false;
+        }else if(cbCongTy.getSelectedIndex() == 0 || cbCongTy.getSelectedIndex() == -1) {
+            displayErrorMessage("Vui lòng chọn công ty nhập");
+            return false;
+        }
+        return true;
+    }
+    private void tfIDSanPhamjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDSanPhamjTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfIDSanphamjTextField1ActionPerformed
+    }//GEN-LAST:event_tfIDSanPhamjTextField1ActionPerformed
 
     private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
         // TODO add your handling code here:
@@ -606,112 +744,210 @@ public class NhapHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
+    private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
+        // TODO add your handling code here:
+        if (tfIDSanPham.getText().equals("")) {
+            displayErrorMessage("Vui lòng chọn sản phẩm");
+        } else if (tfSoluong.getText().equals("")) {
+            displayErrorMessage("vui lòng nhập số lượng");
+        } else {
+            int quantity = 0;
+            double price = 0;
+            String nameProduct = tfTenSanpham.getText();
+            String quantityStr = tfSoluong.getText();
+            try {
+                quantity = Integer.parseInt(quantityStr);
+                if (quantity <= 0) {
+                    displayErrorMessage("Số lượng không hợp lệ!!");
+                    return;
+                }
+            } catch (Exception e) {
+                displayErrorMessage("Số lượng không hợp lệ!!");
+                return;
+            }
+            String priceStr = tfDongia.getText();
+            try {
+                price = Double.parseDouble(priceStr);
+                if (price <= 0) {
+                    displayErrorMessage("Số lượng không hợp lệ!!");
+                    return;
+                }
+            } catch (Exception e) {
+                displayErrorMessage("Đơn giá không hợp lệ!!");
+                return;
+            }
+            double totalPriceDbl = price * quantity;
+            int totalPrice = (int) totalPriceDbl;
+            Object[] row = {
+                nameProduct, quantity, totalPrice, "", ""
+            };
+            int existNameRow = existName(nameProduct);
+            if (existNameRow == -1) {
+                modelCartImport.addRow(row);
+            } else {
+                modelCartImport.setValueAt(quantity, existNameRow, 1);
+                modelCartImport.setValueAt(totalPrice, existNameRow, 2);
+            }
+            getTotalCart();
+        }
+    }//GEN-LAST:event_btnChonActionPerformed
+    public void getTotalCart() {
+        int rowCount = modelCartImport.getRowCount();
+        int totalPrice = 0;
+
+        for (int i = 0; i < rowCount; i++) {
+            Object value = modelCartImport.getValueAt(i, 2);
+            String stringValue = value.toString(); // Chuyển đổi giá trị thành chuỗi
+            totalPrice += Integer.parseInt(stringValue);
+        }
+
+        tfTongtien.setText(totalPrice + "");
+    }
+
+    public int existName(String nameProduct) {
+        int rowCount = modelCartImport.getRowCount();
+
+        for (int i = 0; i < rowCount; i++) {
+            Object value = modelCartImport.getValueAt(i, 0);
+            if (nameProduct.equals(value)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private class ImageRender extends DefaultTableCellRenderer {
+
+        private Icon icon;
+
+        public ImageRender(Icon icon) {
+            this.icon = icon;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            return new JLabel(icon);
+        }
+
+    }
+
+    private void btnLammoi2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoi2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLammoi2ActionPerformed
+
+    private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
+        // TODO add your handling code here:
+        modelCartImport.setRowCount(0);
+        getTotalCart();
+    }//GEN-LAST:event_btnHuydonActionPerformed
+
+    private void tfIDNhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDNhanvienActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfIDNhanvienActionPerformed
+
+    public void displayErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void EditHeaderTable2(JTable table) {
+        // Increase the header height
+        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
+
+        // Create a custom header renderer
         DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
             @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 JTableHeader header = table.getTableHeader();
                 if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
+                    setForeground(new Color(254, 194, 92)); // Set text color
+                    setBackground(new Color(255, 255, 255)); // Set background color
+                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 16); // Adjust font and font size
                     header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
+                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
                     label.setFont(headerFont);
+
+                    // Add vertical lines between columns
+                    int thickness = 1; // Adjust the line thickness as needed
+                    label.setBorder(BorderFactory.createMatteBorder(0, 0, thickness, thickness, new Color(254, 194, 92)));
+
+                    return label;
                 }
                 setText((value == null) ? "" : value.toString());
                 return this;
             }
         };
-        // Đặt renderer tùy chỉnh cho header
+
+        // Set the custom renderer for the table header
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
-       public static void EditHeaderTable2(JTable table) {
-    // Increase the header height
-    table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
 
-    // Create a custom header renderer
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JTableHeader header = table.getTableHeader();
-            if (header != null) {
-                setForeground(new Color(254, 194, 92)); // Set text color
-                setBackground(new Color(255, 255, 255)); // Set background color
-                Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
-                header.setFont(headerFont);
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
-                label.setFont(headerFont);
-
-                // Add vertical lines between columns
-                int thickness = 1; // Adjust the line thickness as needed
-                label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
-
-                return label;
-            }
-            setText((value == null) ? "" : value.toString());
-            return this;
-        }
-    };
-
-    // Set the custom renderer for the table header
-    table.getTableHeader().setDefaultRenderer(headerRenderer);
-}
-
-
-    public static void editTableContent(JTable table) {
+    public static void EditTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(135,172,217));
+        table.setGridColor(new Color(254, 194, 92));
         table.setShowGrid(true);
         table.setBackground(Color.WHITE);
+        Font font = new Font("Josefin Sans", Font.PLAIN, 14);
+        table.setFont(font);
+        table.setSelectionBackground(Color.WHITE);
+        table.setSelectionForeground(new Color(153, 184, 224));
+        table.setFocusable(false);
         // Vô hiệu hóa sắp xếp cột tự động
         // table.setAutoCreateRowSorter(false);
         // Vô hiệu hóa kéo cột
         table.getTableHeader().setReorderingAllowed(false);
         // Vô hiệu hóa kéo dãng cột
         table.getTableHeader().setResizingAllowed(false);
+        // Căn giữa nội dung trong các ô chữ
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
     }
+
     public JTable createTableChitietSanpham() {
         // Tiêu đề của các cột
-        String[] columnNames = {"Tên sản phẩm", "SL", "Thành tiền", "Thao tác"};
-        DefaultTableModel model = new DefaultTableModel() {
+
+        String[] columnNames = {"Tên sản phẩm", "SL", "Thành tiền", "", ""};
+        modelCartImport = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 1 || columnIndex == 2) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+                } else if (columnIndex == 3) { // Cột Đơn giá
+                    return ImageIcon.class; // Kiểu dữ liệu Icon
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelCartImport.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelCartImport);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(280); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(60); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(200); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
+        columnModel.getColumn(0).setPreferredWidth(500); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(100); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(420); // Độ rộng cột 2
+        columnModel.getColumn(3).setPreferredWidth(60); // Độ rộng cột 3
+        columnModel.getColumn(4).setPreferredWidth(60); // Độ rộng cột 3
 
         EditHeaderTable2(table);
-        editTableContent(table);
+        EditTableContent(table);
+        Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
+        Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
+        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconDelete));
+        table.getColumnModel().getColumn(3).setCellRenderer(new ImageRender(iconUpdate));
         return table;
     }
-    
+
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
-        DefaultTableModel model = new DefaultTableModel() {
+        modelSanPham = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
@@ -722,9 +958,9 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelSanPham.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelSanPham);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(150); // Độ rộng cột 1
@@ -734,8 +970,8 @@ public class NhapHangGUI extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(120); // Độ rộng cột 5
         columnModel.getColumn(6).setPreferredWidth(120); // Độ rộng cột 6
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 
@@ -776,7 +1012,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
     private Components.ButtonRadius btnLammoi2;
     private Components.ButtonRadius btnThanhtoan;
     private Components.ButtonRadius btnTimkiem;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbCongTy;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -795,7 +1031,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
     private javax.swing.JTextField tfDongia;
     private javax.swing.JTextField tfIDHoadon;
     private javax.swing.JTextField tfIDNhanvien;
-    private javax.swing.JTextField tfIDSanpham;
+    private javax.swing.JTextField tfIDSanPham;
     private javax.swing.JTextField tfNgaytao;
     private javax.swing.JTextField tfSoluong;
     private javax.swing.JTextField tfTenSanpham;

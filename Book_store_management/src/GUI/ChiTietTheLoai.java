@@ -305,6 +305,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * @param args the command line arguments
      */

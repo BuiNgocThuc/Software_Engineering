@@ -758,7 +758,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                     }
                     JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Thể loại có tồn tại sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {

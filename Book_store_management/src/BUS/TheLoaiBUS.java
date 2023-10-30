@@ -26,7 +26,6 @@ public class TheLoaiBUS {
         return theLoaiDAO.selectAll();
     }
 
-    
     public int getMaTheLoaiMax() {
         return theLoaiDAO.getMaTheLoaiMax();
     }
@@ -40,18 +39,19 @@ public class TheLoaiBUS {
     }
 
     public boolean deleteTheLoaiByMaTL(int maTL) {
+        if (theLoaiDAO.checkTheLoaiDaTonTaiSanPham(maTL)) {
+            return false;
+        }
         return theLoaiDAO.deleteTheLoaiByMaTL(maTL);
     }
 
     public boolean addTheLoai(TheLoaiDTO tl) {
         String tenTheLoai = tl.getTenTL();
-        System.out.println(tenTheLoai);
         if (theLoaiDAO.checkTenTheLoaiDaTonTai(tenTheLoai)) {
             // Thể loại đã tồn tại và tình trạng bằng true, hiển thị thông báo lỗi
             return false;
-        } else {
-            return theLoaiDAO.addTheLoai(tl);
         }
+        return theLoaiDAO.addTheLoai(tl);
     }
 
     public boolean updateTheLoai(TheLoaiDTO tl) {
@@ -59,9 +59,8 @@ public class TheLoaiBUS {
         if (theLoaiDAO.checkTenTheLoaiDaTonTai(tenTheLoai)) {
             // Thể loại đã tồn tại và tình trạng bằng true, hiển thị thông báo lỗi
             return false;
-        } else {
-            return theLoaiDAO.Update(tl);
         }
+        return theLoaiDAO.Update(tl);
     }
 
     public int getMaTLbyTenTL(String tenTL) {

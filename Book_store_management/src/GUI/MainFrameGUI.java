@@ -4,8 +4,7 @@
  */
 package GUI;
 
-import BUS.ChucNangBUS;
-import DTO.ChucNangDTO;
+import BUS.TaiKhoanBUS;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -189,6 +188,16 @@ public class MainFrameGUI extends javax.swing.JFrame {
         this.lblThongKe = lblThongKe;
     }
 
+    public JLabel getLblName() {
+        return lblName;
+    }
+
+    public JLabel getLblRole() {
+        return lblRole;
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -248,9 +257,20 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         itemLogOut.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/exit.png"))); // NOI18N
         itemLogOut.setText("Đăng xuất");
+        itemLogOut.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                itemLogOutMouseClicked(evt);
+            }
+        });
+        itemLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLogOutActionPerformed(evt);
+            }
+        });
         puSetting.add(itemLogOut);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -702,7 +722,20 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     private void itemChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemChangePassActionPerformed
         // TODO add your handling code here:
+        MatKhauCu oldPass = new MatKhauCu();
+        oldPass.setVisible(true);
     }//GEN-LAST:event_itemChangePassActionPerformed
+
+    private void itemLogOutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemLogOutMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itemLogOutMouseClicked
+
+    private void itemLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLogOutActionPerformed
+        // TODO add your handling code here:
+        DangNhapGUI login = new DangNhapGUI();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemLogOutActionPerformed
 
     /**
      * @param args the command line arguments

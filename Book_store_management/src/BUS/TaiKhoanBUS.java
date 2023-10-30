@@ -5,9 +5,12 @@
 package BUS;
 
 import DAO.TaiKhoanDAO;
+import DTO.NhanVienDTO;
 import DTO.TaiKhoanDTO;
 import GUI.DangNhapGUI;
 import GUI.MainFrameGUI;
+import GUI.MatKhauCu;
+import GUI.MatKhauMoiGUI;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -18,8 +21,8 @@ import javax.swing.JOptionPane;
 public class TaiKhoanBUS {
 
     TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-    String tenTK, matKhau;
-    private TaiKhoanDTO currentAcc;
+    private String tenTK, matKhau;
+    public static TaiKhoanDTO currentAcc;
 
     public ArrayList<TaiKhoanDTO> selectAll() {
         return tkDAO.selectAll();
@@ -30,8 +33,6 @@ public class TaiKhoanBUS {
     }
 
     boolean comparePassword(String currentPass, String inputPass) {
-        System.out.println("current password: " + currentPass + "\n");
-        System.out.println("input password: " + inputPass + "\n");
         return currentPass.equals(inputPass);
     }
 
@@ -72,6 +73,14 @@ public class TaiKhoanBUS {
             }
         }
     }
+    
+    public void displayName(TaiKhoanDTO staff, MainFrameGUI layout) {
+        String tenNV = tkDAO.selectStaffByID(staff.getTenTK());
+        String chucVu = tkDAO.selectRoleByID(staff.getMaQuyen());
+        
+        layout.getLblName().setText(tenNV);
+        layout.getLblRole().setText(chucVu);
+    }
 
     public void DangNhap(DangNhapGUI acc) {
         tenTK = acc.getTxtUsername().getText();
@@ -96,10 +105,40 @@ public class TaiKhoanBUS {
                     ArrayList<String> lisrPer = new CTPhanQuyenBUS().getPerByRole(maQuyen);
                     MainFrameGUI layout = new MainFrameGUI();
                     layout.setVisible(true);
+                    displayName(currentAcc, layout);
                     PhanQuyen(lisrPer, layout);
                     acc.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+                    System.out.println(currentAcc.getTenTK());
                 }
+            }
+        }
+    }
+
+    public void checkOldPass(MatKhauCu oldPass) {
+        String txtOldPass = oldPass.getTfMatkhaucu().getText();
+        boolean checkPass = currentAcc.getMatKhau().equals(txtOldPass);
+        if (checkPass) {
+            MatKhauMoiGUI newPass = new MatKhauMoiGUI();
+            newPass.setVisible(true);
+            oldPass.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Mật khẩu không chính xác!");
+        }
+    }
+
+    public void DoiMatKhau(MatKhauMoiGUI newPass) {
+        String txtNewPass = newPass.getTxtNewPass().getText();
+        String txtConfirmPass = newPass.getTxtConfirmPass().getText();
+        if (!txtNewPass.equals(txtConfirmPass)) {
+            JOptionPane.showMessageDialog(null, "Mật khẩu xác nhận không trùng!");
+        } else {
+            boolean changePass = tkDAO.changePassword(txtNewPass, currentAcc.getTenTK());
+            if (!changePass) {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thất bại!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Đổi mật khẩu thành công!");
+                newPass.dispose();
             }
         }
     }

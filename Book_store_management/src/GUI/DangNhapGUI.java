@@ -5,11 +5,10 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -31,7 +30,12 @@ public class DangNhapGUI extends javax.swing.JFrame {
     public DangNhapGUI() {
         initComponents();
 
-        moveLayout();
+        sharedFunction.moveLayout(this, jPanelOverview);
+        setResizable(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        addPlaceholderStyle(txtUsername, "Username");
+        addPlaceholderStyle(txtPassword, "Password");
     }
 
     public JPasswordField getTxtPassword() {
@@ -49,14 +53,9 @@ public class DangNhapGUI extends javax.swing.JFrame {
     public void setTxtUsername(JTextField txtUsername) {
         this.txtUsername = txtUsername;
     }
-    
-    
-    public void moveLayout(){
-        setResizable(true);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        addPlaceholderStyle(txtUsername, "Username");
-        addPlaceholderStyle(txtPassword, "Password");
+    public void moveLayout() {
+
         jPanelOverview.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -414,7 +413,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
             .addComponent(jPanelOverview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        setSize(new java.awt.Dimension(1004, 522));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -437,8 +436,8 @@ public class DangNhapGUI extends javax.swing.JFrame {
         } else if (password.equals("Password")) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu.");
         } else {
-                new TaiKhoanBUS().DangNhap(DangNhapGUI.this);
-                
+            new TaiKhoanBUS().DangNhap(DangNhapGUI.this);
+
         }
     }//GEN-LAST:event_BTNdangNhapActionPerformed
 
@@ -491,7 +490,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
         // TODO add your handling code here:
         String password = new String(txtPassword.getPassword());
-        if (password.equals("Password") || password.isEmpty()) {
+        if (password.equals("Password") || password.equals("")) {
             // Nếu mật khẩu rỗng hoặc là "Password", không thay đổi EchoChar
         } else {
             if (txtPassword.getEchoChar() == 0) {
@@ -534,11 +533,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         jButtonCancel.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_jButtonCancelMouseExited
-  
+
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         // TODO add your handling code here:
-        
-    
+
 
     }//GEN-LAST:event_formMousePressed
 
@@ -546,12 +544,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
 
 
-
     }//GEN-LAST:event_jPanelOverviewMouseDragged
 
     private void jPanelOverviewMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanelOverviewMousePressed
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jPanelOverviewMousePressed
 
     private void txtUsernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsernameMouseClicked
@@ -562,10 +559,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowGainedFocus
 
-/**
- * @param args the command line arguments
- */
-public static void main(String args[]) {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -577,27 +574,23 @@ public static void main(String args[]) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DangNhapGUI.class  
+            java.util.logging.Logger.getLogger(DangNhapGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(DangNhapGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-} catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DangNhapGUI.class  
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(DangNhapGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DangNhapGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DangNhapGUI.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(DangNhapGUI.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

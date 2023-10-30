@@ -65,6 +65,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
         btnXoa = new Components.ButtonRadius();
+        btnLammoi = new Components.ButtonRadius();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -155,7 +156,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             }
         });
 
-        lblPhanQuyen.setBackground(new java.awt.Color(255, 255, 255));
+        lblPhanQuyen.setBackground(new java.awt.Color(229, 231, 230));
         lblPhanQuyen.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblPhanQuyen.setForeground(new java.awt.Color(254, 201, 116));
         lblPhanQuyen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -171,16 +172,21 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         });
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1003, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGap(0, 605, Short.MAX_VALUE)
         );
 
         btnThem.setBorder(null);
@@ -249,24 +255,44 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             }
         });
 
+        btnLammoi.setBorder(null);
+        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
+        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLammoi.setText("Làm mới");
+        btnLammoi.setFocusPainted(false);
+        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLammoi.setIconTextGap(0);
+        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLammoi.setRadius(40);
+        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLammoiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBodyLayout = new javax.swing.GroupLayout(jPanelBody);
         jPanelBody.setLayout(jPanelBodyLayout);
         jPanelBodyLayout.setHorizontalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBodyLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblPhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(lblChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(383, 383, 383)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBodyLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanelBodyLayout.setVerticalGroup(
@@ -278,10 +304,10 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                     .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -295,7 +321,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -305,7 +331,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(jPanelTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -325,6 +351,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel2.revalidate();
         jPanel2.repaint();
 
+        lblPhanQuyen.setBackground(new Color(229, 231, 230));
+        lblChucNang.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblPhanQuyenMouseClicked
 
     private void lblChucNangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChucNangMouseClicked
@@ -342,6 +370,8 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanel2.revalidate();
         jPanel2.repaint();
 
+        lblChucNang.setBackground(new Color(229, 231, 230));
+        lblPhanQuyen.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblChucNangMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -418,10 +448,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
         // TODO add your handling code here:
+           btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnXoaMouseEntered
 
     private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
         // TODO add your handling code here:
+           btnThem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnXoaMouseExited
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -431,6 +463,14 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLammoiActionPerformed
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -458,7 +498,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
 
-    public  void editTableContent(JTable table) {
+    public void editTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
@@ -535,9 +575,9 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
- 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Components.ButtonRadius btnLammoi;
     private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;

@@ -67,7 +67,7 @@ CREATE TABLE [SanPham] (
   [MaSP] int IDENTITY(1,1) Primary key,
   [MaTL] int  DEFAULT (NULL),
   [TenSP] nvarchar(50) DEFAULT (NULL),
-  [HinhAnh] nvarchar(255) DEFAULT (NULL),
+  [HinhAnh] VARBINARY(MAX) DEFAULT (NULL),
   [DonGia] float DEFAULT (NULL),
   [SoLuong] int DEFAULT (NULL),
   [TacGia] nvarchar(255),
@@ -111,7 +111,6 @@ CREATE TABLE [NhaCungCap] (
   [DiaChi] nvarchar(355) DEFAULT (NULL),
   [TinhTrang] BIT DEFAULT (NULL)
 )
-GO
 
 ALTER TABLE [SanPham] ADD FOREIGN KEY ([MaTL]) REFERENCES [TheLoai] ([MaTL])
 GO

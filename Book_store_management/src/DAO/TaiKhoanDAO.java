@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import Connection.ConnectDB;
+import DTO.NhanVienDTO;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -23,6 +24,72 @@ import java.util.Date;
  * @author NGOC THUC
  */
 public class TaiKhoanDAO {
+    
+    public String selectRoleByID(String MaNQ) {
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "SELECT TenNQ FROM NhomQuyen where MaNQ = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, MaNQ);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String TenNQ = rs.getNString("TenNQ");
+               
+
+                return TenNQ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return null;
+    } 
+    
+    public String selectStaffByID(String MaNV) {
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "SELECT TenNV FROM NhanVien where MaNV = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, MaNV);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String TenNV = rs.getNString("TenNV");
+               
+
+                return TenNV;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return null;
+    }
+
+    public boolean changePassword(String newPassword, String username) {
+        int res = 0;
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "UPDATE TaiKhoan SET MatKhau=? WHERE TenTK=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, newPassword);
+            pst.setString(2, username);
+
+            res = pst.executeUpdate();
+            ConnectDB.closeConnection(conn);
+            
+            if(res != 0) return true;
+            
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return false;
+    }
 
     public TaiKhoanDTO selectByUsername(String username) {
         Connection conn = ConnectDB.getConnection();

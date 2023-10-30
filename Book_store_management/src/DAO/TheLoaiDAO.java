@@ -18,8 +18,8 @@ public class TheLoaiDAO {
     public TheLoaiDAO() {
 
     }
-// Lấy tất cả 
 
+    // Lấy tất cả thể loại có tình trạng = 1 
     public ArrayList<TheLoaiDTO> selectAll() {
         ArrayList<TheLoaiDTO> res = new ArrayList<>();
         try {
@@ -62,15 +62,15 @@ public class TheLoaiDAO {
         return null;
     }
 
-    // Tìm thể loại dựa trên tên thể loại
-    public ArrayList<TheLoaiDTO> findTheLoaiByMaTL_or_TenTL(String tenTL) {
+    // Tìm thể loại dựa trên mã hoặc tên thể loại
+    public ArrayList<TheLoaiDTO> findTheLoaiByMaTL_or_TenTL(String temp) {
         ArrayList<TheLoaiDTO> theLoaiList = new ArrayList<>();
         String sql = "SELECT * FROM TheLoai WHERE (TenTL LIKE ? or MATL LIKE ?)and TinhTrang = 1 ";
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, "%" + tenTL + "%");
-            stmt.setString(2, "%" + tenTL + "%");
+            stmt.setString(1, "%" + temp + "%");
+            stmt.setString(2, "%" + temp + "%");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 int maTheLoai = resultSet.getInt("MaTL");
@@ -93,14 +93,32 @@ public class TheLoaiDAO {
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 maTL = rs.getInt("MaxMaTL");
-            } 
+            }
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         return maTL;
     }
 
+    // kiểm tra tên thể loại đã tồn tại
+    public boolean checkTenTheLoaiDaTonTai(String TenTL) {
+        String query = "SELECT COUNT(*) FROM theloai WHERE TenTL = ? AND TinhTrang = 1";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(query);
+            pst.setString(1, TenTL);
+            ResultSet resultSet = pst.executeQuery();
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+        }
+        return false;
+    }
+
+    // thêm thể loại
     public boolean addTheLoai(TheLoaiDTO tl) {
         boolean rowInsert = false;
         try {
@@ -145,16 +163,15 @@ public class TheLoaiDAO {
             rowDelete = pst.executeUpdate() > 0;
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         return rowDelete;
     }
 
+    // lấy mã thể loại dựa trên tên thể loại
     public int getMaTLbyTenTL(String TenTL) {
         int maTL = -1; // Gán một giá trị mặc định nếu không tìm thấy
-
         try {
-            System.out.println(TenTL);
             Connection conn = ConnectDB.getConnection();
             String sql = "SELECT MaTL FROM TheLoai WHERE TenTL = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -167,43 +184,8 @@ public class TheLoaiDAO {
 
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return maTL;
     }
 
-//    public static void main(String[] args) {
-//        // Tạo một đối tượng TheLoaiDAO
-//        TheLoaiDAO theLoaiDAO = new TheLoaiDAO();
-//
-//        // Đọc tất cả dữ liệu từ bảng TheLoai
-//        System.out.println("Danh sách TheLoai:");
-//        ArrayList<TheLoaiDTO> theLoais = theLoaiDAO.selectAll();
-//        for (TheLoaiDTO tl : theLoais) {
-//            System.out.println("Mã TL: " + tl.getMaTL() + ", Tên TL: " + tl.getTenTL() + ", Tình trạng: " + tl.getTinhTrang());
-//        }
-//
-//        // Thêm một TheLoai mới
-//        //  TheLoaiDTO newTheLoai = new TheLoaiDTO("Thể Loại Mới","0");
-//        //  int themKetQua = theLoaiDAO.Them(newTheLoai);
-//        //  if (themKetQua > 0) {
-//        //      System.out.println("Đã thêm thành công TheLoai mới.");
-//        //  }
-//        // // Sửa một TheLoai
-//        // TheLoai updateTheLoai = new TheLoai(1, "Thể Loại Sửa", false);
-//        // int suaKetQua = theLoaiDAO.Sua(updateTheLoai);
-//        // if (suaKetQua > 0) {
-//        //     System.out.println("Đã sửa thành công TheLoai.");
-//        // }
-//        // Xóa một TheLoai (thay đổi maTL thành mã thể loại cần xóa)
-//        String maTheLoaiCanXoa = "12";
-//        int xoaKetQua = theLoaiDAO.Xoa(maTheLoaiCanXoa);
-//        if (xoaKetQua > 0) {
-//            System.out.println("Đã xóa thành công TheLoai.");
-//        }
-//        for (TheLoaiDTO tl : theLoais) {
-//            System.out.println("Mã TL: " + tl.getMaTL() + ", Tên TL: " + tl.getTenTL() + ", Tình trạng: " + tl.getTinhTrang());
-//        }
-//
-//    }
 }

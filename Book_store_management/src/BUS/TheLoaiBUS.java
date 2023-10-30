@@ -26,7 +26,7 @@ public class TheLoaiBUS {
         return theLoaiDAO.selectAll();
     }
 
-    // 
+    
     public int getMaTheLoaiMax() {
         return theLoaiDAO.getMaTheLoaiMax();
     }
@@ -44,13 +44,27 @@ public class TheLoaiBUS {
     }
 
     public boolean addTheLoai(TheLoaiDTO tl) {
-        return theLoaiDAO.addTheLoai(tl);
+        String tenTheLoai = tl.getTenTL();
+        System.out.println(tenTheLoai);
+        if (theLoaiDAO.checkTenTheLoaiDaTonTai(tenTheLoai)) {
+            // Thể loại đã tồn tại và tình trạng bằng true, hiển thị thông báo lỗi
+            return false;
+        } else {
+            return theLoaiDAO.addTheLoai(tl);
+        }
     }
 
     public boolean updateTheLoai(TheLoaiDTO tl) {
-        return theLoaiDAO.Update(tl);
+        String tenTheLoai = tl.getTenTL();
+        if (theLoaiDAO.checkTenTheLoaiDaTonTai(tenTheLoai)) {
+            // Thể loại đã tồn tại và tình trạng bằng true, hiển thị thông báo lỗi
+            return false;
+        } else {
+            return theLoaiDAO.Update(tl);
+        }
     }
-    public int getMaTLbyTenTL(String tenTL){
+
+    public int getMaTLbyTenTL(String tenTL) {
         return theLoaiDAO.getMaTLbyTenTL(tenTL);
     }
 }

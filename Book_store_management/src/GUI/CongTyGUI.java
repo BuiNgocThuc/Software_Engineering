@@ -4,10 +4,13 @@
  */
 package GUI;
 
+import BUS.CongTyBUS;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -28,17 +31,65 @@ public class CongTyGUI extends javax.swing.JPanel {
     /**
      * Creates new form CongTyGUI
      */
+    JTable tableNhanvien = createTableCongty();
+
     public CongTyGUI() {
         initComponents();
-        JTable tableNhanvien = createTableCongty();
         tableNhanvien.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableNhanvien);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
+        loadData(tableNhanvien);
+        tableNhanvien.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                ChiTietCongTy ctcty=new ChiTietCongTy();
+                String temp=String.valueOf(tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+                int id=Integer.parseInt(temp.substring(4));
+                System.out.println(tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+                ctcty.setData(id);
+                ctcty.setVisible(true);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                
+            }
+
+            
+        });
     }
-    
+    private static int count = 1;
+    CongTyBUS ctyBus = new CongTyBUS();
+
+    public void loadData(JTable tbl) {
+        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+        model.setRowCount(0);
+        ctyBus.selectAll().forEach((cty) -> {
+            if (cty.getTinhTrang()) {
+                model.addRow(new Object[]{count++,"CT00"+cty.getMaNCC(), cty.getTenNCC(), cty.getSDT(), cty.getDiaChi()});
+            }
+
+        });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +137,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/employee_1.png"))); // NOI18N
 
         PanelTable.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
+        PanelTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         PanelTable.setMaximumSize(new java.awt.Dimension(987, 620));
         PanelTable.setMinimumSize(new java.awt.Dimension(987, 620));
         PanelTable.setPreferredSize(new java.awt.Dimension(987, 620));
@@ -125,7 +177,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         tfTimkiem.setBackground(new java.awt.Color(243, 243, 244));
         tfTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         tfTimkiem.setForeground(new java.awt.Color(135, 172, 217));
-        tfTimkiem.setText("Tìm kiếm sản phẩm");
+        tfTimkiem.setText("Tìm kiếm công ty");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
         tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
@@ -297,7 +349,8 @@ public class CongTyGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        ChiTietCongTy ctcty = new ChiTietCongTy();
+        ctcty.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
@@ -305,9 +358,11 @@ public class CongTyGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
-        // TODO add your handling code here:
+        tfTimkiem.setText("Tìm kiếm công ty");
+        count = 1;
+        loadData(tableNhanvien);
     }//GEN-LAST:event_btnLammoiActionPerformed
-
+    
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -352,16 +407,20 @@ public class CongTyGUI extends javax.swing.JPanel {
 
     public JTable createTableCongty() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT", "ID Công ty","Tên công ty","Số điện thoại","Địa chỉ" };
+        String[] columnNames = {"STT", "ID Công ty", "Tên công ty", "Số điện thoại", "Địa chỉ"};
         DefaultTableModel model = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
             }
         };
         model.setColumnIdentifiers(columnNames);

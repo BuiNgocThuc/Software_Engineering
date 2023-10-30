@@ -7,6 +7,7 @@ package DAO;
 import Connection.ConnectDB;
 import DTO.CongTyDTO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,11 +28,11 @@ public class CongTyDAO {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                String MaNCC = rs.getNString("MaNCC");
+                int MaNCC = rs.getInt("MaNCC");
                 String TenNCC = rs.getNString("TenNCC");
                 String SDT = rs.getNString("SDT");
                 String DiaChi = rs.getNString("DiaChi");
-                String TinhTrang = rs.getNString("TinhTrang");
+                Boolean TinhTrang = rs.getBoolean("TinhTrang");
 
                 CongTyDTO nv = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, TinhTrang);
                 ketQua.add(nv);
@@ -42,5 +43,67 @@ public class CongTyDAO {
             e.printStackTrace();
         }
         return ketQua;
+    }
+    public CongTyDTO getCongTyById(int id){
+        CongTyDTO ctyDto=null;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM NhaCungCap WHERE MaNCC="+id;
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                int MaNCC = rs.getInt("MaNCC");
+                String TenNCC = rs.getNString("TenNCC");
+                String SDT = rs.getNString("SDT");
+                String DiaChi = rs.getNString("DiaChi");
+                Boolean TinhTrang = rs.getBoolean("TinhTrang");
+
+                ctyDto = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, TinhTrang);
+                System.out.println(ctyDto.toString());
+            }
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ctyDto;
+    }
+    public int addCongTy(CongTyDTO cty){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "Insert into NhaCungCap(TenNCC,SDT,DiaChi,TinhTrang) values(?,?,?,?)";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setString(1, cty.getTenNCC());
+            st.setString(2, cty.getSDT());
+            st.setString(3, cty.getDiaChi());
+            st.setBoolean(4, true);
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
+    }
+    public int updateCongTy(CongTyDTO cty){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhaCungCap set TenNCC=?,SDT=?,DiaChi=? where MaNCC=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setString(1, cty.getTenNCC());
+            st.setString(2, cty.getSDT());
+            st.setString(3, cty.getDiaChi());
+            st.setInt(4, cty.getMaNCC());
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
     }
 }

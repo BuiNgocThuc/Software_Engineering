@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.PhieuNhapDAO;
 import DAO.SanPhamDAO;
+import DTO.CTPhieuNhapDTO;
 import DTO.CongTyDTO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
@@ -18,6 +19,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -28,6 +30,7 @@ public class PhieuNhapBUS {
     SanPhamDAO spDAO = new SanPhamDAO();
     PhieuNhapDAO pnDAO = new PhieuNhapDAO();
     TaiKhoanBUS tkBUS = new TaiKhoanBUS();
+    CTPhieuNhapBUS ctpnBUS = new CTPhieuNhapBUS();
 
     public ArrayList<SanPhamDTO> loadSanPham() {
         return spDAO.selectAll();
@@ -46,13 +49,46 @@ public class PhieuNhapBUS {
             e.printStackTrace();
         }
         double TongTien = Double.parseDouble(cartImport.getTfTongtien().getText());
-        
-        PhieuNhapDTO pn = new PhieuNhapDTO(TenTK, IDNCC+"", TenTK, TongTien, startDate, "1");
+
+        PhieuNhapDTO pn = new PhieuNhapDTO(TenTK, IDNCC + "", TenTK, TongTien, startDate, "1");
         boolean res = pnDAO.Them(pn);
-        if(res) {
-            System.out.println("sucessfully");
-            createCart(cartImport);
+           
+        if (res) {
+            // lấy chi tiết phiếu nhập
+            ArrayList<CTPhieuNhapDTO> listSPNhap = getListCTPN(cartImport);
+            boolean resCT, resSP = false;
+            boolean success = false;
+            for (CTPhieuNhapDTO ctpn : listSPNhap) {
+                resCT = ctpnBUS.TaoCTPhieuNhap(ctpn);
+                if (!resCT) {
+                    cartImport.displayErrorMessage("lỗi nhập hàng " + ctpn.getMaSP());
+                } else {
+                    resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), ctpn.getSoLuong(), ctpn.getDonGia());
+                    if(resSP) {
+                        success = true;                       
+                    }
+                }
+            }
+            if(success) {
+                JOptionPane.showMessageDialog(cartImport, "Nhập hàng thành công!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
         }
+    }
+
+    public ArrayList<CTPhieuNhapDTO> getListCTPN(NhapHangGUI cartImport) {
+        ArrayList<CTPhieuNhapDTO> listID = new ArrayList<>();
+        String IDPN = cartImport.getTfIDHoadon().getText().substring(2);
+        int rows = cartImport.getTableChitiet().getModel().getRowCount();
+        for (int i = 0; i < rows; i++) {
+            String ID = cartImport.getTableChitiet().getModel().getValueAt(i, 0).toString().substring(2);
+            int quantity = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 2).toString());
+            int ThanhTien = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 3).toString());
+            int DonGia = ThanhTien / quantity;
+            CTPhieuNhapDTO ctpn = new CTPhieuNhapDTO(IDPN, ID, DonGia, quantity);
+            listID.add(ctpn);
+        }
+        return listID;
     }
 
     public void queryListSupplier(NhapHangGUI cartImport) {
@@ -77,7 +113,7 @@ public class PhieuNhapBUS {
 
         cartImport.getTfIDHoadon().setText(IDPN);
         String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
-        
+
         cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
         cartImport.getTfNgaytao().setText(formattedDate);
 
@@ -99,15 +135,16 @@ public class PhieuNhapBUS {
     }
 
     public void loadDataFromCart(NhapHangGUI cartImport, int row_index) {
-        String nameProduct = cartImport.getTableChitiet().getValueAt(row_index, 0).toString();
-        int newQuantity = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 1).toString());
-        int newPrice = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 2).toString()) / newQuantity;
+        String idProduct = cartImport.getTableChitiet().getValueAt(row_index, 0).toString();
+//        String nameProduct = cartImport.getTableChitiet().getValueAt(row_index, 1).toString();
+        int newQuantity = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 2).toString());
+        int newPrice = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 3).toString()) / newQuantity;
 
         int rowCount = cartImport.getTableSanPham().getModel().getRowCount();
         for (int i = 0; i < rowCount; i++) {
-            Object value = cartImport.getTableSanPham().getModel().getValueAt(i, 2);
+            Object value = cartImport.getTableSanPham().getModel().getValueAt(i, 1);
 
-            if (nameProduct.equals(value)) {
+            if (idProduct.equals(value)) {
                 cartImport.getTfIDSanPham().setText(cartImport.getTableSanPham().getValueAt(i, 1).toString());
                 cartImport.getTfTenSanpham().setText(cartImport.getTableSanPham().getValueAt(i, 2).toString());
                 cartImport.getTfTenTacgia().setText(cartImport.getTableSanPham().getValueAt(i, 3).toString());

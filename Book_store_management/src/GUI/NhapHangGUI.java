@@ -40,8 +40,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
      */
     PhieuNhapBUS pnBUS = new PhieuNhapBUS();
     private static DefaultTableModel modelSanPham, modelCartImport;
-    private static ArrayList<Object[]> listCart = new ArrayList<>();
-    JTable tableSanPham, tableChitiet;
+    private static JTable tableSanPham, tableChitiet;
 
     public NhapHangGUI() {
         initComponents();
@@ -51,9 +50,17 @@ public class NhapHangGUI extends javax.swing.JPanel {
     }
 
     public void selectProduct() {
-        tableSanPham.getSelectionModel().addListSelectionListener((e) -> {
-            if (!e.getValueIsAdjusting()) {
-                pnBUS.loadData(this, getTableSanPham().getSelectedRow());
+//        tableSanPham.getSelectionModel().addListSelectionListener((e) -> {
+//            if (!e.getValueIsAdjusting()) {
+//                pnBUS.loadData(this, getTableSanPham().getSelectedRow());
+//            }
+//        });
+        
+        tableSanPham.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tableSanPham.rowAtPoint(e.getPoint());
+                pnBUS.loadData(NhapHangGUI.this, row);
             }
         });
 
@@ -63,9 +70,9 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 int row = tableChitiet.rowAtPoint(e.getPoint());
                 int column = tableChitiet.columnAtPoint(e.getPoint());
 
-                if(column == 3) {
+                if(column == 4) {
                     pnBUS.loadDataFromCart(NhapHangGUI.this, row);
-                } else if(column == 4) {
+                } else if(column == 5) {
                     modelCartImport.removeRow(row);
                     getTotalCart();
                 }
@@ -76,6 +83,14 @@ public class NhapHangGUI extends javax.swing.JPanel {
     public void createCart() {
         pnBUS.createCart(this);
         getTotalCart();
+    }
+
+    public static DefaultTableModel getModelSanPham() {
+        return modelSanPham;
+    }
+
+    public static DefaultTableModel getModelCartImport() {
+        return modelCartImport;
     }
 
     public JComboBox<String> getCbCongTy() {
@@ -98,11 +113,11 @@ public class NhapHangGUI extends javax.swing.JPanel {
         return tfTongtien;
     }
 
-    public JTable getTableSanPham() {
+    public static JTable getTableSanPham() {
         return tableSanPham;
     }
 
-    public JTable getTableChitiet() {
+    public static JTable getTableChitiet() {
         return tableChitiet;
     }
 
@@ -277,7 +292,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnHuydon.setFocusPainted(false);
         btnHuydon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnHuydon.setIconTextGap(3);
-        btnHuydon.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        btnHuydon.setMargin(new java.awt.Insets(2, 0, 2, 0));
         btnHuydon.setPreferredSize(new java.awt.Dimension(140, 40));
         btnHuydon.setRadius(40);
         btnHuydon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -294,7 +309,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         btnThanhtoan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnThanhtoan.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnThanhtoan.setIconTextGap(0);
-        btnThanhtoan.setMargin(new java.awt.Insets(2, -10, 3, 0));
+        btnThanhtoan.setMargin(new java.awt.Insets(2, 0, 2, 0));
         btnThanhtoan.setPreferredSize(new java.awt.Dimension(140, 40));
         btnThanhtoan.setRadius(40);
         btnThanhtoan.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -323,7 +338,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         PanelTable2.setLayout(PanelTable2Layout);
         PanelTable2Layout.setHorizontalGroup(
             PanelTable2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PanelTable2Layout.setVerticalGroup(
             PanelTable2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,30 +362,26 @@ public class NhapHangGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfNgaytao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel8))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfNgaytao, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(btnThanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnHuydon, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(tfTongtien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(tfIDNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel5Layout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(PanelTable2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel7))))
-                            .addGap(0, 0, Short.MAX_VALUE)))
-                    .addComponent(cbCongTy, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                        .addComponent(btnThanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHuydon, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfTongtien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbCongTy, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelTable2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 304, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(tfIDNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -384,19 +395,19 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 .addComponent(tfNgaytao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(PanelTable2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jLabel8)
                 .addGap(1, 1, 1)
                 .addComponent(cbCongTy, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnThanhtoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuydon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
@@ -718,6 +729,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         if(validateInput()) {
             pnBUS.NhapHang(this);
             createCart();
+            pnBUS.createTableProduct(modelSanPham);
             modelCartImport.setRowCount(0);
             getCbCongTy().setSelectedIndex(0);
         }
@@ -755,6 +767,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
             double price = 0;
             String nameProduct = tfTenSanpham.getText();
             String quantityStr = tfSoluong.getText();
+            String IDSanPham = tfIDSanPham.getText();
             try {
                 quantity = Integer.parseInt(quantityStr);
                 if (quantity <= 0) {
@@ -779,24 +792,34 @@ public class NhapHangGUI extends javax.swing.JPanel {
             double totalPriceDbl = price * quantity;
             int totalPrice = (int) totalPriceDbl;
             Object[] row = {
-                nameProduct, quantity, totalPrice, "", ""
+                IDSanPham, nameProduct, quantity, totalPrice, "", ""
             };
-            int existNameRow = existName(nameProduct);
+            int existNameRow = existProduct(IDSanPham);
             if (existNameRow == -1) {
                 modelCartImport.addRow(row);
             } else {
-                modelCartImport.setValueAt(quantity, existNameRow, 1);
-                modelCartImport.setValueAt(totalPrice, existNameRow, 2);
+                modelCartImport.setValueAt(quantity, existNameRow, 2);
+                modelCartImport.setValueAt(totalPrice, existNameRow, 3);
             }
             getTotalCart();
+            clearTextField();
         }
     }//GEN-LAST:event_btnChonActionPerformed
+    public void clearTextField() {
+        tfIDSanPham.setText("");
+        tfTenSanpham.setText("");
+        tfTenTacgia.setText("");
+        tfTheloai.setText("");
+        tfSoluong.setText("");
+        tfDongia.setText("");
+    }
+    
     public void getTotalCart() {
         int rowCount = modelCartImport.getRowCount();
         int totalPrice = 0;
 
         for (int i = 0; i < rowCount; i++) {
-            Object value = modelCartImport.getValueAt(i, 2);
+            Object value = modelCartImport.getValueAt(i, 3);
             String stringValue = value.toString(); // Chuyển đổi giá trị thành chuỗi
             totalPrice += Integer.parseInt(stringValue);
         }
@@ -804,12 +827,12 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfTongtien.setText(totalPrice + "");
     }
 
-    public int existName(String nameProduct) {
+    public int existProduct(String id) {
         int rowCount = modelCartImport.getRowCount();
 
         for (int i = 0; i < rowCount; i++) {
             Object value = modelCartImport.getValueAt(i, 0);
-            if (nameProduct.equals(value)) {
+            if (id.equals(value)) {
                 return i;
             }
         }
@@ -913,13 +936,13 @@ public class NhapHangGUI extends javax.swing.JPanel {
     public JTable createTableChitietSanpham() {
         // Tiêu đề của các cột
 
-        String[] columnNames = {"Tên sản phẩm", "SL", "Thành tiền", "", ""};
+        String[] columnNames = {"ID", "Tên sản phẩm", "SL", "Thành tiền", "", ""};
         modelCartImport = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 1 || columnIndex == 2) { // Cột STT và Số lượng
+                if (columnIndex == 2 || columnIndex == 3) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 3) { // Cột Đơn giá
+                } else if (columnIndex == 4 || columnIndex == 5) { // Cột Đơn giá
                     return ImageIcon.class; // Kiểu dữ liệu Icon
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
@@ -929,18 +952,19 @@ public class NhapHangGUI extends javax.swing.JPanel {
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(modelCartImport);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(500); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(100); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(420); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(60); // Độ rộng cột 3
+        columnModel.getColumn(0).setPreferredWidth(350); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(500); // Độ rộng cột 0
+        columnModel.getColumn(2).setPreferredWidth(100); // Độ rộng cột 1
+        columnModel.getColumn(3).setPreferredWidth(420); // Độ rộng cột 2
         columnModel.getColumn(4).setPreferredWidth(60); // Độ rộng cột 3
+        columnModel.getColumn(5).setPreferredWidth(60); // Độ rộng cột 3
 
         EditHeaderTable2(table);
         EditTableContent(table);
         Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
         Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
-        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconDelete));
-        table.getColumnModel().getColumn(3).setCellRenderer(new ImageRender(iconUpdate));
+        table.getColumnModel().getColumn(5).setCellRenderer(new ImageRender(iconDelete));
+        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconUpdate));
         return table;
     }
 

@@ -39,7 +39,7 @@
           <EmptySpace min="0" pref="756" max="32767" attributes="0"/>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Component id="jPanel5" min="-2" pref="750" max="-2" attributes="0"/>
+                  <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -436,9 +436,6 @@
         </Container>
         <Component class="Components.ButtonRadius" name="btnTimkiem">
           <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bd" green="e8" red="fa" type="rgb"/>
-            </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d9" green="ac" red="87" type="rgb"/>
             </Property>
@@ -446,9 +443,6 @@
               <Image iconType="3" name="/Assets/icon_24px/search.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="T&#xec;m"/>
-            <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bd" green="e8" red="fa" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="18" style="0"/>
             </Property>
@@ -525,7 +519,6 @@
                   <Border info="null"/>
                 </Property>
                 <Property name="lightWeightPopupEnabled" type="boolean" value="false"/>
-                <Property name="opaque" type="boolean" value="true"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -539,9 +532,6 @@
               <Color blue="d9" green="ac" red="87" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="&#xc1;p d&#x1ee5;ng"/>
-            <Property name="color" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="bd" green="e8" red="fa" type="rgb"/>
-            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Josefin Sans SemiBold" size="16" style="0"/>
             </Property>
@@ -575,15 +565,20 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                      <Component id="jDateChooser1" pref="160" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+                      <Component id="jDateChooser2" min="-2" pref="154" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jSeparator1" pref="36" max="32767" attributes="0"/>
+                  <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
+                  <Component id="jDateChooser2" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -595,6 +590,10 @@
                 </Property>
                 <Property name="orientation" type="int" value="1"/>
               </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
             </Component>
           </SubComponents>
         </Container>
@@ -703,7 +702,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="Components.ButtonRadius" name="btnTimkiem">
+        <Component class="Components.ButtonRadius" name="btnTimkiem1">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>

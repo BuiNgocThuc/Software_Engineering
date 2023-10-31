@@ -68,11 +68,11 @@ public class PhieuNhapDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaNCC = rs.getString("MaNCC");
+                int MaNCC = rs.getInt("MaNCC");
                 String TenNCC = rs.getString("TenNCC");
                 String SDT = rs.getString("SDT");
                 String DiaChi = rs.getString("DiaChi");
-                CongTyDTO cty = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, "1");
+                CongTyDTO cty = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, true);
                 ketQua.add(cty);
             }
             ConnectDB.closeConnection(c);

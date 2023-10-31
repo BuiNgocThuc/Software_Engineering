@@ -9,9 +9,14 @@ package DTO;
  * @author NGOC THUC
  */
 public class CongTyDTO {
-    private String MaNCC, TenNCC, SDT, DiaChi, TinhTrang;
+    int MaNCC;
+    private String TenNCC, SDT, DiaChi;
+    Boolean TinhTrang;
 
-    public CongTyDTO(String MaNCC, String TenNCC, String SDT, String DiaChi, String TinhTrang) {
+    public CongTyDTO() {
+    }
+
+    public CongTyDTO(int MaNCC, String TenNCC, String SDT, String DiaChi, Boolean TinhTrang) {
         this.MaNCC = MaNCC;
         this.TenNCC = TenNCC;
         this.SDT = SDT;
@@ -19,11 +24,11 @@ public class CongTyDTO {
         this.TinhTrang = TinhTrang;
     }
 
-    public String getMaNCC() {
+    public int getMaNCC() {
         return MaNCC;
     }
 
-    public void setMaNCC(String MaNCC) {
+    public void setMaNCC(int MaNCC) {
         this.MaNCC = MaNCC;
     }
 
@@ -51,12 +56,17 @@ public class CongTyDTO {
         this.DiaChi = DiaChi;
     }
 
-    public String getTinhTrang() {
+    public Boolean getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(String TinhTrang) {
+    public void setTinhTrang(Boolean TinhTrang) {
         this.TinhTrang = TinhTrang;
+    }
+
+    @Override
+    public String toString() {
+        return "CongTyDTO{" + "MaNCC=" + MaNCC + ", TenNCC=" + TenNCC + ", SDT=" + SDT + ", DiaChi=" + DiaChi + ", TinhTrang=" + TinhTrang + '}';
     }
     
     

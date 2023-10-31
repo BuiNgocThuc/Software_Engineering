@@ -11,6 +11,10 @@ import DTO.CongTyDTO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import GUI.NhapHangGUI;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,7 +23,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.util.Date;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import java.awt.Image;
 
 /**
  *
@@ -52,7 +60,7 @@ public class PhieuNhapBUS {
 
         PhieuNhapDTO pn = new PhieuNhapDTO(TenTK, IDNCC + "", TenTK, TongTien, startDate, "1");
         boolean res = pnDAO.Them(pn);
-           
+
         if (res) {
             // lấy chi tiết phiếu nhập
             ArrayList<CTPhieuNhapDTO> listSPNhap = getListCTPN(cartImport);
@@ -64,12 +72,12 @@ public class PhieuNhapBUS {
                     cartImport.displayErrorMessage("lỗi nhập hàng " + ctpn.getMaSP());
                 } else {
                     resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), ctpn.getSoLuong(), ctpn.getDonGia());
-                    if(resSP) {
-                        success = true;                       
+                    if (resSP) {
+                        success = true;
                     }
                 }
             }
-            if(success) {
+            if (success) {
                 JOptionPane.showMessageDialog(cartImport, "Nhập hàng thành công!!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -112,9 +120,9 @@ public class PhieuNhapBUS {
         String formattedDate = currentDate.format(formatter);
 
         cartImport.getTfIDHoadon().setText(IDPN);
-        String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
+//        String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
 
-        cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
+        cartImport.getTfIDNhanvien().setText(""); // sửa sau
         cartImport.getTfNgaytao().setText(formattedDate);
 
         cartImport.getTfIDHoadon().setFocusable(false);
@@ -125,6 +133,14 @@ public class PhieuNhapBUS {
     }
 
     public void loadData(NhapHangGUI cartImport, int row_index) {
+        int idSP = Integer.parseInt(cartImport.getTableSanPham().getValueAt(row_index, 1).toString().substring(2));
+        SanPhamDTO sp = spDAO.getHinhAnhandNamXB(idSP);
+        String nameImg = sp.getHinhAnh();
+        ImageIcon imgPro = new ImageIcon(new ImageIcon(getClass().getResource("/Assets/IMG/" + nameImg)).getImage().getScaledInstance(cartImport.getLblHinhAnh().getWidth(), cartImport.getLblHinhAnh().getHeight(), Image.SCALE_DEFAULT));
+        
+        
+        cartImport.getLblHinhAnh().setIcon(imgPro);
+        cartImport.getLblHinhAnh().setText("");
         cartImport.getTfIDSanPham().setText(cartImport.getTableSanPham().getValueAt(row_index, 1).toString());
         cartImport.getTfTenSanpham().setText(cartImport.getTableSanPham().getValueAt(row_index, 2).toString());
         cartImport.getTfTenTacgia().setText(cartImport.getTableSanPham().getValueAt(row_index, 3).toString());

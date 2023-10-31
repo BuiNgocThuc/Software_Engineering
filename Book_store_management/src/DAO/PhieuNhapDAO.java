@@ -21,31 +21,50 @@ import java.util.Date;
  */
 public class PhieuNhapDAO {
 
+    public void updateImg() {
+        int res = 0;
+        for (int i = 1; i <= 9; i++) {
+            try {
+                Connection conn = ConnectDB.getConnection();
+                String sql = "UPDATE SanPham SET HinhAnh=? WHERE MaSP=?";
+                PreparedStatement pst = conn.prepareStatement(sql);
+                String name = "sp0"+i+".jpg";
+                pst.setNString(1, name);
+                pst.setInt(2, i);
+                pst.executeUpdate();
+                ConnectDB.closeConnection(conn);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public int queryByNameSupplier(String name) {
         int ID = 0;
         try {
             Connection c = ConnectDB.getConnection();
             String sql = "SELECT MaNCC FROM NhaCungCap WHERE TenNCC = ?";
             PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(1,name);
+            pst.setString(1, name);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
                 ID = rs.getInt("MaNCC");
             }
             ConnectDB.closeConnection(c);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return ID;
     }
+
     public ArrayList<CongTyDTO> querySupplier() {
         ArrayList<CongTyDTO> ketQua = new ArrayList<>();
         try {
             Connection c = ConnectDB.getConnection();
             String sql = "SELECT * FROM NhaCungCap WHERE TinhTrang <> 0";
-            PreparedStatement pst = c.prepareStatement(sql); 
+            PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
@@ -135,5 +154,10 @@ public class PhieuNhapDAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+//        PhieuNhapDAO a = new PhieuNhapDAO();
+//        a.updateImg();
     }
 }

@@ -67,7 +67,7 @@ CREATE TABLE [SanPham] (
   [MaSP] int IDENTITY(1,1) Primary key,
   [MaTL] int  DEFAULT (NULL),
   [TenSP] nvarchar(50) DEFAULT (NULL),
-  [HinhAnh] VARBINARY(MAX) DEFAULT (NULL),
+  [HinhAnh] nvarchar(50) DEFAULT (NULL),
   [DonGia] float DEFAULT (NULL),
   [SoLuong] int DEFAULT (NULL),
   [TacGia] nvarchar(255),
@@ -273,7 +273,6 @@ VALUES
 (9, N'The Fault in Our Stars', N'sp44.jpg', 500.00, 48, N'John Green', 2012, 1),
 (9, N'Me Before You', N'sp45.jpg', 310.00, 42, N'Jojo Moyes', 2012, 1);
 
-Delete PhieuNhap
 
 INSERT INTO NhomQuyen(TenNQ, MoTa, TinhTrang)
 VALUES

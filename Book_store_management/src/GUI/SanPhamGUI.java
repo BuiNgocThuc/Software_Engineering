@@ -121,7 +121,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTimKiem.setBorder(null);
-        txtTimKiem.setOpaque(true);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTimKiemFocusGained(evt);

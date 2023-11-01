@@ -47,4 +47,8 @@ public class SanPhamBUS {
     public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
         return sanPhamDAO.findSPByTenSP(temp);
     }
+    
+      public ArrayList<SanPhamDTO> findSPByTacGIa(String TacGia){
+          return sanPhamDAO.findSPByTacGIa(TacGia);
+      }
 }

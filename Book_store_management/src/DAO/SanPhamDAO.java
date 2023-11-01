@@ -129,7 +129,31 @@ public class SanPhamDAO {
         }
         return sanPhamList;
     }
-
+    public ArrayList<SanPhamDTO> findSPByTacGIa(String TacGia) {
+      ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE TacGia LIKE ? and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + TacGia + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sanPhamList;
+    }
     public SanPhamDTO getHinhAnhandNamXB(int maSP) {
         SanPhamDTO sp = null;
         String sql = "SELECT HinhAnh, NamXB FROM SanPham WHERE MaSP = ?";

@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
@@ -27,9 +28,9 @@ import javax.swing.table.JTableHeader;
  */
 public class sharedFunction {
 
-    private static  int mouseX, mouseY;
+    private static int mouseX, mouseY;
 
-    public static  void moveLayout(JFrame jframe, JPanel panel ){
+    public static void moveLayout(JFrame jframe, JPanel panel) {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -102,5 +103,17 @@ public class sharedFunction {
         table.getTableHeader().setResizingAllowed(false);
     }
 
+    public static boolean isPositiveInteger(String str) {
+        try {
+            int number = Integer.parseInt(str);
+            return number > 0;
+        } catch (NumberFormatException e) {
+            // Nếu có lỗi NumberFormatException, chuỗi không phải là số nguyên.
+            return false;
+        }
+    }
 
+    public static void displayErrorMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
 }

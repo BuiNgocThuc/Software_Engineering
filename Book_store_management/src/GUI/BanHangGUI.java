@@ -15,10 +15,13 @@ import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -52,7 +55,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         initComponents();
         createTable();
         selectRow();
-//        setText_ID_NgayTao();
+        setText_ID_NgayTao();
 
     }
 
@@ -60,6 +63,20 @@ public final class BanHangGUI extends javax.swing.JPanel {
         tableSanPham.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
                 loadDataThongTinChiTiet();
+            }
+        });
+        tableHoaDon.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = tableHoaDon.rowAtPoint(e.getPoint());
+                int column = tableHoaDon.columnAtPoint(e.getPoint());
+
+                if (column == 3) {
+                    txtSoluong.requestFocus();
+                } else if (column == 4) {
+                    modelHoaDon.removeRow(row);
+//                    getTotalCart();
+                }
             }
         });
     }
@@ -113,7 +130,6 @@ public final class BanHangGUI extends javax.swing.JPanel {
             int maSPnumber = Integer.parseInt(maSP.substring(2));
             SanPhamDTO sp = spDAO.getHinhAnhandNamXB(maSPnumber);
             String hinhAnh = sp.getHinhAnh();
-            System.out.println(hinhAnh);
             if (hinhAnh != null) {
                 String imagePath = "./../Assets/IMG/" + hinhAnh;
                 // Tạo một ImageIcon từ tệp hình ảnh sử dụng đường dẫn tương đối
@@ -130,7 +146,8 @@ public final class BanHangGUI extends javax.swing.JPanel {
             txtTenSanpham.setText(tenSP);
             txtTenTacgia.setText(tacGia);
             txtTheloai.setText(theLoai);
-            txtSoluong.setText(String.valueOf(1));
+            txtSoluong.setText("");
+            txtSoluong.requestFocus();
             txtDonGia.setText(String.valueOf(donGia));
         }
     }
@@ -139,7 +156,24 @@ public final class BanHangGUI extends javax.swing.JPanel {
         String tenSP = txtTenSanpham.getText();
         String soLuong = txtSoluong.getText();
         String donGia = txtDonGia.getText();
-        modelHoaDon.addRow(new Object[]{tenSP, soLuong, donGia});
+        Object[] rowData = {tenSP, soLuong, donGia, "", ""}; // Thêm biểu tượng vào mảng dữ liệu
+        modelHoaDon.addRow(rowData);
+    }
+
+    private class ImageRender extends DefaultTableCellRenderer {
+
+        private Icon icon;
+
+        public ImageRender(Icon icon) {
+            this.icon = icon;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            return new JLabel(icon);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
@@ -325,6 +359,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         jLabel7.setText("Chi tiết hóa đơn");
 
         PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
+        PanelTable2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(135, 172, 217)));
 
         javax.swing.GroupLayout PanelTable2Layout = new javax.swing.GroupLayout(PanelTable2);
         PanelTable2.setLayout(PanelTable2Layout);
@@ -752,19 +787,29 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
-           txtIDSanpham.setText("");
-            txtTenSanpham.setText("");
-            txtTenTacgia.setText("");
-            txtTheloai.setText("");
-            txtSoluong.setText("");
-            txtDonGia.setText("");
-              lblImage.setIcon(null); 
-        
+        txtIDSanpham.setText("");
+        txtTenSanpham.setText("");
+        txtTenTacgia.setText("");
+        txtTheloai.setText("");
+        txtSoluong.setText("");
+        txtDonGia.setText("");
+        lblImage.setIcon(null);
+
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
         // TODO add your handling code here:
-        loadDataGioHang();
+        if (txtIDSanpham.getText().equals("")) {
+            sharedFunction.displayErrorMessage("Vui lòng chọn sản phẩm");
+        } else if (txtSoluong.getText().equals("")) {
+            sharedFunction.displayErrorMessage("vui lòng nhập số lượng");
+        } else {
+            if (!sharedFunction.isPositiveInteger(txtSoluong.getText())) {
+                sharedFunction.displayErrorMessage("Số lượng không hợp lệ");
+            } else {
+                loadDataGioHang();
+            }
+        }
     }//GEN-LAST:event_btnChonActionPerformed
 
     private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
@@ -900,31 +945,84 @@ public final class BanHangGUI extends javax.swing.JPanel {
         table.getTableHeader().setResizingAllowed(false);
     }
 
+//    public JTable createTableHoaDon() {
+//        // Tiêu đề của các cột
+//        String[] columnNames = {"Tên sản phẩm", "SL", "T.Tiền", "",""};
+//        modelHoaDon = new DefaultTableModel() {
+//            @Override
+//            public Class<?> getColumnClass(int columnIndex) {
+//                if (columnIndex == 1) { // Cột SL
+//                    return Integer.class; // Kiểu dữ liệu Integer
+//                } else if (columnIndex == 2) { // Cột Thành tiền
+//                    return Float.class; // Kiểu dữ liệu Float
+//                } else if (columnIndex == 3 || columnIndex == 4) { // Cột Update và Delete
+//                    return Icon.class; // Kiểu dữ liệu Icon
+//                }
+//                return String.class; // Các cột khác có kiểu dữ liệu String
+//            }
+//        };
+//        modelHoaDon.setColumnIdentifiers(columnNames);
+//        // Tạo JTable với DefaultTableModel
+//        JTable table = new JTable(modelHoaDon);
+//        TableColumnModel columnModel = table.getColumnModel();
+//        columnModel.getColumn(0).setPreferredWidth(280); // Độ rộng cột 0
+//        columnModel.getColumn(1).setPreferredWidth(60); // Độ rộng cột 1
+//        columnModel.getColumn(2).setPreferredWidth(200); // Độ rộng cột 2
+//        columnModel.getColumn(3).setPreferredWidth(40); // Độ rộng cột 3
+//        columnModel.getColumn(4).setPreferredWidth(40); // Độ rộng cột 4
+//
+//
+//        EditHeaderTable2(table);
+//        sharedFunction.EditTableContent(table);
+//        Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
+//        Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
+//        table.getColumnModel().getColumn(3).setCellRenderer((TableCellRenderer) iconUpdate);
+//        table.getColumnModel().getColumn(4).setCellRenderer((TableCellRenderer) iconDelete);
+//        return table;
+//    }
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"Tên sản phẩm", "SL", "Thành tiền", "Thao tác"};
+        String[] columnNames = {"Tên sản phẩm", "SL", "T.Tiền", "", ""};
         modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
-                    return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+                switch (columnIndex) {
+                    case 1 -> {
+                        // Cột SL
+                        return Integer.class; // Kiểu dữ liệu Integer
+                    }
+                    case 2 -> {
+                        // Cột Thành tiền
+                        return Float.class; // Kiểu dữ liệu Float
+                    }
+                    case 3, 4 -> {
+                        // Cột Update và Delete
+                        return Icon.class; // Kiểu dữ liệu Icon
+                    }
+                    default -> {
+                    }
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
         modelHoaDon.setColumnIdentifiers(columnNames);
+
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(modelHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(280); // Độ rộng cột 0
+        columnModel.getColumn(0).setPreferredWidth(330); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(60); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(200); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
+        columnModel.getColumn(2).setPreferredWidth(150); // Độ rộng cột 2
+        columnModel.getColumn(3).setPreferredWidth(40); // Độ rộng cột 3
+        columnModel.getColumn(4).setPreferredWidth(40); // Độ rộng cột 4
 
-        EditHeaderTable2(table);
+        NhapHangGUI.EditHeaderTable2(table);
         sharedFunction.EditTableContent(table);
+        table.setBorder(null);
+        Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
+        Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
+        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconDelete));
+        table.getColumnModel().getColumn(3).setCellRenderer(new ImageRender(iconUpdate));
         return table;
     }
 

@@ -6,7 +6,7 @@ package GUI;
 
 import BUS.HoaDonBUS;
 import BUS.SanPhamBUS;
-import BUS.TaiKhoanBUS;
+import DAO.SanPhamDAO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
@@ -14,10 +14,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,31 +50,38 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     public BanHangGUI() {
         initComponents();
-        
+        createTable();
+        selectRow();
+//        setText_ID_NgayTao();
+
+    }
+
+    public void selectRow() {
+        tableSanPham.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
+                loadDataThongTinChiTiet();
+            }
+        });
+    }
+
+    public void createTable() {
         tableSanPham = createTableSanPham();
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
-        
+
         tableSanPham.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
-        
+
         tableHoaDon = createTableHoaDon();
         tableHoaDon.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
         JScrollPane scrollPaneHoaDon = new JScrollPane(tableHoaDon);
         scrollPaneHoaDon.setBorder(matteBorder);
         PanelTable2.setLayout(new BorderLayout());
         PanelTable2.add(scrollPaneHoaDon);
-
-//        setText_ID_NgayTao();
-        tableSanPham.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
-            if (!event.getValueIsAdjusting()) {
-                loadDataThongTinChiTiet();
-            }
-        });
     }
 
     public void setText_ID_NgayTao() {
@@ -81,13 +90,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
         int maHD = hoaDonBUS.getMaHoaDonMax() + 1;
         String maHDtext = FormatMaHD(maHD);
         txtIDHoadon.setText(maHDtext);
-        String tenTK = TaiKhoanBUS.currentAcc.getTenTK();
-        txtIDNhanvien.setText(tenTK);
-        
-       // Lấy ngày hiện tại
+//        String tenTK = TaiKhoanBUS.currentAcc.getTenTK();
+//        txtIDNhanvien.setText(tenTK);
+        // Lấy ngày hiện tại
         Date currentDate = new Date();
-
-       // Định dạng ngày theo yêu cầu (ví dụ: "dd/MM/yyyy HH:mm:ss")
+        // Định dạng ngày theo yêu cầu (ví dụ: "dd/MM/yyyy HH:mm:ss")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = dateFormat.format(currentDate);
         txtNgayTao.setText(formattedDate);
@@ -102,6 +109,23 @@ public final class BanHangGUI extends javax.swing.JPanel {
             String tacGia = (String) tableSanPham.getValueAt(selectedRow, 3);
             String theLoai = (String) tableSanPham.getValueAt(selectedRow, 4);
             double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
+            SanPhamDAO spDAO = new SanPhamDAO();
+            int maSPnumber = Integer.parseInt(maSP.substring(2));
+            SanPhamDTO sp = spDAO.getHinhAnhandNamXB(maSPnumber);
+            String hinhAnh = sp.getHinhAnh();
+            System.out.println(hinhAnh);
+            if (hinhAnh != null) {
+                String imagePath = "./../Assets/IMG/" + hinhAnh;
+                // Tạo một ImageIcon từ tệp hình ảnh sử dụng đường dẫn tương đối
+                ImageIcon imageIcon = new ImageIcon(getClass().getResource(imagePath));
+                // Lấy Image từ ImageIcon và thực hiện phép co giãn với kích thước của JLabel
+                // sử dụng Image.SCALE_SMOOTH để đảm bảo hình ảnh được co giãn một cách mượt mà
+                Image img = imageIcon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+                // Tạo một ImageIcon mới từ hình ảnh đã được co giãn
+                ImageIcon scaledImageIcon = new ImageIcon(img);
+                // Đặt ImageIcon đã được co giãn làm biểu tượng cho JLabel
+                lblImage.setIcon(scaledImageIcon);
+            }
             txtIDSanpham.setText(maSP);
             txtTenSanpham.setText(tenSP);
             txtTenTacgia.setText(tacGia);
@@ -141,7 +165,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         btnChon = new Components.ButtonRadius();
-        jLabel4 = new javax.swing.JLabel();
+        lblImage = new javax.swing.JLabel();
         txtIDSanpham = new javax.swing.JTextField();
         txtTenSanpham = new javax.swing.JTextField();
         txtTenTacgia = new javax.swing.JTextField();
@@ -425,9 +449,8 @@ public final class BanHangGUI extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Hình ảnh");
-        jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
         txtIDSanpham.setEditable(false);
         txtIDSanpham.setBackground(new java.awt.Color(255, 255, 255));
@@ -472,7 +495,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -510,7 +533,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
                                 .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                             .addGap(26, 26, 26)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -729,6 +752,14 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
+           txtIDSanpham.setText("");
+            txtTenSanpham.setText("");
+            txtTenTacgia.setText("");
+            txtTheloai.setText("");
+            txtSoluong.setText("");
+            txtDonGia.setText("");
+              lblImage.setIcon(null); 
+        
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
@@ -968,7 +999,6 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -979,6 +1009,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel lblImage;
     private javax.swing.JTextField tfTienkhach;
     private javax.swing.JTextField tfTienthoi;
     private javax.swing.JTextField tfTongtien;

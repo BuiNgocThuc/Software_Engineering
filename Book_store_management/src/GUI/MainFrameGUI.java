@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

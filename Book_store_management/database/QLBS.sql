@@ -67,7 +67,7 @@ CREATE TABLE [SanPham] (
   [MaSP] int IDENTITY(1,1) Primary key,
   [MaTL] int  DEFAULT (NULL),
   [TenSP] nvarchar(50) DEFAULT (NULL),
-  [HinhAnh] VARBINARY(MAX) DEFAULT (NULL),
+  [HinhAnh] nvarchar(255) DEFAULT (NULL),
   [DonGia] float DEFAULT (NULL),
   [SoLuong] int DEFAULT (NULL),
   [TacGia] nvarchar(255),
@@ -111,6 +111,7 @@ CREATE TABLE [NhaCungCap] (
   [DiaChi] nvarchar(355) DEFAULT (NULL),
   [TinhTrang] BIT DEFAULT (NULL)
 )
+GO
 
 ALTER TABLE [SanPham] ADD FOREIGN KEY ([MaTL]) REFERENCES [TheLoai] ([MaTL])
 GO
@@ -176,104 +177,102 @@ VALUES
 
 INSERT INTO HoaDon(TenTK, NgayTao, TongTien)
 VALUES
-('NV004', '2023-03-30', 140.00),
-('NV002', '2022-09-23', 340.00),
-('NV004', '2022-09-24', 130.00),
-('NV004', '2022-09-25', 310.00),
-('NV004', '2022-09-26', 230.00),
-('NV004', '2022-09-27', 180.00),
-('NV004', '2022-09-28', 480.00),
-('NV004', '2022-09-29', 210.00),
-('NV004', '2022-09-30', 500.00);
+('NV004', '2023-03-30', 140.000),
+('NV002', '2022-09-23', 340.000),
+('NV004', '2022-09-24', 130.000),
+('NV004', '2022-09-25', 310.000),
+('NV004', '2022-09-26', 230.000),
+('NV004', '2022-09-27', 180.000),
+('NV004', '2022-09-28', 480.000),
+('NV004', '2022-09-29', 210.000),
+('NV004', '2022-09-30', 500.000);
 
 
 INSERT INTO ChiTietHoaDon(MaHD, MaSP, DonGia, SoLuong)
 VALUES
-(2, 1, 140.00, 1),
-(3, 2, 340.00, 1),
-(4, 3, 130.00, 1),
-(5, 4, 310.00, 1),
-(6, 5, 230.00, 1),
-(7, 6, 180.00, 1),
-(8, 7, 480.00, 1),
-(9, 8, 210.00, 1),
-(10, 9, 500.00, 1);
+(2, 1, 140.000, 1),
+(3, 2, 340.000, 1),
+(4, 3, 130.000, 1),
+(5, 4, 310.000, 1),
+(6, 5, 230.000, 1),
+(7, 6, 180.000, 1),
+(8, 7, 480.000, 1),
+(9, 8, 210.000, 1);
 
 INSERT INTO PhieuNhap(MaNCC, TenTK, NgayTao, TongTien, TinhTrang)
 VALUES
-(1, 'NV007', '2022-09-22', 2500.00, 1),
-(2, 'NV009', '2022-09-23', 1800.00, 1),
-(3, 'NV008', '2022-09-24', 3600.00, 1),
-(4, 'NV007', '2022-09-25', 2000.00, 1),
-(5, 'NV009', '2022-09-26', 3500.00, 1),
-(6, 'NV008', '2022-09-27', 4800.00, 1),
-(3, 'NV007', '2022-09-28', 2800.00, 1),
-(4, 'NV009', '2022-09-29', 1800.00, 1),
-(5, 'NV008', '2022-09-30', 3200.00, 1);
+(1, 'NV007', '2022-09-22', 2500.000, 1),
+(2, 'NV009', '2022-09-23', 1800.000, 1),
+(3, 'NV008', '2022-09-24', 3600.000, 1),
+(4, 'NV007', '2022-09-25', 2000.000, 1),
+(5, 'NV009', '2022-09-26', 3500.000, 1),
+(6, 'NV008', '2022-09-27', 4800.000, 1),
+(3, 'NV007', '2022-09-28', 2800.000, 1),
+(4, 'NV009', '2022-09-29', 1800.000, 1),
+(5, 'NV008', '2022-09-30', 3200.000, 1);
 
 
 
 INSERT INTO ChiTietPhieuNhap(MaSP, MaPN, DonGiaNhap, SoLuong)
 VALUES
-(2, 1, 250.00, 10),
-(6, 2, 180.00, 10),
+(2, 1, 250.000, 10),
+(6, 2, 180.000, 10),
 (15, 3, 180.00, 20),
-(8, 4, 200.00, 10),
-(9, 5, 350.00, 10),
-(22, 6, 180.00, 30),
-(26, 7, 140.00, 20),
-(31, 8, 180.00, 10),
-(41, 9, 160.00, 20);
+(8, 4, 200.000, 10),
+(9, 5, 350.000, 10),
+(22, 6, 180.000, 30),
+(26, 7, 140.000, 20),
+(31, 8, 180.000, 10),
+(41, 9, 160.000, 20);
 
 INSERT INTO SanPham(MaTL, TenSP, HinhAnh, DonGia, SoLuong, TacGia, NamXB, TinhTrang)
 VALUES
-(1, N'To Kill a Mockingbird', N'sp01.jpg', 140.00, 50, N'Harper Lee', 1960, 1),
-(1, N'1984', N'sp02.jpg', 340.00, 40, N'George Orwell', 1949, 1),
-(1, N'Pride and Prejudice', N'sp03.jpg', 130.00, 60, N'Jane Austen', 1984, 1),
-(1, N'The Great Gatsby', N'sp04.jpg', 310.00, 30, N'F. Scott Fitzgerald', 1999, 0),
-(1, N'Harry Potter and the Philosophers Stone', N'sp05.jpg', 230.00, 70, N'J.K. Rowling', 1997, 1),
-(2, N'Dune', N'sp06.jpg', 180.00, 45, N'Frank Herbert', 1965, 1),
-(2, N'The Hitchhikers Guide to the Galaxy', N'sp07.jpg', 480.00, 55, N'Douglas Adams', 1980,0),
+(1, N'To Kill a Mockingbird', N'sp01.jpg', 140.000, 50, N'Harper Lee', 1960, 1),
+(1, N'1984', N'sp02.jpg', 340.000, 40, N'George Orwell', 1949, 1),
+(1, N'Pride and Prejudice', N'sp03.jpg', 130.000, 60, N'Jane Austen', 1984, 1),
+(1, N'The Great Gatsby', N'sp04.jpg', 310.000, 30, N'F. Scott Fitzgerald', 1999, 0),
+(1, N'Harry Potter and the Philosophers Stone', N'sp05.jpg', 230.000, 70, N'J.K. Rowling', 1997, 1),
+(2, N'Dune', N'sp06.jpg', 180.000, 45, N'Frank Herbert', 1965, 1),
+(2, N'The Hitchhikers Guide to the Galaxy', N'sp07.jpg', 480.000, 55, N'Douglas Adams', 1980,0),
 (2, N'Enders Game', N'sp08.jpg', 210.00, 38, N'Orson Scott Card', 1985, 1),
-(2, N'Brave New World', N'sp09.jpg', 500.00, 48, N'Aldous Huxley', 1932, 1),
-(2, N'Neuromancer', N'sp10.jpg', 310.00, 42, N'William Gibson', 1984, 0),
-(3, N'The Da Vinci Code', N'sp11.jpg', 340.00, 50, N'Dan Brown', 2000, 1),
-(3, N'Gone Girl', N'sp12.jpg', 340.00, 40, N'Gillian Flynn', 2012, 1),
-(3, N'The Girl with the Dragon Tattoo', N'sp13.jpg', 230.00, 60, N'Stieg Larsson', 2004, 1),
-(3, N'The Hound of the Baskervilles', N'sp14.jpg', 370.00, 30, N'Arthur Conan Doyle', 1939, 0),
-(3, N'The Secret History', N'sp15.jpg', 230.00, 70, N'Donna Tartt', 1992, 1),
-(4, N'A Peoples History of the United States', N'sp16.jpg', 180.00, 45, N'Howard Zinn', 1980, 1),
-(4, N'Guns, Germs, and Steel', N'sp17.jpg', 480.00, 55, N'Jared Diamond', 1997, 0),
-(4, N'The Diary of a Young Girl', N'sp18.jpg', 210.00, 38, N'Anne Frank', 1947, 1),
-(4, N'The Guns of August', N'sp19.jpg', 500.00, 48, N'Barbara W. Tuchman', 1962, 1),
-(4, N'The Rise and Fall of the Third Reich', N'sp20.jpg', 310.00, 42, N'William L. Shirer', 1960, 1),
-(5, N'The Poet', N'sp21.jpg', 230.00, 70, N'Michael Connelly', 1996, 0),
-(5, N'The Cuckoos Calling', N'sp22.jpg', 180.00, 45, N'Robert Galbraith', 1988, 1),
-(5, N'The Silence of the Lambs', N'sp23.jpg', 480.00, 55, N'Thomas Harris', 1980, 0),
-(5, N'In the Woods', N'sp24.jpg', 210.00, 38, N'Tana French', 2007, 1),
-(5, N'The Secret History', N'sp25.jpg', 500.00, 48, N'Donna Tartt', 1992, 1),
-(6, N'A Brief History of Time', N'sp26.jpg', 140.00, 50, N'Stephen Hawking', 1988, 1),
-(6, N'The Selfish Gene', N'sp27.jpg', 340.00, 40, N'Richard Dawkins', 1976, 1),
-(6, N'Sapiens: A Brief History of Humankind', N'sp28.jpg', 130.00, 60, N'Yuval Noah Harari', 2011, 1),
-(6, N'The Origin of Species', N'sp29.jpg', 310.00, 30, N'Charles Darwin', 1859, 0),
-(6, N'The Double Helix', N'sp30.jpg', 230.00, 70, N'James D. Watson', 1968, 1),
-(7, N'The Alchemist', N'sp31.jpg', 180.00, 45, N'Paulo Coelho', 1988, 1),
-(7, N'The Power of Now', N'sp32.jpg', 480.00, 55, N'Eckhart Tolle', 1997, 0),
-(7, N'The Celestine Prophecy', N'sp33.jpg', 210.00, 38, N'James Redfield', 1993, 1),
-(7, N'Mere Christianity', N'sp34.jpg', 500.00, 48, N'C.S. Lewis ', 1952, 1),
-(7, N'The Tao of Pooh', N'sp35.jpg', 310.00, 42, N'Benjamin Hoff', 1982, 0),
-(8, N'Daring Greatly', N'sp36.jpg', 340.00, 50, N'Brené Brown', 2012, 1),
-(8, N'Girl, Wash Your Face', N'sp37.jpg', 340.00, 40, N'Rachel Hollis', 2018, 1),
-(8, N'The Power of Now', N'sp38.jpg', 230.00, 60, N'Eckhart Tolle', 1997, 1),
-(8, N'The Four Agreements', N'sp39.jpg', 370.00, 30, N'Don Miguel Ruiz', 1997, 0),
-(8, N'Start with Why', N'sp40.jpg', 230.00, 70, N'Simon Sinek', 2009, 1),
-(9, N'The Notebook', N'sp41.jpg', 180.00, 45, N'Nicholas Sparks', 1996, 1),
-(9, N'Outlander', N'sp42.jpg', 480.00, 55, N'Diana Gabaldon', 1991, 0),
-(9, N'The Rosie Project', N'43.jpg', 210.00, 38, N'Graeme Simsion', 2013, 1),
-(9, N'The Fault in Our Stars', N'sp44.jpg', 500.00, 48, N'John Green', 2012, 1),
-(9, N'Me Before You', N'sp45.jpg', 310.00, 42, N'Jojo Moyes', 2012, 1);
+(2, N'Brave New World', N'sp09.jpg', 500.000, 48, N'Aldous Huxley', 1932, 1),
+(2, N'Neuromancer', N'sp10.jpg', 310.000, 42, N'William Gibson', 1984, 0),
+(3, N'The Da Vinci Code', N'sp11.jpg', 340.000, 50, N'Dan Brown', 2000, 1),
+(3, N'Gone Girl', N'sp12.jpg', 340.000, 40, N'Gillian Flynn', 2012, 1),
+(3, N'The Girl with the Dragon Tattoo', N'sp13.jpg', 230.000, 60, N'Stieg Larsson', 2004, 1),
+(3, N'The Hound of the Baskervilles', N'sp14.jpg', 370.000, 30, N'Arthur Conan Doyle', 1939, 0),
+(3, N'The Secret History', N'sp15.jpg', 230.000, 70, N'Donna Tartt', 1992, 1),
+(4, N'A Peoples History of the United States', N'sp16.jpg', 180.000, 45, N'Howard Zinn', 1980, 1),
+(4, N'Guns, Germs, and Steel', N'sp17.jpg', 480.000, 55, N'Jared Diamond', 1997, 0),
+(4, N'The Diary of a Young Girl', N'sp18.jpg', 210.000, 38, N'Anne Frank', 1947, 1),
+(4, N'The Guns of August', N'sp19.jpg', 500.000, 48, N'Barbara W. Tuchman', 1962, 1),
+(4, N'The Rise and Fall of the Third Reich', N'sp20.jpg', 310.000, 42, N'William L. Shirer', 1960, 1),
+(5, N'The Poet', N'sp21.jpg', 230.000, 70, N'Michael Connelly', 1996, 0),
+(5, N'The Cuckoos Calling', N'sp22.jpg', 180.000, 45, N'Robert Galbraith', 1988, 1),
+(5, N'The Silence of the Lambs', N'sp23.jpg', 480.000, 55, N'Thomas Harris', 1980, 0),
+(5, N'In the Woods', N'sp24.jpg', 210.000, 38, N'Tana French', 2007, 1),
+(5, N'The Secret History', N'sp25.jpg', 500.000, 48, N'Donna Tartt', 1992, 1),
+(6, N'A Brief History of Time', N'sp26.jpg', 140.000, 50, N'Stephen Hawking', 1988, 1),
+(6, N'The Selfish Gene', N'sp27.jpg', 340.000, 40, N'Richard Dawkins', 1976, 1),
+(6, N'Sapiens: A Brief History of Humankind', N'sp28.jpg', 130.000, 60, N'Yuval Noah Harari', 2011, 1),
+(6, N'The Origin of Species', N'sp29.jpg', 310.000, 30, N'Charles Darwin', 1859, 0),
+(6, N'The Double Helix', N'sp30.jpg', 230.000, 70, N'James D. Watson', 1968, 1),
+(7, N'The Alchemist', N'sp31.jpg', 180.000, 45, N'Paulo Coelho', 1988, 1),
+(7, N'The Power of Now', N'sp32.jpg', 480.000, 55, N'Eckhart Tolle', 1997, 0),
+(7, N'The Celestine Prophecy', N'sp33.jpg', 210.000, 38, N'James Redfield', 1993, 1),
+(7, N'Mere Christianity', N'sp34.jpg', 500.000, 48, N'C.S. Lewis ', 1952, 1),
+(7, N'The Tao of Pooh', N'sp35.jpg', 310.000, 42, N'Benjamin Hoff', 1982, 0),
+(8, N'Daring Greatly', N'sp36.jpg', 340.000, 50, N'Brené Brown', 2012, 1),
+(8, N'Girl, Wash Your Face', N'sp37.jpg', 340.000, 40, N'Rachel Hollis', 2018, 1),
+(8, N'The Power of Now', N'sp38.jpg', 230.000, 60, N'Eckhart Tolle', 1997, 1),
+(8, N'The Four Agreements', N'sp39.jpg', 370.000, 30, N'Don Miguel Ruiz', 1997, 0),
+(8, N'Start with Why', N'sp40.jpg', 230.000, 70, N'Simon Sinek', 2009, 1),
+(9, N'The Notebook', N'sp41.jpg', 180.000, 45, N'Nicholas Sparks', 1996, 1),
+(9, N'Outlander', N'sp42.jpg', 480.000, 55, N'Diana Gabaldon', 1991, 0),
+(9, N'The Rosie Project', N'43.jpg', 210.000, 38, N'Graeme Simsion', 2013, 1),
+(9, N'The Fault in Our Stars', N'sp44.jpg', 500.000, 48, N'John Green', 2012, 1),
+(9, N'Me Before You', N'sp45.jpg', 310.000, 42, N'Jojo Moyes', 2012, 1);
 
-Delete PhieuNhap
 
 INSERT INTO NhomQuyen(TenNQ, MoTa, TinhTrang)
 VALUES

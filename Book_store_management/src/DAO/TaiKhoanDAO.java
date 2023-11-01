@@ -123,7 +123,7 @@ public class TaiKhoanDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM TaiKhoan";
+            String sql = "SELECT * FROM TaiKhoan WHERE TinhTrang <> 0";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -156,7 +156,7 @@ public class TaiKhoanDAO {
             pst.setString(2, taiKhoan.getMatKhau());
             pst.setString(3, taiKhoan.getMaQuyen());
             pst.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(taiKhoan.getNgayTao()));
-            pst.setBoolean(5, Boolean.parseBoolean(taiKhoan.getTinhTrang()));
+            pst.setBoolean(5, true);
 
             ketQua = pst.executeUpdate();
 
@@ -189,16 +189,16 @@ public class TaiKhoanDAO {
         return ketQua;
     }
 
-    public int Xoa(String maTK) {
+    public int Xoa(int maTK) {
         int ketQua = 0;
         try {
             Connection conn = ConnectDB.getConnection();
-            String sql = "DELETE FROM TaiKhoan WHERE MaTK=?";
+            String sql = "UPDATE TaiKhoan SET TinhTrang=0 WHERE MaTK=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setString(1, maTK);
+            pst.setInt(1, maTK);
 
             ketQua = pst.executeUpdate();
-
+            
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
             e.printStackTrace();

@@ -17,6 +17,24 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class NhomQuyenDAO {
+    public String selectNameByID(String ID) {
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TenNQ FROM NhomQuyen WHERE MaNQ = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, ID);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String TenNQ = rs.getNString("TenNQ");
+                return TenNQ;
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     public ArrayList<NhomQuyenDTO> selectAll() {
         ArrayList<NhomQuyenDTO> ketQua = new ArrayList<>();
         try {

@@ -63,18 +63,21 @@ public class ThongKeGUI extends javax.swing.JPanel {
         tfTongdoanhthu = new javax.swing.JTextField();
         tdNgayketthuc = new javax.swing.JTextField();
         tfTongsanpham = new javax.swing.JTextField();
+        btnTimkiem = new Components.ButtonRadius();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         cbFilter = new javax.swing.JComboBox<>();
         btnApdung = new Components.ButtonRadius();
         jPanel3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         tfTimkiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btnTimkiem = new Components.ButtonRadius();
+        btnTimkiem1 = new Components.ButtonRadius();
         btnLammoi = new Components.ButtonRadius();
 
         setMaximumSize(new java.awt.Dimension(1020, 750));
@@ -238,6 +241,19 @@ public class ThongKeGUI extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
+        btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
+        btnTimkiem.setText("Tìm");
+        btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnTimkiem.setRadius(40);
+        btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimkiemActionPerformed(evt);
+            }
+        });
+
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true));
 
@@ -250,7 +266,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
         cbFilter.setAutoscrolls(true);
         cbFilter.setBorder(null);
         cbFilter.setLightWeightPopupEnabled(false);
-        cbFilter.setOpaque(true);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -271,7 +286,6 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         btnApdung.setForeground(new java.awt.Color(135, 172, 217));
         btnApdung.setText("Áp dụng");
-        btnApdung.setFocusPainted(false);
         btnApdung.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnApdung.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnApdung.setPreferredSize(new java.awt.Dimension(100, 40));
@@ -293,13 +307,18 @@ public class ThongKeGUI extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(166, 166, 166)
+                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(166, 166, 166))
+                .addGap(0, 0, 0)
+                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel6.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
@@ -346,22 +365,22 @@ public class ThongKeGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
 
-        btnTimkiem.setBorder(null);
-        btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
-        btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
-        btnTimkiem.setText("Tìm");
-        btnTimkiem.setFocusPainted(false);
-        btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnTimkiem.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnTimkiem.setRadius(40);
-        btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
+        btnTimkiem1.setBorder(null);
+        btnTimkiem1.setForeground(new java.awt.Color(135, 172, 217));
+        btnTimkiem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
+        btnTimkiem1.setText("Tìm");
+        btnTimkiem1.setFocusPainted(false);
+        btnTimkiem1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnTimkiem1.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnTimkiem1.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnTimkiem1.setRadius(40);
+        btnTimkiem1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimkiemActionPerformed(evt);
             }
@@ -455,7 +474,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
             .addGap(0, 756, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -584,7 +603,10 @@ public static void EditHeaderTable(JTable table) {
     private Components.ButtonRadius btnApdung;
     private Components.ButtonRadius btnLammoi;
     private Components.ButtonRadius btnTimkiem;
+    private Components.ButtonRadius btnTimkiem1;
     private javax.swing.JComboBox<String> cbFilter;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

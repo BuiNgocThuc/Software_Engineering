@@ -119,7 +119,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         txtTimKiem.setBorder(null);
-        txtTimKiem.setOpaque(true);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTimKiemFocusGained(evt);
@@ -297,7 +296,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Tác giả", "Thể loại ", "Giá" }));
         timKiemTheo.setBorder(null);
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        timKiemTheo.setOpaque(true);
 
         javax.swing.GroupLayout jPanelBodyLayout = new javax.swing.GroupLayout(jPanelBody);
         jPanelBody.setLayout(jPanelBodyLayout);
@@ -331,11 +329,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblSanPham, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
                 .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))

@@ -4,10 +4,16 @@
  */
 package GUI;
 
+import BUS.HoaDonBUS;
+import DTO.HoaDonDTO;
+import DTO.SanPhamDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -24,26 +30,53 @@ import javax.swing.table.TableColumnModel;
  *
  * @author NGOC THUC
  */
-public class HoaDonGUI extends javax.swing.JPanel {
+public final class HoaDonGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form HoaDonGUI
      */
+    private JTable tableHoaDon;
+    private JTable tableChiTietHoaDon;
+    private DefaultTableModel modelHoaDon;
+    private DefaultTableModel modelChiTietHoaDon;
+    
     public HoaDonGUI() {
+        
         initComponents();
-        JTable tableHoadon = createTableSanPham();
-        tableHoadon.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
-        JScrollPane scrollPaneSanPham = new JScrollPane(tableHoadon);
+        createTable();
+    }
+    
+    private void createTable() {
+        tableHoaDon = createTableHoaDon();
+        loadDataHoaDon();
+        tableHoaDon.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
+        JScrollPane scrollPaneSanPham = new JScrollPane(tableHoaDon);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
-        JTable tableChitiet = createTableChitietSanpham();
-        tableChitiet.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
-        JScrollPane scrollPaneChitiet = new JScrollPane(tableChitiet);
+        tableChiTietHoaDon = createTableChiTietHoaDon();
+        tableChiTietHoaDon.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
+        JScrollPane scrollPaneChitiet = new JScrollPane(tableChiTietHoaDon);
         scrollPaneChitiet.setBorder(matteBorder);
         PanelTable2.setLayout(new BorderLayout());
         PanelTable2.add(scrollPaneChitiet);
+    }
+    
+    public void loadDataHoaDon() {
+        modelHoaDon.setRowCount(0);
+        HoaDonBUS hoaDonBUS = new HoaDonBUS();
+        ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.getAll();
+        int STT = 1;
+        for (HoaDonDTO hd : listHoaDon) {
+            int maHD = hd.getMaHD();
+            String maHDtext = sharedFunction.FormatID("HD", maHD);
+            String maNV = hd.getTenTK();
+            Date ngayLap = hd.getNgayTao();
+            Double TongTien = hd.getTongTien();
+            Object[] row = {STT++, maHDtext, maNV, ngayLap, TongTien};
+            modelHoaDon.addRow(row);
+        }
     }
 
     /**
@@ -379,7 +412,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
 
     private void btnInHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoadonMouseClicked
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_btnInHoadonMouseClicked
 
     private void btnInHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoadonActionPerformed
@@ -397,7 +430,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLammoiActionPerformed
-
+    
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -424,45 +457,45 @@ public class HoaDonGUI extends javax.swing.JPanel {
         // Đặt renderer tùy chỉnh cho header
         table.getTableHeader().setDefaultRenderer(headerRenderer);
     }
-       public static void EditHeaderTable2(JTable table) {
-    // Increase the header height
-    table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
+    
+    public static void EditHeaderTable2(JTable table) {
+        // Increase the header height
+        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
 
-    // Create a custom header renderer
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JTableHeader header = table.getTableHeader();
-            if (header != null) {
-                setForeground(new Color(254, 194, 92)); // Set text color
-                setBackground(new Color(255, 255, 255)); // Set background color
-                Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
-                header.setFont(headerFont);
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
-                label.setFont(headerFont);
+        // Create a custom header renderer
+        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                JTableHeader header = table.getTableHeader();
+                if (header != null) {
+                    setForeground(new Color(254, 194, 92)); // Set text color
+                    setBackground(new Color(255, 255, 255)); // Set background color
+                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
+                    header.setFont(headerFont);
+                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                    label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
+                    label.setFont(headerFont);
 
-                // Add vertical lines between columns
-                int thickness = 1; // Adjust the line thickness as needed
-                label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
-
-                return label;
+                    // Add vertical lines between columns
+                    int thickness = 1; // Adjust the line thickness as needed
+                    label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
+                    
+                    return label;
+                }
+                setText((value == null) ? "" : value.toString());
+                return this;
             }
-            setText((value == null) ? "" : value.toString());
-            return this;
-        }
-    };
+        };
 
-    // Set the custom renderer for the table header
-    table.getTableHeader().setDefaultRenderer(headerRenderer);
-}
-
-
+        // Set the custom renderer for the table header
+        table.getTableHeader().setDefaultRenderer(headerRenderer);
+    }
+    
     public static void editTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(135,172,217));
+        table.setGridColor(new Color(135, 172, 217));
         table.setShowGrid(true);
         table.setBackground(Color.WHITE);
         // Vô hiệu hóa sắp xếp cột tự động
@@ -472,23 +505,26 @@ public class HoaDonGUI extends javax.swing.JPanel {
         // Vô hiệu hóa kéo dãng cột
         table.getTableHeader().setResizingAllowed(false);
     }
-    public JTable createTableChitietSanpham() {
+    
+    public JTable createTableChiTietHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT","Tên sản phẩm","Số lượng","Thành tiền"};
-        DefaultTableModel model = new DefaultTableModel() {
+        String[] columnNames = {"STT", "Tên sản phẩm", "Số lượng", "Thành tiền"};
+        modelChiTietHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0 || columnIndex == 2) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+
+                } else if (columnIndex == 3) { // Cột Đơn giá
+                    return Double.class; // Kiểu dữ liệu Float
+
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelChiTietHoaDon.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelChiTietHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(250); // Độ rộng cột 1
@@ -500,23 +536,25 @@ public class HoaDonGUI extends javax.swing.JPanel {
         return table;
     }
     
-    public JTable createTableSanPham() {
+    public JTable createTableHoaDon() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Hóa đơn", "ID Nhân viên", "Ngày lập", "Tổng tiền"};
-        DefaultTableModel model = new DefaultTableModel() {
+        modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+
+                } else if (columnIndex == 4) { // Cột Đơn giá
+                    return Double.class; // Kiểu dữ liệu Float
+
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelHoaDon.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
@@ -525,35 +563,18 @@ public class HoaDonGUI extends javax.swing.JPanel {
         columnModel.getColumn(4).setPreferredWidth(200); // Độ rộng cột 6
 
         EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
-
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
-    }
-
+    
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);
         textField.setFont(customFont);
         textField.setForeground(new Color(157, 185, 223));
         textField.setText(name);
-
+        
     }
-
+    
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }

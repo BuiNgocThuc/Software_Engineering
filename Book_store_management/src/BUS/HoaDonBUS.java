@@ -5,6 +5,8 @@
 package BUS;
 
 import DAO.HoaDonDAO;
+import DTO.HoaDonDTO;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,4 +21,7 @@ public class HoaDonBUS {
      public int getMaHoaDonMax() {
         return hoaDonDAO.getMaHoaDonMax();
     }
+     public ArrayList<HoaDonDTO> getAll(){
+         return hoaDonDAO.selectAll();
+     }
 }

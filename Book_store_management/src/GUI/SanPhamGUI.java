@@ -681,7 +681,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         int STT = 1;
         for (SanPhamDTO sanPham : listSanPham) {
             int maSP = sanPham.getMaSP();
-            String maSPtext = FormatMaSP(maSP);
+            String maSPtext = sharedFunction.FormatID("SP", maSP);
             String tenTL = sanPham.getTenTL();
             String tenSanPham = sanPham.getTenSP();
             String tenTacGia = sanPham.getTacGia();
@@ -724,7 +724,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         int STT = 1;
         for (TheLoaiDTO theloai : listTheLoai) {
             int maTL = theloai.getMaTL();
-            String maTLtext = FormatMaTL(maTL);
+            String maTLtext =  sharedFunction.FormatID("TL", maTL);
             String tenTheLoai = theloai.getTenTL();
             Object[] row = {STT++, maTLtext, tenTheLoai};
             modelTheLoai.addRow(row);

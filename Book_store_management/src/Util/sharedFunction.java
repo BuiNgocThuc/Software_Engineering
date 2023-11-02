@@ -137,4 +137,7 @@ public class sharedFunction {
     public static void displayErrorMessage(String message) {
         JOptionPane.showMessageDialog(null, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
+    public static String FormatID(String prefix, int ma) {
+    return String.format("%s%02d", prefix, ma);
+}
 }

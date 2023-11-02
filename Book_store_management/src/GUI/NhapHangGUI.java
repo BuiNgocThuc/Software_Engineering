@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -47,6 +49,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         createTable();
         selectProduct();
         createCart();
+        placeholder();
     }
 
     public void selectProduct() {
@@ -55,7 +58,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
 //                pnBUS.loadData(this, getTableSanPham().getSelectedRow());
 //            }
 //        });
-        
+
         tableSanPham.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -70,11 +73,32 @@ public class NhapHangGUI extends javax.swing.JPanel {
                 int row = tableChitiet.rowAtPoint(e.getPoint());
                 int column = tableChitiet.columnAtPoint(e.getPoint());
 
-                if(column == 4) {
+                if (column == 4) {
                     pnBUS.loadDataFromCart(NhapHangGUI.this, row);
-                } else if(column == 5) {
+                } else if (column == 5) {
                     modelCartImport.removeRow(row);
                     getTotalCart();
+                }
+            }
+        });
+    }
+
+    public void placeholder() {
+        tfTimkiem.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (tfTimkiem.getText().equals("Tìm kiếm sản phẩm")) {
+                    tfTimkiem.setText("");
+                    tfTimkiem.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (tfTimkiem.getText().isEmpty()) {
+                    tfTimkiem.setForeground(Color.GRAY);
+                    tfTimkiem.setText("Tìm kiếm sản phẩm");
+                    tfTimkiem.setForeground(new Color(135,172,217));
                 }
             }
         });
@@ -495,7 +519,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfSoluong.setPreferredSize(new java.awt.Dimension(64, 50));
 
         tfDongia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        tfDongia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Đơn giá", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfDongia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Đơn giá nhập", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         tfDongia.setMinimumSize(new java.awt.Dimension(64, 50));
         tfDongia.setPreferredSize(new java.awt.Dimension(64, 50));
 
@@ -596,6 +620,17 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfTimkiem.setText("Tìm kiếm sản phẩm");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tfTimkiemMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseReleased(evt);
+            }
+        });
         tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTimkiemActionPerformed(evt);
@@ -731,7 +766,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
         // TODO add your handling code here:
-        if(validateInput()) {
+        if (validateInput()) {
             pnBUS.NhapHang(this);
             createCart();
             pnBUS.createTableProduct(modelSanPham);
@@ -740,10 +775,10 @@ public class NhapHangGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnThanhtoanActionPerformed
     public boolean validateInput() {
-        if(modelCartImport.getRowCount() == 0) {
+        if (modelCartImport.getRowCount() == 0) {
             displayErrorMessage("Vui lòng thêm sản phẩm cần nhập");
             return false;
-        }else if(cbCongTy.getSelectedIndex() == 0 || cbCongTy.getSelectedIndex() == -1) {
+        } else if (cbCongTy.getSelectedIndex() == 0 || cbCongTy.getSelectedIndex() == -1) {
             displayErrorMessage("Vui lòng chọn công ty nhập");
             return false;
         }
@@ -818,7 +853,7 @@ public class NhapHangGUI extends javax.swing.JPanel {
         tfSoluong.setText("");
         tfDongia.setText("");
     }
-    
+
     public void getTotalCart() {
         int rowCount = modelCartImport.getRowCount();
         int totalPrice = 0;
@@ -874,6 +909,20 @@ public class NhapHangGUI extends javax.swing.JPanel {
     private void tfIDNhanvienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDNhanvienActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIDNhanvienActionPerformed
+
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTimkiemMouseClicked
+
+    private void tfTimkiemMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseReleased
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tfTimkiemMouseReleased
+
+    private void tfTimkiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tfTimkiemMousePressed
 
     public void displayErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Lỗi", JOptionPane.ERROR_MESSAGE);

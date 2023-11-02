@@ -38,6 +38,26 @@ public class PhieuNhapDAO {
             }
         }
     }
+    
+    public String selectSupplierByID(String ID) {
+        String name = null;
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TenNCC FROM NhaCungCap WHERE MaNCC = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, ID);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("TenNCC");
+            }
+            ConnectDB.closeConnection(c);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
 
     public int queryByNameSupplier(String name) {
         int ID = 0;
@@ -91,7 +111,7 @@ public class PhieuNhapDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaPN = rs.getString("MaPN");
+                int MaPN = rs.getInt("MaPN");
                 String MaNCC = rs.getString("MaNCC");
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
@@ -128,6 +148,32 @@ public class PhieuNhapDAO {
         }
         return 0;
     }
+    
+    public PhieuNhapDTO selectByID(String id){
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT * FROM PhieuNhap WHERE MaPN = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int MaPN = rs.getInt("MaPN");
+                String MaNCC = rs.getString("MaNCC");
+                String TenTK = rs.getNString("TenTK");
+                Date NgayTao = rs.getDate("NgayTao");
+                double TongTien = rs.getFloat("TongTien");
+                String TinhTrang = rs.getString("TinhTrang");
+
+                PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
+                return pn;
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public boolean Them(PhieuNhapDTO pn) {
         int ketQua = 0;
@@ -154,6 +200,25 @@ public class PhieuNhapDAO {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public String getNameSPByID(int id) {
+        String name = null;
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TenSP FROM SanPham WHERE MaSP = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("TenSP");
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
     }
 
     public static void main(String[] args) {

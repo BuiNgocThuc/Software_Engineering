@@ -11,6 +11,7 @@ import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
@@ -99,7 +100,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         tfIDNhanvien = new javax.swing.JTextField();
         tfNgaytao = new javax.swing.JTextField();
         PanelTable2 = new javax.swing.JPanel();
-        btnInHoadon = new Components.ButtonRadius();
+        btnInHoaDon = new Components.ButtonRadius();
         tfTongtien = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         PanelTable1 = new javax.swing.JPanel();
@@ -107,7 +108,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         tfTimkiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
-        btnLammoi = new Components.ButtonRadius();
+        btnLamMoi = new Components.ButtonRadius();
 
         setPreferredSize(new java.awt.Dimension(1020, 750));
 
@@ -170,15 +171,12 @@ public final class HoaDonGUI extends javax.swing.JPanel {
 
         tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDHoadon.setPreferredSize(new java.awt.Dimension(64, 50));
 
         tfIDNhanvien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDNhanvien.setPreferredSize(new java.awt.Dimension(64, 50));
 
         tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfNgaytao.setPreferredSize(new java.awt.Dimension(64, 50));
 
         PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
         PanelTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
@@ -195,31 +193,36 @@ public final class HoaDonGUI extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        btnInHoadon.setForeground(new java.awt.Color(135, 172, 217));
-        btnInHoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
-        btnInHoadon.setText("In hóa đơn");
-        btnInHoadon.setFocusPainted(false);
-        btnInHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        btnInHoadon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnInHoadon.setIconTextGap(0);
-        btnInHoadon.setMargin(new java.awt.Insets(2, -10, 3, 0));
-        btnInHoadon.setPreferredSize(new java.awt.Dimension(140, 40));
-        btnInHoadon.setRadius(40);
-        btnInHoadon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnInHoadon.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInHoaDon.setForeground(new java.awt.Color(135, 172, 217));
+        btnInHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
+        btnInHoaDon.setText("In hóa đơn");
+        btnInHoaDon.setFocusPainted(false);
+        btnInHoaDon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnInHoaDon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInHoaDon.setIconTextGap(0);
+        btnInHoaDon.setMargin(new java.awt.Insets(2, -10, 3, 0));
+        btnInHoaDon.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnInHoaDon.setRadius(40);
+        btnInHoaDon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInHoadonMouseClicked(evt);
+                btnInHoaDonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnInHoaDonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInHoaDonMouseExited(evt);
             }
         });
-        btnInHoadon.addActionListener(new java.awt.event.ActionListener() {
+        btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInHoadonActionPerformed(evt);
+                btnInHoaDonActionPerformed(evt);
             }
         });
 
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongtien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfTongtien.setPreferredSize(new java.awt.Dimension(64, 50));
 
         jLabel3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(135, 172, 217));
@@ -237,14 +240,14 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnInHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfTongtien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfTongtien, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfIDNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfNgaytao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfNgaytao, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelTable2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -261,11 +264,11 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelTable2, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(PanelTable2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnInHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
 
@@ -320,7 +323,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
@@ -335,26 +338,42 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setRadius(40);
         btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseExited(evt);
+            }
+        });
         btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimkiemActionPerformed(evt);
             }
         });
 
-        btnLammoi.setBorder(null);
-        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnLammoi.setText("Làm mới");
-        btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi.setIconTextGap(0);
-        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setRadius(40);
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBorder(null);
+        btnLamMoi.setForeground(new java.awt.Color(135, 172, 217));
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setFocusPainted(false);
+        btnLamMoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLamMoi.setIconTextGap(0);
+        btnLamMoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLamMoi.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setRadius(40);
+        btnLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseExited(evt);
+            }
+        });
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
@@ -370,7 +389,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(PanelTable1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
                         .addGap(24, 24, 24)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -390,7 +409,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
@@ -410,14 +429,14 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoadonMouseClicked
+    private void btnInHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseClicked
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_btnInHoadonMouseClicked
+    }//GEN-LAST:event_btnInHoaDonMouseClicked
 
-    private void btnInHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoadonActionPerformed
+    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnInHoadonActionPerformed
+    }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
         // TODO add your handling code here:
@@ -427,9 +446,40 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLammoiActionPerformed
+        
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
+        // TODO add your handling code here:
+           btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLamMoiMouseEntered
+
+    private void btnLamMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseExited
+        // TODO add your handling code here:
+        btnLamMoi.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLamMoiMouseExited
+
+    private void btnInHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseEntered
+        // TODO add your handling code here:
+           btnInHoaDon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnInHoaDonMouseEntered
+
+    private void btnInHoaDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseExited
+        // TODO add your handling code here:
+         btnInHoaDon.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnInHoaDonMouseExited
+
+    private void btnTimkiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseEntered
+        // TODO add your handling code here:
+         btnTimkiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnTimkiemMouseEntered
+
+    private void btnTimkiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseExited
+        // TODO add your handling code here:
+           btnTimkiem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnTimkiemMouseExited
     
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
@@ -582,8 +632,8 @@ public final class HoaDonGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable1;
     private javax.swing.JPanel PanelTable2;
-    private Components.ButtonRadius btnInHoadon;
-    private Components.ButtonRadius btnLammoi;
+    private Components.ButtonRadius btnInHoaDon;
+    private Components.ButtonRadius btnLamMoi;
     private Components.ButtonRadius btnTimkiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

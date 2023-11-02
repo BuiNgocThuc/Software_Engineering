@@ -19,7 +19,8 @@ import java.util.Date;
  * @author NGOC THUC
  */
 public class HoaDonDAO {
-    public ArrayList<HoaDonDTO> selectAll(){
+
+    public ArrayList<HoaDonDTO> selectAll() {
         ArrayList<HoaDonDTO> ketQua = new ArrayList<>();
         try {
             Connection c = ConnectDB.getConnection();
@@ -42,7 +43,31 @@ public class HoaDonDAO {
         }
         return ketQua;
     }
-    
+
+    public ArrayList<HoaDonDTO> findHoaDonByMaHD(int MaHoaDon) {
+        ArrayList<HoaDonDTO> ketQua = new ArrayList<>();
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT * FROM HoaDon Where MaHD LIKE ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, "%" + MaHoaDon+ "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaHD = rs.getInt("MaHD");
+                String TenTK = rs.getNString("TenTK");
+                Date NgayTao = rs.getDate("NgayTao");
+                double TongTien = rs.getFloat("TongTien");
+
+                HoaDonDTO pn = new HoaDonDTO(MaHD, TenTK, TongTien, NgayTao);
+                ketQua.add(pn);
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+
     // Lấy mã hóa đơn lớn nhất 
     public int getMaHoaDonMax() {
         int maHD = 0;
@@ -53,7 +78,7 @@ public class HoaDonDAO {
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
                 maHD = rs.getInt("MaxMaHD");
-            } 
+            }
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
             e.printStackTrace();

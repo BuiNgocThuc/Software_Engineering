@@ -897,89 +897,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 //        table.getTableHeader().setDefaultRenderer(headerRenderer);
 //    }
 
-    public static void EditHeaderTable2(JTable table) {
-        // Increase the header height
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
-
-        // Create a custom header renderer
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(254, 194, 92)); // Set text color
-                    setBackground(new Color(255, 255, 255)); // Set background color
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
-                    label.setFont(headerFont);
-
-                    // Add vertical lines between columns
-                    int thickness = 1; // Adjust the line thickness as needed
-                    label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
-
-                    return label;
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-
-        // Set the custom renderer for the table header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-
-    public static void editTableContent(JTable table) {
-        // Đặt độ cao cho từng dòng (trừ header)
-        int rowHeight = 30;
-        table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(135, 172, 217));
-        table.setShowGrid(true);
-        table.setBackground(Color.WHITE);
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
-        // Vô hiệu hóa kéo cột
-        table.getTableHeader().setReorderingAllowed(false);
-        // Vô hiệu hóa kéo dãng cột
-        table.getTableHeader().setResizingAllowed(false);
-    }
-
-//    public JTable createTableHoaDon() {
-//        // Tiêu đề của các cột
-//        String[] columnNames = {"Tên sản phẩm", "SL", "T.Tiền", "",""};
-//        modelHoaDon = new DefaultTableModel() {
-//            @Override
-//            public Class<?> getColumnClass(int columnIndex) {
-//                if (columnIndex == 1) { // Cột SL
-//                    return Integer.class; // Kiểu dữ liệu Integer
-//                } else if (columnIndex == 2) { // Cột Thành tiền
-//                    return Float.class; // Kiểu dữ liệu Float
-//                } else if (columnIndex == 3 || columnIndex == 4) { // Cột Update và Delete
-//                    return Icon.class; // Kiểu dữ liệu Icon
-//                }
-//                return String.class; // Các cột khác có kiểu dữ liệu String
-//            }
-//        };
-//        modelHoaDon.setColumnIdentifiers(columnNames);
-//        // Tạo JTable với DefaultTableModel
-//        JTable table = new JTable(modelHoaDon);
-//        TableColumnModel columnModel = table.getColumnModel();
-//        columnModel.getColumn(0).setPreferredWidth(280); // Độ rộng cột 0
-//        columnModel.getColumn(1).setPreferredWidth(60); // Độ rộng cột 1
-//        columnModel.getColumn(2).setPreferredWidth(200); // Độ rộng cột 2
-//        columnModel.getColumn(3).setPreferredWidth(40); // Độ rộng cột 3
-//        columnModel.getColumn(4).setPreferredWidth(40); // Độ rộng cột 4
-//
-//
-//        EditHeaderTable2(table);
-//        sharedFunction.EditTableContent(table);
-//        Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
-//        Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
-//        table.getColumnModel().getColumn(3).setCellRenderer((TableCellRenderer) iconUpdate);
-//        table.getColumnModel().getColumn(4).setCellRenderer((TableCellRenderer) iconDelete);
-//        return table;
-//    }
+   
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
         String[] columnNames = {"Tên sản phẩm", "SL", "T.Tiền", "", ""};
@@ -1057,22 +975,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
-    }
+   
 
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);

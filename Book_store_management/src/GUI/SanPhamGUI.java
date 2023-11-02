@@ -62,7 +62,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
-
+//        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
         // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
         currentBackgroundColor = lblTheLoai.getBackground();
     }
@@ -120,6 +120,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTimKiem.setForeground(new java.awt.Color(134, 172, 218));
         txtTimKiem.setBorder(null);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -304,6 +305,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timKiemTheoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -433,15 +439,24 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
-
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
+
+            
             String searchKeyword = txtTimKiem.getText();
+                       
+            if (searchKeyword.isEmpty()) {
+                sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+             
+            }
             switch (selectedIndex) {
+                case 0 -> {
+                    findSanPhamByTenSP_or_MaSP(searchKeyword, modelSanPham);
+                }
                 case 1 -> {
-//                    findSanPhamByTenSP_or_MaSP(searchKeyword, modelSanPham);
                     findSanPhamByMaSP(searchKeyword, modelSanPham);
+
                 }
                 case 2 -> {
                     findSanPhamByTenSP(searchKeyword, modelSanPham);
@@ -615,8 +630,20 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_timKiemTheoActionPerformed
+        int selectedIndex = timKiemTheo.getSelectedIndex();
+        sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
 
+    }//GEN-LAST:event_timKiemTheoActionPerformed
+    private String getPlaceholderByIndex(int selectedIndex) {
+        return switch (selectedIndex) {
+            case 0 -> "Tìm kiếm theo mã hoặc tên sản phẩm ";
+            case 1 -> "Tìm kiếm theo mã sản phẩm ";
+            case 2 -> "Tìm kiếm theo tên sản phẩm ";
+            case 3 -> "Tìm kiếm theo tác giả ";
+            case 4 -> "Tìm kiếm theo thể loại";
+            default -> "";
+        };
+    }
     private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
         // TODO add your handling code here:
         btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -727,7 +754,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         int STT = 1;
         for (TheLoaiDTO theloai : listTheLoai) {
             int maTL = theloai.getMaTL();
-            String maTLtext =  sharedFunction.FormatID("TL", maTL);
+            String maTLtext = sharedFunction.FormatID("TL", maTL);
             String tenTheLoai = theloai.getTenTL();
             Object[] row = {STT++, maTLtext, tenTheLoai};
             modelTheLoai.addRow(row);
@@ -862,7 +889,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }
 
     public void findSanPhamByTacGia(String TacGia, DefaultTableModel model) {
-        if (TacGia.isEmpty()) {
+        if (TacGia.isEmpty() || TacGia.trim().equals("Tìm kiếm theo tác giả")) {
             // Nếu  rỗng, thông báo cho người dùng nhập 
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên tác giả ", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -878,7 +905,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }
 
     public void findSanPhamByTenSP(String TenSP, DefaultTableModel model) {
-        if (TenSP.isEmpty()) {
+        if (TenSP.isEmpty() || TenSP.trim().equals("Tìm kiếm theo tên sản phẩm")) {
             // Nếu  rỗng, thông báo cho người dùng nhập
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm ", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -894,7 +921,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }
 
     public void findSanPhamByTheLoai(String TheLoai, DefaultTableModel model) {
-        if (TheLoai.isEmpty()) {
+        if (TheLoai.isEmpty() || TheLoai.trim().equals("Tìm kiếm theo thể loại")) {
             // Nếut thể loại rỗng, thông báo cho người dùng nhập 
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại ", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -910,19 +937,25 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }
 
     public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
-        int maSPnumber = sharedFunction.convertToInteger(maSP, "SP");
-        if (maSPnumber == -1) {
-            // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
-            JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+        if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
-            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByMaSP(maSPnumber);
-            if (!listSanPham.isEmpty()) {
-                loadTableSanPham(listSanPham, model);
-            } else {
+            int maSPnumber = sharedFunction.convertToInteger(maSP, "SP");
+            if (maSPnumber == -1) {
+                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
+                ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByMaSP(maSPnumber);
+                if (!listSanPham.isEmpty()) {
+                    loadTableSanPham(listSanPham, model);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
+
     }
 
     public String formatAmountToVND(double amount) {

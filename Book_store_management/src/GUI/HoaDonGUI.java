@@ -51,6 +51,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         initComponents();
         createTable();
         selectRow();
+        sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
     }
 
     private void createTable() {
@@ -88,7 +89,8 @@ public final class HoaDonGUI extends javax.swing.JPanel {
     public void selectRow() {
         tableHoaDon.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
-               loadDataTableThongTinChiTiet();
+                loadDataTableThongTinChiTiet();
+
             }
         });
     }
@@ -109,6 +111,14 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 Object[] row = {STT++, tenSP, sl, donGia};
                 modelChiTietHoaDon.addRow(row);
             }
+            String IdHoaDon = (String) tableHoaDon.getValueAt(selectRow, 1);
+            String IdNhanVien = (String) tableHoaDon.getValueAt(selectRow, 2);
+            Date NgayLap = (Date) tableHoaDon.getValueAt(selectRow, 3);
+            Double TongTien = (Double) tableHoaDon.getValueAt(selectRow, 4);
+            tfIDHoadon.setText(IdHoaDon);
+            tfIDNhanvien.setText(IdNhanVien);
+            tfNgaytao.setText(String.valueOf(NgayLap));
+            tfTongtien.setText(String.valueOf(TongTien));
         }
     }
 
@@ -201,14 +211,24 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        tfIDHoadon.setEditable(false);
+        tfIDHoadon.setBackground(new java.awt.Color(255, 255, 255));
         tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfIDHoadon.setEnabled(false);
+        tfIDHoadon.setOpaque(true);
 
+        tfIDNhanvien.setEditable(false);
+        tfIDNhanvien.setBackground(new java.awt.Color(255, 255, 255));
         tfIDNhanvien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfIDNhanvien.setEnabled(false);
 
+        tfNgaytao.setEditable(false);
+        tfNgaytao.setBackground(new java.awt.Color(255, 255, 255));
         tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfNgaytao.setEnabled(false);
 
         PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
         PanelTable2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(135, 172, 217)));
@@ -253,8 +273,11 @@ public final class HoaDonGUI extends javax.swing.JPanel {
             }
         });
 
+        tfTongtien.setEditable(false);
+        tfTongtien.setBackground(new java.awt.Color(255, 255, 255));
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongtien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTongtien.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(135, 172, 217));
@@ -327,9 +350,16 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         tfTimkiem.setBackground(new java.awt.Color(243, 243, 244));
         tfTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         tfTimkiem.setForeground(new java.awt.Color(135, 172, 217));
-        tfTimkiem.setText("Tìm kiếm sản phẩm");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseExited(evt);
+            }
+        });
         tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTimkiemActionPerformed(evt);
@@ -485,7 +515,11 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         modelHoaDon.setRowCount(0);
         ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.getAll();
         loadDataTableHoaDon(listHoaDon, modelHoaDon);
-        tfTimkiem.setText("Tìm kiếm theo mã hóa đơn");
+//        tfTimkiem.setText("Tìm kiếm theo mã hóa đơn");
+        tfIDHoadon.setText("");
+        tfIDNhanvien.setText("");
+        tfNgaytao.setText("");
+        tfTongtien.setText("");
 
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
@@ -519,66 +553,14 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         btnTimkiem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnTimkiemMouseExited
 
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                    label.setFont(headerFont);
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-        // Đặt renderer tùy chỉnh cho header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
+    private void tfTimkiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTimkiemMouseExited
 
-      public static void EditHeaderTable2(JTable table) {
-        // Increase the header height
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
-
-        // Create a custom header renderer
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(254, 194, 92)); // Set text color
-                    setBackground(new Color(255, 255, 255)); // Set background color
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
-                    label.setFont(headerFont);
-
-                    // Add vertical lines between columns
-                    int thickness = 1; // Adjust the line thickness as needed
-                    label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
-
-                    return label;
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-
-        // Set the custom renderer for the table header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        // TODO add your handling code here:
+        tfTimkiem.setFocusable(true);
+    }//GEN-LAST:event_tfTimkiemMouseClicked
 
     public JTable createTableChiTietHoaDon() {
         // Tiêu đề của các cột
@@ -607,7 +589,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
 
         NhapHangGUI.EditHeaderTable2(table);
         sharedFunction.EditTableContent(table);
-         table.setBorder(null);
+        table.setBorder(null);
         return table;
     }
 
@@ -637,7 +619,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(200); // Độ rộng cột 6
 
-        EditHeaderTable(table);
+        sharedFunction.EditHeaderTable(table);
         sharedFunction.EditTableContent(table);
         return table;
     }

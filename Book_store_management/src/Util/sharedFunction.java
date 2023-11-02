@@ -9,6 +9,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -17,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -129,7 +134,7 @@ public class sharedFunction {
                 return Integer.parseInt(input); // Trả về số nguyên nếu thành công
             } catch (NumberFormatException e) {
                 // Xử lý lỗi nếu không thể chuyển đổi thành số nguyên
-                return -1; 
+                return -1;
             }
         }
     }
@@ -137,7 +142,42 @@ public class sharedFunction {
     public static void displayErrorMessage(String message) {
         JOptionPane.showMessageDialog(null, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
     }
+
     public static String FormatID(String prefix, int ma) {
-    return String.format("%s%02d", prefix, ma);
-}
+        return String.format("%s%02d", prefix, ma);
+    }
+
+    public static void addPlaceholder(JTextField textField, String searchPlaceholder) {
+        textField.setText(searchPlaceholder); // Hiển thị placeholder mặc định                     
+        // FocusListener để xử lý khi nhập vào hoặc ra khỏi JTextField
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Khi click vào JTextField
+                if (textField.getText().equals(searchPlaceholder)) {
+                    textField.setText(""); // Xóa nội dung khi focus vào
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Khi click ra khỏi JTextField
+                if (textField.getText().isEmpty()) {
+                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi không focus
+                }
+            }
+        });
+
+        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
+                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
+                }
+            }
+        });
+    }
+
+  
 }

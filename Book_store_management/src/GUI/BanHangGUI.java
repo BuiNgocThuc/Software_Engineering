@@ -870,32 +870,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
     public static String FormatMaHD(int MaHD) {
         return String.format("HD%02d", MaHD);
     }
-//    public static void EditHeaderTable(JTable table) {
-//        // Tăng độ cao của header
-//        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-//        // Tạo một renderer tùy chỉnh cho header
-//        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-//            @Override
-//            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-//                    boolean hasFocus, int row, int column) {
-//                JTableHeader header = table.getTableHeader();
-//                if (header != null) {
-//                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-//                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-//                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
-//                    header.setFont(headerFont);
-//                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-//                            isSelected, hasFocus, row, column);
-//                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-//                    label.setFont(headerFont);
-//                }
-//                setText((value == null) ? "" : value.toString());
-//                return this;
-//            }
-//        };
-//        // Đặt renderer tùy chỉnh cho header
-//        table.getTableHeader().setDefaultRenderer(headerRenderer);
-//    }
+
 
    
     public JTable createTableHoaDon() {

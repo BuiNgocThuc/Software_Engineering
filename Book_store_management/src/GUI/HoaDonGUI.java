@@ -448,6 +448,10 @@ public final class HoaDonGUI extends javax.swing.JPanel {
 
     private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
+        modelChiTietHoaDon.setRowCount(0);
+        modelHoaDon.setRowCount(0);
+        loadDataHoaDon();
+        tfTimkiem.setText("Tìm kiếm theo mã hóa đơn");
         
     }//GEN-LAST:event_btnLamMoiActionPerformed
 

@@ -62,7 +62,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
-//        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
         // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
         currentBackgroundColor = lblTheLoai.getBackground();
     }
@@ -131,6 +131,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         });
         txtTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtTimKiemMouseEntered(evt);
             }
@@ -410,7 +413,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.repaint();
         lblSanPham.setBackground(new Color(229, 231, 230));
         lblTheLoai.setBackground(new Color(255, 255, 255));
-
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
@@ -430,25 +433,21 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         //Khi click chuột vào sẽ đổi màu giúp nhận biết đang ở bảng nào
         lblTheLoai.setBackground(new Color(229, 231, 230));
         lblSanPham.setBackground(new Color(255, 255, 255));
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên thể loại");
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
 
         currentBackgroundColor = lblTheLoai.getBackground();
-
+        String searchKeyword = txtTimKiem.getText().trim();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
-
-            
-            String searchKeyword = txtTimKiem.getText();
-                       
             if (searchKeyword.isEmpty()) {
                 sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
-             
             }
             switch (selectedIndex) {
                 case 0 -> {
@@ -456,7 +455,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 }
                 case 1 -> {
                     findSanPhamByMaSP(searchKeyword, modelSanPham);
-
                 }
                 case 2 -> {
                     findSanPhamByTenSP(searchKeyword, modelSanPham);
@@ -636,12 +634,18 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_timKiemTheoActionPerformed
     private String getPlaceholderByIndex(int selectedIndex) {
         return switch (selectedIndex) {
-            case 0 -> "Tìm kiếm theo mã hoặc tên sản phẩm ";
-            case 1 -> "Tìm kiếm theo mã sản phẩm ";
-            case 2 -> "Tìm kiếm theo tên sản phẩm ";
-            case 3 -> "Tìm kiếm theo tác giả ";
-            case 4 -> "Tìm kiếm theo thể loại";
-            default -> "";
+            case 0 ->
+                "Tìm kiếm theo mã hoặc tên sản phẩm ";
+            case 1 ->
+                "Tìm kiếm theo mã sản phẩm ";
+            case 2 ->
+                "Tìm kiếm theo tên sản phẩm ";
+            case 3 ->
+                "Tìm kiếm theo tác giả ";
+            case 4 ->
+                "Tìm kiếm theo thể loại";
+            default ->
+                "";
         };
     }
     private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
@@ -673,6 +677,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // Xóa "Chọn thể loại" khi ComboBox được focus
 //                timKiemTheo.removeItem("Tìm kiếm theo");
     }//GEN-LAST:event_timKiemTheoFocusGained
+
+    private void txtTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseClicked
+        // TODO add your handling code here:
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_txtTimKiemMouseClicked
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
@@ -856,7 +865,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void findTheLoaiByMaTL_or_TenTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
-        if (maTL.isEmpty()) {
+        if (maTL.isEmpty() || maTL.trim().equals("Tìm kiếm theo mã hoặc tên thể loại")) {
             // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên thể loại cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {

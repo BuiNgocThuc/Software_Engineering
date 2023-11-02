@@ -506,6 +506,10 @@ public final class HoaDonGUI extends javax.swing.JPanel {
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
         // TODO add your handling code here:
+        String searchKeyword = tfTimkiem.getText().trim();
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
+        }
         findHoaDonByMaHD(tfTimkiem.getText(), modelHoaDon);
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
@@ -637,19 +641,24 @@ public final class HoaDonGUI extends javax.swing.JPanel {
     }
 
     public void findHoaDonByMaHD(String maHD, DefaultTableModel model) {
-        int maHDnumber = sharedFunction.convertToInteger(maHD, "HD");
-        if (maHDnumber == -1) {
-            // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
-            JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        if (maHD.isEmpty() || maHD.trim().equals("Tìm kiếm theo mã hóa đơn")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
-            ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.findHoaDonByMaHD(maHDnumber);
-            if (!listHoaDon.isEmpty()) {
-                loadDataTableHoaDon(listHoaDon, model);
-            } else {
+            int maHDnumber = sharedFunction.convertToInteger(maHD, "HD");
+            if (maHDnumber == -1) {
+                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
+                ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.findHoaDonByMaHD(maHDnumber);
+                if (!listHoaDon.isEmpty()) {
+                    loadDataTableHoaDon(listHoaDon, model);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
         }
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable1;

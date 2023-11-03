@@ -28,7 +28,7 @@ public class PhieuNhapDAO {
                 Connection conn = ConnectDB.getConnection();
                 String sql = "UPDATE SanPham SET HinhAnh=? WHERE MaSP=?";
                 PreparedStatement pst = conn.prepareStatement(sql);
-                String name = "sp0"+i+".jpg";
+                String name = "sp0" + i + ".jpg";
                 pst.setNString(1, name);
                 pst.setInt(2, i);
                 pst.executeUpdate();
@@ -37,6 +37,26 @@ public class PhieuNhapDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String selectSupplierByID(String ID) {
+        String name = null;
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TenNCC FROM NhaCungCap WHERE MaNCC = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, ID);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("TenNCC");
+            }
+            ConnectDB.closeConnection(c);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
     }
 
     public int queryByNameSupplier(String name) {
@@ -91,7 +111,7 @@ public class PhieuNhapDAO {
             ResultSet rs = pst.executeQuery();
 
             while (rs.next()) {
-                String MaPN = rs.getString("MaPN");
+                int MaPN = rs.getInt("MaPN");
                 String MaNCC = rs.getString("MaNCC");
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
@@ -129,6 +149,32 @@ public class PhieuNhapDAO {
         return 0;
     }
 
+    public PhieuNhapDTO selectByID(String id) {
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT * FROM PhieuNhap WHERE MaPN = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int MaPN = rs.getInt("MaPN");
+                String MaNCC = rs.getString("MaNCC");
+                String TenTK = rs.getNString("TenTK");
+                Date NgayTao = rs.getDate("NgayTao");
+                double TongTien = rs.getFloat("TongTien");
+                String TinhTrang = rs.getString("TinhTrang");
+
+                PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
+                return pn;
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean Them(PhieuNhapDTO pn) {
         int ketQua = 0;
         try {
@@ -146,10 +192,52 @@ public class PhieuNhapDAO {
             pst.setBoolean(5, true);
 
             ketQua = pst.executeUpdate();
+            ConnectDB.closeConnection(conn);
             if (ketQua == 1) {
-                ConnectDB.closeConnection(conn);
+                return true;
             }
-            return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public String getNameSPByID(int id) {
+        String name = null;
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TenSP FROM SanPham WHERE MaSP = ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                name = rs.getString("TenSP");
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return name;
+    }
+
+    public boolean XoaPhieuNhap(int MaPN) {
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE PhieuNhap SET TinhTrang=? WHERE MaPN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setBoolean(1, false);
+            pst.setInt(2, MaPN);
+
+            ketQua = pst.executeUpdate();
+            ConnectDB.closeConnection(conn);
+            if (ketQua == 1) {
+                return true;
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

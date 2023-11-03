@@ -9,30 +9,29 @@ package DTO;
  * @author NGOC THUC
  */
 public class CTPhieuNhapDTO {
-    private String MaPN, MaSP;
+    private int MaPN, MaSP, SoLuong;
     private double DonGia;
-    private int SoLuong;
 
-    public CTPhieuNhapDTO(String MaPN, String MaSP, double DonGia, int SoLuong) {
+    public CTPhieuNhapDTO(int MaPN, int MaSP, double DonGia, int SoLuong) {
         this.MaPN = MaPN;
         this.MaSP = MaSP;
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
     }
 
-    public String getMaPN() {
+    public int getMaPN() {
         return MaPN;
     }
 
-    public void setMaPN(String MaPN) {
+    public void setMaPN(int MaPN) {
         this.MaPN = MaPN;
     }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return MaSP;
     }
 
-    public void setMaSP(String MaSP) {
+    public void setMaSP(int MaSP) {
         this.MaSP = MaSP;
     }
 

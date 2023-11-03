@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.CTPhieuNhapDAO;
 import DAO.PhieuNhapDAO;
 import DAO.SanPhamDAO;
 import DTO.CTPhieuNhapDTO;
@@ -11,6 +12,7 @@ import DTO.CongTyDTO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import GUI.NhapHangGUI;
+import GUI.PhieuNhapGUI;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +41,7 @@ public class PhieuNhapBUS {
     PhieuNhapDAO pnDAO = new PhieuNhapDAO();
     TaiKhoanBUS tkBUS = new TaiKhoanBUS();
     CTPhieuNhapBUS ctpnBUS = new CTPhieuNhapBUS();
+    CTPhieuNhapDAO ctpnDAO = new CTPhieuNhapDAO();
 
     public ArrayList<SanPhamDTO> loadSanPham() {
         return spDAO.selectAll();
@@ -58,7 +61,7 @@ public class PhieuNhapBUS {
         }
         double TongTien = Double.parseDouble(cartImport.getTfTongtien().getText());
 
-        PhieuNhapDTO pn = new PhieuNhapDTO(TenTK, IDNCC + "", TenTK, TongTien, startDate, "1");
+        PhieuNhapDTO pn = new PhieuNhapDTO(1, IDNCC + "", TenTK, TongTien, startDate, "1");
         boolean res = pnDAO.Them(pn);
 
         if (res) {
@@ -71,7 +74,8 @@ public class PhieuNhapBUS {
                 if (!resCT) {
                     cartImport.displayErrorMessage("lỗi nhập hàng " + ctpn.getMaSP());
                 } else {
-                    resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), ctpn.getSoLuong(), ctpn.getDonGia());
+                    int newQuantity = ctpnBUS.getCurrentQuantity(ctpn.getMaSP()) + ctpn.getSoLuong();
+                    resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), newQuantity, ctpn.getDonGia());
                     if (resSP) {
                         success = true;
                     }
@@ -86,14 +90,14 @@ public class PhieuNhapBUS {
 
     public ArrayList<CTPhieuNhapDTO> getListCTPN(NhapHangGUI cartImport) {
         ArrayList<CTPhieuNhapDTO> listID = new ArrayList<>();
-        String IDPN = cartImport.getTfIDHoadon().getText().substring(2);
+        int IDPN = Integer.parseInt(cartImport.getTfIDHoadon().getText().substring(2));
         int rows = cartImport.getTableChitiet().getModel().getRowCount();
         for (int i = 0; i < rows; i++) {
-            String ID = cartImport.getTableChitiet().getModel().getValueAt(i, 0).toString().substring(2);
+            int ID = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 0).toString().substring(2));
             int quantity = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 2).toString());
             int ThanhTien = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 3).toString());
-            int DonGia = ThanhTien / quantity;
-            CTPhieuNhapDTO ctpn = new CTPhieuNhapDTO(IDPN, ID, DonGia, quantity);
+            int DonGiaNhap = ThanhTien / quantity;
+            CTPhieuNhapDTO ctpn = new CTPhieuNhapDTO(IDPN, ID, DonGiaNhap, quantity);
             listID.add(ctpn);
         }
         return listID;
@@ -120,7 +124,7 @@ public class PhieuNhapBUS {
         String formattedDate = currentDate.format(formatter);
 
         cartImport.getTfIDHoadon().setText(IDPN);
-//        String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
+        // String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
 
         cartImport.getTfIDNhanvien().setText(""); // sửa sau
         cartImport.getTfNgaytao().setText(formattedDate);
@@ -137,15 +141,15 @@ public class PhieuNhapBUS {
         SanPhamDTO sp = spDAO.getHinhAnhandNamXB(idSP);
         String nameImg = sp.getHinhAnh();
         ImageIcon imgPro = new ImageIcon(new ImageIcon(getClass().getResource("/Assets/IMG/" + nameImg)).getImage().getScaledInstance(cartImport.getLblHinhAnh().getWidth(), cartImport.getLblHinhAnh().getHeight(), Image.SCALE_DEFAULT));
-        
-        
+
         cartImport.getLblHinhAnh().setIcon(imgPro);
         cartImport.getLblHinhAnh().setText("");
         cartImport.getTfIDSanPham().setText(cartImport.getTableSanPham().getValueAt(row_index, 1).toString());
         cartImport.getTfTenSanpham().setText(cartImport.getTableSanPham().getValueAt(row_index, 2).toString());
         cartImport.getTfTenTacgia().setText(cartImport.getTableSanPham().getValueAt(row_index, 3).toString());
         cartImport.getTfTheloai().setText(cartImport.getTableSanPham().getValueAt(row_index, 4).toString());
-        cartImport.getTfDongia().setText(cartImport.getTableSanPham().getValueAt(row_index, 6).toString());
+        double DonGia = Double.parseDouble(cartImport.getTableSanPham().getValueAt(row_index, 6).toString()) * 100 / 120;
+        cartImport.getTfDongia().setText(DonGia + "");
         cartImport.getTfSoluong().setText("");
         cartImport.getTfSoluong().requestFocus();
     }
@@ -173,6 +177,24 @@ public class PhieuNhapBUS {
         }
     }
 
+    public void createTableImport(DefaultTableModel modelPhieuNhap) {
+        ArrayList<PhieuNhapDTO> listPhieuNhap = loadPhieuNhap();
+        modelPhieuNhap.setRowCount(0);
+        int STT = 1;
+        for (PhieuNhapDTO pn : listPhieuNhap) {
+            int maPN = pn.getMaPN();
+            String maPnText = String.format("PN%02d", maPN);
+            Date ngayTao = pn.getNgayTao();
+            double TongTien = pn.getTongTien();
+            Object[] row = {STT++, maPnText, ngayTao, TongTien};
+            modelPhieuNhap.addRow(row);
+        }
+    }
+
+    public ArrayList<PhieuNhapDTO> loadPhieuNhap() {
+        return pnDAO.selectAll();
+    }
+
     public void createTableProduct(DefaultTableModel modelSanPham) {
         ArrayList<SanPhamDTO> listSanPham = loadSanPham();
         modelSanPham.setRowCount(0);
@@ -190,7 +212,39 @@ public class PhieuNhapBUS {
         }
     }
 
-    public void loadInfoProduct(NhapHangGUI cartImport) {
+    public void loadInfoImport(PhieuNhapGUI importInfo, int row) {
+        importInfo.getModelImportDetai().setRowCount(0);
+        String idPN = importInfo.getTablePhieunhap().getValueAt(row, 1).toString().substring(2);
+        PhieuNhapDTO pnSelected = pnDAO.selectByID(idPN);
+        String maPN = String.format("PN%02d", pnSelected.getMaPN());
+        importInfo.getTfIDHoadon().setText(maPN);
+        importInfo.getTfIDNhanVien().setText(pnSelected.getTenTK());
+        importInfo.getTfNgayLap().setText(pnSelected.getNgayTao() + "");
+        String nameNCC = pnDAO.selectSupplierByID(pnSelected.getMaNCC());
+        importInfo.getTfCongTy().setText(nameNCC);
+        importInfo.getTfTongTien().setText(pnSelected.getTongTien() + "");
+
+        ArrayList<CTPhieuNhapDTO> listCTPN = ctpnBUS.selectByID(Integer.parseInt(idPN));
+        for (CTPhieuNhapDTO ctpn : listCTPN) {
+            int idSP = ctpn.getMaSP();
+            String idSPText = String.format("SP%02d", idSP);
+            String nameSP = pnDAO.getNameSPByID(idSP);
+            int soLuong = ctpn.getSoLuong();
+            double donGiaNhap = ctpn.getDonGia() * soLuong;
+
+            Object[] rowSP = {idSPText, nameSP, soLuong, donGiaNhap};
+
+            importInfo.getModelImportDetai().addRow(rowSP);
+        }
 
     }
+
+    public boolean XoaPhieuNhap(int MaPN) {
+        ArrayList<CTPhieuNhapDTO> listctpn = ctpnDAO.selectByID(MaPN);
+        for (CTPhieuNhapDTO ctpn : listctpn) {
+            ctpnDAO.XoaSLCu(MaPN, ctpn.getMaSP());
+        }
+        return pnDAO.XoaPhieuNhap(MaPN);
+    }
+
 }

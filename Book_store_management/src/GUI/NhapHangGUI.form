@@ -828,7 +828,7 @@
                 </Property>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                    <TitledBorder justification="1" position="1" title="&#x110;&#x1a1;n gi&#xe1;">
+                    <TitledBorder justification="1" position="1" title="&#x110;&#x1a1;n gi&#xe1; nh&#x1ead;p">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder roundedCorners="true" thickness="2">
                           <Color PropertyName="color" blue="d9" green="ac" red="87" type="rgb"/>
@@ -967,6 +967,9 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tfTimkiemMouseClicked"/>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tfTimkiemMousePressed"/>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tfTimkiemMouseReleased"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTimkiemActionPerformed"/>
               </Events>
             </Component>

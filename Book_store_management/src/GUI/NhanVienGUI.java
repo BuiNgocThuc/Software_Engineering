@@ -3,11 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
+import BUS.NhanVienBUS;
+import DAO.NhanVienDAO;
+import DTO.NhanVienDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -27,17 +33,30 @@ public class NhanVienGUI extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienGUI
      */
+    JTable tableNhanvien = new JTable();
     public NhanVienGUI() {
         initComponents();
-        JTable tableNhanvien = createTableNhanvien();
+        tableNhanvien = createTableNhanvien();
         tableNhanvien.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableNhanvien);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
+        
+        loadData(tableNhanvien);
     }
+    private static int count = 1;
+    NhanVienBUS nvBus = new NhanVienBUS();
 
+    public void loadData(JTable tbl) {
+        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
+        model.setRowCount(0);
+        count=1;
+        nvBus.selectAll().forEach((nv) -> {
+            model.addRow(new Object[]{count++, nv.getMaNV(), nv.getTenNV(),nv.getGioiTinh(),"" ,nv.getSDT(),nv.getEmail(), nv.getDiaChi()});
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -131,9 +150,14 @@ public class NhanVienGUI extends javax.swing.JPanel {
         tfTimkiem.setText("Tìm kiếm sản phẩm");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
-        tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTimkiemActionPerformed(evt);
+        tfTimkiem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTimkiemFocusLost(evt);
+            }
+        });
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
             }
         });
 
@@ -273,29 +297,61 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        String temp = null;
+        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+            nvBus.deleteNhanVien(temp);
+        }
+        count=1;
+        loadData(tableNhanvien);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfTimkiemActionPerformed
-
-    private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimkiemActionPerformed
-
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
-        // TODO add your handling code here:
+        tfTimkiem.setText("Tìm kiếm công ty");
+        count = 1;
+        loadData(tableNhanvien);
     }//GEN-LAST:event_btnLammoiActionPerformed
 
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        tfTimkiem.setText("");
+    }//GEN-LAST:event_tfTimkiemMouseClicked
+
+    private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
+        if(tfTimkiem.getText().equals("")){
+            tfTimkiem.setText("Tìm kiếm nhân viên");
+        }
+    }//GEN-LAST:event_tfTimkiemFocusLost
+
+    private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
+       TimKiem();
+    }//GEN-LAST:event_btnTimkiemActionPerformed
+    public void TimKiem() {
+        ArrayList<NhanVienDTO> nvTK = new ArrayList<>();
+        NhanVienDAO nvDAO = new NhanVienDAO();
+        String chuoiTim = tfTimkiem.getText();
+        for (NhanVienDTO u : nvDAO.selectAll()) {
+            if (u.getTenNV().toLowerCase().contains(chuoiTim.toLowerCase()) || u.getMaNV().toLowerCase().contains(chuoiTim)) {
+                nvTK.add(u);
+            }
+        }
+        DefaultTableModel model = (DefaultTableModel) tableNhanvien.getModel();
+        model.setRowCount(0);
+        count = 1;
+        for (NhanVienDTO u : nvTK) {
+            //[] row = new Object[]{};
+            model.addRow(new Object[]{count++, u.getMaNV(), u.getTenNV(),u.getGioiTinh(),"" ,u.getSDT(),u.getEmail(), u.getDiaChi()});
+        }
+        tableNhanvien.setModel(model);
+    }
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -364,8 +420,8 @@ public class NhanVienGUI extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(200); // Độ rộng cột 5
         columnModel.getColumn(6).setPreferredWidth(200); // Độ rộng cột 6
         columnModel.getColumn(7).setPreferredWidth(400); // Độ rộng cột 6
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 

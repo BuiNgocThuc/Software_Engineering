@@ -22,6 +22,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
     public ChiTietCongTy() {
         initComponents();
     }
+    public static int Model = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,8 +33,8 @@ public class ChiTietCongTy extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblID = new javax.swing.JLabel();
         txtID5 = new javax.swing.JTextField();
+        lblID = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblThongTinChiTiet = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
@@ -48,16 +49,16 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDiaChi = new javax.swing.JTextPane();
 
-        lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        lblID.setForeground(new java.awt.Color(148, 181, 222));
-        lblID.setText("ID Chức Năng");
-
         txtID5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtID5ActionPerformed(evt);
             }
         });
+
+        lblID.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        lblID.setForeground(new java.awt.Color(148, 181, 222));
+        lblID.setText("ID Chức Năng");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(600, 200));
@@ -76,11 +77,6 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txtID.setFocusable(false);
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
-            }
-        });
 
         lblID1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblID1.setForeground(new java.awt.Color(148, 181, 222));
@@ -91,22 +87,12 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         lblID2.setText("Tên Nhà Cung Cấp");
 
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         lblID5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblID5.setForeground(new java.awt.Color(148, 181, 222));
         lblID5.setText("Số điện thoại");
 
         txtSDT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-        txtSDT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSDTActionPerformed(evt);
-            }
-        });
 
         lblID6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblID6.setForeground(new java.awt.Color(148, 181, 222));
@@ -118,6 +104,11 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         buttonRadius1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         buttonRadius1.setPreferredSize(new java.awt.Dimension(100, 40));
         buttonRadius1.setRadius(40);
+        buttonRadius1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRadius1ActionPerformed(evt);
+            }
+        });
 
         btnLuu.setForeground(new java.awt.Color(38, 117, 191));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
@@ -202,49 +193,50 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
-
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-
-    private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSDTActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSDTActionPerformed
-
     private void txtID5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtID5ActionPerformed
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-        CongTyDTO cty=new CongTyDTO();
-        if(txtName.getText().equals("")){
+        CongTyDTO cty = new CongTyDTO();
+        if (txtName.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Tên không được để trống");
-        }else if(txtSDT.getText().equals("")){
+        } else if (txtSDT.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "SĐT không được để trống");
-        }else if(txtDiaChi.getText().equals("")){
+        } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
         }
         cty.setTenNCC(txtName.getText());
         cty.setSDT(txtSDT.getText());
         cty.setDiaChi(txtDiaChi.getText());
         cty.setTinhTrang(true);
-        CongTyBUS ctyBus=new CongTyBUS();
-        if(ctyBus.insertCongTy(cty)){
-            setVisible(false);
+        CongTyBUS ctyBus = new CongTyBUS();
+        if (Model == 1) {
+            if (ctyBus.insertCongTy(cty)) {
+                setVisible(false);
+            }
+        } else {
+            if (ctyBus.updateCongTy(cty)) {
+                setVisible(false);
+            }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void buttonRadius1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRadius1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_buttonRadius1ActionPerformed
     
-    public void setData(int id){
-        CongTyDAO ctyDAO=new CongTyDAO();
-        CongTyDTO ctyDto=ctyDAO.getCongTyById(id);
-        txtID.setText("CT00"+ctyDto.getMaNCC());
+    
+
+    public void setData(int id) {
+        CongTyBUS ctyBus = new CongTyBUS();
+        CongTyDTO ctyDto = ctyBus.getCongTyById(id);
+        txtID.setText("CT00" + ctyDto.getMaNCC());
         txtName.setText(ctyDto.getTenNCC());
         txtSDT.setText(ctyDto.getSDT());
-        txtDiaChi.setText(ctyDto.getDiaChi());        
+        txtDiaChi.setText(ctyDto.getDiaChi());
     }
+
     /**
      * @param args the command line arguments
      */

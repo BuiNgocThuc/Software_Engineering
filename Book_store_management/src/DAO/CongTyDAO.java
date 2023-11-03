@@ -24,7 +24,7 @@ public class CongTyDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM NhaCungCap";
+            String sql = "SELECT * FROM NhaCungCap where TinhTrang <> 0";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -98,6 +98,22 @@ public class CongTyDAO {
             st.setString(2, cty.getSDT());
             st.setString(3, cty.getDiaChi());
             st.setInt(4, cty.getMaNCC());
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
+    }
+    public int deleteCongTy(int idcty){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhaCungCap set TinhTrang=0 where MaNCC=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setInt(1, idcty);
             ketqua=st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

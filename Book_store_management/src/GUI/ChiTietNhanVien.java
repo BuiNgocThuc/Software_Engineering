@@ -13,6 +13,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietNhanVien
      */
+    public static int Model=0;
     public ChiTietNhanVien() {
         initComponents();
     }
@@ -72,6 +73,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        tfIDHoadon.setEditable(false);
         tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         tfIDHoadon.setMaximumSize(new java.awt.Dimension(480, 50));
@@ -136,7 +138,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()

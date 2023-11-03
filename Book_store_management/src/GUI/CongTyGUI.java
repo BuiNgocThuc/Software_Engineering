@@ -5,13 +5,20 @@
 package GUI;
 
 import BUS.CongTyBUS;
+import DAO.CongTyDAO;
+import DTO.CongTyDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -42,39 +49,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
         loadData(tableNhanvien);
-        tableNhanvien.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                ChiTietCongTy ctcty=new ChiTietCongTy();
-                String temp=String.valueOf(tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-                int id=Integer.parseInt(temp.substring(4));
-                System.out.println(tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-                ctcty.setData(id);
-                ctcty.setVisible(true);
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                
-            }
-
-            
-        });
+        
     }
     private static int count = 1;
     CongTyBUS ctyBus = new CongTyBUS();
@@ -82,9 +57,10 @@ public class CongTyGUI extends javax.swing.JPanel {
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
+        count=1;
         ctyBus.selectAll().forEach((cty) -> {
             if (cty.getTinhTrang()) {
-                model.addRow(new Object[]{count++,"CT00"+cty.getMaNCC(), cty.getTenNCC(), cty.getSDT(), cty.getDiaChi()});
+                model.addRow(new Object[]{count++, "CT00" + cty.getMaNCC(), cty.getTenNCC(), cty.getSDT(), cty.getDiaChi()});
             }
 
         });
@@ -180,9 +156,14 @@ public class CongTyGUI extends javax.swing.JPanel {
         tfTimkiem.setText("Tìm kiếm công ty");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
-        tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTimkiemActionPerformed(evt);
+        tfTimkiem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTimkiemFocusLost(evt);
+            }
+        });
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
             }
         });
 
@@ -336,25 +317,42 @@ public class CongTyGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfTimkiemActionPerformed
-
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-        // TODO add your handling code here:
+        TimKiem();
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        //Lấy id để xoá
+        String temp = null;
+        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+            int id = 0;
+            id = Integer.parseInt(temp.substring(4));
+            ctyBus.deleteCongTy(id);
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         ChiTietCongTy ctcty = new ChiTietCongTy();
+        ctcty.Model = 1;
         ctcty.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        // TODO add your handling code here:
+        ChiTietCongTy ctcty = new ChiTietCongTy();
+        String temp = null;
+        temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+        int id = 0;
+        id = Integer.parseInt(temp.substring(4));
+        if (id != 0) {
+            ctcty.setData(id);
+            ctcty.Model = 2;
+            ctcty.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn Công ty để sửa");
+        }
+
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
@@ -362,7 +360,36 @@ public class CongTyGUI extends javax.swing.JPanel {
         count = 1;
         loadData(tableNhanvien);
     }//GEN-LAST:event_btnLammoiActionPerformed
-    
+
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        tfTimkiem.setText("");
+    }//GEN-LAST:event_tfTimkiemMouseClicked
+
+    private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
+        if(tfTimkiem.getText().equals("")){
+            tfTimkiem.setText("Tìm kiếm công ty");
+        }
+    }//GEN-LAST:event_tfTimkiemFocusLost
+
+    public void TimKiem() {
+        ArrayList<CongTyDTO> spTK = new ArrayList<>();
+        CongTyDAO ctyDao = new CongTyDAO();
+        String chuoiTim = tfTimkiem.getText();
+        for (CongTyDTO u : ctyDao.selectAll()) {
+            if (u.getTenNCC().toLowerCase().contains(chuoiTim.toLowerCase()) || String.valueOf("CT00" + u.getMaNCC()).contains(chuoiTim)) {
+                spTK.add(u);
+            }
+        }
+        DefaultTableModel model = (DefaultTableModel) tableNhanvien.getModel();
+        model.setRowCount(0);
+        count = 1;
+        for (CongTyDTO u : spTK) {
+            //[] row = new Object[]{};
+            model.addRow(new Object[]{count++, "CT00" + u.getMaNCC(), u.getTenNCC(), u.getSDT(), u.getDiaChi()});
+        }
+        tableNhanvien.setModel(model);
+    }
+
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -433,8 +460,8 @@ public class CongTyGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(600); // Độ rộng cột 4
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 

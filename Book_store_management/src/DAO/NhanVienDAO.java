@@ -23,7 +23,7 @@ public class NhanVienDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM NhanVien";
+            String sql = "SELECT * FROM NhanVien where TinhTrang=N'Đang làm việc'";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -44,5 +44,21 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
         return ketQua;
+    }
+    public int deleteNhanVien(String idnv){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhanVien set TinhTrang=N'Không làm việc' where MaNV=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setNString(1, idnv);
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
     }
 }

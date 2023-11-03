@@ -7,6 +7,7 @@ package GUI;
 import BUS.CongTyBUS;
 import DAO.CongTyDAO;
 import DTO.CongTyDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -48,36 +49,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
         loadData(tableNhanvien);
-        tableNhanvien.addMouseListener(new MouseListener() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int select = tableNhanvien.getSelectedRow();
-                if (select != 0) {
-
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-
-            }
-
-        });
+        
     }
     private static int count = 1;
     CongTyBUS ctyBus = new CongTyBUS();
@@ -359,7 +331,6 @@ public class CongTyGUI extends javax.swing.JPanel {
             id = Integer.parseInt(temp.substring(4));
             ctyBus.deleteCongTy(id);
         }
-
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -489,8 +460,8 @@ public class CongTyGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(600); // Độ rộng cột 4
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
     }
 

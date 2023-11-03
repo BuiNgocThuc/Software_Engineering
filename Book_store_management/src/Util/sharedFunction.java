@@ -168,15 +168,15 @@ public class sharedFunction {
             }
         });
 
-//        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
-//        textField.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseExited(MouseEvent e) {
-//                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
-//                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
-//                }
-//            }
-//        });
+        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
+                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
+                }
+            }
+        });
    }
 
   

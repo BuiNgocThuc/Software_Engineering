@@ -15,6 +15,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.BorderFactory;
@@ -413,6 +414,11 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 btnTimkiemActionPerformed(evt);
             }
         });
+        btnTimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnTimkiemKeyPressed(evt);
+            }
+        });
 
         btnLamMoi.setBorder(null);
         btnLamMoi.setForeground(new java.awt.Color(135, 172, 217));
@@ -565,6 +571,21 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         tfTimkiem.setFocusable(true);
     }//GEN-LAST:event_tfTimkiemMouseClicked
+
+    private void btnTimkiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnTimkiemKeyPressed
+        // TODO add your handling code here:
+        // Kiểm tra xem phím bấm có phải là Enter không
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        // Lấy dữ liệu tìm kiếm và xử lý nếu là Enter
+        String searchKeyword = tfTimkiem.getText().trim();
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
+        } else {
+            findHoaDonByMaHD(searchKeyword, modelHoaDon);
+        }
+    }
+           
+    }//GEN-LAST:event_btnTimkiemKeyPressed
 
     public JTable createTableChiTietHoaDon() {
         // Tiêu đề của các cột

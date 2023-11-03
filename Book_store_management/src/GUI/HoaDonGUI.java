@@ -94,8 +94,8 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         modelChiTietHoaDon.setRowCount(0);
         int selectRow = tableHoaDon.getSelectedRow();
         if (selectRow >= 0) {
-            String maHD = (String) tableHoaDon.getValueAt(selectRow, 1);
-            int MaHD = sharedFunction.convertToInteger(maHD, "HD");
+            String maHDText = (String) tableHoaDon.getValueAt(selectRow, 1);
+            int MaHD = sharedFunction.convertToInteger(maHDText, "HD");
             CTHoaDonBUS cthd = new CTHoaDonBUS();
             ArrayList<CTHoaDonDTO> listCTHD = cthd.findHoaDonByMaHD(MaHD);
             int STT = 1;
@@ -103,17 +103,19 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 String tenSP = ct.getTenSP();
                 int sl = ct.getSoLuong();
                 double donGia = ct.getDonGia();
-                Object[] row = {STT++, tenSP, sl, donGia};
+                String donGiaText = sharedFunction.formatVND(donGia);
+                Object[] row = {STT++, tenSP, sl, donGiaText};
                 modelChiTietHoaDon.addRow(row);
             }
-            String IdHoaDon = (String) tableHoaDon.getValueAt(selectRow, 1);
+        
             String IdNhanVien = (String) tableHoaDon.getValueAt(selectRow, 2);
             Date NgayLap = (Date) tableHoaDon.getValueAt(selectRow, 3);
-            Double TongTien = (Double) tableHoaDon.getValueAt(selectRow, 4);
-            tfIDHoadon.setText(IdHoaDon);
+                
+            String TongTien = (String) tableHoaDon.getValueAt(selectRow, 4);
+            tfIDHoadon.setText(maHDText);
             tfIDNhanvien.setText(IdNhanVien);
             tfNgaytao.setText(String.valueOf(NgayLap));
-            tfTongtien.setText(String.valueOf(TongTien));
+            tfTongtien.setText(TongTien);
         }
     }
 

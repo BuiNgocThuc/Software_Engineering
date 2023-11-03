@@ -236,6 +236,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
         btnLamMoi = new Components.ButtonRadius();
+        timKiemTheo = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(1020, 750));
 
@@ -733,6 +734,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
             }
         });
 
+        timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
+        timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
+        timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -753,7 +759,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(PanelTable1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)))))
                 .addGap(0, 17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -766,7 +776,9 @@ public final class BanHangGUI extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(timKiemTheo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(0, 2, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1145,6 +1157,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JTextField tfTienkhach;
     private javax.swing.JTextField tfTienthoi;
     private javax.swing.JTextField tfTongtien;
+    private javax.swing.JComboBox<String> timKiemTheo;
     private javax.swing.JTextField txtDonGia;
     private javax.swing.JTextField txtIDHoadon;
     private javax.swing.JTextField txtIDNhanvien;

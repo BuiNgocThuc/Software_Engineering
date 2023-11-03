@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -50,7 +51,7 @@ public class HoaDonDAO {
             Connection c = ConnectDB.getConnection();
             String sql = "SELECT * FROM HoaDon Where MaHD LIKE ?";
             PreparedStatement pst = c.prepareStatement(sql);
-            pst.setString(1, "%" + MaHoaDon+ "%");
+            pst.setString(1, "%" + MaHoaDon + "%");
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaHD = rs.getInt("MaHD");
@@ -86,4 +87,20 @@ public class HoaDonDAO {
         return maHD;
     }
 
+    public boolean luuHoaDon(HoaDonDTO hoaDon) {
+        String sql = "INSERT INTO HoaDon (TenTK, NgayTao, TongTien) VALUES (?, ?, ?)";
+        boolean rowInserted = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, hoaDon.getTenTK());
+            pst.setString(2, new SimpleDateFormat("yyyy-MM-dd").format(hoaDon.getNgayTao()));
+            pst.setDouble(3, hoaDon.getTongTien());
+            rowInserted = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInserted;
+    }
 }

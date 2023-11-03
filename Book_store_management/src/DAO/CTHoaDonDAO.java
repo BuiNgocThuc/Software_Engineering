@@ -18,7 +18,8 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class CTHoaDonDAO {
-  public ArrayList<CTHoaDonDTO> findHoaDonByMaHD(int MaHoaDon) {
+
+    public ArrayList<CTHoaDonDTO> findHoaDonByMaHD(int MaHoaDon) {
         ArrayList<CTHoaDonDTO> ketQua = new ArrayList<>();
         try {
             Connection c = ConnectDB.getConnection();
@@ -31,7 +32,7 @@ public class CTHoaDonDAO {
                 int soLuong = rs.getInt("SoLuong");
                 double DonGia = rs.getDouble("DonGia");
 
-                CTHoaDonDTO cthd= new CTHoaDonDTO(DonGia, soLuong, TenSP);
+                CTHoaDonDTO cthd = new CTHoaDonDTO(DonGia, soLuong, TenSP);
                 ketQua.add(cthd);
             }
             ConnectDB.closeConnection(c);
@@ -41,4 +42,21 @@ public class CTHoaDonDAO {
         return ketQua;
     }
 
+    public boolean luuChiTietHoaDon(CTHoaDonDTO chiTietHoaDon) {
+        String sql = "INSERT INTO ChiTietHoaDon (MaHD, MaSP, SoLuong, DonGia) VALUES (?, ?, ?, ?)";
+        boolean rowInserted = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, chiTietHoaDon.getMaHD());
+            pst.setInt(2, chiTietHoaDon.getMaSP());
+            pst.setInt(3, chiTietHoaDon.getSoLuong());
+            pst.setDouble(4, chiTietHoaDon.getDonGia());
+            rowInserted = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInserted;
+    }
 }

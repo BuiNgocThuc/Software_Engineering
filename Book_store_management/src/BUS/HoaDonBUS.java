@@ -30,5 +30,9 @@ public class HoaDonBUS {
 
     public ArrayList<HoaDonDTO> findHoaDonByMaHD(int maHD) {
         return hoaDonDAO.findHoaDonByMaHD(maHD);
-     }
+    }
+
+    public boolean luuHoaDon(HoaDonDTO hoaDon) {
+        return hoaDonDAO.luuHoaDon(hoaDon);
+    }
 }

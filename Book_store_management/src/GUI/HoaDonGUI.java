@@ -8,28 +8,21 @@ import BUS.CTHoaDonBUS;
 import BUS.HoaDonBUS;
 import DTO.CTHoaDonDTO;
 import DTO.HoaDonDTO;
-import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -82,7 +75,8 @@ public final class HoaDonGUI extends javax.swing.JPanel {
             String maNV = hd.getTenTK();
             Date ngayLap = hd.getNgayTao();
             Double TongTien = hd.getTongTien();
-            Object[] row = {STT++, maHDtext, maNV, ngayLap, TongTien};
+            String TongTienText = sharedFunction.formatVND(TongTien);
+            Object[] row = {STT++, maHDtext, maNV, ngayLap, TongTienText};
             modelHoaDon.addRow(row);
         }
     }

@@ -23,7 +23,11 @@ public class HoaDonDTO {
         this.TongTien = TongTien;
         this.NgayTao = NgayTao;
     }
-
+    public HoaDonDTO(String TenTK, double TongTien, Date NgayTao) {
+        this.TenTK = TenTK;
+        this.TongTien = TongTien;
+        this.NgayTao = NgayTao;
+    }
     public int getMaHD() {
         return MaHD;
     }

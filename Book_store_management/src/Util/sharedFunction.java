@@ -4,19 +4,18 @@
  */
 package Util;
 
-import DTO.SanPhamDTO;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -219,4 +217,29 @@ public class sharedFunction {
         return totalPrice;
     }
 
-}
+    public static Date stringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+        public static double stringToDouble(String doubleString) {
+        try {
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return 0.0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
+        }
+    }
+        public static int stringToInteger(String intString) {
+        try {
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return 0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
+        }
+    }
+    }

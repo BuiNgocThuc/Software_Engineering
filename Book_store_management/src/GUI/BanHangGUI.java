@@ -4,10 +4,15 @@
  */
 package GUI;
 
+import BUS.CTHoaDonBUS;
 import BUS.HoaDonBUS;
 import BUS.SanPhamBUS;
+import BUS.TaiKhoanBUS;
 import DAO.SanPhamDAO;
+import DTO.CTHoaDonDTO;
+import DTO.HoaDonDTO;
 import DTO.SanPhamDTO;
+import DTO.TaiKhoanDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -47,12 +52,15 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private static DefaultTableModel modelSanPham;
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     SanPhamGUI sanPhamGUI = new SanPhamGUI();
+    HoaDonBUS hoaDonBUS = new HoaDonBUS();
+    CTHoaDonBUS ctBUS = new CTHoaDonBUS();
 
     public BanHangGUI() {
         initComponents();
+        setText_ID_NgayTao();
+
         createTable();
         selectRow();
-        setText_ID_NgayTao();
 
     }
 
@@ -104,14 +112,25 @@ public final class BanHangGUI extends javax.swing.JPanel {
         int maHD = hoaDonBUS.getMaHoaDonMax() + 1;
         String maHDtext = FormatMaHD(maHD);
         txtIDHoadon.setText(maHDtext);
-//        String tenTK = TaiKhoanBUS.currentAcc.getTenTK();
-//        txtIDNhanvien.setText(tenTK);
+        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+        txtIDNhanvien.setText("NV00" + tenTK);
+        System.out.println(tenTK);
         // Lấy ngày hiện tại
         Date currentDate = new Date();
-        // Định dạng ngày theo yêu cầu (ví dụ: "dd/MM/yyyy HH:mm:ss")
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = dateFormat.format(currentDate);
         txtNgayTao.setText(formattedDate);
+    }
+
+    public void ResetAll() {
+        setText_ID_NgayTao();
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
+        resetThongTinChiTietSanPham();
+        modelHoaDon.setRowCount(0);
+        tfTienkhach.setText("");
+        tfTienthoi.setText("");
+        tfTongtien.setText("");
     }
 
     public void loadDataThongTinChiTiet(JTable table, int positionMaSP) {
@@ -788,21 +807,53 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
         // TODO add your handling code here:
+        thanhToan();
+        ResetAll();
+    }//GEN-LAST:event_btnThanhtoanActionPerformed
+
+    public void thanhToan() {
         if (tfTongtien.getText().isEmpty()) {
             sharedFunction.displayErrorMessage("Vui lòng chọn sản phẩm ");
         } else {
-            updateSoLuong();
-            String IDhoaDon = txtIDHoadon.getText();
-            String NhanVien = txtIDNhanvien.getText();
-            String NgayTao = txtNgayTao.getText();
-            String TongTien = tfTongtien.getText();
+            String HDtext = txtIDHoadon.getText();
+            int HDnumber = Integer.parseInt(HDtext.substring(2));
+            String IDNhanVien = txtIDNhanvien.getText();
+            String NgayTaotext = txtNgayTao.getText();
+            Date NgayTao = sharedFunction.stringToDate(NgayTaotext);
+            String TongTientext = tfTongtien.getText();
+            Double TongTien = sharedFunction.parseMoneyString(TongTientext);
             String TienKhach = tfTienkhach.getText();
             String TienThoi = tfTienthoi.getText();
-            BillFormGUI bill = new BillFormGUI(IDhoaDon, NhanVien, TienKhach, TienThoi, TongTien, NgayTao, modelHoaDon);
-            bill.setVisible(true);
+            HoaDonDTO hoaDon = new HoaDonDTO(IDNhanVien, TongTien, NgayTao);
+            boolean hoaDonLuuThanhCong = hoaDonBUS.luuHoaDon(hoaDon);
+            boolean luuChiTiet = true;
+            for (int i = 0; i < tableHoaDon.getRowCount(); i++) {
+                String maSP = (String) modelHoaDon.getValueAt(i, 0);
+                int maSPnumber = Integer.parseInt(maSP.substring(2));
+                String soLuongText = (String) modelHoaDon.getValueAt(i, 2);
+                int soLuong = Integer.parseInt(soLuongText);
+                String DonGiatext = (String) modelHoaDon.getValueAt(i, 3);
+                Double donGia = sharedFunction.parseMoneyString(DonGiatext);
+                CTHoaDonDTO chiTietHoaDon = new CTHoaDonDTO(HDnumber, maSPnumber, donGia, soLuong);
+                boolean luuChiTietHoaDon = ctBUS.luuChiTietHoaDon(chiTietHoaDon);
+                if (!luuChiTietHoaDon) {
+                    luuChiTiet = false; // Nếu có bất kỳ lỗi nào, gán luuChiTiet thành false
+                }
+            }
+            if (hoaDonLuuThanhCong && luuChiTiet) {
+                // Thực hiện các thao tác sau khi thanh toán thành công
+                updateSoLuong();
+                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, TienKhach, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
+                bill.setVisible(true);
+            } else {
+                // Xử lý lỗi khi lưu thông tin hóa đơn
+                System.out.println("Sai rồi liu liu");
+            }
 
         }
-    }//GEN-LAST:event_btnThanhtoanActionPerformed
+
+    }
+
     public void updateSoLuong() {
         for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
             String maSP = (String) modelHoaDon.getValueAt(i, 0);

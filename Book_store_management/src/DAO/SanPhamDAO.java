@@ -216,9 +216,7 @@ public class SanPhamDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            // vì MaSP là sô nguyên không thể dùng toán tử like được nên phải chuyển về dạng chuỗi
-//            String maSP = String.valueOf(MaSP);
-            stmt.setString(1,  "%" + MaSP + "%");
+            stmt.setString(1, "%" + MaSP + "%");
             ResultSet resultSet = stmt.executeQuery();
             while (resultSet.next()) {
                 int maSanPham = resultSet.getInt("MaSP");
@@ -236,6 +234,32 @@ public class SanPhamDAO {
             e.printStackTrace();
         }
         return sanPhamList;
+    }
+    // lấy  sản phẩm dựa trên mã sản phẩm
+
+    public SanPhamDTO getSPByMaSP(int MaSP) {
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE MaSP  = ?  and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, MaSP);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                return new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB);
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
     }
 
     public SanPhamDTO getHinhAnhandNamXB(int maSP) {
@@ -283,4 +307,22 @@ public class SanPhamDAO {
         return rowUpdate;
     }
 
+    // Hàm cập nhật số lượng sản phẩm dựa trên mã sản phẩm và số lượng mới
+    public boolean updateProductQuantity(int idSP, int newQuantity) {
+        // Truy vấn SQL để cập nhật số lượng
+        String sql = "UPDATE SanPham SET SoLuong = SoLuong - ? WHERE MaSP = ?";
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, newQuantity);
+            pst.setInt(2, idSP);
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
+    }
+  
 }

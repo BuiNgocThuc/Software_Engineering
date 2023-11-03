@@ -287,6 +287,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[140, 50]"/>
                 </Property>
@@ -317,6 +318,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 50]"/>
                 </Property>
@@ -347,6 +349,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[300, 50]"/>
                 </Property>
@@ -377,6 +380,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 50]"/>
                 </Property>
@@ -406,10 +410,14 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 50]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfTienkhachActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="tfTienthoi">
               <Properties>
@@ -433,6 +441,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[2147483647, 50]"/>
                 </Property>
@@ -735,6 +744,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtIDSanphamjTextField1ActionPerformed"/>
@@ -762,6 +772,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTenTacgia">
@@ -786,6 +797,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtTheloai">
@@ -810,6 +822,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtSoluong">
@@ -833,6 +846,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtDonGia">
@@ -857,6 +871,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

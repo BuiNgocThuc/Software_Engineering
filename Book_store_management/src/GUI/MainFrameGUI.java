@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import BUS.TaiKhoanBUS;
 import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -15,8 +14,6 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.ColorUIResource;
-
 /**
  *
  * @author NGOC THUC

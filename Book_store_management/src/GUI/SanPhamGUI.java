@@ -519,9 +519,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 String tacGia = (String) tableSanPham.getValueAt(selectedRow, 3);
                 String theLoai = (String) tableSanPham.getValueAt(selectedRow, 4);
                 int soLuong = (int) tableSanPham.getValueAt(selectedRow, 5);
-                double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
+                String donGia = (String) tableSanPham.getValueAt(selectedRow, 6);
+                double dongia = sharedFunction.parseMoneyString(donGia);
                 // Tạo frame để chỉnh sửa thông tin
-                ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, donGia);
+                ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, dongia);
                 ctsp.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -726,7 +727,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             String tenTacGia = sanPham.getTacGia();
             int soLuong = sanPham.getSoLuong();
             double donGia = sanPham.getDonGia();
-            Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, donGia};
+            String formatDonGia = sharedFunction.formatVND(donGia);
+            Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, formatDonGia};
             modelSanPham.addRow(row);
         }
     }
@@ -965,29 +967,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         }
 
-    }
-
-    public String formatAmountToVND(double amount) {
-        String amountStr = String.valueOf(amount);
-        int amountLength = amountStr.length();
-        String formattedAmount;
-
-        DecimalFormat format = new DecimalFormat("#,###");
-
-        formattedAmount = switch (amountLength) {
-            case 4 ->
-                format.format(amount) + " VND";
-            case 5 ->
-                format.format(amount / 10) + " VND";
-            case 6 ->
-                format.format(amount / 100) + " VND";
-            case 7 ->
-                format.format(amount / 1000) + " VND";
-            default ->
-                format.format(amount) + " VND";
-        };
-
-        return formattedAmount;
     }
 
 

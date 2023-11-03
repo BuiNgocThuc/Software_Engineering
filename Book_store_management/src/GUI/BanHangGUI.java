@@ -20,19 +20,16 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -62,7 +59,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
     public void selectRow() {
         tableSanPham.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
             if (!event.getValueIsAdjusting()) {
-                loadDataThongTinChiTiet();
+                loadDataThongTinChiTiet(tableSanPham, 1);
             }
         });
         tableHoaDon.addMouseListener(new MouseAdapter() {
@@ -70,12 +67,12 @@ public final class BanHangGUI extends javax.swing.JPanel {
             public void mouseClicked(MouseEvent e) {
                 int row = tableHoaDon.rowAtPoint(e.getPoint());
                 int column = tableHoaDon.columnAtPoint(e.getPoint());
-
-                if (column == 3) {
+                if (column == 4) {
+                    loadDataThongTinChiTiet(tableHoaDon, 0);
                     txtSoluong.requestFocus();
-                } else if (column == 4) {
+                } else if (column == 5) {
                     modelHoaDon.removeRow(row);
-//                    getTotalCart();
+                    TongTien();
                 }
             }
         });
@@ -117,18 +114,20 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtNgayTao.setText(formattedDate);
     }
 
-    public void loadDataThongTinChiTiet() {
-        int selectedRow = tableSanPham.getSelectedRow();
+    public void loadDataThongTinChiTiet(JTable table, int positionMaSP) {
+        int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy dữ liệu từ bảng dựa trên hàng được chọn 
-            String maSP = (String) tableSanPham.getValueAt(selectedRow, 1);
-            String tenSP = (String) tableSanPham.getValueAt(selectedRow, 2);
-            String tacGia = (String) tableSanPham.getValueAt(selectedRow, 3);
-            String theLoai = (String) tableSanPham.getValueAt(selectedRow, 4);
-            double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
-            SanPhamDAO spDAO = new SanPhamDAO();
+            // Lấy mã sản phẩm từ bảng dựa trên hàng được chọn 
+            String maSP = (String) table.getValueAt(selectedRow, positionMaSP);
             int maSPnumber = Integer.parseInt(maSP.substring(2));
-            SanPhamDTO sp = spDAO.getHinhAnhandNamXB(maSPnumber);
+            SanPhamDTO sp = sanPhamBUS.getSPByMaSP(maSPnumber);
+            String tenSP = sp.getTenSP();
+            String theLoai = sp.getTenTL();
+            String tacGia = sp.getTacGia();
+//            int soLuong = sp.getSoLuong();
+//            int namXB = sp.getNamXB();
+            double donGia = sp.getDonGia();
+            String formatDonGia = sharedFunction.formatVND(donGia);
             String hinhAnh = sp.getHinhAnh();
             if (hinhAnh != null) {
                 String imagePath = "./../Assets/IMG/" + hinhAnh;
@@ -146,17 +145,21 @@ public final class BanHangGUI extends javax.swing.JPanel {
             txtTenSanpham.setText(tenSP);
             txtTenTacgia.setText(tacGia);
             txtTheloai.setText(theLoai);
+
+            txtSoluong.setFocusable(true);
+
             txtSoluong.setText("");
             txtSoluong.requestFocus();
-            txtDonGia.setText(String.valueOf(donGia));
+            txtDonGia.setText(formatDonGia);
         }
     }
 
     public void loadDataGioHang() {
+        String idSP = txtIDSanpham.getText();
         String tenSP = txtTenSanpham.getText();
         String soLuong = txtSoluong.getText();
         String donGia = txtDonGia.getText();
-        Object[] rowData = {tenSP, soLuong, donGia, "", ""}; // Thêm biểu tượng vào mảng dữ liệu
+        Object[] rowData = {idSP, tenSP, soLuong, donGia, "", ""}; // Thêm biểu tượng vào mảng dữ liệu
         modelHoaDon.addRow(rowData);
     }
 
@@ -264,6 +267,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setBackground(new java.awt.Color(255, 255, 255));
         txtIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtIDHoadon.setFocusable(false);
         txtIDHoadon.setMaximumSize(new java.awt.Dimension(140, 50));
         txtIDHoadon.setPreferredSize(new java.awt.Dimension(140, 50));
 
@@ -271,6 +275,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDNhanvien.setBackground(new java.awt.Color(255, 255, 255));
         txtIDNhanvien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtIDNhanvien.setFocusable(false);
         txtIDNhanvien.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         txtIDNhanvien.setPreferredSize(new java.awt.Dimension(140, 50));
 
@@ -278,6 +283,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtNgayTao.setBackground(new java.awt.Color(255, 255, 255));
         txtNgayTao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtNgayTao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtNgayTao.setFocusable(false);
         txtNgayTao.setMaximumSize(new java.awt.Dimension(300, 50));
         txtNgayTao.setPreferredSize(new java.awt.Dimension(300, 50));
 
@@ -285,6 +291,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         tfTongtien.setBackground(new java.awt.Color(255, 255, 255));
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongtien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTongtien.setFocusable(false);
         tfTongtien.setMaximumSize(new java.awt.Dimension(2147483647, 50));
         tfTongtien.setMinimumSize(new java.awt.Dimension(64, 40));
         tfTongtien.addActionListener(new java.awt.event.ActionListener() {
@@ -295,12 +302,19 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
         tfTienkhach.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTienkhach.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tiền khách đưa", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTienkhach.setFocusable(false);
         tfTienkhach.setMaximumSize(new java.awt.Dimension(2147483647, 50));
+        tfTienkhach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfTienkhachActionPerformed(evt);
+            }
+        });
 
         tfTienthoi.setEditable(false);
         tfTienthoi.setBackground(new java.awt.Color(255, 255, 255));
         tfTienthoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTienthoi.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tiền thối lại", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTienthoi.setFocusable(false);
         tfTienthoi.setMaximumSize(new java.awt.Dimension(2147483647, 50));
 
         btnHuydon.setForeground(new java.awt.Color(135, 172, 217));
@@ -491,6 +505,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDSanpham.setBackground(new java.awt.Color(255, 255, 255));
         txtIDSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtIDSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtIDSanpham.setFocusable(false);
         txtIDSanpham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtIDSanphamjTextField1ActionPerformed(evt);
@@ -501,25 +516,30 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtTenSanpham.setBackground(new java.awt.Color(255, 255, 255));
         txtTenSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtTenSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtTenSanpham.setFocusable(false);
 
         txtTenTacgia.setEditable(false);
         txtTenTacgia.setBackground(new java.awt.Color(255, 255, 255));
         txtTenTacgia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtTenTacgia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên tác giả", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtTenTacgia.setFocusable(false);
 
         txtTheloai.setEditable(false);
         txtTheloai.setBackground(new java.awt.Color(255, 255, 255));
         txtTheloai.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtTheloai.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Thể loại", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtTheloai.setFocusable(false);
 
         txtSoluong.setBackground(new java.awt.Color(255, 255, 255));
         txtSoluong.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtSoluong.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Số lượng", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtSoluong.setFocusable(false);
 
         txtDonGia.setEditable(false);
         txtDonGia.setBackground(new java.awt.Color(255, 255, 255));
         txtDonGia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtDonGia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Đơn giá", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtDonGia.setFocusable(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -768,8 +788,33 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThanhtoanActionPerformed
+        if (tfTongtien.getText().isEmpty()) {
+            sharedFunction.displayErrorMessage("Vui lòng chọn sản phẩm ");
+        } else {
+            updateSoLuong();
+            String IDhoaDon = txtIDHoadon.getText();
+            String NhanVien = txtIDNhanvien.getText();
+            String NgayTao = txtNgayTao.getText();
+            String TongTien = tfTongtien.getText();
+            String TienKhach = tfTienkhach.getText();
+            String TienThoi = tfTienthoi.getText();
+            BillFormGUI bill = new BillFormGUI(IDhoaDon, NhanVien, TienKhach, TienThoi, TongTien, NgayTao, modelHoaDon);
+            bill.setVisible(true);
 
+        }
+    }//GEN-LAST:event_btnThanhtoanActionPerformed
+    public void updateSoLuong() {
+        for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
+            String maSP = (String) modelHoaDon.getValueAt(i, 0);
+            String soLuongStr = (String) modelHoaDon.getValueAt(i, 2);
+            int soLuong = Integer.parseInt(soLuongStr);
+            int maSPnumber = Integer.parseInt(maSP.substring(2));
+            sanPhamBUS.updateProductQuantity(maSPnumber, soLuong);
+        }
+        // load lại dữ liệu lên bảng sản phẩm
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
+    }
     private void txtIDSanphamjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDSanphamjTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIDSanphamjTextField1ActionPerformed
@@ -787,14 +832,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
-        txtIDSanpham.setText("");
-        txtTenSanpham.setText("");
-        txtTenTacgia.setText("");
-        txtTheloai.setText("");
-        txtSoluong.setText("");
-        txtDonGia.setText("");
-        lblImage.setIcon(null);
-
+        resetThongTinChiTietSanPham();
     }//GEN-LAST:event_btnLamMoiActionPerformed
 
     private void btnChonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChonActionPerformed
@@ -802,19 +840,78 @@ public final class BanHangGUI extends javax.swing.JPanel {
         if (txtIDSanpham.getText().equals("")) {
             sharedFunction.displayErrorMessage("Vui lòng chọn sản phẩm");
         } else if (txtSoluong.getText().equals("")) {
-            sharedFunction.displayErrorMessage("vui lòng nhập số lượng");
+            sharedFunction.displayErrorMessage("Vui lòng nhập số lượng");
         } else {
             if (!sharedFunction.isPositiveInteger(txtSoluong.getText())) {
                 sharedFunction.displayErrorMessage("Số lượng không hợp lệ");
             } else {
-                loadDataGioHang();
+                // Lấy số lượng từ TextField
+                int soLuong = Integer.parseInt(txtSoluong.getText());
+                // Lấy mã sản phẩm từ TextField
+                String idSP = txtIDSanpham.getText();
+
+                // Duyệt qua các dòng trong bảng để kiểm tra xem sản phẩm đã tồn tại
+                boolean productExists = false;
+                for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
+                    String currentID = (String) modelHoaDon.getValueAt(i, 0);
+                    if (idSP.equals(currentID)) {
+                        // Sản phẩm đã tồn tại, cập nhật số lượng
+                        modelHoaDon.setValueAt(String.valueOf(soLuong), i, 2);
+                        productExists = true;
+                        break;
+                    }
+                }
+
+                if (!productExists) {
+                    // Sản phẩm chưa tồn tại, thêm mới vào bảng
+                    String tenSP = txtTenSanpham.getText();
+                    String donGia = txtDonGia.getText();
+                    Object[] rowData = {idSP, tenSP, String.valueOf(soLuong), donGia, "", ""};
+                    modelHoaDon.addRow(rowData);
+                }
             }
         }
+        TongTien();
     }//GEN-LAST:event_btnChonActionPerformed
+    private void TongTien() {
+        // Tính tổng tiền từ dữ liệu trong bảng
+        double tongTien = sharedFunction.calculateTotalPrice(modelHoaDon, 3, 2);
+        if (tongTien == 0) {
+            tfTienkhach.setText("");
+            tfTienthoi.setText("");
+            tfTongtien.setText("");
+            tfTienkhach.setFocusable(false);
+        } else {
+            // Cập nhật JTextField "Tổng tiền"
+            String formatTongTien = sharedFunction.formatVND(tongTien);
+            tfTongtien.setText(formatTongTien);
+            // Tính số tiền thối lại nếu có
+            updateTienThoiLai();
+            tfTienkhach.setFocusable(true);
+            tfTienkhach.requestFocus();
+        }
 
+    }
+
+    private void updateTienThoiLai() {
+        // Lấy số tiền khách đưa từ JTextField
+        String tienKhachDuaStr = tfTienkhach.getText();
+        if (!tienKhachDuaStr.isEmpty()) {
+            double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
+            double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
+            double tienThoiLai = tienKhachDua - tongTien;
+
+            // Cập nhật giá trị vào JTextField Tiền thối lại
+            tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
+        }
+    }
     private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
         // TODO add your handling code here:
         modelHoaDon.setRowCount(0);
+        tfTienkhach.setText("");
+        tfTienthoi.setText("");
+        tfTongtien.setText("");
+        resetThongTinChiTietSanPham();
     }//GEN-LAST:event_btnHuydonActionPerformed
 
     private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
@@ -867,28 +964,27 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         btnTimkiem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnTimkiemMouseExited
+
+    private void tfTienkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTienkhachActionPerformed
+        // TODO add your handling code here:
+        updateTienThoiLai();
+    }//GEN-LAST:event_tfTienkhachActionPerformed
     public static String FormatMaHD(int MaHD) {
         return String.format("HD%02d", MaHD);
     }
 
-
-   
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"Tên sản phẩm", "SL", "T.Tiền", "", ""};
+        String[] columnNames = {"ID", "Tên sản phẩm", "SL", "T.Tiền", "", ""};
         modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
                 switch (columnIndex) {
-                    case 1 -> {
+                    case 2 -> {
                         // Cột SL
                         return Integer.class; // Kiểu dữ liệu Integer
                     }
-                    case 2 -> {
-                        // Cột Thành tiền
-                        return Float.class; // Kiểu dữ liệu Float
-                    }
-                    case 3, 4 -> {
+                    case 4 -> {
                         // Cột Update và Delete
                         return Icon.class; // Kiểu dữ liệu Icon
                     }
@@ -903,19 +999,20 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // Tạo JTable với DefaultTableModel
         JTable table = new JTable(modelHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(330); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(60); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(150); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(40); // Độ rộng cột 3
+        columnModel.getColumn(0).setPreferredWidth(80); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(270); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(60); // Độ rộng cột 2
+        columnModel.getColumn(3).setPreferredWidth(150); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(40); // Độ rộng cột 4
+        columnModel.getColumn(5).setPreferredWidth(40); // Độ rộng cột 5
 
         NhapHangGUI.EditHeaderTable2(table);
         sharedFunction.EditTableContent(table);
         table.setBorder(null);
         Icon iconDelete = new ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"));
         Icon iconUpdate = new ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"));
-        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconDelete));
-        table.getColumnModel().getColumn(3).setCellRenderer(new ImageRender(iconUpdate));
+        table.getColumnModel().getColumn(5).setCellRenderer(new ImageRender(iconDelete));
+        table.getColumnModel().getColumn(4).setCellRenderer(new ImageRender(iconUpdate));
         return table;
     }
 
@@ -927,8 +1024,6 @@ public final class BanHangGUI extends javax.swing.JPanel {
             public Class<?> getColumnClass(int columnIndex) {
                 if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
@@ -950,7 +1045,17 @@ public final class BanHangGUI extends javax.swing.JPanel {
         return table;
     }
 
-   
+    private void resetThongTinChiTietSanPham() {
+        txtIDSanpham.setText("");
+        txtTenSanpham.setText("");
+        txtTenTacgia.setText("");
+        txtTheloai.setText("");
+        txtSoluong.setText("");
+        txtDonGia.setText("");
+        lblImage.setIcon(null);
+        txtSoluong.setFocusable(false);
+        tfTienkhach.setFocusable(false);
+    }
 
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);

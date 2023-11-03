@@ -14,7 +14,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -177,7 +180,43 @@ public class sharedFunction {
                 }
             }
         });
-   }
+    }
 
-  
+    public static String formatVND(double temp) {
+        // Tạo một đối tượng NumberFormat cho tiền tệ của Việt Nam
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        // Sử dụng đối tượng NumberFormat để định dạng số tiền
+        return vndFormat.format(temp);
+    }
+
+    public static double parseMoneyString(String moneyString) {
+
+        // Loại bỏ các ký tự không cần thiết từ chuỗi đơn giá
+        moneyString = moneyString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
+
+        // Chuyển đổi chuỗi thành số double
+        double amount = Double.parseDouble(moneyString);
+        return amount;
+
+    }
+
+    public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex, int soLuongColumnIndex) {
+        double totalPrice = 0.0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String priceString = (String) model.getValueAt(i, priceColumnIndex); // priceColumnIndex là chỉ mục cột đơn giá       
+            String soLuongStr = (String) model.getValueAt(i, soLuongColumnIndex);
+            int soLuong = Integer.parseInt(soLuongStr);
+            // Loại bỏ các ký tự không hợp lệ
+            priceString = priceString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
+            try {
+                double price = Double.parseDouble(priceString);
+                // Thực hiện tính tổng
+                totalPrice += soLuong * price;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalPrice;
+    }
+
 }

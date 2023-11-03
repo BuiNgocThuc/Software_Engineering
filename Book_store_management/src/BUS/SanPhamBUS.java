@@ -64,4 +64,11 @@ public class SanPhamBUS {
     public ArrayList<SanPhamDTO> findSPByMaSP(int MaSP) {
         return sanPhamDAO.findSPByMaSP(MaSP);
     }
+    
+   public SanPhamDTO getSPByMaSP(int MaSP) {
+       return sanPhamDAO.getSPByMaSP(MaSP);
+   }
+    public boolean updateProductQuantity(int idSP, int newQuantity) {
+        return sanPhamDAO.updateProductQuantity(idSP, newQuantity);
+    }
 }

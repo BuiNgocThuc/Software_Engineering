@@ -52,7 +52,8 @@ CREATE TABLE [ChiTietPhieuNhap] (
   [MaSP] int,
   [DonGiaNhap] float DEFAULT (NULL),
   [SoLuong] int DEFAULT (NULL),
-  Primary key([MaSP],[MaPN])
+  Primary key([MaSP],[MaPN]),
+  [TinhTrang] BIT,
 )
 GO
 

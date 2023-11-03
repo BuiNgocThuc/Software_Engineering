@@ -543,6 +543,7 @@
                     </TitledBorder>
                   </Border>
                 </Property>
+                <Property name="focusable" type="boolean" value="false"/>
                 <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                   <Dimension value="[480, 50]"/>
                 </Property>
@@ -585,6 +586,9 @@
                 <Property name="radius" type="int" value="40"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+              </Events>
             </Component>
             <Component class="Components.ButtonRadius" name="btnCancel">
               <Properties>
@@ -606,6 +610,9 @@
                 <Property name="radius" type="int" value="40"/>
                 <Property name="verticalTextPosition" type="int" value="3"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="PanelTable2">
               <Properties>

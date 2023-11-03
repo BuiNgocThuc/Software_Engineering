@@ -19,13 +19,31 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class CTPhieuNhapDAO {
+    
+    public boolean DoiTrangThai(int MaPN) {
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE ChiTietPhieuNhap SET TinhTrang = ? WHERE MaPN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setBoolean(1, false);
+            pst.setInt(2, MaPN);
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
+    }
 
     public boolean XoaSLCu(int MaPN, int MaSP) {
+
         CTPhieuNhapDTO ctpn = selectQuantity(MaPN, MaSP);
         int SoLuongCu = ctpn.getSoLuong();
         int SoLuongMoi = getCurrentQuantity(MaSP) - SoLuongCu;
+
         return updateSP(MaSP, SoLuongMoi, ctpn.getDonGia());
-    
+
     }
 
     public CTPhieuNhapDTO selectQuantity(int MaPN, int MaSP) {
@@ -136,5 +154,42 @@ public class CTPhieuNhapDAO {
             e.printStackTrace();
         }
         return SoLuong;
+    }
+    
+    public boolean XoaCTPhieuNhap(int MaPN){
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "DELETE FROM ChiTietPhieuNhap  WHERE MaPN=? AND TinhTrang=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setInt(1, MaPN);
+            pst.setBoolean(2, false);
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
+    }
+
+    public boolean updateCTPhieuNhap(int MaPN, int MaSP, int SoLuongMoi, double DonGiaMoi) {
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE ChiTietPhieuNhap SET SoLuong=?, DonGiaNhap=?, TinhTrang=? WHERE MaSP=? AND MaPN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setInt(1, SoLuongMoi);
+            pst.setDouble(2, DonGiaMoi);
+            pst.setBoolean(3, true);
+            pst.setInt(4, MaSP);
+            pst.setInt(5, MaPN);
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
     }
 }

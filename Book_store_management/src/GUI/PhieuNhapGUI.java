@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import BUS.CTPhieuNhapBUS;
 import BUS.PhieuNhapBUS;
 import Util.sharedFunction;
 import com.toedter.calendar.JDateChooser;
@@ -18,6 +19,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -38,6 +40,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
      * Creates new form PhieuNhapGUI
      */
     PhieuNhapBUS pnBUS = new PhieuNhapBUS();
+    CTPhieuNhapBUS ctpnBUS = new CTPhieuNhapBUS();
     private static DefaultTableModel modelPhieuNhap, modelImportDetail;
     private static JTable tablePhieunhap, tableChitiet;
 
@@ -70,26 +73,39 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 int column = tableChitiet.columnAtPoint(e.getPoint());
 
                 if (column == 4) {
-                    ChiTietPhieuNhap ctpnGUI = new ChiTietPhieuNhap();
+                    ChiTietPhieuNhap ctpnGUI = new ChiTietPhieuNhap(PhieuNhapGUI.this);
                     ctpnGUI.setVisible(true);
-                    
+
                     String maPN = modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString();
                     String maSP = modelImportDetail.getValueAt(row, 0).toString();
                     int soLuong = Integer.parseInt(modelImportDetail.getValueAt(row, 2).toString());
                     double thanhTien = Double.parseDouble(modelImportDetail.getValueAt(row, 3).toString());
                     double donGia = thanhTien / soLuong;
-                    
-                    
-                    
+
                     ctpnGUI.getTxtIDPhieuNhap().setText(maPN);
                     ctpnGUI.getTxtIDSanPham().setText(maSP);
-                    ctpnGUI.getTxtSoLuong().setText(soLuong+"");
-                    ctpnGUI.getTxtDonGia().setText(donGia+"");
+                    ctpnGUI.getTxtSoLuong().setText(soLuong + "");
+                    ctpnGUI.getTxtDonGia().setText(donGia + "");
+
                 } else if (column == 5) {
                     modelImportDetail.removeRow(row);
+                    setTongTien();
                 }
             }
         });
+    }
+
+    public void setTongTien() {
+        double TongTien = 0;
+        if (modelImportDetail.getRowCount() == 0) {
+            tfTongTien.setText("0");
+        } else {
+            for (int i = 0; i < getTableChitiet().getRowCount(); i++) {
+                TongTien += Double.parseDouble(getModelImportDetai().getValueAt(i, 3).toString());
+            }
+            getTfTongTien().setText(TongTien + "");
+        }
+
     }
 
     public void createTable() {
@@ -353,6 +369,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         tfTongTien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongTien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        tfTongTien.setFocusable(false);
         tfTongTien.setMaximumSize(new java.awt.Dimension(480, 50));
         tfTongTien.setMinimumSize(new java.awt.Dimension(480, 50));
         tfTongTien.setPreferredSize(new java.awt.Dimension(480, 50));
@@ -370,6 +387,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         btnSave.setPreferredSize(new java.awt.Dimension(100, 40));
         btnSave.setRadius(40);
         btnSave.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
         btnCancel.setForeground(new java.awt.Color(135, 172, 217));
         btnCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
@@ -380,6 +402,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         btnCancel.setPreferredSize(new java.awt.Dimension(100, 40));
         btnCancel.setRadius(40);
         btnCancel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
 
         PanelTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
         PanelTable2.setMaximumSize(new java.awt.Dimension(438, 230));
@@ -539,6 +566,18 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        int res = JOptionPane.showConfirmDialog(null, "Xác nhận muốn xóa phiếu nhập?", "xác nhận", JOptionPane.YES_NO_OPTION);
+        if (res == JOptionPane.YES_OPTION) {
+            int MaPN = Integer.parseInt(modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString().substring(2));
+            pnBUS.XoaPhieuNhap(MaPN);
+            pnBUS.createTableImport(modelPhieuNhap);
+
+            tfCongTy.setText("");
+            tfIDHoadon.setText("");
+            tfIDNhanVien.setText("");
+            tfNgayLap.setText("");
+            tfTongTien.setText("");
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
@@ -556,6 +595,53 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private void tfNgayLapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNgayLapActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNgayLapActionPerformed
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        // TODO add your handling code here:
+        pnBUS.loadInfoImport(PhieuNhapGUI.this, tablePhieunhap.getSelectedRow());
+    }//GEN-LAST:event_btnCancelActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        if (modelImportDetail.getRowCount() == 0) {
+            int confirmDel = JOptionPane.showConfirmDialog(this, "Bảng sản phẩm nhập đang rỗng, xác nhận xóa phiếu nhập ?", "thông báo", JOptionPane.YES_NO_OPTION);
+            if (confirmDel == JOptionPane.YES_OPTION) {
+                int MaPN = Integer.parseInt(modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString().substring(2));
+                pnBUS.XoaPhieuNhap(MaPN);
+                pnBUS.createTableImport(modelPhieuNhap);
+
+                tfCongTy.setText("");
+                tfIDHoadon.setText("");
+                tfIDNhanVien.setText("");
+                tfNgayLap.setText("");
+                tfTongTien.setText("");
+            }
+            return;
+        }
+        int res = JOptionPane.showConfirmDialog(null, "Xác nhận muốn cập nhập phiếu nhập?", "xác nhận", JOptionPane.YES_NO_OPTION);
+        if (res == JOptionPane.YES_OPTION) {
+            boolean update = false;
+            String MaPNStr = modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString();
+            int MaPN = Integer.parseInt(MaPNStr.substring(2));
+            ctpnBUS.DoiTrangThai(MaPN);
+            ctpnBUS.XoaSLCu(MaPN);
+            for (int i = 0; i < tableChitiet.getRowCount(); i++) {
+
+                String MaSPStr = modelImportDetail.getValueAt(i, 0).toString();
+                int soLuong = Integer.parseInt(modelImportDetail.getValueAt(i, 2).toString());
+                double thanhTien = Double.parseDouble(modelImportDetail.getValueAt(i, 3).toString());
+                double donGia = thanhTien / soLuong;
+                int MaSP = Integer.parseInt(MaSPStr.substring(2));
+                update = ctpnBUS.SuaPhieuNhap(MaPN, MaSP, soLuong, donGia);
+            }
+            ctpnBUS.XoaCTPhieuNhap(MaPN);
+            if (update) {
+                JOptionPane.showMessageDialog(null, "Sửa phiếu nhập thành công", "thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+            pnBUS.loadInfoImport(PhieuNhapGUI.this, tablePhieunhap.getSelectedRow());
+
+        }
+    }//GEN-LAST:event_btnSaveActionPerformed
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao

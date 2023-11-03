@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.CTPhieuNhapDAO;
 import DAO.PhieuNhapDAO;
 import DAO.SanPhamDAO;
 import DTO.CTPhieuNhapDTO;
@@ -40,6 +41,7 @@ public class PhieuNhapBUS {
     PhieuNhapDAO pnDAO = new PhieuNhapDAO();
     TaiKhoanBUS tkBUS = new TaiKhoanBUS();
     CTPhieuNhapBUS ctpnBUS = new CTPhieuNhapBUS();
+    CTPhieuNhapDAO ctpnDAO = new CTPhieuNhapDAO();
 
     public ArrayList<SanPhamDTO> loadSanPham() {
         return spDAO.selectAll();
@@ -122,7 +124,7 @@ public class PhieuNhapBUS {
         String formattedDate = currentDate.format(formatter);
 
         cartImport.getTfIDHoadon().setText(IDPN);
-       // String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
+        // String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
 
         cartImport.getTfIDNhanvien().setText(""); // sửa sau
         cartImport.getTfNgaytao().setText(formattedDate);
@@ -147,7 +149,7 @@ public class PhieuNhapBUS {
         cartImport.getTfTenTacgia().setText(cartImport.getTableSanPham().getValueAt(row_index, 3).toString());
         cartImport.getTfTheloai().setText(cartImport.getTableSanPham().getValueAt(row_index, 4).toString());
         double DonGia = Double.parseDouble(cartImport.getTableSanPham().getValueAt(row_index, 6).toString()) * 100 / 120;
-        cartImport.getTfDongia().setText(DonGia+"");
+        cartImport.getTfDongia().setText(DonGia + "");
         cartImport.getTfSoluong().setText("");
         cartImport.getTfSoluong().requestFocus();
     }
@@ -217,24 +219,32 @@ public class PhieuNhapBUS {
         String maPN = String.format("PN%02d", pnSelected.getMaPN());
         importInfo.getTfIDHoadon().setText(maPN);
         importInfo.getTfIDNhanVien().setText(pnSelected.getTenTK());
-        importInfo.getTfNgayLap().setText(pnSelected.getNgayTao()+"");
+        importInfo.getTfNgayLap().setText(pnSelected.getNgayTao() + "");
         String nameNCC = pnDAO.selectSupplierByID(pnSelected.getMaNCC());
         importInfo.getTfCongTy().setText(nameNCC);
-        importInfo.getTfTongTien().setText(pnSelected.getTongTien()+"");
-        
+        importInfo.getTfTongTien().setText(pnSelected.getTongTien() + "");
+
         ArrayList<CTPhieuNhapDTO> listCTPN = ctpnBUS.selectByID(Integer.parseInt(idPN));
-        for(CTPhieuNhapDTO ctpn : listCTPN){
+        for (CTPhieuNhapDTO ctpn : listCTPN) {
             int idSP = ctpn.getMaSP();
             String idSPText = String.format("SP%02d", idSP);
             String nameSP = pnDAO.getNameSPByID(idSP);
             int soLuong = ctpn.getSoLuong();
             double donGiaNhap = ctpn.getDonGia() * soLuong;
-            
+
             Object[] rowSP = {idSPText, nameSP, soLuong, donGiaNhap};
-            
+
             importInfo.getModelImportDetai().addRow(rowSP);
         }
-        
+
+    }
+
+    public boolean XoaPhieuNhap(int MaPN) {
+        ArrayList<CTPhieuNhapDTO> listctpn = ctpnDAO.selectByID(MaPN);
+        for (CTPhieuNhapDTO ctpn : listctpn) {
+            ctpnDAO.XoaSLCu(MaPN, ctpn.getMaSP());
+        }
+        return pnDAO.XoaPhieuNhap(MaPN);
     }
 
 }

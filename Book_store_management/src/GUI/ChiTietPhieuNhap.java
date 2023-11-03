@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.CTPhieuNhapBUS;
+import BUS.PhieuNhapBUS;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -18,8 +19,11 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
      * Creates new form ChiTietPhieuNhap
      */
     CTPhieuNhapBUS ctpnBUS = new CTPhieuNhapBUS();
-
-    public ChiTietPhieuNhap() {
+    PhieuNhapBUS pnBUS = new PhieuNhapBUS();
+    private static boolean update = false;
+    private PhieuNhapGUI pnGUI;
+    public ChiTietPhieuNhap(PhieuNhapGUI pnGUI) {
+        this.pnGUI = pnGUI;
         this.setUndecorated(true);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -41,7 +45,10 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         return txtSoLuong;
     }
 
-     
+    public static boolean isUpdate() {
+        return update;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -296,10 +303,16 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         if (validateInput(soLuongStr, donGiaStr)) {
             int soLuong = Integer.parseInt(soLuongStr);
             double donGia = Double.parseDouble(donGiaStr);
-            int MaPN = Integer.parseInt(MaPNStr.substring(2));
-            int MaSP = Integer.parseInt(MaSPStr.substring(2));
+
+            pnGUI.getModelImportDetai().setValueAt(soLuong, pnGUI.getTableChitiet().getSelectedRow(), 2);
+            pnGUI.getModelImportDetai().setValueAt(soLuong*donGia, pnGUI.getTableChitiet().getSelectedRow(), 3);
+            double TongTien = 0; 
+            for(int i = 0; i < pnGUI.getTableChitiet().getRowCount(); i++) {
+                TongTien += Double.parseDouble(pnGUI.getModelImportDetai().getValueAt(i, 3).toString());
+            }
+            pnGUI.getTfTongTien().setText(TongTien+"");
+            this.dispose();
             
-            ctpnBUS.SuaPhieuNhap(MaPN, MaSP, soLuong, donGia);
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 
@@ -379,7 +392,7 @@ public class ChiTietPhieuNhap extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietPhieuNhap().setVisible(true);
+                //new ChiTietPhieuNhap().setVisible(true);
             }
         });
     }

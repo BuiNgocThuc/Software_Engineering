@@ -28,7 +28,7 @@ public class PhieuNhapDAO {
                 Connection conn = ConnectDB.getConnection();
                 String sql = "UPDATE SanPham SET HinhAnh=? WHERE MaSP=?";
                 PreparedStatement pst = conn.prepareStatement(sql);
-                String name = "sp0"+i+".jpg";
+                String name = "sp0" + i + ".jpg";
                 pst.setNString(1, name);
                 pst.setInt(2, i);
                 pst.executeUpdate();
@@ -38,7 +38,7 @@ public class PhieuNhapDAO {
             }
         }
     }
-    
+
     public String selectSupplierByID(String ID) {
         String name = null;
         try {
@@ -148,8 +148,8 @@ public class PhieuNhapDAO {
         }
         return 0;
     }
-    
-    public PhieuNhapDTO selectByID(String id){
+
+    public PhieuNhapDTO selectByID(String id) {
         try {
             Connection c = ConnectDB.getConnection();
             String sql = "SELECT * FROM PhieuNhap WHERE MaPN = ?";
@@ -192,16 +192,17 @@ public class PhieuNhapDAO {
             pst.setBoolean(5, true);
 
             ketQua = pst.executeUpdate();
+            ConnectDB.closeConnection(conn);
             if (ketQua == 1) {
-                ConnectDB.closeConnection(conn);
+                return true;
             }
-            return true;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
+
     public String getNameSPByID(int id) {
         String name = null;
         try {
@@ -219,6 +220,28 @@ public class PhieuNhapDAO {
             e.printStackTrace();
         }
         return name;
+    }
+
+    public boolean XoaPhieuNhap(int MaPN) {
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE PhieuNhap SET TinhTrang=? WHERE MaPN=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setBoolean(1, false);
+            pst.setInt(2, MaPN);
+
+            ketQua = pst.executeUpdate();
+            ConnectDB.closeConnection(conn);
+            if (ketQua == 1) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static void main(String[] args) {

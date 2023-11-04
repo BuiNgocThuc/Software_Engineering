@@ -202,14 +202,14 @@ public class sharedFunction {
         double totalPrice = 0.0;
         for (int i = 0; i < model.getRowCount(); i++) {
             String priceString = (String) model.getValueAt(i, priceColumnIndex); // priceColumnIndex là chỉ mục cột đơn giá       
-            String soLuongStr = (String) model.getValueAt(i, soLuongColumnIndex);
-            int soLuong = Integer.parseInt(soLuongStr);
+//            String soLuongStr = (String) model.getValueAt(i, soLuongColumnIndex);
+//            int soLuong = Integer.parseInt(soLuongStr);
             // Loại bỏ các ký tự không hợp lệ
             priceString = priceString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
             try {
                 double price = Double.parseDouble(priceString);
                 // Thực hiện tính tổng
-                totalPrice += soLuong * price;
+                totalPrice += price;
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }

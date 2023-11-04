@@ -55,7 +55,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         this.donGia = donGia;
         txtID.setText(maSP);
         txtTenSP.setText(tenSP);
-        txtTacGia.setText(tacGia);
+        txtTacGia.setText(tenTacGia);
         txtSoLuong.setText(String.valueOf(soLuong));
         txtDonGia.setText(String.valueOf(donGia));
         // Gọi lớp BUS để lấy danh sách thể loại
@@ -82,9 +82,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             lblImage.setIcon(imageIcon);
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/add.png")));
-
         }
-
     }
 
     public ChiTietSanPham(int STT, String maSP) { // Sử dụng khi thêm sản phẩm
@@ -520,8 +518,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     private void listTheLoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listTheLoaiFocusGained
         // TODO add your handling code here:
-            // Xóa "Chọn thể loại" khi ComboBox được focus
-                listTheLoai.removeItem("Chọn thể loại");
+        // Xóa "Chọn thể loại" khi ComboBox được focus
+//        listTheLoai.removeItem("Chọn thể loại");
     }//GEN-LAST:event_listTheLoaiFocusGained
 
     private void ThemSanPham() {
@@ -653,6 +651,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             txtTacGia.setBorder(originalBorder);
         }
 
+        // Kiểm tra combobox "tìm kiếm theo"
+        int selectedSearchIndex = listTheLoai.getSelectedIndex();
+        if (selectedSearchIndex == 0) {
+            errors.add("Vui lòng chọn thể loại.");
+            errorComponents.add(listTheLoai);
+        } else {
+            listTheLoai.setBorder(originalBorder);
+        }
         // Kiểm tra năm xuất bản
         if (txtNamXB.getText().isEmpty()) {
             errors.add("Vui lòng nhập năm xuất bản");

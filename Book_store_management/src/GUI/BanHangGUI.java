@@ -8,11 +8,9 @@ import BUS.CTHoaDonBUS;
 import BUS.HoaDonBUS;
 import BUS.SanPhamBUS;
 import BUS.TaiKhoanBUS;
-import DAO.SanPhamDAO;
 import DTO.CTHoaDonDTO;
 import DTO.HoaDonDTO;
 import DTO.SanPhamDTO;
-import DTO.TaiKhoanDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -58,7 +56,6 @@ public final class BanHangGUI extends javax.swing.JPanel {
     public BanHangGUI() {
         initComponents();
         setText_ID_NgayTao();
-
         createTable();
         selectRow();
 
@@ -106,70 +103,47 @@ public final class BanHangGUI extends javax.swing.JPanel {
         PanelTable2.add(scrollPaneHoaDon);
     }
 
-    public void setText_ID_NgayTao() {
-        // lấy mã hóa đơn
-        HoaDonBUS hoaDonBUS = new HoaDonBUS();
-        int maHD = hoaDonBUS.getMaHoaDonMax() + 1;
-        String maHDtext = FormatMaHD(maHD);
-        txtIDHoadon.setText(maHDtext);
-        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-        txtIDNhanvien.setText("NV00" + tenTK);
-        System.out.println(tenTK);
-        // Lấy ngày hiện tại
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = dateFormat.format(currentDate);
-        txtNgayTao.setText(formattedDate);
-    }
-
-    public void ResetAll() {
-        setText_ID_NgayTao();
-        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
-        sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
-        resetThongTinChiTietSanPham();
-        modelHoaDon.setRowCount(0);
-        tfTienkhach.setText("");
-        tfTienthoi.setText("");
-        tfTongtien.setText("");
-    }
-
     public void loadDataThongTinChiTiet(JTable table, int positionMaSP) {
         int selectedRow = table.getSelectedRow();
         if (selectedRow >= 0) {
-            // Lấy mã sản phẩm từ bảng dựa trên hàng được chọn 
+            // Lấy mã sản phẩm từ bảng dựa trên hàng được chọn
             String maSP = (String) table.getValueAt(selectedRow, positionMaSP);
             int maSPnumber = Integer.parseInt(maSP.substring(2));
             SanPhamDTO sp = sanPhamBUS.getSPByMaSP(maSPnumber);
+
+            // Lấy thông tin sản phẩm
             String tenSP = sp.getTenSP();
             String theLoai = sp.getTenTL();
             String tacGia = sp.getTacGia();
-//            int soLuong = sp.getSoLuong();
-//            int namXB = sp.getNamXB();
+            int soLuong = sp.getSoLuong();
             double donGia = sp.getDonGia();
             String formatDonGia = sharedFunction.formatVND(donGia);
             String hinhAnh = sp.getHinhAnh();
-            if (hinhAnh != null) {
-                String imagePath = "./../Assets/IMG/" + hinhAnh;
-                // Tạo một ImageIcon từ tệp hình ảnh sử dụng đường dẫn tương đối
-                ImageIcon imageIcon = new ImageIcon(getClass().getResource(imagePath));
-                // Lấy Image từ ImageIcon và thực hiện phép co giãn với kích thước của JLabel
-                // sử dụng Image.SCALE_SMOOTH để đảm bảo hình ảnh được co giãn một cách mượt mà
-                Image img = imageIcon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
-                // Tạo một ImageIcon mới từ hình ảnh đã được co giãn
-                ImageIcon scaledImageIcon = new ImageIcon(img);
-                // Đặt ImageIcon đã được co giãn làm biểu tượng cho JLabel
-                lblImage.setIcon(scaledImageIcon);
-            }
+
+            // Hiển thị thông tin sản phẩm trên giao diện
             txtIDSanpham.setText(maSP);
             txtTenSanpham.setText(tenSP);
             txtTenTacgia.setText(tacGia);
             txtTheloai.setText(theLoai);
-
             txtSoluong.setFocusable(true);
-
             txtSoluong.setText("");
             txtSoluong.requestFocus();
             txtDonGia.setText(formatDonGia);
+
+            // Hiển thị hình ảnh sản phẩm
+            if (hinhAnh != null) {
+                String imagePath = "./../Assets/IMG/" + hinhAnh;
+                ImageIcon imageIcon = new ImageIcon(getClass().getResource(imagePath));
+                Image img = imageIcon.getImage().getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+                ImageIcon scaledImageIcon = new ImageIcon(img);
+                lblImage.setIcon(scaledImageIcon);
+            }
+
+            // Kiểm tra số lượng sản phẩm trong bảng sản phẩm
+            if (soLuong <= 0) {
+                sharedFunction.displayErrorMessage("Sản phẩm này đã hết hàng.");
+                // Vô hiệu hóa nút "Chọn" 
+            }
         }
     }
 
@@ -182,20 +156,19 @@ public final class BanHangGUI extends javax.swing.JPanel {
         modelHoaDon.addRow(rowData);
     }
 
-    private class ImageRender extends DefaultTableCellRenderer {
-
-        private Icon icon;
-
-        public ImageRender(Icon icon) {
-            this.icon = icon;
-        }
-
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-            return new JLabel(icon);
-        }
-
+    public void setText_ID_NgayTao() {
+        // lấy mã hóa đơn
+        int maHD = hoaDonBUS.getMaHoaDonMax() + 1;
+        String maHDtext = sharedFunction.FormatID("HD", maHD);
+        txtIDHoadon.setText(maHDtext);
+        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+        txtIDNhanvien.setText("NV00" + tenTK);
+        System.out.println(tenTK);
+        // Lấy ngày hiện tại
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedDate = dateFormat.format(currentDate);
+        txtNgayTao.setText(formattedDate);
     }
 
     @SuppressWarnings("unchecked")
@@ -327,6 +300,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
         tfTienkhach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTienkhachActionPerformed(evt);
+            }
+        });
+        tfTienkhach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfTienkhachKeyReleased(evt);
             }
         });
 
@@ -819,9 +797,48 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void btnThanhtoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhtoanActionPerformed
         // TODO add your handling code here:
-        thanhToan();
-        ResetAll();
+        boolean tienThoiIsValid = checkTienThoi(); // Kiểm tra tiền thói 
+        if (tienThoiIsValid) {
+            thanhToan(); // Thực hiện thanh toán nếu tiền thói hợp lệ
+            ResetAll();  // Thực hiện reset
+        } else {
+            sharedFunction.displayErrorMessage("Chưa thanh toán đủ tiền");
+            tfTienkhach.requestFocus();
+        }
+
     }//GEN-LAST:event_btnThanhtoanActionPerformed
+    private boolean checkTienThoi() {
+        Color textColor = tfTienthoi.getForeground();
+        // Kiểm tra màu chữ nếu màu đỏ thì tiền thói bé hơn 0
+        if (textColor.equals(Color.RED)) {
+            return false; // Tiền thói bé hơn 0
+        } else {
+            return true;
+        }
+    }
+
+    private void resetThongTinChiTietSanPham() {
+        txtIDSanpham.setText("");
+        txtTenSanpham.setText("");
+        txtTenTacgia.setText("");
+        txtTheloai.setText("");
+        txtSoluong.setText("");
+        txtDonGia.setText("");
+        lblImage.setIcon(null);
+        txtSoluong.setFocusable(false);
+        tfTienkhach.setFocusable(false);
+    }
+
+    public void ResetAll() {
+        setText_ID_NgayTao();
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        sanPhamGUI.loadTableSanPham(listSanPham, modelSanPham);
+        resetThongTinChiTietSanPham();
+        modelHoaDon.setRowCount(0);
+        tfTienkhach.setText("");
+        tfTienthoi.setText("");
+        tfTongtien.setText("");
+    }
 
     public void thanhToan() {
         if (tfTongtien.getText().isEmpty()) {
@@ -857,11 +874,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
                 updateSoLuong();
                 BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, TienKhach, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
                 bill.setVisible(true);
-            } else {
-                // Xử lý lỗi khi lưu thông tin hóa đơn
-                System.out.println("Sai rồi liu liu");
             }
-
         }
 
     }
@@ -902,40 +915,87 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (txtIDSanpham.getText().equals("")) {
             sharedFunction.displayErrorMessage("Vui lòng chọn sản phẩm");
-        } else if (txtSoluong.getText().equals("")) {
+            return;
+        }
+
+        String quantity = txtSoluong.getText();
+        if (!isValidQuantity(quantity)) {
+            return;
+        }
+
+        int desiredQuantity = Integer.parseInt(quantity);
+        String idSP = txtIDSanpham.getText();
+
+        if (isAvailableQuantity(idSP, desiredQuantity)) {
+            updateOrAddProductToCart(idSP, desiredQuantity);
+            TongTien();
+        }
+    }//GEN-LAST:event_btnChonActionPerformed
+    // Kiểm tra tính hợp lệ của số lượng và hiển thị thông báo lỗi nếu không hợp lệ
+
+    private boolean isValidQuantity(String quantity) {
+        if (quantity.isEmpty()) {
+            // Hiển thị thông báo lỗi nếu số lượng rỗng
             sharedFunction.displayErrorMessage("Vui lòng nhập số lượng");
-        } else {
-            if (!sharedFunction.isPositiveInteger(txtSoluong.getText())) {
-                sharedFunction.displayErrorMessage("Số lượng không hợp lệ");
-            } else {
-                // Lấy số lượng từ TextField
-                int soLuong = Integer.parseInt(txtSoluong.getText());
-                // Lấy mã sản phẩm từ TextField
-                String idSP = txtIDSanpham.getText();
+            return false;
+        }
 
-                // Duyệt qua các dòng trong bảng để kiểm tra xem sản phẩm đã tồn tại
-                boolean productExists = false;
-                for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
-                    String currentID = (String) modelHoaDon.getValueAt(i, 0);
-                    if (idSP.equals(currentID)) {
-                        // Sản phẩm đã tồn tại, cập nhật số lượng
-                        modelHoaDon.setValueAt(String.valueOf(soLuong), i, 2);
-                        productExists = true;
-                        break;
-                    }
-                }
+        if (!sharedFunction.isPositiveInteger(quantity)) {
+            // Hiển thị thông báo lỗi nếu số lượng không phải số nguyên dương
+            sharedFunction.displayErrorMessage("Số lượng không hợp lệ");
+            return false;
+        }
 
-                if (!productExists) {
-                    // Sản phẩm chưa tồn tại, thêm mới vào bảng
-                    String tenSP = txtTenSanpham.getText();
-                    String donGia = txtDonGia.getText();
-                    Object[] rowData = {idSP, tenSP, String.valueOf(soLuong), donGia, "", ""};
-                    modelHoaDon.addRow(rowData);
-                }
+        return true;
+    }
+
+// Kiểm tra xem số lượng mua có đủ hoặc không và hiển thị thông báo lỗi nếu không đủ
+    private boolean isAvailableQuantity(String idSP, int desiredQuantity) {
+        int availableQuantity = 0;
+        for (int i = 0; i < modelSanPham.getRowCount(); i++) {
+            String currentID = (String) modelSanPham.getValueAt(i, 1);
+            if (idSP.equals(currentID)) {
+                availableQuantity = (int) modelSanPham.getValueAt(i, 5); // Lấy số lượng của sản phẩm trong bảng sản phẩm
+                break;
             }
         }
-        TongTien();
-    }//GEN-LAST:event_btnChonActionPerformed
+
+        if (desiredQuantity > availableQuantity) {
+            // Hiển thị thông báo lỗi nếu không đủ số lượng sản phẩm
+            sharedFunction.displayErrorMessage("Không đủ số lượng sản phẩm");
+            return false;
+        }
+
+        return true;
+    }
+
+// Cập nhật hoặc thêm sản phẩm vào giỏ hàng
+    private void updateOrAddProductToCart(String idSP, int desiredQuantity) {
+        String tenSP = txtTenSanpham.getText();
+        String donGiaText = txtDonGia.getText();
+        double donGia = sharedFunction.parseMoneyString(donGiaText);
+        double ThanhTien = desiredQuantity * donGia;
+        String ThanhTienText = sharedFunction.formatVND(ThanhTien);
+
+        boolean productExists = false;
+        for (int i = 0; i < modelHoaDon.getRowCount(); i++) {
+            String currentID = (String) modelHoaDon.getValueAt(i, 0);
+            if (idSP.equals(currentID)) {
+                // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng và thành tiền
+                modelHoaDon.setValueAt(String.valueOf(desiredQuantity), i, 2);
+                modelHoaDon.setValueAt(ThanhTienText, i, 3);
+                productExists = true;
+                break;
+            }
+        }
+
+        if (!productExists) {
+            // Sản phẩm chưa tồn tại trong giỏ hàng, thêm mới vào bảng giỏ hàng
+            Object[] rowData = {idSP, tenSP, String.valueOf(desiredQuantity), ThanhTienText, "", ""};
+            modelHoaDon.addRow(rowData);
+        }
+    }
+
     private void TongTien() {
         // Tính tổng tiền từ dữ liệu trong bảng
         double tongTien = sharedFunction.calculateTotalPrice(modelHoaDon, 3, 2);
@@ -963,7 +1023,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
             double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
             double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
             double tienThoiLai = tienKhachDua - tongTien;
-
+            if (tienThoiLai >= 0) {
+                tfTienthoi.setForeground(Color.black);
+            } else {
+                tfTienthoi.setForeground(Color.RED);
+            }
             // Cập nhật giá trị vào JTextField Tiền thối lại
             tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
         }
@@ -1030,11 +1094,16 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void tfTienkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTienkhachActionPerformed
         // TODO add your handling code here:
-        updateTienThoiLai();
+//        updateTienThoiLai();
     }//GEN-LAST:event_tfTienkhachActionPerformed
-    public static String FormatMaHD(int MaHD) {
-        return String.format("HD%02d", MaHD);
-    }
+
+    private void tfTienkhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTienkhachKeyReleased
+        // TODO add your handling code here:
+        updateTienThoiLai();
+    }//GEN-LAST:event_tfTienkhachKeyReleased
+//    public static String FormatMaHD(int MaHD) {
+//        return String.format("HD%02d", MaHD);
+//    }
 
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
@@ -1108,18 +1177,6 @@ public final class BanHangGUI extends javax.swing.JPanel {
         return table;
     }
 
-    private void resetThongTinChiTietSanPham() {
-        txtIDSanpham.setText("");
-        txtTenSanpham.setText("");
-        txtTenTacgia.setText("");
-        txtTheloai.setText("");
-        txtSoluong.setText("");
-        txtDonGia.setText("");
-        lblImage.setIcon(null);
-        txtSoluong.setFocusable(false);
-        tfTienkhach.setFocusable(false);
-    }
-
     private void addPlaceholderStyle(JTextField textField, String name) {
         Font customFont = new Font("Tahoma", Font.BOLD, 16);
         textField.setFont(customFont);
@@ -1130,6 +1187,22 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
+    }
+
+    private class ImageRender extends DefaultTableCellRenderer {
+
+        private Icon icon;
+
+        public ImageRender(Icon icon) {
+            this.icon = icon;
+        }
+
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+            return new JLabel(icon);
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import Util.sharedFunction;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,11 +24,11 @@ public class BillFormGUI extends javax.swing.JFrame {
     private String TongTien;
     private String NgayTao;
     private DefaultTableModel modelHoaDon;
-    
+
     public BillFormGUI() {
         initComponents();
     }
-    
+
     public BillFormGUI(String IDhoaDon, String TenNV, String TienKhachDua, String TienThoi, String TongTien, String NgayTao, DefaultTableModel model) {
         initComponents();
         this.IDhoaDon = IDhoaDon;
@@ -40,8 +41,12 @@ public class BillFormGUI extends javax.swing.JFrame {
         for (int i = 0; i < model.getRowCount(); i++) {
             String tenSanPham = (String) model.getValueAt(i, 1);
             String soLuongStr = (String) model.getValueAt(i, 2);
-            String donGiaStr = (String) model.getValueAt(i, 3);
-            Object[] rowData = {tenSanPham,  donGiaStr,soLuongStr}; // Thêm biểu tượng vào mảng dữ liệu
+            String ThanhTienStr = (String) model.getValueAt(i, 3);
+            double ThanhTien = sharedFunction.parseMoneyString(ThanhTienStr);
+            int soLuong = sharedFunction.stringToInteger(soLuongStr);
+            double donGia = ThanhTien / soLuong;
+            String donGiaText = sharedFunction.formatVND(donGia);
+            Object[] rowData = {tenSanPham, donGiaText, soLuongStr, ThanhTienStr};
             DefaultTableModel model1 = (DefaultTableModel) tbHoadon.getModel();
             model1.addRow(rowData);
         }

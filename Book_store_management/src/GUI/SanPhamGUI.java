@@ -13,7 +13,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -44,7 +43,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     public SanPhamGUI() {
         initComponents();
-//        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+        createTable();
+
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
+        // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
+        currentBackgroundColor = lblTheLoai.getBackground();
+    }
+
+    private void createTable() {
         // Tạo bảng sản phẩm
         tableSanPham = createTableSanPham();
         // Tạo bản thể loại
@@ -62,9 +68,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
-        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
-        // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
-        currentBackgroundColor = lblTheLoai.getBackground();
     }
 
     /**
@@ -446,32 +449,34 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
-            if (searchKeyword.isEmpty()) {
-                sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
-            }
-            switch (selectedIndex) {
-                case 0 -> {
-                    findSanPhamByTenSP_or_MaSP(searchKeyword, modelSanPham);
-                }
-                case 1 -> {
-                    findSanPhamByMaSP(searchKeyword, modelSanPham);
-                }
-                case 2 -> {
-                    findSanPhamByTenSP(searchKeyword, modelSanPham);
-                }
-                case 3 -> {
-                    findSanPhamByTacGia(searchKeyword, modelSanPham);
-                }
-                case 4 -> {
-                    findSanPhamByTheLoai(searchKeyword, modelSanPham);
-                }
-                default -> {
-                }
-            }
-
+            findSanPham(searchKeyword, selectedIndex, modelSanPham);
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
+    public void findSanPham(String searchKeyword, int selectedIndex, DefaultTableModel model) {
 
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+        }
+        switch (selectedIndex) {
+            case 0 -> {
+                findSanPhamByTenSP_or_MaSP(searchKeyword, model);
+            }
+            case 1 -> {
+                findSanPhamByMaSP(searchKeyword, model);
+            }
+            case 2 -> {
+                findSanPhamByTenSP(searchKeyword, model);
+            }
+            case 3 -> {
+                findSanPhamByTacGia(searchKeyword, model);
+            }
+            case 4 -> {
+                findSanPhamByTheLoai(searchKeyword, model);
+            }
+            default -> {
+            }
+        }
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         currentBackgroundColor = lblTheLoai.getBackground();
@@ -633,7 +638,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
 
     }//GEN-LAST:event_timKiemTheoActionPerformed
-    private String getPlaceholderByIndex(int selectedIndex) {
+    public String getPlaceholderByIndex(int selectedIndex) {
         return switch (selectedIndex) {
             case 0 ->
                 "Tìm kiếm theo mã hoặc tên sản phẩm ";

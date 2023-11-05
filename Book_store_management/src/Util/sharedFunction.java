@@ -55,6 +55,38 @@ public class sharedFunction {
         });
     }
 
+    public static void addPlaceholder(JTextField textField, String searchPlaceholder) {
+        textField.setText(searchPlaceholder); // Hiển thị placeholder mặc định                     
+        // FocusListener để xử lý khi nhập vào hoặc ra khỏi JTextField
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Khi click vào JTextField
+                if (textField.getText().equals(searchPlaceholder)) {
+                    textField.setText(""); // Xóa nội dung khi focus vào
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Khi click ra khỏi JTextField
+                if (textField.getText().isEmpty()) {
+//                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi không focus
+                }
+            }
+        });
+
+        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
+                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
+                }
+            }
+        });
+    }
+
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -148,38 +180,6 @@ public class sharedFunction {
         return String.format("%s%02d", prefix, ma);
     }
 
-    public static void addPlaceholder(JTextField textField, String searchPlaceholder) {
-        textField.setText(searchPlaceholder); // Hiển thị placeholder mặc định                     
-        // FocusListener để xử lý khi nhập vào hoặc ra khỏi JTextField
-        textField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                // Khi click vào JTextField
-                if (textField.getText().equals(searchPlaceholder)) {
-                    textField.setText(""); // Xóa nội dung khi focus vào
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                // Khi click ra khỏi JTextField
-                if (textField.getText().isEmpty()) {
-//                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi không focus
-                }
-            }
-        });
-
-        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
-        textField.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseExited(MouseEvent e) {
-                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
-                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
-                }
-            }
-        });
-    }
-
     public static String formatVND(double temp) {
         // Tạo một đối tượng NumberFormat cho tiền tệ của Việt Nam
         NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
@@ -198,12 +198,10 @@ public class sharedFunction {
 
     }
 
-    public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex, int soLuongColumnIndex) {
+    public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex) {
         double totalPrice = 0.0;
         for (int i = 0; i < model.getRowCount(); i++) {
             String priceString = (String) model.getValueAt(i, priceColumnIndex); // priceColumnIndex là chỉ mục cột đơn giá       
-//            String soLuongStr = (String) model.getValueAt(i, soLuongColumnIndex);
-//            int soLuong = Integer.parseInt(soLuongStr);
             // Loại bỏ các ký tự không hợp lệ
             priceString = priceString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
             try {
@@ -226,7 +224,8 @@ public class sharedFunction {
             return null;
         }
     }
-        public static double stringToDouble(String doubleString) {
+
+    public static double stringToDouble(String doubleString) {
         try {
             return Double.parseDouble(doubleString);
         } catch (NumberFormatException e) {
@@ -234,7 +233,8 @@ public class sharedFunction {
             return 0.0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
         }
     }
-        public static int stringToInteger(String intString) {
+
+    public static int stringToInteger(String intString) {
         try {
             return Integer.parseInt(intString);
         } catch (NumberFormatException e) {
@@ -242,4 +242,4 @@ public class sharedFunction {
             return 0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
         }
     }
-    }
+}

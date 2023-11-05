@@ -90,6 +90,10 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         sharedFunction.moveLayout(this, PannelOverview);
         this.STT = STT;
         txtID.setText(maSP); // gán mã sản phẩm tự động
+        txtSoLuong.setText("0");
+        txtDonGia.setText("0");
+        txtSoLuong.setFocusable(false);
+        txtDonGia.setFocusable(false);
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox

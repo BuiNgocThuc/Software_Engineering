@@ -14,6 +14,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,17 +43,24 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     public SanPhamGUI() {
         initComponents();
-//        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
+        createTable();
+
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
+        // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
+        currentBackgroundColor = lblTheLoai.getBackground();
+    }
+
+    private void createTable() {
         // Tạo bảng sản phẩm
         tableSanPham = createTableSanPham();
         // Tạo bản thể loại
         tableTheLoai = createTableTheLoai();
         // Load data bảng sản phẩm 
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
-        loadTableSanPham(listSanPham);
+        loadTableSanPham(listSanPham, modelSanPham);
         // Load data bảng thể loại
         ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
-        loadTableTheLoai(listTheLoai);
+        loadTableTheLoai(listTheLoai, modelTheLoai);
         // Set kích thước bảng bằng với panel chứa nó
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         JScrollPane scrollPaneSanPham = new JScrollPane(tableSanPham);
@@ -60,10 +68,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
-
-        // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
-        currentBackgroundColor = lblTheLoai.getBackground();
-        timKiemTheo.setBackground(Color.YELLOW);
     }
 
     /**
@@ -86,7 +90,8 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
         btnXoa = new Components.ButtonRadius();
-        btnLammoi = new Components.ButtonRadius();
+        btnLamMoi = new Components.ButtonRadius();
+        jPanel1 = new javax.swing.JPanel();
         timKiemTheo = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -118,6 +123,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         txtTimKiem.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        txtTimKiem.setForeground(new java.awt.Color(134, 172, 218));
         txtTimKiem.setBorder(null);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -128,6 +134,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         });
         txtTimKiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTimKiemMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txtTimKiemMouseEntered(evt);
             }
@@ -204,7 +213,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         );
         PanelTableLayout.setVerticalGroup(
             PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 595, Short.MAX_VALUE)
+            .addGap(0, 589, Short.MAX_VALUE)
         );
 
         btnThem.setBorder(null);
@@ -273,37 +282,60 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         });
 
-        btnLammoi.setBorder(null);
-        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnLammoi.setText("Làm mới");
-        btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi.setIconTextGap(0);
-        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setRadius(40);
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBorder(null);
+        btnLamMoi.setForeground(new java.awt.Color(135, 172, 217));
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setFocusPainted(false);
+        btnLamMoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLamMoi.setIconTextGap(0);
+        btnLamMoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLamMoi.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setRadius(40);
+        btnLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseExited(evt);
+            }
+        });
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
-        timKiemTheo.setBackground(new java.awt.Color(250, 232, 189));
+        timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timKiemTheo.setForeground(new java.awt.Color(135, 172, 217));
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Tác giả", "Thể loại ", "Giá" }));
-        timKiemTheo.setBorder(null);
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timKiemTheoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(timKiemTheo, javax.swing.GroupLayout.Alignment.TRAILING, 0, 146, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanelBodyLayout = new javax.swing.GroupLayout(jPanelBody);
         jPanelBody.setLayout(jPanelBodyLayout);
         jPanelBodyLayout.setHorizontalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBodyLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelBodyLayout.createSequentialGroup()
                         .addComponent(lblSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
@@ -314,29 +346,33 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(22, 22, 22)
-                        .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(jPanelBodyLayout.createSequentialGroup()
-                        .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBodyLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, 1003, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanelBodyLayout.setVerticalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSanPham, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(timKiemTheo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblSanPham, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblTheLoai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanelBodyLayout.createSequentialGroup()
+                            .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(7, 7, 7)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
-                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
+                .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -367,6 +403,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
+        timKiemTheo.setVisible(true);
         PanelTable.removeAll();
         tableSanPham.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableSanPham.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -379,11 +416,12 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.repaint();
         lblSanPham.setBackground(new Color(229, 231, 230));
         lblTheLoai.setBackground(new Color(255, 255, 255));
-
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblTheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheLoaiMouseClicked
         // TODO add your handling code here:
+        timKiemTheo.setVisible(false);
         PanelTable.removeAll();
         tableTheLoai.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
         tableTheLoai.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -398,21 +436,47 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         //Khi click chuột vào sẽ đổi màu giúp nhận biết đang ở bảng nào
         lblTheLoai.setBackground(new Color(229, 231, 230));
         lblSanPham.setBackground(new Color(255, 255, 255));
+        sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên thể loại");
     }//GEN-LAST:event_lblTheLoaiMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
         // TODO add your handling code here:
 
         currentBackgroundColor = lblTheLoai.getBackground();
-
+        String searchKeyword = txtTimKiem.getText().trim();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
             findTheLoaiByMaTL_or_TenTL();
         } else {
-            findSanPhamByTenSP_or_MaSP();
+            int selectedIndex = timKiemTheo.getSelectedIndex();
+            findSanPham(searchKeyword, selectedIndex, modelSanPham);
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
+    public void findSanPham(String searchKeyword, int selectedIndex, DefaultTableModel model) {
 
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+        }
+        switch (selectedIndex) {
+            case 0 -> {
+                findSanPhamByTenSP_or_MaSP(searchKeyword, model);
+            }
+            case 1 -> {
+                findSanPhamByMaSP(searchKeyword, model);
+            }
+            case 2 -> {
+                findSanPhamByTenSP(searchKeyword, model);
+            }
+            case 3 -> {
+                findSanPhamByTacGia(searchKeyword, model);
+            }
+            case 4 -> {
+                findSanPhamByTheLoai(searchKeyword, model);
+            }
+            default -> {
+            }
+        }
+    }
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         currentBackgroundColor = lblTheLoai.getBackground();
@@ -460,9 +524,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 String tacGia = (String) tableSanPham.getValueAt(selectedRow, 3);
                 String theLoai = (String) tableSanPham.getValueAt(selectedRow, 4);
                 int soLuong = (int) tableSanPham.getValueAt(selectedRow, 5);
-                double donGia = (double) tableSanPham.getValueAt(selectedRow, 6);
+                String donGia = (String) tableSanPham.getValueAt(selectedRow, 6);
+                double dongia = sharedFunction.parseMoneyString(donGia);
                 // Tạo frame để chỉnh sửa thông tin
-                ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, donGia);
+                ChiTietSanPham ctsp = new ChiTietSanPham(selectedRow, maSP, tenSP, tacGia, theLoai, soLuong, dongia);
                 ctsp.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "Vui lòng chọn sản phẩm cần sửa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -554,9 +619,75 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLammoiActionPerformed
+        currentBackgroundColor = lblTheLoai.getBackground();
+        if (currentBackgroundColor.equals(targetColor)) {
+            ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.getAll();
+            loadTableTheLoai(listTheLoai, modelTheLoai);
+//            nhapNhay();
+        } else {
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+            loadTableSanPham(listSanPham, modelSanPham);
+        }
+    }//GEN-LAST:event_btnLamMoiActionPerformed
+
+    private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
+        // TODO add your handling code here:
+        int selectedIndex = timKiemTheo.getSelectedIndex();
+        sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+
+    }//GEN-LAST:event_timKiemTheoActionPerformed
+    public String getPlaceholderByIndex(int selectedIndex) {
+        return switch (selectedIndex) {
+            case 0 ->
+                "Tìm kiếm theo mã hoặc tên sản phẩm ";
+            case 1 ->
+                "Tìm kiếm theo mã sản phẩm ";
+            case 2 ->
+                "Tìm kiếm theo tên sản phẩm ";
+            case 3 ->
+                "Tìm kiếm theo tác giả ";
+            case 4 ->
+                "Tìm kiếm theo thể loại";
+            default ->
+                "";
+        };
+    }
+    private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
+        // TODO add your handling code here:
+        btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLamMoiMouseEntered
+
+    private void btnLamMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseExited
+        // TODO add your handling code here:
+        btnLamMoi.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLamMoiMouseExited
+
+    private void timKiemTheoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_timKiemTheoPopupMenuWillBecomeInvisible
+        // TODO add your handling code here:
+
+// Lấy mô hình của ComboBox
+        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) timKiemTheo.getModel();
+
+// Kiểm tra xem mục đầu tiên có phải là "Chọn thể loại" không
+        if (model.getElementAt(0).equals("Tìm kiếm theo")) {
+            // Ẩn hoặc thay đổi mục "Chọn thể loại"
+            model.removeElement("Tìm kiếm theo"); // Để xóa mục
+            // Hoặc model.setElementAt("Một lựa chọn khác", 0); để thay đổi nó
+        }
+    }//GEN-LAST:event_timKiemTheoPopupMenuWillBecomeInvisible
+
+    private void timKiemTheoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_timKiemTheoFocusGained
+        // TODO add your handling code here:
+        // Xóa "Chọn thể loại" khi ComboBox được focus
+//                timKiemTheo.removeItem("Tìm kiếm theo");
+    }//GEN-LAST:event_timKiemTheoFocusGained
+
+    private void txtTimKiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseClicked
+        // TODO add your handling code here:
+        txtTimKiem.setText("");
+    }//GEN-LAST:event_txtTimKiemMouseClicked
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
@@ -590,18 +721,19 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham) {
+    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham, DefaultTableModel modelSanPham) {
         modelSanPham.setRowCount(0);
         int STT = 1;
         for (SanPhamDTO sanPham : listSanPham) {
             int maSP = sanPham.getMaSP();
-            String maSPtext = FormatMaSP(maSP);
+            String maSPtext = sharedFunction.FormatID("SP", maSP);
             String tenTL = sanPham.getTenTL();
             String tenSanPham = sanPham.getTenSP();
             String tenTacGia = sanPham.getTacGia();
             int soLuong = sanPham.getSoLuong();
             double donGia = sanPham.getDonGia();
-            Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, donGia};
+            String formatDonGia = sharedFunction.formatVND(donGia);
+            Object[] row = {STT++, maSPtext, tenSanPham, tenTacGia, tenTL, soLuong, formatDonGia};
             modelSanPham.addRow(row);
         }
     }
@@ -632,24 +764,24 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai) {
+    public void loadTableTheLoai(ArrayList<TheLoaiDTO> listTheLoai, DefaultTableModel modelTheLoai) {
         //  Load data lên bảng 
         modelTheLoai.setRowCount(0);
         int STT = 1;
         for (TheLoaiDTO theloai : listTheLoai) {
             int maTL = theloai.getMaTL();
-            String maTLtext = FormatMaTL(maTL);
+            String maTLtext = sharedFunction.FormatID("TL", maTL);
             String tenTheLoai = theloai.getTenTL();
             Object[] row = {STT++, maTLtext, tenTheLoai};
             modelTheLoai.addRow(row);
         }
     }
 
-    public String FormatMaTL(int MaTL) {
+    public static String FormatMaTL(int MaTL) {
         return String.format("TL%02d", MaTL);
     }
 
-    public String FormatMaSP(int MaSP) {
+    public static String FormatMaSP(int MaSP) {
         return String.format("SP%02d", MaSP);
     }
 
@@ -703,7 +835,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                     }
                     JOptionPane.showMessageDialog(this, "Đã xóa thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Lỗi khi xóa thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Thể loại có tồn tại sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
                 }
             }
         } else {
@@ -740,14 +872,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void findTheLoaiByMaTL_or_TenTL() {
         // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
         String maTL = txtTimKiem.getText();
-        if (maTL.isEmpty()) {
+        if (maTL.isEmpty() || maTL.trim().equals("Tìm kiếm theo mã hoặc tên thể loại")) {
             // Nếu maTL rỗng, thông báo cho người dùng nhập mã hoặc tên
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên thể loại cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
             ArrayList<TheLoaiDTO> listTheLoai = theloaBUS.findTheLoaiByMaTL_or_TenTL(maTL);
             if (!listTheLoai.isEmpty()) {
-                loadTableTheLoai(listTheLoai);
+                loadTableTheLoai(listTheLoai, modelTheLoai);
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             }
@@ -755,17 +887,15 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
-    private void findSanPhamByTenSP_or_MaSP() {
-        // Lấy từ khóa tìm kiếm từ JTextField và gọi phương thức tìm kiếm thể loại từ lớp BUS
-        String maSP = txtTimKiem.getText();
+    public void findSanPhamByTenSP_or_MaSP(String maSP, DefaultTableModel model) {
         if (maSP.isEmpty()) {
-            // Nếu maSP rỗng, thông báo cho người dùng nhập mã hoặc tên
+            // Nếu  rỗng, thông báo cho người dùng nhập 
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
-            // Nếu maTL không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm thể loại
+            // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm 
             ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(maSP);
             if (!listSanPham.isEmpty()) {
-                loadTableSanPham(listSanPham);
+                loadTableSanPham(listSanPham, model);
 
             } else {
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
@@ -773,14 +903,86 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         }
 
     }
+
+    public void findSanPhamByTacGia(String TacGia, DefaultTableModel model) {
+        if (TacGia.isEmpty() || TacGia.trim().equals("Tìm kiếm theo tác giả")) {
+            // Nếu  rỗng, thông báo cho người dùng nhập 
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên tác giả ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm 
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTacGIa(TacGia);
+            if (!listSanPham.isEmpty()) {
+                loadTableSanPham(listSanPham, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
+    public void findSanPhamByTenSP(String TenSP, DefaultTableModel model) {
+        if (TenSP.isEmpty() || TenSP.trim().equals("Tìm kiếm theo tên sản phẩm")) {
+            // Nếu  rỗng, thông báo cho người dùng nhập
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm 
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(TenSP);
+            if (!listSanPham.isEmpty()) {
+                loadTableSanPham(listSanPham, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
+    public void findSanPhamByTheLoai(String TheLoai, DefaultTableModel model) {
+        if (TheLoai.isEmpty() || TheLoai.trim().equals("Tìm kiếm theo thể loại")) {
+            // Nếut thể loại rỗng, thông báo cho người dùng nhập 
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTheLoai(TheLoai);
+            if (!listSanPham.isEmpty()) {
+                loadTableSanPham(listSanPham, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+    }
+
+    public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
+
+        if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int maSPnumber = sharedFunction.convertToInteger(maSP, "SP");
+            if (maSPnumber == -1) {
+                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
+                ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByMaSP(maSPnumber);
+                if (!listSanPham.isEmpty()) {
+                    loadTableSanPham(listSanPham, model);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
-    private Components.ButtonRadius btnLammoi;
+    private Components.ButtonRadius btnLamMoi;
     private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;
     private Components.ButtonRadius btnXoa;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblSanPham;

@@ -134,7 +134,7 @@ public class TaiKhoanBUS {
                     PhanQuyen(lisrPer, layout);
                     acc.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-//                    System.out.println(currentAcc.getTenTK());
+                    System.out.println(currentAcc.getTenTK());
                 }
             }
         }
@@ -171,4 +171,7 @@ public class TaiKhoanBUS {
     public boolean XoaTaiKhoan(int ID) {
         return tkDAO.Xoa(ID) != 0;
     }
+
+
+    
 }

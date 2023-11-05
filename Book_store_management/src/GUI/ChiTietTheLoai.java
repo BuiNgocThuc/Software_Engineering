@@ -19,7 +19,6 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
-    private int mouseX, mouseY;
     private int STT = -1;
     private int MaTL = -1;
     private String TenTL;
@@ -278,7 +277,7 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Đã sửa thành công", "Lỗi", JOptionPane.INFORMATION_MESSAGE);
 
             } else {
-                JOptionPane.showMessageDialog(this, "Lỗi khi cập nhật thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Tên thể loại đã tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -300,12 +299,13 @@ public class ChiTietTheLoai extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Thêm thể loại thành công.", "Thành công", JOptionPane.INFORMATION_MESSAGE);
                 // Nếu muốn làm gì đó sau khi thêm thành công, bạn có thể thực hiện ở đây
             } else {
-                JOptionPane.showMessageDialog(this, "Lỗi khi thêm thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Thể loại đã tồn tại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập tên thể loại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     /**
      * @param args the command line arguments
      */

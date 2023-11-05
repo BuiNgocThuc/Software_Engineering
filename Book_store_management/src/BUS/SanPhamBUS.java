@@ -13,38 +13,62 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class SanPhamBUS {
-
+    
     private final SanPhamDAO sanPhamDAO;
-
+    
     public SanPhamBUS() {
         sanPhamDAO = new SanPhamDAO();
     }
-
+    
     public ArrayList<SanPhamDTO> getAllSanPham() {
         return sanPhamDAO.selectAll();
     }
-
+    
     public int getMaSPMax() {
         return sanPhamDAO.getMaSPMax();
     }
-
+    
     public SanPhamDTO getHinhAnhandNamXB(int maSP) {
         return sanPhamDAO.getHinhAnhandNamXB(maSP);
     }
-
+    
     public boolean deleteSanPhamByMaSP(int maSP) {
         return sanPhamDAO.deleteSPByMaSP(maSP);
     }
-
+    
     public boolean addSanPham(SanPhamDTO sp) {
         return sanPhamDAO.addSanPham(sp);
     }
-
+    
     public boolean updateSanPham(SanPhamDTO sp) {
         return sanPhamDAO.Update(sp);
     }
+    
+    public ArrayList<SanPhamDTO> findSPByTenSP_or_MaSP(String temp) {
+        return sanPhamDAO.findSPByTenSP_or_MaSP(temp);
+    }
+    
+    public ArrayList<SanPhamDTO> findSPByTacGIa(String TacGia) {
+        return sanPhamDAO.findSPByTacGIa(TacGia);
+    }
+    
+    public ArrayList<SanPhamDTO> findSPByTenSP(String TenSP) {
+        return sanPhamDAO.findSPByTenSP(TenSP);
+    }
 
-    public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
-        return sanPhamDAO.findSPByTenSP(temp);
+    // tìm sản phẩm dựa trên tên thể loại
+    public ArrayList<SanPhamDTO> findSPByTheLoai(String TheLoai) {
+        return sanPhamDAO.findSPByTheLoai(TheLoai);
+    }
+    
+    public ArrayList<SanPhamDTO> findSPByMaSP(int MaSP) {
+        return sanPhamDAO.findSPByMaSP(MaSP);
+    }
+    
+   public SanPhamDTO getSPByMaSP(int MaSP) {
+       return sanPhamDAO.getSPByMaSP(MaSP);
+   }
+    public boolean updateProductQuantity(int idSP, int newQuantity) {
+        return sanPhamDAO.updateProductQuantity(idSP, newQuantity);
     }
 }

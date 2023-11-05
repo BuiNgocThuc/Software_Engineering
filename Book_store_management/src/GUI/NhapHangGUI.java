@@ -35,7 +35,7 @@ import javax.swing.table.TableColumnModel;
  *
  * @author NGOC THUC
  */
-public class NhapHangGUI extends javax.swing.JPanel {
+public final class NhapHangGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form NhapHangGUI

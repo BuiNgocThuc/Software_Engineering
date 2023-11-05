@@ -8,14 +8,24 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 /**
@@ -24,9 +34,9 @@ import javax.swing.table.JTableHeader;
  */
 public class sharedFunction {
 
-    private static  int mouseX, mouseY;
+    private static int mouseX, mouseY;
 
-    public static  void moveLayout(JFrame jframe, JPanel panel ){
+    public static void moveLayout(JFrame jframe, JPanel panel) {
         panel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -41,6 +51,38 @@ public class sharedFunction {
                 int x = e.getXOnScreen();
                 int y = e.getYOnScreen();
                 jframe.setLocation(x - mouseX, y - mouseY);
+            }
+        });
+    }
+
+    public static void addPlaceholder(JTextField textField, String searchPlaceholder) {
+        textField.setText(searchPlaceholder); // Hiển thị placeholder mặc định                     
+        // FocusListener để xử lý khi nhập vào hoặc ra khỏi JTextField
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Khi click vào JTextField
+                if (textField.getText().equals(searchPlaceholder)) {
+                    textField.setText(""); // Xóa nội dung khi focus vào
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Khi click ra khỏi JTextField
+                if (textField.getText().isEmpty()) {
+//                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi không focus
+                }
+            }
+        });
+
+        // MouseListener để xử lý khi con trỏ chuột rời khỏi JTextField
+        textField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (!textField.isFocusOwner() && textField.getText().isEmpty()) {
+                    textField.setText(searchPlaceholder); // Hiển thị placeholder khi con trỏ chuột rời khỏi và nội dung trống
+                }
             }
         });
     }
@@ -83,7 +125,7 @@ public class sharedFunction {
         table.setSelectionForeground(new Color(253, 191, 84));
         table.setFocusable(false);
         table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        Font font = new Font("Segoe UI", Font.PLAIN, 16);
+        Font font = new Font("Segoe UI", Font.PLAIN, 14);
         table.setFont(font);
         // Căn giữa nội dung trong các ô chữ
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -99,5 +141,105 @@ public class sharedFunction {
         table.getTableHeader().setResizingAllowed(false);
     }
 
+    public static boolean isPositiveInteger(String str) {
+        try {
+            int number = Integer.parseInt(str);
+            return number > 0;
+        } catch (NumberFormatException e) {
+            // Nếu có lỗi NumberFormatException, chuỗi không phải là số nguyên.
+            return false;
+        }
+    }
 
+    public static int convertToInteger(String input, String startsWith) {
+        if (input.startsWith(startsWith)) {
+            // Nếu chuỗi bắt đầu bằng "SP," cắt bỏ "SP" và chuyển phần số còn lại thành số nguyên
+            String numericPart = input.substring(2); // Lấy phần số sau "SP"
+            try {
+                return Integer.parseInt(numericPart); // Trả về số nguyên nếu thành công
+            } catch (NumberFormatException e) {
+                // Xử lý lỗi nếu không thể chuyển đổi thành số nguyên
+                return -1;
+            }
+        } else {
+            // Nếu chuỗi không bắt đầu bằng "SP," thử chuyển chuỗi thành số nguyên
+            try {
+                return Integer.parseInt(input); // Trả về số nguyên nếu thành công
+            } catch (NumberFormatException e) {
+                // Xử lý lỗi nếu không thể chuyển đổi thành số nguyên
+                return -1;
+            }
+        }
+    }
+
+    public static void displayErrorMessage(String message) {
+        JOptionPane.showMessageDialog(null, message, "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static String FormatID(String prefix, int ma) {
+        return String.format("%s%02d", prefix, ma);
+    }
+
+    public static String formatVND(double temp) {
+        // Tạo một đối tượng NumberFormat cho tiền tệ của Việt Nam
+        NumberFormat vndFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+        // Sử dụng đối tượng NumberFormat để định dạng số tiền
+        return vndFormat.format(temp);
+    }
+
+    public static double parseMoneyString(String moneyString) {
+
+        // Loại bỏ các ký tự không cần thiết từ chuỗi đơn giá
+        moneyString = moneyString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
+
+        // Chuyển đổi chuỗi thành số double
+        double amount = Double.parseDouble(moneyString);
+        return amount;
+
+    }
+
+    public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex) {
+        double totalPrice = 0.0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String priceString = (String) model.getValueAt(i, priceColumnIndex); // priceColumnIndex là chỉ mục cột đơn giá       
+            // Loại bỏ các ký tự không hợp lệ
+            priceString = priceString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
+            try {
+                double price = Double.parseDouble(priceString);
+                // Thực hiện tính tổng
+                totalPrice += price;
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+        return totalPrice;
+    }
+
+    public static Date stringToDate(String dateString) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            return dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static double stringToDouble(String doubleString) {
+        try {
+            return Double.parseDouble(doubleString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return 0.0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
+        }
+    }
+
+    public static int stringToInteger(String intString) {
+        try {
+            return Integer.parseInt(intString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return 0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
+        }
+    }
 }

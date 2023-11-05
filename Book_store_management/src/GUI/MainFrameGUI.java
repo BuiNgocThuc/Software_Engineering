@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import BUS.TaiKhoanBUS;
 import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -15,8 +14,6 @@ import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.ColorUIResource;
-
 /**
  *
  * @author NGOC THUC
@@ -476,6 +473,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnContent.setLayout(new java.awt.CardLayout());
 
         pnSanPham.setBackground(new java.awt.Color(153, 255, 255));
+        pnSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pnSanPhamMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnSanPhamLayout = new javax.swing.GroupLayout(pnSanPham);
         pnSanPham.setLayout(pnSanPhamLayout);
@@ -718,7 +720,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
-        this.requestFocusInWindow();
+//        this.requestFocusInWindow();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void itemChangePassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemChangePassActionPerformed
@@ -737,6 +739,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_itemLogOutActionPerformed
+
+    private void pnSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSanPhamMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnSanPhamMouseExited
 
     /**
      * @param args the command line arguments

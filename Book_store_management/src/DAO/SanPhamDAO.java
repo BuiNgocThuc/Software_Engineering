@@ -103,7 +103,7 @@ public class SanPhamDAO {
         return rowInsert;
     }
 
-    public ArrayList<SanPhamDTO> findSPByTenSP(String temp) {
+    public ArrayList<SanPhamDTO> findSPByTenSP_or_MaSP(String temp) {
         ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
         String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE (TenSP LIKE ? or MaSP LIKE ?) and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
         try {
@@ -130,6 +130,138 @@ public class SanPhamDAO {
         return sanPhamList;
     }
 
+    public ArrayList<SanPhamDTO> findSPByTenSP(String TenSP) {
+        ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE sp.TenSP LIKE ?  and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + TenSP + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sanPhamList;
+    }
+
+    public ArrayList<SanPhamDTO> findSPByTacGIa(String TacGia) {
+        ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE TacGia LIKE ? and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + TacGia + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sanPhamList;
+    }
+
+    // tìm sản phẩm dựa trên tên thể loại
+    public ArrayList<SanPhamDTO> findSPByTheLoai(String TheLoai) {
+        ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE TenTL LIKE ? and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + TheLoai + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sanPhamList;
+    }
+
+    // tìm sản phẩm dựa trên mã sản phẩm
+    public ArrayList<SanPhamDTO> findSPByMaSP(int MaSP) {
+        ArrayList<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE MaSP LIKE ?  and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, "%" + MaSP + "%");
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                sanPhamList.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sanPhamList;
+    }
+    // lấy  sản phẩm dựa trên mã sản phẩm
+
+    public SanPhamDTO getSPByMaSP(int MaSP) {
+        String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL WHERE MaSP  = ?  and sp.TinhTrang = 1 and tl.TinhTrang = 1 ";
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, MaSP);
+            ResultSet resultSet = stmt.executeQuery();
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String tacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                return new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, tacGia, tinhTrang, donGia, soLuong, namXB);
+            }
+        } catch (SQLException e) {
+
+        }
+        return null;
+    }
+
     public SanPhamDTO getHinhAnhandNamXB(int maSP) {
         SanPhamDTO sp = null;
         String sql = "SELECT HinhAnh, NamXB FROM SanPham WHERE MaSP = ?";
@@ -152,28 +284,45 @@ public class SanPhamDAO {
         return sp;
     }
 
-  public boolean Update(SanPhamDTO sp) {
-    boolean rowUpdate = false;
-    try {
-        Connection conn = ConnectDB.getConnection();
-        String sql = "UPDATE SanPham SET TenSP=?, TacGia=?, NamXB=?, MaTL=?, SoLuong=?, DonGia=?, TinhTrang=?, HinhAnh=? WHERE MaSP=?";
-        PreparedStatement pst = conn.prepareStatement(sql);
-        pst.setString(1, sp.getTenSP());
-        pst.setString(2, sp.getTacGia());
-        pst.setInt(3, sp.getNamXB());
-        pst.setInt(4, sp.getMaTL());
-        pst.setInt(5, sp.getSoLuong());
-        pst.setDouble(6, sp.getDonGia());
-        pst.setBoolean(7, sp.getTinhTrang());
-        pst.setString(8, sp.getHinhAnh());
-        pst.setInt(9, sp.getMaSP());
-        rowUpdate = pst.executeUpdate() > 0;
-        ConnectDB.closeConnection(conn);
-    } catch (SQLException e) {
-        e.printStackTrace();
+    public boolean Update(SanPhamDTO sp) {
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE SanPham SET TenSP=?, TacGia=?, NamXB=?, MaTL=?, SoLuong=?, DonGia=?, TinhTrang=?, HinhAnh=? WHERE MaSP=?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, sp.getTenSP());
+            pst.setString(2, sp.getTacGia());
+            pst.setInt(3, sp.getNamXB());
+            pst.setInt(4, sp.getMaTL());
+            pst.setInt(5, sp.getSoLuong());
+            pst.setDouble(6, sp.getDonGia());
+            pst.setBoolean(7, sp.getTinhTrang());
+            pst.setString(8, sp.getHinhAnh());
+            pst.setInt(9, sp.getMaSP());
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
     }
-    return rowUpdate;
-}
 
-
+    // Hàm cập nhật số lượng sản phẩm dựa trên mã sản phẩm và số lượng mới
+    public boolean updateProductQuantity(int idSP, int newQuantity) {
+        // Truy vấn SQL để cập nhật số lượng
+        String sql = "UPDATE SanPham SET SoLuong = SoLuong - ? WHERE MaSP = ?";
+        boolean rowUpdate = false;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, newQuantity);
+            pst.setInt(2, idSP);
+            rowUpdate = pst.executeUpdate() > 0;
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowUpdate;
+    }
+  
 }

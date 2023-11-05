@@ -4,46 +4,119 @@
  */
 package GUI;
 
+import BUS.CTHoaDonBUS;
+import BUS.HoaDonBUS;
+import DTO.CTHoaDonDTO;
+import DTO.HoaDonDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
-import javax.swing.BorderFactory;
-import javax.swing.JLabel;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumnModel;
 
 /**
  *
  * @author NGOC THUC
  */
-public class HoaDonGUI extends javax.swing.JPanel {
+public final class HoaDonGUI extends javax.swing.JPanel {
 
     /**
      * Creates new form HoaDonGUI
      */
+    private JTable tableHoaDon;
+    private JTable tableChiTietHoaDon;
+    private DefaultTableModel modelHoaDon;
+    private DefaultTableModel modelChiTietHoaDon;
+    HoaDonBUS hoaDonBUS = new HoaDonBUS();
+
     public HoaDonGUI() {
+
         initComponents();
-        JTable tableHoadon = createTableSanPham();
-        tableHoadon.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
-        JScrollPane scrollPaneSanPham = new JScrollPane(tableHoadon);
+        createTable();
+        selectRow();
+        sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
+    }
+
+    private void createTable() {
+        tableHoaDon = createTableHoaDon();
+        ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.getAll();
+        loadDataTableHoaDon(listHoaDon, modelHoaDon);
+        tableHoaDon.setPreferredScrollableViewportSize(PanelTable1.getPreferredSize());
+        JScrollPane scrollPaneSanPham = new JScrollPane(tableHoaDon);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable1.setLayout(new BorderLayout());
         PanelTable1.add(scrollPaneSanPham);
-        JTable tableChitiet = createTableChitietSanpham();
-        tableChitiet.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
-        JScrollPane scrollPaneChitiet = new JScrollPane(tableChitiet);
+        tableChiTietHoaDon = createTableChiTietHoaDon();
+        tableChiTietHoaDon.setPreferredScrollableViewportSize(PanelTable2.getPreferredSize());
+        JScrollPane scrollPaneChitiet = new JScrollPane(tableChiTietHoaDon);
         scrollPaneChitiet.setBorder(matteBorder);
         PanelTable2.setLayout(new BorderLayout());
         PanelTable2.add(scrollPaneChitiet);
+    }
+
+    public void loadDataTableHoaDon(ArrayList<HoaDonDTO> listHoaDon, DefaultTableModel modelHoaDon) {
+        modelHoaDon.setRowCount(0);
+        int STT = 1;
+        for (HoaDonDTO hd : listHoaDon) {
+            int maHD = hd.getMaHD();
+            String maHDtext = sharedFunction.FormatID("HD", maHD);
+            String maNV = hd.getTenTK();
+            Date ngayLap = hd.getNgayTao();
+            Double TongTien = hd.getTongTien();
+            String TongTienText = sharedFunction.formatVND(TongTien);
+            Object[] row = {STT++, maHDtext, maNV, ngayLap, TongTienText};
+            modelHoaDon.addRow(row);
+        }
+    }
+
+    public void selectRow() {
+        tableHoaDon.getSelectionModel().addListSelectionListener((ListSelectionEvent event) -> {
+            if (!event.getValueIsAdjusting()) {
+                loadDataTableThongTinChiTiet();
+
+            }
+        });
+    }
+
+    public void loadDataTableThongTinChiTiet() {
+        modelChiTietHoaDon.setRowCount(0);
+        int selectRow = tableHoaDon.getSelectedRow();
+        if (selectRow >= 0) {
+            String maHDText = (String) tableHoaDon.getValueAt(selectRow, 1);
+            int MaHD = sharedFunction.convertToInteger(maHDText, "HD");
+            CTHoaDonBUS cthd = new CTHoaDonBUS();
+            ArrayList<CTHoaDonDTO> listCTHD = cthd.findHoaDonByMaHD(MaHD);
+            int STT = 1;
+            for (CTHoaDonDTO ct : listCTHD) {
+                String tenSP = ct.getTenSP();
+                int sl = ct.getSoLuong();
+                double donGia = ct.getDonGia();
+                String donGiaText = sharedFunction.formatVND(donGia);
+                Object[] row = {STT++, tenSP, sl, donGiaText};
+                modelChiTietHoaDon.addRow(row);
+            }
+        
+            String IdNhanVien = (String) tableHoaDon.getValueAt(selectRow, 2);
+            Date NgayLap = (Date) tableHoaDon.getValueAt(selectRow, 3);
+                
+            String TongTien = (String) tableHoaDon.getValueAt(selectRow, 4);
+            tfIDHoadon.setText(maHDText);
+            tfIDNhanvien.setText(IdNhanVien);
+            tfNgaytao.setText(String.valueOf(NgayLap));
+            tfTongtien.setText(TongTien);
+        }
     }
 
     /**
@@ -66,7 +139,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
         tfIDNhanvien = new javax.swing.JTextField();
         tfNgaytao = new javax.swing.JTextField();
         PanelTable2 = new javax.swing.JPanel();
-        btnInHoadon = new Components.ButtonRadius();
+        btnInHoaDon = new Components.ButtonRadius();
         tfTongtien = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         PanelTable1 = new javax.swing.JPanel();
@@ -74,7 +147,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
         tfTimkiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
-        btnLammoi = new Components.ButtonRadius();
+        btnLamMoi = new Components.ButtonRadius();
 
         setPreferredSize(new java.awt.Dimension(1020, 750));
 
@@ -135,58 +208,73 @@ public class HoaDonGUI extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        tfIDHoadon.setEditable(false);
+        tfIDHoadon.setBackground(new java.awt.Color(255, 255, 255));
         tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDHoadon.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfIDHoadon.setEnabled(false);
+        tfIDHoadon.setOpaque(true);
 
+        tfIDNhanvien.setEditable(false);
+        tfIDNhanvien.setBackground(new java.awt.Color(255, 255, 255));
         tfIDNhanvien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfIDNhanvien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID. Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDNhanvien.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfIDNhanvien.setEnabled(false);
 
+        tfNgaytao.setEditable(false);
+        tfNgaytao.setBackground(new java.awt.Color(255, 255, 255));
         tfNgaytao.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfNgaytao.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày lập hóa đơn", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfNgaytao.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfNgaytao.setEnabled(false);
 
         PanelTable2.setBackground(new java.awt.Color(255, 255, 255));
-        PanelTable2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
+        PanelTable2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(135, 172, 217)));
         PanelTable2.setPreferredSize(new java.awt.Dimension(438, 320));
 
         javax.swing.GroupLayout PanelTable2Layout = new javax.swing.GroupLayout(PanelTable2);
         PanelTable2.setLayout(PanelTable2Layout);
         PanelTable2Layout.setHorizontalGroup(
             PanelTable2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 436, Short.MAX_VALUE)
+            .addGap(0, 438, Short.MAX_VALUE)
         );
         PanelTable2Layout.setVerticalGroup(
             PanelTable2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
 
-        btnInHoadon.setForeground(new java.awt.Color(135, 172, 217));
-        btnInHoadon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
-        btnInHoadon.setText("In hóa đơn");
-        btnInHoadon.setFocusPainted(false);
-        btnInHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        btnInHoadon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btnInHoadon.setIconTextGap(0);
-        btnInHoadon.setMargin(new java.awt.Insets(2, -10, 3, 0));
-        btnInHoadon.setPreferredSize(new java.awt.Dimension(140, 40));
-        btnInHoadon.setRadius(40);
-        btnInHoadon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnInHoadon.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnInHoaDon.setForeground(new java.awt.Color(135, 172, 217));
+        btnInHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/print.png"))); // NOI18N
+        btnInHoaDon.setText("In hóa đơn");
+        btnInHoaDon.setFocusPainted(false);
+        btnInHoaDon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
+        btnInHoaDon.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnInHoaDon.setIconTextGap(0);
+        btnInHoaDon.setMargin(new java.awt.Insets(2, -10, 3, 0));
+        btnInHoaDon.setPreferredSize(new java.awt.Dimension(140, 40));
+        btnInHoaDon.setRadius(40);
+        btnInHoaDon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnInHoadonMouseClicked(evt);
+                btnInHoaDonMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnInHoaDonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnInHoaDonMouseExited(evt);
             }
         });
-        btnInHoadon.addActionListener(new java.awt.event.ActionListener() {
+        btnInHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInHoadonActionPerformed(evt);
+                btnInHoaDonActionPerformed(evt);
             }
         });
 
+        tfTongtien.setEditable(false);
+        tfTongtien.setBackground(new java.awt.Color(255, 255, 255));
         tfTongtien.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongtien.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng tiền", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfTongtien.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfTongtien.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(135, 172, 217));
@@ -204,14 +292,14 @@ public class HoaDonGUI extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnInHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tfTongtien, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfTongtien, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(tfIDNhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(tfNgaytao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfNgaytao, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(PanelTable2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -228,11 +316,11 @@ public class HoaDonGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelTable2, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                .addComponent(PanelTable2, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addGap(12, 12, 12)
                 .addComponent(tfTongtien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnInHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
         );
 
@@ -259,9 +347,16 @@ public class HoaDonGUI extends javax.swing.JPanel {
         tfTimkiem.setBackground(new java.awt.Color(243, 243, 244));
         tfTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         tfTimkiem.setForeground(new java.awt.Color(135, 172, 217));
-        tfTimkiem.setText("Tìm kiếm sản phẩm");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseExited(evt);
+            }
+        });
         tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfTimkiemActionPerformed(evt);
@@ -287,7 +382,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
@@ -302,26 +397,47 @@ public class HoaDonGUI extends javax.swing.JPanel {
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setRadius(40);
         btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseExited(evt);
+            }
+        });
         btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimkiemActionPerformed(evt);
             }
         });
+        btnTimkiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnTimkiemKeyPressed(evt);
+            }
+        });
 
-        btnLammoi.setBorder(null);
-        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnLammoi.setText("Làm mới");
-        btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi.setIconTextGap(0);
-        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setRadius(40);
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLamMoi.setBorder(null);
+        btnLamMoi.setForeground(new java.awt.Color(135, 172, 217));
+        btnLamMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnLamMoi.setText("Làm mới");
+        btnLamMoi.setFocusPainted(false);
+        btnLamMoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLamMoi.setIconTextGap(0);
+        btnLamMoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnLamMoi.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnLamMoi.setRadius(40);
+        btnLamMoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLamMoiMouseExited(evt);
+            }
+        });
+        btnLamMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                btnLamMoiActionPerformed(evt);
             }
         });
 
@@ -337,7 +453,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(PanelTable1, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
                         .addGap(24, 24, 24)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -357,7 +473,7 @@ public class HoaDonGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLamMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
@@ -377,14 +493,14 @@ public class HoaDonGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnInHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoadonMouseClicked
+    private void btnInHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseClicked
         // TODO add your handling code here:
-       
-    }//GEN-LAST:event_btnInHoadonMouseClicked
 
-    private void btnInHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoadonActionPerformed
+    }//GEN-LAST:event_btnInHoaDonMouseClicked
+
+    private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnInHoadonActionPerformed
+    }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
         // TODO add your handling code here:
@@ -392,131 +508,131 @@ public class HoaDonGUI extends javax.swing.JPanel {
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
         // TODO add your handling code here:
+        String searchKeyword = tfTimkiem.getText().trim();
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
+        }
+        findHoaDonByMaHD(tfTimkiem.getText(), modelHoaDon);
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnLamMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLamMoiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnLammoiActionPerformed
+        modelChiTietHoaDon.setRowCount(0);
+        modelHoaDon.setRowCount(0);
+        ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.getAll();
+        loadDataTableHoaDon(listHoaDon, modelHoaDon);
+//        tfTimkiem.setText("Tìm kiếm theo mã hóa đơn");
+        tfIDHoadon.setText("");
+        tfIDNhanvien.setText("");
+        tfNgaytao.setText("");
+        tfTongtien.setText("");
 
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Điều chỉnh font và cỡ chữ
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                    label.setFont(headerFont);
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-        // Đặt renderer tùy chỉnh cho header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-       public static void EditHeaderTable2(JTable table) {
-    // Increase the header height
-    table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40));
+    }//GEN-LAST:event_btnLamMoiActionPerformed
 
-    // Create a custom header renderer
-    DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-        @Override
-        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-            JTableHeader header = table.getTableHeader();
-            if (header != null) {
-                setForeground(new Color(254, 194, 92)); // Set text color
-                setBackground(new Color(255, 255, 255)); // Set background color
-                Font headerFont = new Font("Josefin Sans", Font.BOLD, 14); // Adjust font and font size
-                header.setFont(headerFont);
-                JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                label.setHorizontalAlignment(SwingConstants.CENTER); // Center the content
-                label.setFont(headerFont);
+    private void btnLamMoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseEntered
+        // TODO add your handling code here:
+        btnLamMoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLamMoiMouseEntered
 
-                // Add vertical lines between columns
-                int thickness = 1; // Adjust the line thickness as needed
-                label.setBorder(BorderFactory.createMatteBorder(0, 0, 0, thickness, new Color(254, 194, 92)));
+    private void btnLamMoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLamMoiMouseExited
+        // TODO add your handling code here:
+        btnLamMoi.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLamMoiMouseExited
 
-                return label;
-            }
-            setText((value == null) ? "" : value.toString());
-            return this;
+    private void btnInHoaDonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseEntered
+        // TODO add your handling code here:
+        btnInHoaDon.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnInHoaDonMouseEntered
+
+    private void btnInHoaDonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInHoaDonMouseExited
+        // TODO add your handling code here:
+        btnInHoaDon.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnInHoaDonMouseExited
+
+    private void btnTimkiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseEntered
+        // TODO add your handling code here:
+        btnTimkiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnTimkiemMouseEntered
+
+    private void btnTimkiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseExited
+        // TODO add your handling code here:
+        btnTimkiem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnTimkiemMouseExited
+
+    private void tfTimkiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfTimkiemMouseExited
+
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        // TODO add your handling code here:
+        tfTimkiem.setFocusable(true);
+    }//GEN-LAST:event_tfTimkiemMouseClicked
+
+    private void btnTimkiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnTimkiemKeyPressed
+        // TODO add your handling code here:
+        // Kiểm tra xem phím bấm có phải là Enter không
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        // Lấy dữ liệu tìm kiếm và xử lý nếu là Enter
+        String searchKeyword = tfTimkiem.getText().trim();
+        if (searchKeyword.isEmpty()) {
+            sharedFunction.addPlaceholder(tfTimkiem, "Tìm kiếm theo mã hóa đơn");
+        } else {
+            findHoaDonByMaHD(searchKeyword, modelHoaDon);
         }
-    };
-
-    // Set the custom renderer for the table header
-    table.getTableHeader().setDefaultRenderer(headerRenderer);
-}
-
-
-    public static void editTableContent(JTable table) {
-        // Đặt độ cao cho từng dòng (trừ header)
-        int rowHeight = 30;
-        table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(135,172,217));
-        table.setShowGrid(true);
-        table.setBackground(Color.WHITE);
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
-        // Vô hiệu hóa kéo cột
-        table.getTableHeader().setReorderingAllowed(false);
-        // Vô hiệu hóa kéo dãng cột
-        table.getTableHeader().setResizingAllowed(false);
     }
-    public JTable createTableChitietSanpham() {
+           
+    }//GEN-LAST:event_btnTimkiemKeyPressed
+
+    public JTable createTableChiTietHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT","Tên sản phẩm","Số lượng","Thành tiền"};
-        DefaultTableModel model = new DefaultTableModel() {
+        String[] columnNames = {"STT", "Tên sản phẩm", "Số lượng", "Thành tiền"};
+        modelChiTietHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0 || columnIndex == 2) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+
+                } else if (columnIndex == 3) { // Cột Đơn giá
+                    return Double.class; // Kiểu dữ liệu Float
+
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelChiTietHoaDon.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelChiTietHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(250); // Độ rộng cột 1
         columnModel.getColumn(2).setPreferredWidth(150); // Độ rộng cột 2
         columnModel.getColumn(3).setPreferredWidth(150); // Độ rộng cột 3
 
-        EditHeaderTable2(table);
-        editTableContent(table);
+        NhapHangGUI.EditHeaderTable2(table);
+        sharedFunction.EditTableContent(table);
+        table.setBorder(null);
         return table;
     }
-    
-    public JTable createTableSanPham() {
+
+    public JTable createTableHoaDon() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Hóa đơn", "ID Nhân viên", "Ngày lập", "Tổng tiền"};
-        DefaultTableModel model = new DefaultTableModel() {
+        modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
-                if (columnIndex == 0 || columnIndex == 5) { // Cột STT và Số lượng
+                if (columnIndex == 0) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
-                } else if (columnIndex == 6) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+
+                } else if (columnIndex == 4) { // Cột Đơn giá
+                    return Double.class; // Kiểu dữ liệu Float
+
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }
         };
-        model.setColumnIdentifiers(columnNames);
+        modelHoaDon.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
+        JTable table = new JTable(modelHoaDon);
         TableColumnModel columnModel = table.getColumnModel();
         columnModel.getColumn(0).setPreferredWidth(60); // Độ rộng cột 0
         columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
@@ -524,26 +640,9 @@ public class HoaDonGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(200); // Độ rộng cột 3
         columnModel.getColumn(4).setPreferredWidth(200); // Độ rộng cột 6
 
-        EditHeaderTable(table);
-        editTableContent(table);
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
-    }
-
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
     }
 
     private void addPlaceholderStyle(JTextField textField, String name) {
@@ -558,11 +657,31 @@ public class HoaDonGUI extends javax.swing.JPanel {
         textFiled.setForeground(Color.black);
     }
 
+    public void findHoaDonByMaHD(String maHD, DefaultTableModel model) {
+        if (maHD.isEmpty() || maHD.trim().equals("Tìm kiếm theo mã hóa đơn")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int maHDnumber = sharedFunction.convertToInteger(maHD, "HD");
+            if (maHDnumber == -1) {
+                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
+                ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.findHoaDonByMaHD(maHDnumber);
+                if (!listHoaDon.isEmpty()) {
+                    loadDataTableHoaDon(listHoaDon, model);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable1;
     private javax.swing.JPanel PanelTable2;
-    private Components.ButtonRadius btnInHoadon;
-    private Components.ButtonRadius btnLammoi;
+    private Components.ButtonRadius btnInHoaDon;
+    private Components.ButtonRadius btnLamMoi;
     private Components.ButtonRadius btnTimkiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

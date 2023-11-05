@@ -9,30 +9,48 @@ package DTO;
  * @author NGOC THUC
  */
 public class CTHoaDonDTO {
-    private String MaHD, MaSP;
+
+    private int MaHD, MaSP;
     private double DonGia;
     private int SoLuong;
+    private String TenSP;
 
-    public CTHoaDonDTO(String MaHD, String MaSP, double DonGia, int SoLuong) {
+    public CTHoaDonDTO(int MaHD, int MaSP, String tenSP, double DonGia, int SoLuong) {
+        this.MaHD = MaHD;
+        this.MaSP = MaSP;
+        this.TenSP = tenSP;
+        this.DonGia = DonGia;
+        this.SoLuong = SoLuong;
+    }
+
+    public CTHoaDonDTO(double DonGia, int SoLuong, String TenSP) {
+        this.DonGia = DonGia;
+        this.SoLuong = SoLuong;
+        this.TenSP = TenSP;
+    }
+
+    public CTHoaDonDTO(int MaHD, int MaSP, double DonGia, int SoLuong) {
         this.MaHD = MaHD;
         this.MaSP = MaSP;
         this.DonGia = DonGia;
         this.SoLuong = SoLuong;
     }
 
-    public String getMaHD() {
+
+
+    public int getMaHD() {
         return MaHD;
     }
 
-    public void setMaHD(String MaHD) {
+    public void setMaHD(int MaHD) {
         this.MaHD = MaHD;
     }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return MaSP;
     }
 
-    public void setMaSP(String MaSP) {
+    public void setMaSP(int MaSP) {
         this.MaSP = MaSP;
     }
 
@@ -51,6 +69,13 @@ public class CTHoaDonDTO {
     public void setSoLuong(int SoLuong) {
         this.SoLuong = SoLuong;
     }
-    
-    
+
+    public String getTenSP() {
+        return TenSP;
+    }
+
+    public void setTenSP(String TenSP) {
+        this.TenSP = TenSP;
+    }
+
 }

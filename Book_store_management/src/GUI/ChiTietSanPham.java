@@ -9,13 +9,17 @@ import BUS.TheLoaiBUS;
 import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
 import Util.sharedFunction;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.Border;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 /**
@@ -51,12 +55,13 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         this.donGia = donGia;
         txtID.setText(maSP);
         txtTenSP.setText(tenSP);
-        txtTacGia.setText(tacGia);
+        txtTacGia.setText(tenTacGia);
         txtSoLuong.setText(String.valueOf(soLuong));
         txtDonGia.setText(String.valueOf(donGia));
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         listTheLoai.addItem(theLoai);
+
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
         for (TheLoaiDTO tl : theLoaiList) {
             if (!tl.getTenTL().equals(theLoai)) {
@@ -77,9 +82,7 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             lblImage.setIcon(imageIcon);
         } else {
             lblImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/add.png")));
-
         }
-
     }
 
     public ChiTietSanPham(int STT, String maSP) { // Sử dụng khi thêm sản phẩm
@@ -87,9 +90,14 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         sharedFunction.moveLayout(this, PannelOverview);
         this.STT = STT;
         txtID.setText(maSP); // gán mã sản phẩm tự động
+        txtSoLuong.setText("0");
+        txtDonGia.setText("0");
+        txtSoLuong.setFocusable(false);
+        txtDonGia.setFocusable(false);
         // Gọi lớp BUS để lấy danh sách thể loại
         ArrayList<TheLoaiDTO> theLoaiList = theLoaiBUS.getAll();
         // Đổ dữ liệu từ danh sách thể loại vào JComboBox
+        listTheLoai.addItem("Chọn thể loại");
         for (TheLoaiDTO tl : theLoaiList) {
             listTheLoai.addItem(tl.getTenTL());  // gán danh sách thể loại tự động
         }
@@ -291,6 +299,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         listTheLoai.setBorder(null);
         listTheLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         listTheLoai.setOpaque(true);
+        listTheLoai.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                listTheLoaiFocusGained(evt);
+            }
+        });
         listTheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 listTheLoaiActionPerformed(evt);
@@ -507,21 +520,26 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_listTheLoaiActionPerformed
 
-   
+    private void listTheLoaiFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_listTheLoaiFocusGained
+        // TODO add your handling code here:
+        // Xóa "Chọn thể loại" khi ComboBox được focus
+//        listTheLoai.removeItem("Chọn thể loại");
+    }//GEN-LAST:event_listTheLoaiFocusGained
 
     private void ThemSanPham() {
-        String MaSP = txtID.getText();
-        tenSP = txtTenSP.getText();
-        // Lấy giá trị được chọn từ JComboBox
-        Object selectedItem = listTheLoai.getSelectedItem();
-        // Ép kiểu và gán giá trị vào một chuỗi
-        String tenTL = (String) selectedItem;
-        tenTacGia = txtTacGia.getText();
-        namXB = Integer.parseInt(txtNamXB.getText());
-        soLuong = Integer.parseInt(txtSoLuong.getText());
-        donGia = Double.parseDouble(txtDonGia.getText());
-        int maTL = theLoaiBUS.getMaTLbyTenTL(tenTL);
-        if (!tenSP.isEmpty()) {
+
+        if (validateInput()) {
+            String MaSP = txtID.getText();
+            tenSP = txtTenSP.getText();
+            // Lấy giá trị được chọn từ JComboBox
+            Object selectedItem = listTheLoai.getSelectedItem();
+            // Ép kiểu và gán giá trị vào một chuỗi
+            String tenTL = (String) selectedItem;
+            tenTacGia = txtTacGia.getText();
+            namXB = Integer.parseInt(txtNamXB.getText());
+            soLuong = Integer.parseInt(txtSoLuong.getText());
+            donGia = Double.parseDouble(txtDonGia.getText());
+            int maTL = theLoaiBUS.getMaTLbyTenTL(tenTL);
             SanPhamDTO sp = new SanPhamDTO(maTL, tenSP, tenTacGia, rootPaneCheckingEnabled, donGia, soLuong, namXB, hinhAnh);
             boolean result = sanPhamBUS.addSanPham(sp);
             if (result) {
@@ -533,27 +551,25 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Lỗi khi thêm sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public void SuaSanPham() {
-        tenSP = txtTenSP.getText();
-        // Lấy giá trị được chọn từ JComboBox
-        Object selectedItem = listTheLoai.getSelectedItem();
-        // Ép kiểu và gán giá trị vào một chuỗi
-        theLoai = (String) selectedItem;
-        tenTacGia = txtTacGia.getText();
-        namXB = Integer.parseInt(txtNamXB.getText());
-        soLuong = Integer.parseInt(txtSoLuong.getText());
-        donGia = Double.parseDouble(txtDonGia.getText());
-        int maTL = theLoaiBUS.getMaTLbyTenTL(theLoai);
-        if (!tenSP.isEmpty()) {
-            SanPhamDTO sp = new SanPhamDTO(maSP,maTL, tenSP, tenTacGia, true, donGia, soLuong, namXB, hinhAnh);
-       
+
+        if (validateInput()) {
+            tenSP = txtTenSP.getText();
+            // Lấy giá trị được chọn từ JComboBox
+            Object selectedItem = listTheLoai.getSelectedItem();
+            // Ép kiểu và gán giá trị vào một chuỗi
+            theLoai = (String) selectedItem;
+            tenTacGia = txtTacGia.getText();
+            namXB = Integer.parseInt(txtNamXB.getText());
+            soLuong = Integer.parseInt(txtSoLuong.getText());
+            donGia = Double.parseDouble(txtDonGia.getText());
+            int maTL = theLoaiBUS.getMaTLbyTenTL(theLoai);
+            SanPhamDTO sp = new SanPhamDTO(maSP, maTL, tenSP, tenTacGia, true, donGia, soLuong, namXB, hinhAnh);
+
             boolean result = sanPhamBUS.updateSanPham(sp);
-            System.out.println(result);
             if (result) {
                 // Thêm sản phẩm vào bảng
                 // Gửi thông tin thể loại mới về frame gốc
@@ -563,8 +579,6 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Lỗi khi sửa sản phẩm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên sản phẩm", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
 
     }
@@ -592,7 +606,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             return hinhAnh;
         }
     }
-     // Hàm thay đổi kích thước hình ảnh sao cho vừa với JLabel
+
+    // Hàm thay đổi kích thước hình ảnh vừa với JLabel
     private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {
         if (imageIcon == null) {
             return null;
@@ -607,6 +622,121 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         // Tạo một ImageIcon mới từ hình ảnh đã điều chỉnh kích thước
         return new ImageIcon(scaledImage);
     }
+
+    // hàm kiểm tra đầu vào khi thêm sản phẩm
+    private boolean validateInput() {
+        ArrayList<Component> errorComponents = new ArrayList<>();
+        ArrayList<String> errors = new ArrayList<>();
+        Border redBorder = BorderFactory.createLineBorder(Color.RED);
+        // Lưu trạng thái ban đầu của Border
+        Border originalBorder = txtID.getBorder();
+        // Kiểm tra tên sản phẩm
+        if (txtTenSP.getText().isEmpty()) {
+            errors.add("Vui lòng nhập tên sản phẩm.");
+            errorComponents.add(txtTenSP);
+            txtTenSP.setBorder(redBorder);
+        } else {
+            txtTenSP.setBorder(originalBorder);
+        }
+
+        // Kiểm tra thể loại
+        Object selectedItem = listTheLoai.getSelectedItem();
+        if (selectedItem == null) {
+            errors.add("Vui lòng chọn thể loại.");
+            errorComponents.add(listTheLoai);
+        }
+
+        // Kiểm tra tác giả
+        if (txtTacGia.getText().isEmpty()) {
+            errors.add("Vui lòng nhập tên tác giả.");
+            errorComponents.add(txtTacGia);
+            txtTacGia.setBorder(redBorder);
+        } else {
+            txtTacGia.setBorder(originalBorder);
+        }
+
+        // Kiểm tra combobox "tìm kiếm theo"
+        int selectedSearchIndex = listTheLoai.getSelectedIndex();
+        if (selectedSearchIndex == 0) {
+            errors.add("Vui lòng chọn thể loại.");
+            errorComponents.add(listTheLoai);
+        } else {
+            listTheLoai.setBorder(originalBorder);
+        }
+        // Kiểm tra năm xuất bản
+        if (txtNamXB.getText().isEmpty()) {
+            errors.add("Vui lòng nhập năm xuất bản");
+            errorComponents.add(txtNamXB);
+            txtNamXB.setBorder(redBorder);
+        } else if (!isNumeric(txtNamXB.getText())) {
+            errors.add("Năm xuất bản không hợp lệ");
+            errorComponents.add(txtNamXB);
+            txtNamXB.setBorder(redBorder);
+        } else if (Integer.parseInt(txtNamXB.getText()) < 0) {
+            errors.add("Năm xuất bản phải lớn hơ hoặc 0.");
+            errorComponents.add(txtNamXB);
+            txtNamXB.setBorder(redBorder);
+        } else {
+            txtNamXB.setBorder(originalBorder);
+        }
+
+        // Kiểm tra số lượng
+        if (txtSoLuong.getText().isEmpty()) {
+            errors.add("Vui lòng nhập số lượng");
+            errorComponents.add(txtSoLuong);
+            txtSoLuong.setBorder(redBorder);
+        } else if (!isNumeric(txtSoLuong.getText())) {
+            errors.add("Số lượng không hợp lệ");
+            errorComponents.add(txtSoLuong);
+            txtSoLuong.setBorder(redBorder);
+        } else if (Integer.parseInt(txtSoLuong.getText()) < 0) {
+            errors.add("Số lượng phải lớn hơn hoặc bằng 0.");
+            errorComponents.add(txtSoLuong);
+            txtSoLuong.setBorder(redBorder);
+        } else {
+            txtSoLuong.setBorder(originalBorder);
+        }
+
+        // Kiểm tra đơn giá
+        if (txtDonGia.getText().isEmpty()) {
+            errors.add("Vui lòng nhập đơn giá");
+            errorComponents.add(txtDonGia);
+            txtDonGia.setBorder(redBorder);
+        } else if (!isNumeric(txtDonGia.getText())) {
+            errors.add("Đơn giá không hợp lệ.");
+            errorComponents.add(txtDonGia);
+            txtDonGia.setBorder(redBorder);
+        } else if (Double.parseDouble(txtDonGia.getText()) < 0) {
+            errors.add("Đơn giá phải lớn hơn hoặc bằng 0.");
+            errorComponents.add(txtDonGia);
+            txtDonGia.setBorder(redBorder);
+        } else {
+            txtDonGia.setBorder(originalBorder);
+        }
+
+        if (errors.isEmpty()) {
+            return true;
+        } else {
+            // Hiển thị thông báo lỗi tổng hợp
+            String errorMessage = String.join("\n", errors);
+            JOptionPane.showMessageDialog(this, errorMessage, "Lỗi", JOptionPane.ERROR_MESSAGE);
+
+            // Đặt trọng tâm vào ô lỗi đầu tiên
+            errorComponents.get(0).requestFocusInWindow();
+
+            return false;
+        }
+    }
+
+    private boolean isNumeric(String s) {
+        try {
+            Double.parseDouble(s);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     /**
      * @param args the command line arguments
      */

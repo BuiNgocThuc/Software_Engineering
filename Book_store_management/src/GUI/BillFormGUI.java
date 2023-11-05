@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import Util.sharedFunction;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author tnpqu
@@ -13,8 +17,44 @@ public class BillFormGUI extends javax.swing.JFrame {
     /**
      * Creates new form BillFormGUI
      */
+    private String IDhoaDon;
+    private String TenNV;
+    private String TienKhachDua;
+    private String TienThoi;
+    private String TongTien;
+    private String NgayTao;
+    private DefaultTableModel modelHoaDon;
+
     public BillFormGUI() {
         initComponents();
+    }
+
+    public BillFormGUI(String IDhoaDon, String TenNV, String TienKhachDua, String TienThoi, String TongTien, String NgayTao, DefaultTableModel model) {
+        initComponents();
+        this.IDhoaDon = IDhoaDon;
+        this.TenNV = TenNV;
+        this.TienKhachDua = TienKhachDua;
+        this.TienThoi = TienThoi;
+        this.TongTien = TongTien;
+        this.NgayTao = NgayTao;
+        this.modelHoaDon = model;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String tenSanPham = (String) model.getValueAt(i, 1);
+            String soLuongStr = (String) model.getValueAt(i, 2);
+            String ThanhTienStr = (String) model.getValueAt(i, 3);
+            double ThanhTien = sharedFunction.parseMoneyString(ThanhTienStr);
+            int soLuong = sharedFunction.stringToInteger(soLuongStr);
+            double donGia = ThanhTien / soLuong;
+            String donGiaText = sharedFunction.formatVND(donGia);
+            Object[] rowData = {tenSanPham, donGiaText, soLuongStr, ThanhTienStr};
+            DefaultTableModel model1 = (DefaultTableModel) tbHoadon.getModel();
+            model1.addRow(rowData);
+        }
+        tfIDHoadon.setText(IDhoaDon);
+        tfNgaytao.setText(NgayTao);
+        tfTienkhach.setText(TienKhachDua);
+        tfTienthoi.setText(TienThoi);
+        tfTongtien.setText(TongTien);
     }
 
     /**
@@ -65,7 +105,7 @@ public class BillFormGUI extends javax.swing.JFrame {
         tfNgaytao.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
-        jLabel2.setText("Hóa đơn mua hàng");
+        jLabel2.setText("Hóa đơn thanh toán");
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -74,28 +114,14 @@ public class BillFormGUI extends javax.swing.JFrame {
         tbHoadon.setForeground(new java.awt.Color(135, 172, 217));
         tbHoadon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tên sản phẩm", "Đơn giá", "Số lượng", "Thành tiền"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Float.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -171,6 +197,11 @@ public class BillFormGUI extends javax.swing.JFrame {
         btnQuaylai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnQuaylaiMouseClicked(evt);
+            }
+        });
+        btnQuaylai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuaylaiActionPerformed(evt);
             }
         });
 
@@ -278,6 +309,7 @@ public class BillFormGUI extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfIDHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDHoadonActionPerformed
@@ -291,6 +323,11 @@ public class BillFormGUI extends javax.swing.JFrame {
     private void btnQuaylaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuaylaiMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuaylaiMouseClicked
+
+    private void btnQuaylaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuaylaiActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_btnQuaylaiActionPerformed
 
     /**
      * @param args the command line arguments

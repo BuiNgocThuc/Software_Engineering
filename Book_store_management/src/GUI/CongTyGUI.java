@@ -318,7 +318,9 @@ public class CongTyGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-        TimKiem();
+
+            TimKiem();
+        
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -373,13 +375,8 @@ public class CongTyGUI extends javax.swing.JPanel {
 
     public void TimKiem() {
         ArrayList<CongTyDTO> spTK = new ArrayList<>();
-        CongTyDAO ctyDao = new CongTyDAO();
-        String chuoiTim = tfTimkiem.getText();
-        for (CongTyDTO u : ctyDao.selectAll()) {
-            if (u.getTenNCC().toLowerCase().contains(chuoiTim.toLowerCase()) || String.valueOf("CT00" + u.getMaNCC()).contains(chuoiTim)) {
-                spTK.add(u);
-            }
-        }
+        String chuoiTim = tfTimkiem.getText().toLowerCase();
+        spTK=ctyBus.searchCongTy(chuoiTim);
         DefaultTableModel model = (DefaultTableModel) tableNhanvien.getModel();
         model.setRowCount(0);
         count = 1;

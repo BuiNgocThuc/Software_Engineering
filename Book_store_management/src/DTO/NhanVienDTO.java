@@ -11,6 +11,10 @@ package DTO;
 public class NhanVienDTO {
     private String MaNV, TenNV, SDT, GioiTinh, DiaChi, Email, TinhTrang;
 
+    public NhanVienDTO() {
+    }
+    
+    
     public NhanVienDTO(String MaNV, String TenNV, String SDT, String GioiTinh, String DiaChi, String Email, String TinhTrang) {
         this.MaNV = MaNV;
         this.TenNV = TenNV;

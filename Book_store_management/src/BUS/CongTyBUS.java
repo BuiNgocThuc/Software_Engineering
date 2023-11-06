@@ -20,6 +20,9 @@ public class CongTyBUS {
     public ArrayList<CongTyDTO> selectAll() {
         return ctyDao.selectAll();
     }
+    public ArrayList<CongTyDTO> searchCongTy(String tukhoa) {
+        return ctyDao.searchCongTy(tukhoa);
+    }
     public CongTyDTO getCongTyById(int id){
         return ctyDao.getCongTyById(id);
     }

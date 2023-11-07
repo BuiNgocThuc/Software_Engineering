@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Vector;
+import java.util.function.Consumer;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -43,19 +45,32 @@ public class NhanVienGUI extends javax.swing.JPanel {
         scrollPaneSanPham.setBorder(matteBorder);
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
-        
         loadData(tableNhanvien);
     }
     private static int count = 1;
-    NhanVienBUS nvBus = new NhanVienBUS();
+    
 
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
         count=1;
-        nvBus.selectAll().forEach((nv) -> {
-            model.addRow(new Object[]{count++, nv.getMaNV(), nv.getTenNV(),nv.getGioiTinh(),"" ,nv.getSDT(),nv.getEmail(), nv.getDiaChi()});
-        });
+        NhanVienBUS nvBus = new NhanVienBUS();
+        ArrayList<NhanVienDTO> listnv=nvBus.selectAll();
+        for(int i=0;i<listnv.size();i++){
+            String manv=listnv.get(i).getMaNV();
+            String tennv=listnv.get(i).getTenNV();
+            String gioitinh=listnv.get(i).getGioiTinh();
+            String chucvu=getChucVu(manv);
+            String sdt=listnv.get(i).getSDT();
+            String email=listnv.get(i).getEmail();
+            String diachi=listnv.get(i).getDiaChi();
+            model.addRow(new Object[]{count++, manv, tennv,gioitinh,chucvu ,sdt,email, diachi});
+        }
+        
+    }
+    public String getChucVu(String id){
+        NhanVienBUS nvBus = new NhanVienBUS();
+        return nvBus.getChucVu(id);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -298,6 +313,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         String temp = null;
+        NhanVienBUS nvBus = new NhanVienBUS();
         int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
         if (option == JOptionPane.YES_OPTION) {
             temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
@@ -308,11 +324,22 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        ChiTietNhanVien ctnv=new ChiTietNhanVien();
+        ctnv.Model=1;
+        ctnv.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        // TODO add your handling code here:
+        ChiTietNhanVien ctnv=new ChiTietNhanVien();
+        String id = null;
+        id= (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+        if (id != null) {
+            ctnv.setData(id);
+            ctnv.Model = 2;
+            ctnv.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn Công ty để sửa");
+        }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed

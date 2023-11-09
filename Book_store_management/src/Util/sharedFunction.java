@@ -4,10 +4,12 @@
  */
 package Util;
 
+import GUI.MainFrameGUI;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -242,4 +244,23 @@ public class sharedFunction {
             return 0; // Xử lý lỗi và trả về giá trị mặc định nếu có lỗi
         }
     }
+
+    public static void openNewFrame(JFrame frame) {
+        // Tạo JFrame mới
+
+        // Lấy vị trí của JFrame chính 
+        JFrame mainFrame = MainFrameGUI.getMainFrameInstance();
+        int mainFrameX = mainFrame.getX();
+        int mainFrameY = mainFrame.getY();
+
+        // Tính toán vị trí cho JFrame mới
+        int newX = mainFrameX + 270; //  tăng heo trục x
+        int newY = mainFrameY + 35; //  tăng theo trục y
+
+        // Đặt vị trí của JFrame mới
+        frame.setLocation(newX, newY);
+
+        frame.setVisible(true);
+    }
+
 }

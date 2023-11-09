@@ -45,9 +45,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
      * Creates new form BanHangGUI
      */
     private static JTable tableSanPham;
+    private static DefaultTableModel modelSanPham;
     private static JTable tableHoaDon;
     private static DefaultTableModel modelHoaDon;
-    private static DefaultTableModel modelSanPham;
+
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     SanPhamGUI sanPhamGUI = new SanPhamGUI();
     HoaDonBUS hoaDonBUS = new HoaDonBUS();
@@ -699,7 +700,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
         timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá", "Tìm kiếm nâng cao" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -882,8 +883,8 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setText(maHDtext);
 
         // Lấy ID nhân viên 
-        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-        txtIDNhanvien.setText("NV00" + tenTK);
+//        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+//        txtIDNhanvien.setText("NV00" + tenTK);
         // Lấy ngày hiện tại
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -1120,7 +1121,15 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
         int selectedIndex = timKiemTheo.getSelectedIndex();
-        sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
+
+        System.out.println(selectedIndex);
+        if (selectedIndex != 6) {
+            sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
+        } else {
+          
+            LocAnd l = new LocAnd();
+            sharedFunction.openNewFrame( l);
+        }
     }//GEN-LAST:event_timKiemTheoActionPerformed
 //    public static String FormatMaHD(int MaHD) {
 //        return String.format("HD%02d", MaHD);

@@ -449,7 +449,12 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
-            findSanPham(searchKeyword, selectedIndex, modelSanPham);
+            System.out.println(selectedIndex);
+            if (selectedIndex != 6) {
+                findSanPham(searchKeyword, selectedIndex, modelSanPham);
+            } else {
+
+            }
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
     public void findSanPham(String searchKeyword, int selectedIndex, DefaultTableModel model) {
@@ -473,6 +478,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             case 4 -> {
                 findSanPhamByTheLoai(searchKeyword, model);
             }
+
             default -> {
             }
         }
@@ -635,7 +641,13 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
         int selectedIndex = timKiemTheo.getSelectedIndex();
-        sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+        System.out.println(selectedIndex);
+        if (selectedIndex != 6) {
+            sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+        } else {
+            new LocAnd().setVisible(true);
+        }
+
 
     }//GEN-LAST:event_timKiemTheoActionPerformed
     public String getPlaceholderByIndex(int selectedIndex) {
@@ -972,6 +984,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         }
 
+    }
+
+    public static JTable getTableSanPham() {
+        return tableSanPham;
+    }
+
+    public static DefaultTableModel getModelSanPham() {
+        return modelSanPham;
     }
 
 

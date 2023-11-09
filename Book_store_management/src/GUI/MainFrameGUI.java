@@ -4,16 +4,21 @@
  */
 package GUI;
 
+import BUS.SanPhamBUS;
+import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
 /**
  *
  * @author NGOC THUC
@@ -25,10 +30,23 @@ public class MainFrameGUI extends javax.swing.JFrame {
      */
     ArrayList<JLabel> listItems = new ArrayList<>();
     Map<JLabel, Boolean> labelStates = new HashMap<>();
+    BanHangGUI banHangGUI = new BanHangGUI();
+    NhapHangGUI nhapHangGUI = new NhapHangGUI();
+    HoaDonGUI hoaDonGUI = new HoaDonGUI();
+    NhanVienGUI nhanVienGUI = new NhanVienGUI();
+    PhieuNhapGUI phieuNhapGUI = new PhieuNhapGUI();
+    TaiKhoanGUI taiKhoanGUI = new TaiKhoanGUI();
+    ThongKeGUI thongKeGUI = new ThongKeGUI();
+    PhanQuyenGUI phanQuyenGUI = new PhanQuyenGUI();
+    SanPhamGUI sanPhamGUI = new SanPhamGUI();
+    CongTyGUI congTyGUI = new CongTyGUI();
 
 //    ChucNangBUS cnBUS = new ChucNangBUS();
 //    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
+    SanPhamBUS sanPhamBUS = new SanPhamBUS();
+  private static JFrame instance;
     public MainFrameGUI() {
+        instance = this;
         //this.setUndecorated(true);
         initComponents();
         designComp();
@@ -63,16 +81,16 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     void solveActionMenu() {
-        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, new BanHangGUI()));
-        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, new NhapHangGUI()));
-        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, new SanPhamGUI()));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, new HoaDonGUI()));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, new PhieuNhapGUI()));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, new NhanVienGUI()));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, new CongTyGUI()));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, new TaiKhoanGUI()));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, new PhanQuyenGUI()));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, new ThongKeGUI()));
+        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
+        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
+        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
+        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
+        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
+        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
+        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
     }
 
     void solveHoverMenu() {
@@ -312,6 +330,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblSanPham.setText("Sản phẩm");
         lblSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblSanPham.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSanPhamMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblSanPham);
 
         lblBanHang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -320,6 +343,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblBanHang.setText("Bán hàng");
         lblBanHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblBanHang.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblBanHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblBanHangMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblBanHang);
 
         lblNhapHang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -739,11 +767,26 @@ public class MainFrameGUI extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_itemLogOutActionPerformed
-
+   
     private void pnSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSanPhamMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_pnSanPhamMouseExited
 
+    private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
+        // TODO add your handling code here:
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        sanPhamGUI.loadTableSanPham(listSanPham, SanPhamGUI.getModelSanPham());
+    }//GEN-LAST:event_lblSanPhamMouseClicked
+
+    private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_lblBanHangMouseClicked
+
+ public static JFrame getMainFrameInstance() {
+        return instance;
+    }
     /**
      * @param args the command line arguments
      */

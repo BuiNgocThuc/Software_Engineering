@@ -76,8 +76,11 @@ public final class NhapHangGUI extends javax.swing.JPanel {
                 if (column == 4) {
                     pnBUS.loadDataFromCart(NhapHangGUI.this, row);
                 } else if (column == 5) {
-                    modelCartImport.removeRow(row);
-                    getTotalCart();
+                    int opt = JOptionPane.showConfirmDialog(null, "Xác nhận loại bỏ sản phẩm này ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                    if (opt == JOptionPane.YES_OPTION) {
+                        modelCartImport.removeRow(row);
+                        getTotalCart();
+                    }
                 }
             }
         });
@@ -98,7 +101,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
                 if (tfTimkiem.getText().isEmpty()) {
                     tfTimkiem.setForeground(Color.GRAY);
                     tfTimkiem.setText("Tìm kiếm sản phẩm");
-                    tfTimkiem.setForeground(new Color(135,172,217));
+                    tfTimkiem.setForeground(new Color(135, 172, 217));
                 }
             }
         });
@@ -822,7 +825,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
             try {
                 price = Double.parseDouble(priceStr);
                 if (price <= 0) {
-                    displayErrorMessage("Số lượng không hợp lệ!!");
+                    displayErrorMessage("Đơn giá không hợp lệ!!");
                     return;
                 }
             } catch (Exception e) {
@@ -903,6 +906,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
     private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
         // TODO add your handling code here:
         modelCartImport.setRowCount(0);
+        cbCongTy.setSelectedIndex(0);
         getTotalCart();
     }//GEN-LAST:event_btnHuydonActionPerformed
 

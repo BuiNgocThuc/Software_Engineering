@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import javax.swing.JTextField;
+
 /**
  *
  * @author NGOC THUC
@@ -14,8 +16,20 @@ public class ChiTietChucNang extends javax.swing.JFrame {
      * Creates new form ChiTietChucNang
      */
     public ChiTietChucNang() {
+        this.setUndecorated(true);
         initComponents();
+        this.setLocationRelativeTo(null);
     }
+
+    public JTextField getTxtID() {
+        return txtID;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +44,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         lblID2 = new javax.swing.JLabel();
         lblThongTinChiTiet2 = new javax.swing.JLabel();
         lblTenTheLoai2 = new javax.swing.JLabel();
-        txtID2 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
         btnHuy = new Components.ButtonRadius();
         btnLuu = new Components.ButtonRadius();
@@ -56,19 +70,20 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         lblTenTheLoai2.setForeground(new java.awt.Color(148, 181, 222));
         lblTenTheLoai2.setText("Tên Chức Năng");
 
-        txtID2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        txtID2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtID2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-        txtID2.setDisabledTextColor(new java.awt.Color(187, 187, 187));
-        txtID2.setFocusable(false);
-        txtID2.addActionListener(new java.awt.event.ActionListener() {
+        txtID.setBackground(new java.awt.Color(255, 255, 255));
+        txtID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txtID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtID.setDisabledTextColor(new java.awt.Color(187, 187, 187));
+        txtID.setFocusable(false);
+        txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID2ActionPerformed(evt);
+                txtIDActionPerformed(evt);
             }
         });
 
         txtName.setBackground(new java.awt.Color(255, 255, 255));
-        txtName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +155,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
                                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtID2, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txtID, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(lblTenTheLoai2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 20, Short.MAX_VALUE))))
         );
@@ -151,7 +166,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblID2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTenTheLoai2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,9 +194,9 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtID2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID2ActionPerformed
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID2ActionPerformed
+    }//GEN-LAST:event_txtIDActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -199,7 +214,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-        dispose(); // Đóng frame
+        this.dispose(); // Đóng frame
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseEntered
@@ -252,23 +267,13 @@ public class ChiTietChucNang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelOverview;
-    private javax.swing.JPanel PanelOverview1;
     private javax.swing.JPanel PanelOverview2;
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnLuu;
-    private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblID1;
     private javax.swing.JLabel lblID2;
-    private javax.swing.JLabel lblTenTheLoai;
-    private javax.swing.JLabel lblTenTheLoai1;
     private javax.swing.JLabel lblTenTheLoai2;
-    private javax.swing.JLabel lblThongTinChiTiet;
-    private javax.swing.JLabel lblThongTinChiTiet1;
     private javax.swing.JLabel lblThongTinChiTiet2;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtID1;
-    private javax.swing.JTextField txtID2;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

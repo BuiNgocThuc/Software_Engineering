@@ -4,12 +4,19 @@
  */
 package GUI;
 
+import BUS.CTPhanQuyenBUS;
+import BUS.ChucNangBUS;
+import BUS.NhomQuyenBUS;
+import DTO.CTQuyenDTO;
+import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -29,18 +36,51 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     /**
      * Creates new form PhanQuyenGUInew
      */
+    private static JTable tableNhomQuyen;
+    private static JTable tableChucNang;
+    private static DefaultTableModel modelNhomQuyen;
+    private static DefaultTableModel modelChucNang;
+    private Color currentBackgroundColor;
+    private final Color targetColor = new Color(255, 255, 255);
+
+    NhomQuyenBUS nqBUS = new NhomQuyenBUS();
+    ChucNangBUS cnBUS = new ChucNangBUS();
+    CTPhanQuyenBUS ctqBUS = new CTPhanQuyenBUS();
+
     public PhanQuyenGUI() {
         initComponents();
-        addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tablePhanQuyen = createTablePhanQuyen();
-        tablePhanQuyen.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
-        JScrollPane scrollPanePhanQuyen = new JScrollPane(tablePhanQuyen);
+        createTable();
+
+    }
+
+    public static JTable getTableNhomQuyen() {
+        return tableNhomQuyen;
+    }
+
+    public static JTable getTableChucNang() {
+        return tableChucNang;
+    }
+
+    public static DefaultTableModel getModelNhomQuyen() {
+        return modelNhomQuyen;
+    }
+
+    public static DefaultTableModel getModelChucNang() {
+        return modelChucNang;
+    }
+
+    public void createTable() {
+        tableNhomQuyen = createTablePhanQuyen();
+        tableChucNang = createTableChucNang();
+
+        tableNhomQuyen.setPreferredScrollableViewportSize(pnTable.getPreferredSize());
+        JScrollPane scrollPanePhanQuyen = new JScrollPane(tableNhomQuyen);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPanePhanQuyen.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPanePhanQuyen);
+        pnTable.setLayout(new BorderLayout());
+        pnTable.add(scrollPanePhanQuyen);
 
+        nqBUS.createTablePer(modelNhomQuyen);
     }
 
     /**
@@ -59,7 +99,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanelBody = new javax.swing.JPanel();
         lblChucNang = new javax.swing.JLabel();
         lblPhanQuyen = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        pnTable = new javax.swing.JPanel();
         btnThem = new Components.ButtonRadius();
         btnSua = new Components.ButtonRadius();
         btnXoa = new Components.ButtonRadius();
@@ -94,7 +134,6 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
         txtTimKiem.setBackground(new java.awt.Color(243, 243, 244));
         txtTimKiem.setBorder(null);
-        txtTimKiem.setOpaque(true);
         txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtTimKiemFocusGained(evt);
@@ -139,7 +178,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanelBody.setBackground(new java.awt.Color(255, 51, 51));
         jPanelBody.setOpaque(false);
 
-        lblChucNang.setBackground(new java.awt.Color(255, 255, 255));
+        lblChucNang.setBackground(new java.awt.Color(229, 231, 230));
         lblChucNang.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblChucNang.setForeground(new java.awt.Color(254, 201, 116));
         lblChucNang.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -154,7 +193,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             }
         });
 
-        lblPhanQuyen.setBackground(new java.awt.Color(229, 231, 230));
+        lblPhanQuyen.setBackground(new java.awt.Color(255, 255, 255));
         lblPhanQuyen.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblPhanQuyen.setForeground(new java.awt.Color(254, 201, 116));
         lblPhanQuyen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,21 +208,22 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        pnTable.setBackground(new java.awt.Color(255, 255, 255));
+        pnTable.setPreferredSize(new java.awt.Dimension(1009, 605));
+        pnTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
+                pnTableMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1003, Short.MAX_VALUE)
+        javax.swing.GroupLayout pnTableLayout = new javax.swing.GroupLayout(pnTable);
+        pnTable.setLayout(pnTableLayout);
+        pnTableLayout.setHorizontalGroup(
+            pnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        pnTableLayout.setVerticalGroup(
+            pnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 605, Short.MAX_VALUE)
         );
 
@@ -258,7 +298,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
         btnLammoi.setText("Làm mới");
         btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnLammoi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLammoi.setIconTextGap(0);
         btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
@@ -275,37 +315,35 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         jPanelBodyLayout.setHorizontalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBodyLayout.createSequentialGroup()
-                .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelBodyLayout.createSequentialGroup()
-                        .addComponent(lblPhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(lblChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBodyLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(12, 12, 12)
+                .addComponent(lblPhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(lblChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addComponent(pnTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelBodyLayout.setVerticalGroup(
             jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBodyLayout.createSequentialGroup()
                 .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPhanQuyen, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblChucNang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblPhanQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblChucNang, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, 0)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(pnTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -313,12 +351,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                         .addComponent(btnTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
@@ -336,40 +374,37 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void lblPhanQuyenMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhanQuyenMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
-//        jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tablePhanQuyen = createTablePhanQuyen();
-        tablePhanQuyen.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
-        tablePhanQuyen.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        JScrollPane scrollPanePhanQuyen = new JScrollPane(tablePhanQuyen);
+        pnTable.removeAll();
+
+        tableNhomQuyen.setPreferredScrollableViewportSize(pnTable.getPreferredSize());
+        JScrollPane scrollPanePhanQuyen = new JScrollPane(tableNhomQuyen);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
         scrollPanePhanQuyen.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPanePhanQuyen);
-        jPanel2.revalidate();
-        jPanel2.repaint();
+        pnTable.setLayout(new BorderLayout());
+        pnTable.add(scrollPanePhanQuyen);
 
-        lblPhanQuyen.setBackground(new Color(229, 231, 230));
-        lblChucNang.setBackground(new Color(255, 255, 255));
+        nqBUS.createTablePer(modelNhomQuyen);
+        pnTable.revalidate();
+        pnTable.repaint();
+        lblChucNang.setBackground(new Color(229, 231, 230));
+        lblPhanQuyen.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblPhanQuyenMouseClicked
 
     private void lblChucNangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChucNangMouseClicked
         // TODO add your handling code here:
-        jPanel2.removeAll();
-//       jPanel2.setPreferredSize(new Dimension(928, 506));
-        JTable tableChucNang = createTableChucNang();
-        tableChucNang.setPreferredScrollableViewportSize(jPanel2.getPreferredSize());
+        pnTable.removeAll();
+        cnBUS.createTableRole(modelChucNang);
+        tableChucNang.setPreferredScrollableViewportSize(pnTable.getPreferredSize());
         tableChucNang.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        JScrollPane scrollPaneChucNang = new JScrollPane(tableChucNang);
+        JScrollPane scrollPaneSanPham = new JScrollPane(tableChucNang);
         MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
-        scrollPaneChucNang.setBorder(matteBorder);
-        jPanel2.setLayout(new BorderLayout());
-        jPanel2.add(scrollPaneChucNang);
-        jPanel2.revalidate();
-        jPanel2.repaint();
-
-        lblChucNang.setBackground(new Color(229, 231, 230));
-        lblPhanQuyen.setBackground(new Color(255, 255, 255));
+        scrollPaneSanPham.setBorder(matteBorder);
+        pnTable.setLayout(new BorderLayout());
+        pnTable.add(scrollPaneSanPham);
+        pnTable.revalidate();
+        pnTable.repaint();
+        lblPhanQuyen.setBackground(new Color(229, 231, 230));
+        lblChucNang.setBackground(new Color(255, 255, 255));
     }//GEN-LAST:event_lblChucNangMouseClicked
 
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
@@ -378,10 +413,63 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
+        currentBackgroundColor = lblChucNang.getBackground();
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
+        if (currentBackgroundColor.equals(targetColor)) {
+            ChiTietChucNang ctcn = new ChiTietChucNang();
+            ctcn.setVisible(true);
+            int MaCN = cnBUS.getCurrentID() + 1;
+            ctcn.getTxtID().setText(String.format("CN%02d", MaCN));
+
+        } else {
+            ChiTietQuyen ctq = new ChiTietQuyen(this);
+            ctq.setVisible(true);
+            int MaNQ = nqBUS.getCurrentID() + 1;
+            ctq.getTxtID().setText(String.format("NQ%02d", MaNQ));
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        currentBackgroundColor = lblChucNang.getBackground();
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
+        if (currentBackgroundColor.equals(targetColor)) {
+
+        } else {
+            int selectedRowNQ = tableNhomQuyen.getSelectedRow();
+            if (selectedRowNQ == -1) {
+                sharedFunction.displayErrorMessage("Vui lòng chọn quyền cần sửa");
+                return;
+            } else {
+                ChiTietQuyen ctq = new ChiTietQuyen(this);
+                ctq.setVisible(true);
+                
+                String MaNQStr = tableNhomQuyen.getValueAt(selectedRowNQ, 1).toString();
+                String TenNQ = tableNhomQuyen.getValueAt(selectedRowNQ, 2).toString();
+                String MoTa = tableNhomQuyen.getValueAt(selectedRowNQ, 3).toString();
+                
+                ctq.getTxtID().setText(MaNQStr);
+                ctq.getTxtName().setText(TenNQ);
+                ctq.getTxtDes().setText(MoTa);
+                
+                int MaNQ = Integer.parseInt(MaNQStr.substring(2));
+                ArrayList<CTQuyenDTO> listCTQ = ctqBUS.getListCTQ(MaNQ);
+                
+                for(CTQuyenDTO ctqDTO : listCTQ) {
+                    int MaCN = ctqDTO.getMaCN();
+                    String MaCNStr = String.format("CN%02d", MaCN);
+                    String HanhDong = ctqDTO.getHanhDong();
+                    for(int i = 0; i < ctq.getTableCTQuyen().getRowCount(); ++i){
+                        String MaCNTbl = ctq.getTableCTQuyen().getValueAt(i, 0).toString();
+                        String HanhDongTbl = ctq.getTableCTQuyen().getValueAt(i, 2).toString();
+                        if(MaCNStr.equals(MaCNTbl) && HanhDong.equals(HanhDongTbl)) {
+                            ctq.getTableCTQuyen().setValueAt(true, i, 3);
+                        }
+                    }
+                }
+                
+            }
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimKiemMouseEntered
@@ -418,20 +506,10 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
         // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("Tìm kiếm")) {
-            txtTimKiem.setText("");
-
-//            txtTimKiem.requestFocus();
-            removePlaceholderStyle(txtTimKiem);
-        }
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
         // TODO add your handling code here:
-        if (txtTimKiem.getText().equals("")) {
-            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-            System.out.println("hi1" + txtTimKiem.getText());
-        }
     }//GEN-LAST:event_txtTimKiemFocusLost
 
     private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
@@ -446,131 +524,89 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
 
     private void btnXoaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseEntered
         // TODO add your handling code here:
-           btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnXoa.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_btnXoaMouseEntered
 
     private void btnXoaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseExited
         // TODO add your handling code here:
-           btnThem.setCursor(Cursor.getDefaultCursor());
+        btnThem.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_btnXoaMouseExited
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        currentBackgroundColor = lblChucNang.getBackground();
+        // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
+        if (currentBackgroundColor.equals(targetColor)) {
+
+        } else {
+            int selectedRowNQ = tableNhomQuyen.getSelectedRow();
+            if (selectedRowNQ == -1) {
+                sharedFunction.displayErrorMessage("Vui lòng chọn quyền cần xóa");
+                return;
+            } else {
+                int ans = JOptionPane.showConfirmDialog(null, "Xác nhận xóa nhóm quyền này", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if(ans == JOptionPane.YES_OPTION) {
+                    String MaNQStr = tableNhomQuyen.getValueAt(selectedRowNQ, 1).toString();
+                    int MaNQ = Integer.parseInt(MaNQStr.substring(2));
+                    boolean deleteNQ = nqBUS.xoaNhomQuyen(MaNQ);
+                    if(deleteNQ) {
+                        JOptionPane.showMessageDialog(null, "Xóa nhóm quyền thành công!!");
+                        nqBUS.createTablePer(modelNhomQuyen);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+    private void pnTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnTableMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPanel2MouseClicked
+    }//GEN-LAST:event_pnTableMouseClicked
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLammoiActionPerformed
-    public static void EditHeaderTable(JTable table) {
-        // Tăng độ cao của header
-        table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
-        // Tạo một renderer tùy chỉnh cho header
-        DefaultTableCellRenderer headerRenderer = new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
-                    boolean hasFocus, int row, int column) {
-                JTableHeader header = table.getTableHeader();
-                if (header != null) {
-                    setForeground(new Color(251, 252, 254)); // Đặt màu chữ
-                    setBackground(new Color(134, 172, 218)); // Đặt màu nền
-                    Font headerFont = new Font("Segoe UI", Font.BOLD, 16); // Điều chỉnh font và cỡ chữ
-                    header.setFont(headerFont);
-                    JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
-                            isSelected, hasFocus, row, column);
-                    label.setHorizontalAlignment(SwingConstants.CENTER); // Căn giữa nội dung
-                    label.setFont(headerFont);
-                }
-                setText((value == null) ? "" : value.toString());
-                return this;
-            }
-        };
-        // Đặt renderer tùy chỉnh cho header
-        table.getTableHeader().setDefaultRenderer(headerRenderer);
-    }
-
-    public void editTableContent(JTable table) {
-        // Đặt độ cao cho từng dòng (trừ header)
-        int rowHeight = 30;
-        table.setRowHeight(rowHeight);
-        table.setGridColor(new Color(153, 184, 224));
-        table.setShowGrid(true);
-        table.setBackground(Color.WHITE);
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
-        // Vô hiệu hóa kéo cột
-        table.getTableHeader().setReorderingAllowed(false);
-        // Vô hiệu hóa kéo dãng cột
-        table.getTableHeader().setResizingAllowed(false);
-    }
 
     public JTable createTablePhanQuyen() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Nhóm quyền", "Tên nhóm quyền", "Mô tả"};
         // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columnNames);
+        modelNhomQuyen = new DefaultTableModel();
+        modelNhomQuyen.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
-        CustomizeCcolumnWidth(table, 70, 200, 300);
-        EditHeaderTable(table);
-        editTableContent(table);
+        JTable table = new JTable(modelNhomQuyen);
+        TableColumnModel columnModel = table.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(300); // Độ rộng cột 2
+        columnModel.getColumn(3).setPreferredWidth(439); // Độ rộng cột 2
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
         return table;
-    }
-
-    public void loadTable() {
-
     }
 
     public JTable createTableChucNang() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT", "ID Chức Năng", "Tên chức năng", "Tình trạng"};
+        String[] columnNames = {"STT", "ID Chức Năng", "Tên chức năng"};
         // Tạo DefaultTableModel với dữ liệu và tiêu đề cột
-        DefaultTableModel model = new DefaultTableModel();
-        model.setColumnIdentifiers(columnNames);
+        modelChucNang = new DefaultTableModel();
+        modelChucNang.setColumnIdentifiers(columnNames);
         // Tạo JTable với DefaultTableModel
-        JTable table = new JTable(model);
-        CustomizeCcolumnWidth(table, 70, 200, 300);
-        EditHeaderTable(table);
-        editTableContent(table);
+        JTable table = new JTable(modelChucNang);
+        TableColumnModel columnModel = table.getColumnModel();
+
+        columnModel.getColumn(0).setPreferredWidth(70); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(200); // Độ rộng cột 1
+        columnModel.getColumn(2).setPreferredWidth(739); // Độ rộng cột 2
+
+        sharedFunction.EditHeaderTable(table);
+        sharedFunction.EditTableContent(table);
 
         return table;
-    }
-
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
-
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 999 - fixedColumnsWidth;
-//        System.out.println(table.getPreferredSize().width);
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
-    }
-
-    private void addPlaceholderStyle(JTextField textField, String name) {
-        Font customFont = new Font("Tahoma", Font.BOLD, 16);
-        textField.setFont(customFont);
-        textField.setForeground(new Color(157, 185, 223));
-        textField.setText(name);
-
-    }
-
-    public void removePlaceholderStyle(JTextField textFiled) {
-        textFiled.setForeground(Color.black);
     }
 
 
@@ -580,12 +616,12 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimKiem;
     private Components.ButtonRadius btnXoa;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelBody;
     private javax.swing.JPanel jPanelTimKiem;
     private javax.swing.JLabel lblChucNang;
     private javax.swing.JLabel lblPhanQuyen;
     private javax.swing.JLabel lblTimKiem;
+    private javax.swing.JPanel pnTable;
     private javax.swing.JTextField txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }

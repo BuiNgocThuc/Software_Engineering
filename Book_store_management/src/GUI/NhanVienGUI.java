@@ -330,6 +330,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
+        
         ChiTietNhanVien ctnv=new ChiTietNhanVien();
         String id = null;
         id= (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));

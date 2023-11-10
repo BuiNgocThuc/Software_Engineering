@@ -131,7 +131,7 @@ public class TaiKhoanBUS {
                     MainFrameGUI layout = new MainFrameGUI();
                     layout.setVisible(true);
                     displayName(currentAcc, layout);
-                    PhanQuyen(lisrPer, layout);
+                    //PhanQuyen(lisrPer, layout);
                     acc.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                     System.out.println(currentAcc.getTenTK());

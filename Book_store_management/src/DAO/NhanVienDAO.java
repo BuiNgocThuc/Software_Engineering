@@ -23,7 +23,7 @@ public class NhanVienDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM NhanVien";
+            String sql = "SELECT * FROM NhanVien where TinhTrang=N'Đang làm việc'";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -44,5 +44,191 @@ public class NhanVienDAO {
             e.printStackTrace();
         }
         return ketQua;
+    }
+    public NhanVienDTO selectNhanVienById(String tukhoa) {
+        NhanVienDTO ketqua = new NhanVienDTO();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM NhanVien where MaNV='"+tukhoa+"'";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String MaNV = rs.getNString("MaNV");
+                String TenNV = rs.getNString("TenNV");
+                String SDT = rs.getNString("SDT");
+                String GioiTinh = rs.getNString("GioiTinh");
+                String DiaChi = rs.getNString("DiaChi");
+                String Email = rs.getNString("Email");
+                String TinhTrang = rs.getNString("TinhTrang");
+
+                ketqua = new NhanVienDTO(MaNV, TenNV, SDT, GioiTinh, DiaChi, Email, TinhTrang);
+                
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketqua;
+    }
+    public int deleteNhanVien(String idnv){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhanVien set TinhTrang=N'Không làm việc' where MaNV=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setNString(1, idnv);
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
+    }
+    public ArrayList<NhanVienDTO> searchNhanVien(String tukhoa) {
+        ArrayList<NhanVienDTO> ketQua = new ArrayList<>();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM NhanVien "
+                    + "where TenNV like N'%"+tukhoa+"%'"
+                    + "And TinhTrang=N'Đang làm việc'";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                String MaNV = rs.getNString("MaNV");
+                String TenNV = rs.getNString("TenNV");
+                String SDT = rs.getNString("SDT");
+                String GioiTinh = rs.getNString("GioiTinh");
+                String DiaChi = rs.getNString("DiaChi");
+                String Email = rs.getNString("Email");
+                String TinhTrang = rs.getNString("TinhTrang");
+
+                NhanVienDTO nv = new NhanVienDTO(MaNV, TenNV, SDT, GioiTinh, DiaChi, Email, TinhTrang);
+                ketQua.add(nv);
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    public ArrayList<String> fullChucVu(){
+        ArrayList<String> ketQua = new ArrayList<>();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT TenNQ FROM NhomQuyen where TinhTrang <> 0";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                ketQua.add(rs.getNString("TenNQ"));
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    public String getChucVu(String id){
+        String ketQua = null;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT TenNQ " +
+                         "FROM NhanVien,TaiKhoan,NhomQuyen " +
+                         "where MaNV=TenTK and MaQuyen=MaNQ and MaNV='"+id+"'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                ketQua=rs.getNString("TenNQ");
+            }
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    public int getIdChucVu(String TenChucVu){
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT MaNQ " +
+                         "FROM NhomQuyen " +
+                         "where TenNQ = N'"+TenChucVu+"'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                ketQua=rs.getInt("MaNQ");
+            }
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
+    public int addNhanVien(NhanVienDTO nv,int chucvu){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "Insert into NhanVien(MaNV,TenNV,SDT,GioiTinh,DiaChi,Email,TinhTrang) values(?,?,?,?,?,?,?)";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setNString(1, nv.getMaNV());
+            st.setNString(2, nv.getTenNV());
+            st.setNString(3, nv.getSDT());
+            st.setNString(4, nv.getGioiTinh());
+            st.setNString(5, nv.getDiaChi());
+            st.setNString(6, nv.getEmail());
+            st.setNString(7, nv.getTinhTrang());
+            ketqua=st.executeUpdate();
+            if(ketqua>0){
+                String sql1 = "Insert into TaiKhoan(TenTK,MaQuyen) values(?,?)";
+                PreparedStatement st1=conn.prepareStatement(sql1);
+                st1.setNString(1, nv.getMaNV());
+                st1.setInt(2, chucvu);
+                ketqua=st1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
+    }
+    public int updateNhanVien(NhanVienDTO nv,int chucvu){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhanVien set TenNV=?,SDT=?,GioiTinh=?,DiaChi=?,Email=?,TinhTrang=? where MaNV=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setNString(1, nv.getTenNV());
+            st.setNString(2, nv.getSDT());
+            st.setNString(3, nv.getGioiTinh());
+            st.setNString(4, nv.getDiaChi());
+            st.setNString(5, nv.getEmail());
+            st.setNString(6, nv.getTinhTrang());
+            st.setNString(7, nv.getMaNV());
+            ketqua=st.executeUpdate();
+            if(ketqua>0){
+                String sql1 = "update TaiKhoan set MaQuyen=? where TenTK=?";
+                PreparedStatement st1=conn.prepareStatement(sql1);
+                st1.setInt(1, chucvu);
+                st1.setNString(2, nv.getMaNV());
+                ketqua=st1.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
     }
 }

@@ -24,7 +24,7 @@ public class CongTyDAO {
         try {
             Connection conn = ConnectDB.getConnection();
             Statement st = conn.createStatement();
-            String sql = "SELECT * FROM NhaCungCap";
+            String sql = "SELECT * FROM NhaCungCap where TinhTrang <> 0";
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -105,5 +105,48 @@ public class CongTyDAO {
             ConnectDB.closeConnection(conn);
         }
         return ketqua;
+    }
+    public int deleteCongTy(int idcty){
+        int ketqua=-1;
+        Connection conn=null;
+        try {
+            conn = ConnectDB.getConnection();
+            String sql = "update NhaCungCap set TinhTrang=0 where MaNCC=?";
+            PreparedStatement st=conn.prepareStatement(sql);
+            st.setInt(1, idcty);
+            ketqua=st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return ketqua;
+    }
+    public ArrayList<CongTyDTO> searchCongTy(String tukhoa){
+        ArrayList<CongTyDTO> ketQua = new ArrayList<>();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM NhaCungCap where"
+                    + "(TenNCC like N'%"+tukhoa+"%')"
+                    + "and TinhTrang <> 0";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                int MaNCC = rs.getInt("MaNCC");
+                String TenNCC = rs.getNString("TenNCC");
+                String SDT = rs.getNString("SDT");
+                String DiaChi = rs.getNString("DiaChi");
+                Boolean TinhTrang = rs.getBoolean("TinhTrang");
+
+                CongTyDTO nv = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, TinhTrang);
+                ketQua.add(nv);
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
     }
 }

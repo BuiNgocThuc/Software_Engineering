@@ -700,7 +700,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
         timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá", "Tìm kiếm nâng cao" }));
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Tìm kiếm nâng cao" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1122,12 +1122,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedIndex = timKiemTheo.getSelectedIndex();
 
-        System.out.println(selectedIndex);
-        if (selectedIndex != 6) {
+        if (selectedIndex != 5) {
             sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
         } else {
           
-            LocAnd l = new LocAnd();
+            LocAnd l = new LocAnd(2);
             sharedFunction.openNewFrame( l);
         }
     }//GEN-LAST:event_timKiemTheoActionPerformed
@@ -1233,6 +1232,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
             return new JLabel(icon);
         }
 
+    }
+
+    public static DefaultTableModel getModelSanPham() {
+        return modelSanPham;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

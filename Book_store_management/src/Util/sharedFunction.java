@@ -4,6 +4,7 @@
  */
 package Util;
 
+import GUI.LocAnd;
 import GUI.MainFrameGUI;
 import java.awt.Color;
 import java.awt.Component;
@@ -245,9 +246,10 @@ public class sharedFunction {
         }
     }
 
-    public static void openNewFrame(JFrame frame) {
+    public static void openNewFrame(LocAnd frame) {
         // Tạo JFrame mới
-
+        System.out.println(frame.getCheck());
+//        System.out.println(frame.getCheck());
         // Lấy vị trí của JFrame chính 
         JFrame mainFrame = MainFrameGUI.getMainFrameInstance();
         int mainFrameX = mainFrame.getX();

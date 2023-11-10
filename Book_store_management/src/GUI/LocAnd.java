@@ -4,8 +4,13 @@
  */
 package GUI;
 
+import BUS.SanPhamBUS;
+import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Cursor;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +21,17 @@ public class LocAnd extends javax.swing.JFrame {
     /**
      * Creates new form LocAnd
      */
+    private int check;
+//    SanPhamGUI sanPhamGUI = new SanPhamGUI();
+    SanPhamBUS sanPhamBUS = new SanPhamBUS();
+
     public LocAnd() {
+        initComponents();
+        sharedFunction.moveLayout(this, jPanel1);
+    }
+
+    public LocAnd(int check) {
+        this.check = check;
         initComponents();
         sharedFunction.moveLayout(this, jPanel1);
     }
@@ -31,11 +46,11 @@ public class LocAnd extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtIDSanpham = new javax.swing.JTextField();
-        txtTenSanpham = new javax.swing.JTextField();
-        txtTenTacgia = new javax.swing.JTextField();
+        txtGiaKetThuc = new javax.swing.JTextField();
+        txtTenSP = new javax.swing.JTextField();
+        txtTacGia = new javax.swing.JTextField();
         txtTheloai = new javax.swing.JTextField();
-        txtDonGia = new javax.swing.JTextField();
+        txtGiaBatDau = new javax.swing.JTextField();
         btnTimkiem = new Components.ButtonRadius();
         jLabel1 = new javax.swing.JLabel();
 
@@ -45,31 +60,30 @@ public class LocAnd extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        txtIDSanpham.setEditable(false);
-        txtIDSanpham.setBackground(new java.awt.Color(255, 255, 255));
-        txtIDSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        txtIDSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Giá kết thúc", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        txtIDSanpham.addActionListener(new java.awt.event.ActionListener() {
+        txtGiaKetThuc.setBackground(new java.awt.Color(255, 255, 255));
+        txtGiaKetThuc.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        txtGiaKetThuc.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Giá kết thúc", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtGiaKetThuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDSanphamActionPerformed(evt);
+                txtGiaKetThucActionPerformed(evt);
             }
         });
 
-        txtTenSanpham.setBackground(new java.awt.Color(255, 255, 255));
-        txtTenSanpham.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        txtTenSanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtTenSP.setBackground(new java.awt.Color(255, 255, 255));
+        txtTenSP.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        txtTenSP.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên sản phẩm", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
 
-        txtTenTacgia.setBackground(new java.awt.Color(255, 255, 255));
-        txtTenTacgia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        txtTenTacgia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên tác giả", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtTacGia.setBackground(new java.awt.Color(255, 255, 255));
+        txtTacGia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        txtTacGia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tên tác giả", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
 
         txtTheloai.setBackground(new java.awt.Color(255, 255, 255));
         txtTheloai.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
         txtTheloai.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Thể loại", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
 
-        txtDonGia.setBackground(new java.awt.Color(255, 255, 255));
-        txtDonGia.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
-        txtDonGia.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Gía bắt đầu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtGiaBatDau.setBackground(new java.awt.Color(255, 255, 255));
+        txtGiaBatDau.setFont(new java.awt.Font("Josefin Sans Medium", 0, 14)); // NOI18N
+        txtGiaBatDau.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Gía bắt đầu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
 
         btnTimkiem.setBorder(null);
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
@@ -108,15 +122,15 @@ public class LocAnd extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(txtTenSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(txtTenTacgia, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtGiaBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtIDSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtGiaKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -132,11 +146,11 @@ public class LocAnd extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtTenSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTenTacgia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtTacGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtTheloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtIDSanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtGiaBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtGiaKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -158,9 +172,9 @@ public class LocAnd extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtIDSanphamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDSanphamActionPerformed
+    private void txtGiaKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtGiaKetThucActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDSanphamActionPerformed
+    }//GEN-LAST:event_txtGiaKetThucActionPerformed
 
     private void btnTimkiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseEntered
         // TODO add your handling code here:
@@ -175,13 +189,47 @@ public class LocAnd extends javax.swing.JFrame {
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
         // TODO add your handling code here:
         //        sanPhamGUI.findSanPhamByTenSP_or_MaSP(txtTimKiem.getText(), modelSanPham);
-      
-    }//GEN-LAST:event_btnTimkiemActionPerformed
+        searchSanPham();
 
+    }//GEN-LAST:event_btnTimkiemActionPerformed
+    private void searchSanPham() {
+        String tenSP = txtTenSP.getText();
+        String theLoai = txtTheloai.getText();
+        String tacGia = txtTacGia.getText();
+        Double giaBatDau = null;
+        Double giaKetThuc = null;
+
+        try {
+            giaBatDau = Double.parseDouble(txtGiaBatDau.getText());
+        } catch (NumberFormatException ex) {
+            // Xử lý khi giá bắt đầu không phải số
+        }
+        try {
+            giaKetThuc = Double.parseDouble(txtGiaKetThuc.getText());
+        } catch (NumberFormatException ex) {
+
+        }
+        giaBatDau = giaBatDau != null ? giaBatDau : 0.0;
+        giaKetThuc = giaKetThuc != null ? giaKetThuc : Double.MAX_VALUE;
+
+        ArrayList<SanPhamDTO> result = sanPhamBUS.searchProducts(tenSP, theLoai, tacGia, giaBatDau, giaKetThuc);
+        DefaultTableModel targetModel = (check == 2) ? BanHangGUI.getModelSanPham() : SanPhamGUI.getModelSanPham();
+
+        if (!result.isEmpty()) {
+            SanPhamGUI.loadTableSanPham(result, targetModel);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    public int getCheck() {
+        return check;
+    }
 
     /**
      * @param args the command line arguments
@@ -222,10 +270,10 @@ public class LocAnd extends javax.swing.JFrame {
     private Components.ButtonRadius btnTimkiem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField txtDonGia;
-    private javax.swing.JTextField txtIDSanpham;
-    private javax.swing.JTextField txtTenSanpham;
-    private javax.swing.JTextField txtTenTacgia;
+    private javax.swing.JTextField txtGiaBatDau;
+    private javax.swing.JTextField txtGiaKetThuc;
+    private javax.swing.JTextField txtTacGia;
+    private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtTheloai;
     // End of variables declaration//GEN-END:variables
 }

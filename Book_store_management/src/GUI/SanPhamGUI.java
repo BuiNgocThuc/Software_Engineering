@@ -44,7 +44,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     public SanPhamGUI() {
         initComponents();
         createTable();
-        System.out.println(this.modelSanPham);
         sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
         // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
         currentBackgroundColor = lblTheLoai.getBackground();

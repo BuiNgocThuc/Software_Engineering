@@ -124,9 +124,9 @@ public class PhieuNhapBUS {
         String formattedDate = currentDate.format(formatter);
 
         cartImport.getTfIDHoadon().setText(IDPN);
-//        String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
+        String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
 
-//        cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
+        cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
         cartImport.getTfNgaytao().setText(formattedDate);
 
         cartImport.getTfIDHoadon().setFocusable(false);

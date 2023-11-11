@@ -883,8 +883,8 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setText(maHDtext);
 
         // Lấy ID nhân viên 
-//        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-//        txtIDNhanvien.setText("NV00" + tenTK);
+        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+        txtIDNhanvien.setText("NV00" + tenTK);
         // Lấy ngày hiện tại
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

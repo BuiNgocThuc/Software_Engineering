@@ -81,7 +81,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     void solveActionMenu() {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
-        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
         lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
         lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
         lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
@@ -774,7 +774,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private void lblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSanPhamMouseClicked
         // TODO add your handling code here:
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
-        sanPhamGUI.loadTableSanPham(listSanPham, SanPhamGUI.getModelSanPham());
+        SanPhamGUI.loadTableSanPham(listSanPham, SanPhamGUI.getModelSanPham());
     }//GEN-LAST:event_lblSanPhamMouseClicked
 
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked

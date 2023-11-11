@@ -416,7 +416,7 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         currentBackgroundColor = lblChucNang.getBackground();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
-            ChiTietChucNang ctcn = new ChiTietChucNang();
+            ChiTietChucNang ctcn = new ChiTietChucNang(this);
             ctcn.setVisible(true);
             int MaCN = cnBUS.getCurrentID() + 1;
             ctcn.getTxtID().setText(String.format("CN%02d", MaCN));

@@ -97,18 +97,21 @@ public class ChucNangDAO {
         return res;
     }
 
-    public int Them(ChucNangDTO cn) {
-        int ketQua = 0;
+    public boolean Them(ChucNangDTO cn) {
+        boolean ketQua = false;
         try {
             Connection conn = ConnectDB.getConnection();
-            String sql = "INSERT INTO ChucNang(MaCN, TenCN, TinhTrang) "
-                    + " VALUES(?,?,?)";
+            String sql = "INSERT INTO ChucNang(TenCN, TinhTrang, Them, Sua, Xoa, Doc) "
+                    + " VALUES(?,?,?,?,?,?)";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setInt(1, cn.getMaCN());
-            pst.setString(2, cn.getTenCN());
-            pst.setString(3, cn.getTinhTrang());
+            pst.setString(1, cn.getTenCN());
+            pst.setBoolean(2, true);
+            pst.setBoolean(3, cn.isThem());
+            pst.setBoolean(4, cn.isSua());
+            pst.setBoolean(5, cn.isXoa());
+            pst.setBoolean(6, cn.isTruyCap());
 
-            ketQua = pst.executeUpdate();
+            ketQua = pst.executeUpdate() > 0;
 
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {

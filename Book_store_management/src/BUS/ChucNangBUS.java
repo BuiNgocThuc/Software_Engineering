@@ -70,4 +70,10 @@ public class ChucNangBUS {
     public int getCurrentID(){
         return cnDAO.getCurrentID();
     }
+    
+    public boolean ThemChucNang(ChucNangDTO cnDTO) {
+        boolean res = false;
+        res = cnDAO.Them(cnDTO);
+        return res;
+    }
 }

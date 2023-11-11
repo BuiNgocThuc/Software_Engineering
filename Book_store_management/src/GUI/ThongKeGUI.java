@@ -192,7 +192,7 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         tfNgaybatdau.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfNgaybatdau.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày bắt đầu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfNgaybatdau.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfNgaybatdau.setFocusable(false);
         tfNgaybatdau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfNgaybatdauActionPerformed(evt);
@@ -201,15 +201,15 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         tfTongdoanhthu.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongdoanhthu.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng doanh thu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfTongdoanhthu.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfTongdoanhthu.setFocusable(false);
 
         tdNgayketthuc.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tdNgayketthuc.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Ngày kết thúc", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tdNgayketthuc.setPreferredSize(new java.awt.Dimension(64, 50));
+        tdNgayketthuc.setFocusable(false);
 
         tfTongsanpham.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         tfTongsanpham.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Tổng số sản phẩm bán được", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfTongsanpham.setPreferredSize(new java.awt.Dimension(64, 50));
+        tfTongsanpham.setFocusable(false);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -219,10 +219,10 @@ public class ThongKeGUI extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tdNgayketthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfNgaybatdau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfTongdoanhthu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tfTongsanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(tdNgayketthuc)
+                    .addComponent(tfNgaybatdau)
+                    .addComponent(tfTongdoanhthu)
+                    .addComponent(tfTongsanpham))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(

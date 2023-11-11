@@ -8,6 +8,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Cursor;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -243,10 +244,19 @@ public class ThongKeGUI extends javax.swing.JPanel {
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/search.png"))); // NOI18N
         btnTimkiem.setText("Tìm");
+        btnTimkiem.setFocusPainted(false);
         btnTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setRadius(40);
         btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnTimkiemMouseExited(evt);
+            }
+        });
         btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnTimkiemActionPerformed(evt);
@@ -285,10 +295,19 @@ public class ThongKeGUI extends javax.swing.JPanel {
 
         btnApdung.setForeground(new java.awt.Color(135, 172, 217));
         btnApdung.setText("Áp dụng");
+        btnApdung.setFocusPainted(false);
         btnApdung.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         btnApdung.setMargin(new java.awt.Insets(0, 0, 0, 0));
         btnApdung.setPreferredSize(new java.awt.Dimension(100, 40));
         btnApdung.setRadius(40);
+        btnApdung.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnApdungMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnApdungMouseExited(evt);
+            }
+        });
         btnApdung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnApdungActionPerformed(evt);
@@ -395,6 +414,14 @@ public class ThongKeGUI extends javax.swing.JPanel {
         btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
         btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
         btnLammoi.setRadius(40);
+        btnLammoi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLammoiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnLammoiMouseExited(evt);
+            }
+        });
         btnLammoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLammoiActionPerformed(evt);
@@ -497,6 +524,36 @@ public class ThongKeGUI extends javax.swing.JPanel {
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLammoiActionPerformed
+
+    private void btnApdungMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApdungMouseEntered
+        // TODO add your handling code here:
+          btnApdung.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnApdungMouseEntered
+
+    private void btnLammoiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLammoiMouseEntered
+        // TODO add your handling code here:
+        btnLammoi.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnLammoiMouseEntered
+
+    private void btnTimkiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseEntered
+        // TODO add your handling code here:
+        btnTimkiem.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnTimkiemMouseEntered
+
+    private void btnApdungMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApdungMouseExited
+        // TODO add your handling code here:
+        btnApdung.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnApdungMouseExited
+
+    private void btnLammoiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLammoiMouseExited
+        // TODO add your handling code here:
+         btnLammoi.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnLammoiMouseExited
+
+    private void btnTimkiemMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTimkiemMouseExited
+        // TODO add your handling code here:
+         btnTimkiem.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_btnTimkiemMouseExited
 public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao

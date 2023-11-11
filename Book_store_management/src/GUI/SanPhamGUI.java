@@ -453,7 +453,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
-            if (selectedIndex != 6) {
+            if (selectedIndex != 5) {
                 findSanPham(searchKeyword, selectedIndex, modelSanPham);
             } else {
 

@@ -44,7 +44,6 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     public SanPhamGUI() {
         initComponents();
         createTable();
-
         sharedFunction.addPlaceholder(txtTimKiem, "Tìm kiếm theo mã hoặc tên sản phẩm ");
         // gán màu của background thể loại hiện tại để xét việc thực hiện chức năng CRUD của bảng thể loại hay Sản phẩm
         currentBackgroundColor = lblTheLoai.getBackground();
@@ -309,8 +308,13 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
         timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Tìm kiếm nâng cao" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        timKiemTheo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                timKiemTheoMouseClicked(evt);
+            }
+        });
         timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 timKiemTheoActionPerformed(evt);
@@ -449,7 +453,11 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             findTheLoaiByMaTL_or_TenTL();
         } else {
             int selectedIndex = timKiemTheo.getSelectedIndex();
-            findSanPham(searchKeyword, selectedIndex, modelSanPham);
+            if (selectedIndex != 5) {
+                findSanPham(searchKeyword, selectedIndex, modelSanPham);
+            } else {
+
+            }
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
     public void findSanPham(String searchKeyword, int selectedIndex, DefaultTableModel model) {
@@ -473,6 +481,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             case 4 -> {
                 findSanPhamByTheLoai(searchKeyword, model);
             }
+
             default -> {
             }
         }
@@ -635,7 +644,15 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
         int selectedIndex = timKiemTheo.getSelectedIndex();
-        sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+
+        if (selectedIndex == 5) {
+            LocAnd l = new LocAnd(1);
+            sharedFunction.openNewFrame(l);
+        } else {
+
+            sharedFunction.addPlaceholder(txtTimKiem, getPlaceholderByIndex(selectedIndex));
+        }
+
 
     }//GEN-LAST:event_timKiemTheoActionPerformed
     public String getPlaceholderByIndex(int selectedIndex) {
@@ -689,6 +706,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         txtTimKiem.setText("");
     }//GEN-LAST:event_txtTimKiemMouseClicked
 
+    private void timKiemTheoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_timKiemTheoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_timKiemTheoMouseClicked
+
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
@@ -721,7 +742,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham, DefaultTableModel modelSanPham) {
+    public static void loadTableSanPham(ArrayList<SanPhamDTO> listSanPham, DefaultTableModel modelSanPham) {
         modelSanPham.setRowCount(0);
         int STT = 1;
         for (SanPhamDTO sanPham : listSanPham) {
@@ -972,6 +993,10 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             }
         }
 
+    }
+
+  public static DefaultTableModel getModelSanPham() {
+        return modelSanPham;
     }
 
 

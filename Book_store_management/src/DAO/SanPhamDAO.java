@@ -324,5 +324,59 @@ public class SanPhamDAO {
         }
         return rowUpdate;
     }
-  
+
+    public ArrayList<SanPhamDTO> searchProducts(String tenSP, String theLoai, String tacGia, Double giaBatDau, Double giaKetThuc) {
+        // Truy vấn SQL để tìm kiếm sản phẩm với nhiều tiêu chí, bao gồm cả giá
+        String sql = "SELECT sp.*, tl.TenTL "
+                + "FROM SanPham sp "
+                + "JOIN TheLoai tl ON sp.MaTL = tl.MaTL "
+                + "WHERE (? IS NULL OR sp.TenSP LIKE ?) AND "
+                + "(? IS NULL OR tl.TenTL LIKE ?) AND "
+                + "(? IS NULL OR sp.TacGia LIKE ?) AND "
+                + "((? IS NULL AND ? IS NULL) OR (sp.DonGia >= COALESCE(?, sp.DonGia) AND sp.DonGia <= COALESCE(?, sp.DonGia)))";
+
+        ArrayList<SanPhamDTO> result = new ArrayList<>();
+
+        try {
+            Connection conn = ConnectDB.getConnection();
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            // Thiết lập các tham số cho câu truy vấn
+            pst.setString(1, tenSP);
+            pst.setString(2, "%" + tenSP + "%");
+
+            pst.setString(3, theLoai);
+            pst.setString(4, "%" + theLoai + "%");
+
+            pst.setString(5, tacGia);
+            pst.setString(6, "%" + tacGia + "%");
+
+            pst.setDouble(7, giaBatDau);
+            pst.setDouble(8, giaKetThuc);
+            pst.setDouble(9, giaBatDau);
+            pst.setDouble(10, giaKetThuc);
+
+            ResultSet resultSet = pst.executeQuery();
+
+            // Xử lý kết quả truy vấn
+            while (resultSet.next()) {
+                int maSanPham = resultSet.getInt("MaSP");
+                String tenSanPham = resultSet.getString("TenSP");
+                String tenTheLoai = resultSet.getString("TenTL");
+                String hinhAnh = resultSet.getString("HinhAnh");
+                Double donGia = resultSet.getDouble("DonGia");
+                int soLuong = resultSet.getInt("SoLuong");
+                String TacGia = resultSet.getString("TacGia");
+                int namXB = resultSet.getInt("NamXB");
+                Boolean tinhTrang = resultSet.getBoolean("TinhTrang");
+                result.add(new SanPhamDTO(maSanPham, tenTheLoai, tenSanPham, hinhAnh, TacGia, tinhTrang, donGia, soLuong, namXB));
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

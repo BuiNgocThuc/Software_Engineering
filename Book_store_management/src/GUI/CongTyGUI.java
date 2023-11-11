@@ -49,7 +49,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
         loadData(tableNhanvien);
-        
+
     }
     private static int count = 1;
     CongTyBUS ctyBus = new CongTyBUS();
@@ -57,7 +57,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        count=1;
+        count = 1;
         ctyBus.selectAll().forEach((cty) -> {
             if (cty.getTinhTrang()) {
                 model.addRow(new Object[]{count++, "CT00" + cty.getMaNCC(), cty.getTenNCC(), cty.getSDT(), cty.getDiaChi()});
@@ -319,20 +319,26 @@ public class CongTyGUI extends javax.swing.JPanel {
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
 
-            TimKiem();
-        
+        TimKiem();
+
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         //Lấy id để xoá
-        String temp = null;
-        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION) {
-            temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-            int id = 0;
-            id = Integer.parseInt(temp.substring(4));
-            ctyBus.deleteCongTy(id);
+
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                String ma = (String) tableNhanvien.getValueAt(selectedRow, 1);
+                int id = Integer.parseInt(ma.substring(4));
+                ctyBus.deleteCongTy(id);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn Công ty để sửa");
         }
+
+
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -342,12 +348,11 @@ public class CongTyGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        ChiTietCongTy ctcty = new ChiTietCongTy();
-        String temp = null;
-        temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-        int id = 0;
-        id = Integer.parseInt(temp.substring(4));
-        if (id != 0) {
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            ChiTietCongTy ctcty = new ChiTietCongTy();
+            String ma = (String) tableNhanvien.getValueAt(selectedRow, 1);
+            int id = Integer.parseInt(ma.substring(4));
             ctcty.setData(id);
             ctcty.Model = 2;
             ctcty.setVisible(true);
@@ -368,7 +373,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTimkiemMouseClicked
 
     private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
-        if(tfTimkiem.getText().equals("")){
+        if (tfTimkiem.getText().equals("")) {
             tfTimkiem.setText("Tìm kiếm công ty");
         }
     }//GEN-LAST:event_tfTimkiemFocusLost
@@ -376,7 +381,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     public void TimKiem() {
         ArrayList<CongTyDTO> spTK = new ArrayList<>();
         String chuoiTim = tfTimkiem.getText().toLowerCase();
-        spTK=ctyBus.searchCongTy(chuoiTim);
+        spTK = ctyBus.searchCongTy(chuoiTim);
         DefaultTableModel model = (DefaultTableModel) tableNhanvien.getModel();
         model.setRowCount(0);
         count = 1;

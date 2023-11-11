@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
+
 import BUS.NhanVienBUS;
 import DAO.NhanVienDAO;
 import DTO.NhanVienDTO;
@@ -36,6 +37,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
      * Creates new form NhanVienGUI
      */
     JTable tableNhanvien = new JTable();
+
     public NhanVienGUI() {
         initComponents();
         tableNhanvien = createTableNhanvien();
@@ -48,30 +50,34 @@ public class NhanVienGUI extends javax.swing.JPanel {
         loadData(tableNhanvien);
     }
     private static int count = 1;
-    
 
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        count=1;
+        count = 1;
         NhanVienBUS nvBus = new NhanVienBUS();
-        ArrayList<NhanVienDTO> listnv=nvBus.selectAll();
-        for(int i=0;i<listnv.size();i++){
-            String manv=listnv.get(i).getMaNV();
-            String tennv=listnv.get(i).getTenNV();
-            String gioitinh=listnv.get(i).getGioiTinh();
-            String chucvu=getChucVu(manv);
-            String sdt=listnv.get(i).getSDT();
-            String email=listnv.get(i).getEmail();
-            String diachi=listnv.get(i).getDiaChi();
-            model.addRow(new Object[]{count++, manv, tennv,gioitinh,chucvu ,sdt,email, diachi});
+        ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
+        for (int i = 0; i < listnv.size(); i++) {
+            String manv = listnv.get(i).getMaNV();
+            String tennv = listnv.get(i).getTenNV();
+            String gioitinh = listnv.get(i).getGioiTinh();
+            String chucvu = getChucVu(manv);
+            if (chucvu == null) {
+                chucvu = "Chưa phân công";
+            }
+            String sdt = listnv.get(i).getSDT();
+            String email = listnv.get(i).getEmail();
+            String diachi = listnv.get(i).getDiaChi();
+            model.addRow(new Object[]{count++, manv, tennv, gioitinh, chucvu, sdt, email, diachi});
         }
-        
+
     }
-    public String getChucVu(String id){
+
+    public String getChucVu(String id) {
         NhanVienBUS nvBus = new NhanVienBUS();
         return nvBus.getChucVu(id);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -312,33 +318,41 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        String temp = null;
         NhanVienBUS nvBus = new NhanVienBUS();
-        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION) {
-            temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-            nvBus.deleteNhanVien(temp);
+
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                String temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+                nvBus.deleteNhanVien(temp);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn nhân viên nào");
         }
-        count=1;
+
+        count = 1;
         loadData(tableNhanvien);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        ChiTietNhanVien ctnv=new ChiTietNhanVien();
-        ctnv.Model=1;
+        ChiTietNhanVien ctnv = new ChiTietNhanVien();
+        ctnv.Model = 1;
+        ctnv.setFocusable(1);
         ctnv.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        ChiTietNhanVien ctnv=new ChiTietNhanVien();
-        String id = null;
-        id= (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-        if (id != null) {
-            ctnv.setData(id);
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            ChiTietNhanVien ctnv = new ChiTietNhanVien();
             ctnv.Model = 2;
+            ctnv.setFocusable(2);
+            String id = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+            ctnv.setData(id);
             ctnv.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Chưa chọn Công ty để sửa");
+            JOptionPane.showMessageDialog(this, "Chưa chọn Nhân viên để sửa");
         }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
@@ -353,13 +367,13 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTimkiemMouseClicked
 
     private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
-        if(tfTimkiem.getText().equals("")){
+        if (tfTimkiem.getText().equals("")) {
             tfTimkiem.setText("Tìm kiếm nhân viên");
         }
     }//GEN-LAST:event_tfTimkiemFocusLost
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-       TimKiem();
+        TimKiem();
     }//GEN-LAST:event_btnTimkiemActionPerformed
     public void TimKiem() {
         ArrayList<NhanVienDTO> nvTK = new ArrayList<>();
@@ -375,10 +389,15 @@ public class NhanVienGUI extends javax.swing.JPanel {
         count = 1;
         for (NhanVienDTO u : nvTK) {
             //[] row = new Object[]{};
-            model.addRow(new Object[]{count++, u.getMaNV(), u.getTenNV(),u.getGioiTinh(),"" ,u.getSDT(),u.getEmail(), u.getDiaChi()});
+            String chucvu = getChucVu(u.getMaNV());
+            if (chucvu == null) {
+                chucvu = "Chưa phân công";
+            }
+            model.addRow(new Object[]{count++, u.getMaNV(), u.getTenNV(), u.getGioiTinh(), chucvu, u.getSDT(), u.getEmail(), u.getDiaChi()});
         }
         tableNhanvien.setModel(model);
     }
+
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -447,7 +466,8 @@ public class NhanVienGUI extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(200); // Độ rộng cột 5
         columnModel.getColumn(6).setPreferredWidth(200); // Độ rộng cột 6
         columnModel.getColumn(7).setPreferredWidth(400); // Độ rộng cột 6
-        sharedFunction.EditHeaderTable(table);EditHeaderTable(table);
+        sharedFunction.EditHeaderTable(table);
+        EditHeaderTable(table);
         sharedFunction.EditTableContent(table);
         return table;
     }

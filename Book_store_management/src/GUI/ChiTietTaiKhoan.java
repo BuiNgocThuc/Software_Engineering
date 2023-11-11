@@ -13,6 +13,8 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietTaiKhoan
      */
+    
+    public static int Model=0;
     public ChiTietTaiKhoan() {
         initComponents();
     }

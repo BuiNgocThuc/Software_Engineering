@@ -14,6 +14,10 @@ public class TaiKhoanDTO {
     private String MaTK, TenTK, MatKhau, MaQuyen, TinhTrang;
     private Date NgayTao;    
 
+    public TaiKhoanDTO() {
+    }
+
+    
     public TaiKhoanDTO(String MaTK, String TenTK, String MatKhau, String MaQuyen, String TinhTrang, Date NgayTao) {
         this.MaTK = MaTK;
         this.TenTK = TenTK;

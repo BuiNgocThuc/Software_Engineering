@@ -154,25 +154,7 @@ public class NhanVienDAO {
         }
         return ketQua;
     }
-    public int getIdChucVu(String TenChucVu){
-        int ketQua = 0;
-        try {
-            Connection conn = ConnectDB.getConnection();
-            Statement st = conn.createStatement();
-            String sql = "SELECT MaNQ " +
-                         "FROM NhomQuyen " +
-                         "where TenNQ = N'"+TenChucVu+"'";
-            ResultSet rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                ketQua=rs.getInt("MaNQ");
-            }
-            ConnectDB.closeConnection(conn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ketQua;
-    }
+    
     public int addNhanVien(NhanVienDTO nv){
         int ketqua=-1;
         Connection conn=null;

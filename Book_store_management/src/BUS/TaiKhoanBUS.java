@@ -53,6 +53,10 @@ public class TaiKhoanBUS {
     public TaiKhoanDTO selectByUsername(String username) {
         return tkDAO.selectByUsername(username);
     }
+    
+    public TaiKhoanDTO selectById(int id) {
+        return tkDAO.selectById(id);
+    }
 
     boolean comparePassword(String currentPass, String inputPass) {
         return currentPass.equals(inputPass);
@@ -172,6 +176,24 @@ public class TaiKhoanBUS {
         return tkDAO.Xoa(ID) != 0;
     }
 
-
-    
+    public boolean insertTaiKhoan(TaiKhoanDTO tk){
+        int check = tkDAO.Them(tk);
+        if(check>0){
+            JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công");
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(null,"Thêm tài khoản thất bại");
+            return false;
+        }
+    }
+    public boolean updateTaiKhoan(TaiKhoanDTO tk){
+        int check = tkDAO.Sua(tk);
+        if(check>0){
+            JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công");
+            return true;
+        }else{
+            JOptionPane.showMessageDialog(null,"Thêm tài khoản thất bại");
+            return false;
+        }
+    }
 }

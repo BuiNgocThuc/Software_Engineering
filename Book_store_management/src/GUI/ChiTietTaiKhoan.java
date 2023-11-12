@@ -4,6 +4,15 @@
  */
 package GUI;
 
+import BUS.NhanVienBUS;
+import BUS.TaiKhoanBUS;
+import DAO.NhanVienDAO;
+import DTO.NhanVienDTO;
+import DTO.TaiKhoanDTO;
+import java.time.Instant;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author tnpqu
@@ -13,12 +22,49 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietTaiKhoan
      */
-    
-    public static int Model=0;
+    TaiKhoanBUS tkbus = new TaiKhoanBUS();
+    NhanVienBUS nvbus = new NhanVienBUS();
+    public static int Model = 0;
+
     public ChiTietTaiKhoan() {
         initComponents();
+        loadTenTaiKhoan();
+        loadMaQuyen();
     }
 
+    public void loadMaQuyen() {
+        NhanVienDAO nvdao = new NhanVienDAO();
+        ArrayList<String> listcv = nvdao.fullChucVu();
+        cboQuyen.removeAllItems();
+        cboQuyen.addItem("");
+        for (int i = 0; i < listcv.size(); i++) {
+            String chucvu = listcv.get(i).toString();
+            cboQuyen.addItem(chucvu);
+        }
+    }
+
+    public void loadTenTaiKhoan() {
+        ArrayList<NhanVienDTO> listnv = nvbus.selectAll();
+        cboName.removeAllItems();
+        cboName.addItem("");
+        for (int i = 0; i < listnv.size(); i++) {
+            String name = listnv.get(i).getMaNV();
+            cboName.addItem(name);
+        }
+    }
+    public void setData(int id){
+        TaiKhoanDTO tk=tkbus.selectById(id);
+        txtId.setText(tk.getMaTK());
+        cboName.setSelectedItem(tk.getTenTK());
+        txtMatKhau.setText(tk.getMatKhau());
+        date.setDate(tk.getNgayTao());
+        cboQuyen.setSelectedIndex(Integer.parseInt(tk.getMaQuyen()));
+        if(tk.getTinhTrang().equals("1")){
+            cboTrangThai.setSelectedIndex(1);
+        }else{
+            cboTrangThai.setSelectedIndex(2);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,20 +77,20 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfIDHoadon = new javax.swing.JTextField();
-        tfIDHoadon3 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
+        txtMatKhau = new javax.swing.JTextField();
         btnTimkiem = new Components.ButtonRadius();
         btnTimkiem1 = new Components.ButtonRadius();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cboQuyen = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cboTrangThai = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        date = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboName = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
@@ -74,17 +120,18 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfIDHoadon.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfIDHoadon.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID Tài khoản", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDHoadon.setMaximumSize(new java.awt.Dimension(480, 50));
-        tfIDHoadon.setMinimumSize(new java.awt.Dimension(480, 50));
-        tfIDHoadon.setPreferredSize(new java.awt.Dimension(480, 50));
+        txtId.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        txtId.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID Tài khoản", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtId.setFocusable(false);
+        txtId.setMaximumSize(new java.awt.Dimension(480, 50));
+        txtId.setMinimumSize(new java.awt.Dimension(480, 50));
+        txtId.setPreferredSize(new java.awt.Dimension(480, 50));
 
-        tfIDHoadon3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfIDHoadon3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfIDHoadon3.setMaximumSize(new java.awt.Dimension(480, 50));
-        tfIDHoadon3.setMinimumSize(new java.awt.Dimension(480, 50));
-        tfIDHoadon3.setPreferredSize(new java.awt.Dimension(480, 50));
+        txtMatKhau.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        txtMatKhau.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtMatKhau.setMaximumSize(new java.awt.Dimension(480, 50));
+        txtMatKhau.setMinimumSize(new java.awt.Dimension(480, 50));
+        txtMatKhau.setPreferredSize(new java.awt.Dimension(480, 50));
 
         btnTimkiem.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
@@ -94,6 +141,11 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         btnTimkiem.setPreferredSize(new java.awt.Dimension(100, 40));
         btnTimkiem.setRadius(40);
         btnTimkiem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimkiemActionPerformed(evt);
+            }
+        });
 
         btnTimkiem1.setForeground(new java.awt.Color(135, 172, 217));
         btnTimkiem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/cancel.png"))); // NOI18N
@@ -103,22 +155,27 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         btnTimkiem1.setPreferredSize(new java.awt.Dimension(100, 40));
         btnTimkiem1.setRadius(40);
         btnTimkiem1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnTimkiem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimkiem1ActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(135, 172, 217));
         jLabel3.setText("Phân quyền");
 
-        jComboBox2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Admin", "Saler", "Stoker", "Manager" }));
-        jComboBox2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
+        cboQuyen.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        cboQuyen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Admin", "Saler", "Stoker", "Manager" }));
+        cboQuyen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
         jLabel4.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(135, 172, 217));
         jLabel4.setText("Trạng thái");
 
-        jComboBox3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hoạt động", "Khóa" }));
-        jComboBox3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
+        cboTrangThai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hoạt động", "Khóa" }));
+        cboTrangThai.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
         jLabel5.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(135, 172, 217));
@@ -128,82 +185,140 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(135, 172, 217));
         jLabel6.setText("Ngày lập");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(160, 160, 160)
                         .addComponent(btnTimkiem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfIDHoadon3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel3))
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addComponent(jLabel4)))
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboQuyen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfIDHoadon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfIDHoadon3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(1, 1, 1)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(1, 1, 1)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimkiem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addGap(12, 12, 12))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 397, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnTimkiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiem1ActionPerformed
+        setVisible(false);
+    }//GEN-LAST:event_btnTimkiem1ActionPerformed
+
+    private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
+        TaiKhoanDTO tk = new TaiKhoanDTO();
+        if (cboName.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Tên tài khoản chưa được chọn");
+        } else if (txtMatKhau.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Mật khẩu không được để trống");
+        } else if (date.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Ngày không được để trống");
+        } else if (cboQuyen.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Quyền chưa được chọn");
+        } else if (cboTrangThai.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(this, "Trạng thái chưa được chọn");
+        } else {
+            //String cv = cboChucVu.getSelectedItem().toString();
+            //int chucvu = nvDao.getIdChucVu(cv);
+            if (Model == 1) {
+                if (checkExistName(cboName.getSelectedItem().toString())) {
+                    tk.setTenTK(cboName.getSelectedItem().toString());
+                    tk.setMatKhau(txtMatKhau.getText());
+                    tk.setNgayTao(date.getDate());
+                    tk.setMaQuyen(cboQuyen.getSelectedItem().toString());
+                    if (tkbus.insertTaiKhoan(tk)) {
+                        setVisible(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Tài khoản này đã xuất hiện");
+                }
+
+            } else {
+                tk.setMaTK(txtId.getText());
+                tk.setTenTK(cboName.getSelectedItem().toString());
+                tk.setMatKhau(txtMatKhau.getText());
+                tk.setNgayTao(date.getDate());
+                tk.setMaQuyen(cboQuyen.getSelectedItem().toString());
+                if(cboTrangThai.getSelectedIndex()==1){
+                    tk.setTinhTrang("true");
+                }
+                else{
+                    tk.setTinhTrang("false");
+                }
+                if (tkbus.updateTaiKhoan(tk)) {
+                    setVisible(false);
+                }
+            }
+        }
+    }//GEN-LAST:event_btnTimkiemActionPerformed
+
+    public boolean checkExistName(String name) {
+        ArrayList<TaiKhoanDTO> listtk = tkbus.selectAll();
+        for (int i = 0; i < listtk.size(); i++) {
+            if (name.equals(listtk.get(i).getTenTK())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * @param args the command line arguments
@@ -243,10 +358,10 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnTimkiem;
     private Components.ButtonRadius btnTimkiem1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JComboBox<String> cboName;
+    private javax.swing.JComboBox<String> cboQuyen;
+    private javax.swing.JComboBox<String> cboTrangThai;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -254,7 +369,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tfIDHoadon;
-    private javax.swing.JTextField tfIDHoadon3;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtMatKhau;
     // End of variables declaration//GEN-END:variables
 }

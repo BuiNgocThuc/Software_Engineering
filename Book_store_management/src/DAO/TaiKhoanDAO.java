@@ -35,8 +35,6 @@ public class TaiKhoanDAO {
 
             while (rs.next()) {
                 String TenNQ = rs.getNString("TenNQ");
-               
-
                 return TenNQ;
             }
         } catch (SQLException e) {
@@ -117,7 +115,33 @@ public class TaiKhoanDAO {
         }
         return null;
     }
+    
+    public TaiKhoanDTO selectById(int id) {
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "SELECT * FROM TaiKhoan where MaTK = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
 
+            while (rs.next()) {
+                String MaTK = rs.getString("MaTK");
+                String TenTK = rs.getNString("TenTK");
+                String MatKhau = rs.getNString("MatKhau");
+                String MaQuyen = rs.getString("MaQuyen");
+                Date NgayTao = rs.getDate("NgayTao");
+                String TrangThai = rs.getString("TinhTrang");
+
+                TaiKhoanDTO tk = new TaiKhoanDTO(MaTK, TenTK, MatKhau, MaQuyen, TrangThai, NgayTao);
+                return tk;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return null;
+    }
     public ArrayList<TaiKhoanDTO> selectAll() {
         ArrayList<TaiKhoanDTO> ketQua = new ArrayList<>();
         try {
@@ -144,9 +168,37 @@ public class TaiKhoanDAO {
         }
         return ketQua;
     }
+    public ArrayList<TaiKhoanDTO> searchTaiKhoan(String tukhoa) {
+        ArrayList<TaiKhoanDTO> ketQua = new ArrayList<>();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM TaiKhoan "
+                    + "where TenTK like '%"+tukhoa+"%'";
+                    
+            ResultSet rs = st.executeQuery(sql);
 
+            while (rs.next()) {
+                String MaTK = rs.getString("MaTK");
+                String TenTK = rs.getNString("TenTK");
+                String MatKhau = rs.getNString("MatKhau");
+                String MaQuyen = rs.getString("MaQuyen");
+                Date NgayTao = rs.getDate("NgayTao");
+                String TrangThai = rs.getString("TinhTrang");
+
+                TaiKhoanDTO tk = new TaiKhoanDTO(MaTK, TenTK, MatKhau, MaQuyen, TrangThai, NgayTao);
+                ketQua.add(tk);
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
     public int Them(TaiKhoanDTO taiKhoan) {
         int ketQua = 0;
+        int maquyen=getIdChucVu(taiKhoan.getMaQuyen());
         try {
             Connection conn = ConnectDB.getConnection();
             String sql = "INSERT INTO TaiKhoan(TenTK, MatKhau, MaQuyen, NgayTao, TinhTrang) VALUES ( ?, ?, ?, ?, ?)";
@@ -154,7 +206,7 @@ public class TaiKhoanDAO {
 
             pst.setString(1, taiKhoan.getTenTK());
             pst.setString(2, taiKhoan.getMatKhau());
-            pst.setString(3, taiKhoan.getMaQuyen());
+            pst.setInt(3, maquyen);
             pst.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(taiKhoan.getNgayTao()));
             pst.setBoolean(5, true);
 
@@ -169,13 +221,14 @@ public class TaiKhoanDAO {
 
     public int Sua(TaiKhoanDTO taiKhoan) {
         int ketQua = 0;
+        int quyen=getIdChucVu(taiKhoan.getMaQuyen());
         try {
             Connection conn = ConnectDB.getConnection();
             String sql = "UPDATE TaiKhoan SET TenTK=?, MatKhau=?, MaQuyen=?, NgayTao=?, TinhTrang=? WHERE MaTK=?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, taiKhoan.getTenTK());
             pst.setString(2, taiKhoan.getMatKhau());
-            pst.setString(3, taiKhoan.getMaQuyen());
+            pst.setInt(3, quyen);
             pst.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(taiKhoan.getNgayTao()));
             pst.setBoolean(5, Boolean.parseBoolean(taiKhoan.getTinhTrang()));
             pst.setString(6, taiKhoan.getMaTK());
@@ -206,6 +259,25 @@ public class TaiKhoanDAO {
         return ketQua;
     }
 
+    public int getIdChucVu(String TenChucVu){
+        int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT MaNQ " +
+                         "FROM NhomQuyen " +
+                         "where TenNQ = N'"+TenChucVu+"'";
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                ketQua=rs.getInt("MaNQ");
+            }
+            ConnectDB.closeConnection(conn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
+    }
     public static void main(String[] args) throws ParseException {
         TaiKhoanDAO a = new TaiKhoanDAO();
         // ArrayList<TaiKhoanDTO> dstk = a.selectAll();

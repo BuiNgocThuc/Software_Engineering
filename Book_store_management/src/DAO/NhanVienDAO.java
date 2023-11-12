@@ -154,26 +154,8 @@ public class NhanVienDAO {
         }
         return ketQua;
     }
-    public int getIdChucVu(String TenChucVu){
-        int ketQua = 0;
-        try {
-            Connection conn = ConnectDB.getConnection();
-            Statement st = conn.createStatement();
-            String sql = "SELECT MaNQ " +
-                         "FROM NhomQuyen " +
-                         "where TenNQ = N'"+TenChucVu+"'";
-            ResultSet rs = st.executeQuery(sql);
-
-            if (rs.next()) {
-                ketQua=rs.getInt("MaNQ");
-            }
-            ConnectDB.closeConnection(conn);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return ketQua;
-    }
-    public int addNhanVien(NhanVienDTO nv,int chucvu){
+    
+    public int addNhanVien(NhanVienDTO nv){
         int ketqua=-1;
         Connection conn=null;
         try {
@@ -188,13 +170,6 @@ public class NhanVienDAO {
             st.setNString(6, nv.getEmail());
             st.setNString(7, nv.getTinhTrang());
             ketqua=st.executeUpdate();
-            if(ketqua>0){
-                String sql1 = "Insert into TaiKhoan(TenTK,MaQuyen) values(?,?)";
-                PreparedStatement st1=conn.prepareStatement(sql1);
-                st1.setNString(1, nv.getMaNV());
-                st1.setInt(2, chucvu);
-                ketqua=st1.executeUpdate();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -202,7 +177,7 @@ public class NhanVienDAO {
         }
         return ketqua;
     }
-    public int updateNhanVien(NhanVienDTO nv,int chucvu){
+    public int updateNhanVien(NhanVienDTO nv){
         int ketqua=-1;
         Connection conn=null;
         try {
@@ -217,13 +192,6 @@ public class NhanVienDAO {
             st.setNString(6, nv.getTinhTrang());
             st.setNString(7, nv.getMaNV());
             ketqua=st.executeUpdate();
-            if(ketqua>0){
-                String sql1 = "update TaiKhoan set MaQuyen=? where TenTK=?";
-                PreparedStatement st1=conn.prepareStatement(sql1);
-                st1.setInt(1, chucvu);
-                st1.setNString(2, nv.getMaNV());
-                ketqua=st1.executeUpdate();
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

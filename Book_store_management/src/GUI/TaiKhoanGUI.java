@@ -5,11 +5,15 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import DAO.NhomQuyenDAO;
+import DAO.TaiKhoanDAO;
+import DTO.TaiKhoanDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -113,9 +117,14 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         tfTimkiem.setText("Tìm kiếm sản phẩm");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
-        tfTimkiem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTimkiemActionPerformed(evt);
+        tfTimkiem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTimkiemFocusLost(evt);
+            }
+        });
+        tfTimkiem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfTimkiemMouseClicked(evt);
             }
         });
 
@@ -286,19 +295,31 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfTimkiemActionPerformed
-
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-        // TODO add your handling code here:
+        TimKiem();
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
+    public void TimKiem() {
+        NhomQuyenDAO nqDAO =new NhomQuyenDAO();
+        ArrayList<TaiKhoanDTO> tkTK = new ArrayList<>();
+        TaiKhoanDAO tkDao = new TaiKhoanDAO();
+        String chuoiTim = tfTimkiem.getText();
+        tkTK=tkDao.searchTaiKhoan(chuoiTim);
+        DefaultTableModel model = (DefaultTableModel) tableTaikhoan.getModel();
+        model.setRowCount(0);
+        int STT=1;
+        for (TaiKhoanDTO acc : tkTK) {
+            String MaTK = "TK" + acc.getMaTK();
+            String TenTK = acc.getTenTK();
+            String MatKhau = acc.getMatKhau();
+            String TenNQ = nqDAO.selectNameByID(acc.getMaQuyen());
+            String NgayTao = acc.getNgayTao().toString();
+            Object[] row = {STT++, MaTK, TenTK, MatKhau, TenNQ, NgayTao};
+            model.addRow(row);
+        }
+        tableTaikhoan.setModel(model);
+    }
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
-        XoaTaiKhoan();
-    }//GEN-LAST:event_btnXoaActionPerformed
-    public void XoaTaiKhoan() {
         int selectedRowIndex = tableTaikhoan.getSelectedRow();
         if (selectedRowIndex != -1) {
             int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa ?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
@@ -322,19 +343,44 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng chọn tài khoản cần xóa.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
-    }
-    
+    }//GEN-LAST:event_btnXoaActionPerformed
+   
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        ChiTietTaiKhoan cttk=new ChiTietTaiKhoan();
+        cttk.Model=1;
+        cttk.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        // TODO add your handling code here:
+        int selectedRow= tableTaikhoan.getSelectedRow();
+        if(selectedRow!= -1){
+            String maTK = (String) modelTaiKhoan.getValueAt(selectedRow, 1);
+            int maTKNumber = Integer.parseInt(maTK.substring(2));
+            ChiTietTaiKhoan cttk=new ChiTietTaiKhoan();
+            cttk.Model=2;
+            cttk.setData(maTKNumber);
+            cttk.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Chưa chọn tài khoản");
+        }
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
-        // TODO add your handling code here:
+        tfTimkiem.setText("Tìm kiếm tài khoản");
+        tkBUS.createTableAccount(modelTaiKhoan);
+        
     }//GEN-LAST:event_btnLammoiActionPerformed
+
+    private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
+        if(tfTimkiem.getText().equals("")){
+            tfTimkiem.setText("Tìm kiếm tài khoản");
+        }
+    }//GEN-LAST:event_tfTimkiemFocusLost
+
+    private void tfTimkiemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfTimkiemMouseClicked
+        tfTimkiem.setText("");
+    }//GEN-LAST:event_tfTimkiemMouseClicked
 
     public JTable createTableTaikhoan() {
         // Tiêu đề của các cột

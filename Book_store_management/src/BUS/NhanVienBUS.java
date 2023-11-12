@@ -38,8 +38,8 @@ public class NhanVienBUS {
             return false;
         }
     }
-    public boolean updateNhanVien(NhanVienDTO nv,int chucvu){
-        int check = nvDao.updateNhanVien(nv,chucvu);
+    public boolean updateNhanVien(NhanVienDTO nv){
+        int check = nvDao.updateNhanVien(nv);
         if (check != -1) {
             JOptionPane.showMessageDialog(null, "Sửa nhân viên thành công");
             return true;
@@ -48,8 +48,8 @@ public class NhanVienBUS {
             return false;
         }
     }
-    public boolean insertNhanVien(NhanVienDTO nv,int chucvu){
-        int check = nvDao.addNhanVien(nv,chucvu);
+    public boolean insertNhanVien(NhanVienDTO nv){
+        int check = nvDao.addNhanVien(nv);
         if (check != -1) {
             JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công");
             return true;

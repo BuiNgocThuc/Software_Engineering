@@ -205,19 +205,20 @@ public class ChiTietCongTy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "SĐT không được để trống");
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
-        }
-        cty.setTenNCC(txtName.getText());
-        cty.setSDT(txtSDT.getText());
-        cty.setDiaChi(txtDiaChi.getText());
-        cty.setTinhTrang(true);
-        CongTyBUS ctyBus = new CongTyBUS();
-        if (Model == 1) {
-            if (ctyBus.insertCongTy(cty)) {
-                setVisible(false);
-            }
         } else {
-            if (ctyBus.updateCongTy(cty)) {
-                setVisible(false);
+            cty.setTenNCC(txtName.getText());
+            cty.setSDT(txtSDT.getText());
+            cty.setDiaChi(txtDiaChi.getText());
+            cty.setTinhTrang(true);
+            CongTyBUS ctyBus = new CongTyBUS();
+            if (Model == 1) {
+                if (ctyBus.insertCongTy(cty)) {
+                    setVisible(false);
+                }
+            } else {
+                if (ctyBus.updateCongTy(cty)) {
+                    setVisible(false);
+                }
             }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
@@ -225,8 +226,6 @@ public class ChiTietCongTy extends javax.swing.JFrame {
     private void buttonRadius1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRadius1ActionPerformed
         setVisible(false);
     }//GEN-LAST:event_buttonRadius1ActionPerformed
-    
-    
 
     public void setData(int id) {
         CongTyBUS ctyBus = new CongTyBUS();

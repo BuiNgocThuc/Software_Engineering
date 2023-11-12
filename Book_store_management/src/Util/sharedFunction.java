@@ -248,15 +248,13 @@ public class sharedFunction {
 
     public static void openNewFrame(LocAnd frame) {
         // Tạo JFrame mới
-        System.out.println(frame.getCheck());
-//        System.out.println(frame.getCheck());
         // Lấy vị trí của JFrame chính 
         JFrame mainFrame = MainFrameGUI.getMainFrameInstance();
         int mainFrameX = mainFrame.getX();
         int mainFrameY = mainFrame.getY();
 
         // Tính toán vị trí cho JFrame mới
-        int newX = mainFrameX + 270; //  tăng heo trục x
+        int newX = mainFrameX + 270; //  tăng theo trục x
         int newY = mainFrameY + 35; //  tăng theo trục y
 
         // Đặt vị trí của JFrame mới

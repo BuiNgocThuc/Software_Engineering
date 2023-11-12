@@ -8,6 +8,7 @@ import BUS.CTPhanQuyenBUS;
 import BUS.ChucNangBUS;
 import BUS.NhomQuyenBUS;
 import DTO.CTQuyenDTO;
+import DTO.ChucNangDTO;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -434,7 +435,42 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         currentBackgroundColor = lblChucNang.getBackground();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
+            int selectedRowCN = tableChucNang.getSelectedRow();
+            if (selectedRowCN == -1) {
+                sharedFunction.displayErrorMessage("Vui lòng chọn chức năng cần sửa");
+                return;
+            } else {
+                ChiTietChucNang ctcn = new ChiTietChucNang(this);
+                ctcn.setVisible(true);
 
+                String MaCNStr = tableChucNang.getValueAt(selectedRowCN, 1).toString();
+                String TenCN = tableChucNang.getValueAt(selectedRowCN, 2).toString();
+
+                ctcn.getTxtID().setText(MaCNStr);
+                ctcn.getTxtName().setText(TenCN);
+
+                int MaCN = Integer.parseInt(MaCNStr.substring(2));
+                ArrayList<String> listAction = cnBUS.getListAction(MaCN);
+                for (String action : listAction) {
+                    switch (action) {
+                        case "Thêm":
+                            ctcn.getTblAction().setValueAt(true, 0, 1);
+                            break;
+                        case "Sửa":
+                            ctcn.getTblAction().setValueAt(true, 1, 1);
+                            break;
+                        case "Xóa":
+                            ctcn.getTblAction().setValueAt(true, 2, 1);
+                            break;
+                        case "Truy Cập":
+                            ctcn.getTblAction().setValueAt(true, 3, 1);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                
+            }
         } else {
             int selectedRowNQ = tableNhomQuyen.getSelectedRow();
             if (selectedRowNQ == -1) {
@@ -443,31 +479,31 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
             } else {
                 ChiTietQuyen ctq = new ChiTietQuyen(this);
                 ctq.setVisible(true);
-                
+
                 String MaNQStr = tableNhomQuyen.getValueAt(selectedRowNQ, 1).toString();
                 String TenNQ = tableNhomQuyen.getValueAt(selectedRowNQ, 2).toString();
                 String MoTa = tableNhomQuyen.getValueAt(selectedRowNQ, 3).toString();
-                
+
                 ctq.getTxtID().setText(MaNQStr);
                 ctq.getTxtName().setText(TenNQ);
                 ctq.getTxtDes().setText(MoTa);
-                
+
                 int MaNQ = Integer.parseInt(MaNQStr.substring(2));
                 ArrayList<CTQuyenDTO> listCTQ = ctqBUS.getListCTQ(MaNQ);
-                
-                for(CTQuyenDTO ctqDTO : listCTQ) {
+
+                for (CTQuyenDTO ctqDTO : listCTQ) {
                     int MaCN = ctqDTO.getMaCN();
                     String MaCNStr = String.format("CN%02d", MaCN);
                     String HanhDong = ctqDTO.getHanhDong();
-                    for(int i = 0; i < ctq.getTableCTQuyen().getRowCount(); ++i){
+                    for (int i = 0; i < ctq.getTableCTQuyen().getRowCount(); ++i) {
                         String MaCNTbl = ctq.getTableCTQuyen().getValueAt(i, 0).toString();
                         String HanhDongTbl = ctq.getTableCTQuyen().getValueAt(i, 2).toString();
-                        if(MaCNStr.equals(MaCNTbl) && HanhDong.equals(HanhDongTbl)) {
+                        if (MaCNStr.equals(MaCNTbl) && HanhDong.equals(HanhDongTbl)) {
                             ctq.getTableCTQuyen().setValueAt(true, i, 3);
                         }
                     }
                 }
-                
+
             }
         }
     }//GEN-LAST:event_btnSuaActionPerformed
@@ -537,7 +573,22 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
         currentBackgroundColor = lblChucNang.getBackground();
         // xử lý việc thêm sửa xóa cho bảng thể loại hay bảng sản phẩm
         if (currentBackgroundColor.equals(targetColor)) {
-
+            int selectedRowNQ = tableChucNang.getSelectedRow();
+            if (selectedRowNQ == -1) {
+                sharedFunction.displayErrorMessage("Vui lòng chọn chức năng cần xóa");
+                return;
+            } else {
+                int ans = JOptionPane.showConfirmDialog(null, "Xác nhận xóa chức năng này", "Xác nhận", JOptionPane.YES_NO_OPTION);
+                if (ans == JOptionPane.YES_OPTION) {
+                    String MaCNStr = tableChucNang.getValueAt(selectedRowNQ, 1).toString();
+                    int MaCN = Integer.parseInt(MaCNStr.substring(2));
+                    boolean deleteCN = cnBUS.XoaChucNang(MaCN);
+                    if (deleteCN) {
+                        JOptionPane.showMessageDialog(null, "Xóa chức năng thành công!!");
+                        cnBUS.createTableRole(modelChucNang);
+                    }
+                }
+            }
         } else {
             int selectedRowNQ = tableNhomQuyen.getSelectedRow();
             if (selectedRowNQ == -1) {
@@ -545,11 +596,11 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
                 return;
             } else {
                 int ans = JOptionPane.showConfirmDialog(null, "Xác nhận xóa nhóm quyền này", "Xác nhận", JOptionPane.YES_NO_OPTION);
-                if(ans == JOptionPane.YES_OPTION) {
+                if (ans == JOptionPane.YES_OPTION) {
                     String MaNQStr = tableNhomQuyen.getValueAt(selectedRowNQ, 1).toString();
                     int MaNQ = Integer.parseInt(MaNQStr.substring(2));
                     boolean deleteNQ = nqBUS.xoaNhomQuyen(MaNQ);
-                    if(deleteNQ) {
+                    if (deleteNQ) {
                         JOptionPane.showMessageDialog(null, "Xóa nhóm quyền thành công!!");
                         nqBUS.createTablePer(modelNhomQuyen);
                     }

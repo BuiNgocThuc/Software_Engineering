@@ -71,9 +71,41 @@ public class ChucNangBUS {
         return cnDAO.getCurrentID();
     }
     
+    public ArrayList<ChucNangDTO> selectAllData() {
+        return cnDAO.selectAllData();
+    }
+    
+    public ArrayList<String> getListAction(int MaCN) {
+        ArrayList<String> listAction = new ArrayList<>();
+        ArrayList<ChucNangDTO> listCN = selectStateRole();
+        String action = "";
+        for(ChucNangDTO cn : listCN) {
+            if(cn.getMaCN() == MaCN) {
+                listAction.add(action = cn.isThem() ? "Thêm" : "");
+                listAction.add(action = cn.isSua()? "Sửa" : "");
+                listAction.add(action = cn.isXoa()? "Xóa" : "");
+                listAction.add(action = cn.isTruyCap()? "Truy Cập" : "");
+                break;
+            }
+        }     
+        return listAction;
+    }
+    
     public boolean ThemChucNang(ChucNangDTO cnDTO) {
         boolean res = false;
         res = cnDAO.Them(cnDTO);
+        return res;
+    }
+    
+    public boolean SuaChucNang(ChucNangDTO cnDTO){
+        boolean res = false;
+        res = cnDAO.Sua(cnDTO);
+        return res;
+    }
+    
+    public boolean XoaChucNang(int MaCN) {
+        boolean res = false;
+        res = cnDAO.Xoa(MaCN);
         return res;
     }
 }

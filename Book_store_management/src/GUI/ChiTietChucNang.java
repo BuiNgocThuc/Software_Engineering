@@ -62,7 +62,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
 
     public void createTable() {
         String[] columnNames = {"Hành Động", "Lựa Chọn"};
-        Object[][] data = {{"Thêm", false}, {"Sửa", false}, {"Xóa", false}, {"Truy Cập", false}};
+        Object[][] data = {{"Thêm", false}, {"Sửa", false}, {"Xóa", false}, {"Truy Cập", true}};
         modelAction = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -76,7 +76,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
 
             @Override
             public boolean isCellEditable(int row, int column) {
-                return column == 1;
+                return column == 1 && row != 3;
             }
 
         };
@@ -351,7 +351,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         int currentID = cnBUS.getCurrentID();
         int MaNQ = Integer.parseInt(txtID.getText().substring(2));
 
-        return currentID != MaNQ;
+        return currentID + 1 == MaNQ; // Id hiện tại bằng id mới trong UI
     }
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
@@ -378,7 +378,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
             }
         }
         
-        ChucNangDTO cnDTO = new ChucNangDTO(name, id, them, sua, xoa, sua);
+        ChucNangDTO cnDTO = new ChucNangDTO(name, id, them, sua, xoa, doc);
         if (checkCurrentID()) {
             boolean addCN = cnBUS.ThemChucNang(cnDTO);
             if(addCN) {
@@ -387,7 +387,12 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 this.dispose();
             }
         } else {
-
+            boolean updateCN = cnBUS.SuaChucNang(cnDTO);
+            if(updateCN) {
+                JOptionPane.showMessageDialog(null, "Sửa chức năng thành công");
+                cnBUS.createTableRole(nqGUI.getModelChucNang());
+                this.dispose();
+            }
         }
     }//GEN-LAST:event_btnLuuActionPerformed
 

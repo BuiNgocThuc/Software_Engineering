@@ -4,10 +4,13 @@
  */
 package GUI;
 
+import BUS.ChucNangBUS;
 import BUS.SanPhamBUS;
+import DTO.ChucNangDTO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -39,57 +42,156 @@ public class MainFrameGUI extends javax.swing.JFrame {
     PhanQuyenGUI phanQuyenGUI = new PhanQuyenGUI();
     SanPhamGUI sanPhamGUI = new SanPhamGUI();
     CongTyGUI congTyGUI = new CongTyGUI();
+    developGUI developGUI = new developGUI();
 
-//    ChucNangBUS cnBUS = new ChucNangBUS();
-//    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
+    ChucNangBUS cnBUS = new ChucNangBUS();
+    private static ArrayList<ChucNangDTO> dscn = new ArrayList<>();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
-  private static JFrame instance;
+    private static JFrame instance;
+
     public MainFrameGUI() {
         instance = this;
         //this.setUndecorated(true);
         initComponents();
-        designComp();
+        getChucNang();
+
         this.setLocationRelativeTo(null);
         sharedFunction.moveLayout(this, pnContainer);
+    }
 
+    public void getChucNang() {
+        dscn = cnBUS.selectAllData();
+        for (ChucNangDTO cn : dscn) {
+            switch (cn.getMaCN()) {
+                case 1: //Tài khoản
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblTaiKhoan.setVisible(false);
+                    } else {
+                        listItems.add(lblTaiKhoan);
+                        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
+                    }
+                    break;
+                case 2:// phân quyền
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblPhanQuyen.setVisible(false);
+                    } else {
+                        listItems.add(lblPhanQuyen);
+                        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
+                    }
+                    break;
+                case 3://sản phẩm
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblSanPham.setVisible(false);
+                    } else {
+                        listItems.add(lblSanPham);
+                        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
+                    }
+                    break;
+                case 4://nhập hàng
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblNhapHang.setVisible(false);
+                    } else {
+                        listItems.add(lblNhapHang);
+                        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
+                    }
+                    break;
+                case 5://bán hàng
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblBanHang.setVisible(false);
+                    } else {
+                        listItems.add(lblBanHang);
+                        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
+                    }
+                    break;
+                case 6://phiếu nhập
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblPhieuNhap.setVisible(false);
+                    } else {
+                        listItems.add(lblPhieuNhap);
+                        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
+                    }
+                    break;
+                case 7:// hóa đơn
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblHoaDon.setVisible(false);
+                    } else {
+                        listItems.add(lblHoaDon);
+                        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
+                    }
+                    break;
+                case 8:// nhân viên
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblNhanVien.setVisible(false);
+                    } else {
+                        listItems.add(lblNhanVien);
+                        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+                    }
+                    break;
+                case 9:// nhà cung cấp
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblCongTy.setVisible(false);
+                    } else {
+                        listItems.add(lblCongTy);
+                        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
+                    }
+                    break;
+                case 10:// thống kê
+                    if (cn.getTinhTrang().equals("0")) {
+                        lblThongKe.setVisible(false);
+                    } else {
+                        listItems.add(lblThongKe);
+                        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
+                    }
+                    break;
+                default: //chức năng khác
+                    if (!cn.getTinhTrang().equals("0")) {
+                        String TenCN = cn.getTenCN();
+                        JLabel newLabel = createNewMenu(TenCN);
+                        pnListItem.add(newLabel);
+                        listItems.add(newLabel);
+                        newLabel.addMouseListener(new handleMouseEvent(pnContent, developGUI));
+                    }
+                    break;
+            }
+        }
+        createSidebar();
+        designComp();
+    }
+
+    public void createSidebar() {
+        GridLayout glayout = new GridLayout();
+        glayout.setRows(listItems.size());
+        pnListItem.setLayout(glayout);
+        pnListItem.setPreferredSize(new java.awt.Dimension(260, listItems.size() * 85));
+    }
+
+    JLabel createNewMenu(String name) {
+        JLabel label = new JLabel("", JLabel.CENTER);
+        label.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
+        label.setForeground(new java.awt.Color(243, 243, 244));
+        //label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/cart_2.png"))); // NOI18N
+        label.setText(name);
+        label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        label.setPreferredSize(new java.awt.Dimension(260, 80));
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //lblBanHangMouseClicked(evt);
+            }
+        });
+
+        return label;
     }
 
     void designComp() {
         spnMenu.getVerticalScrollBar().setUnitIncrement(16);
-
         createListItems();
-        solveActionMenu();
         solveHoverMenu();
     }
 
     void createListItems() {
-        listItems.add(lblBanHang);
-        listItems.add(lblNhapHang);
-        listItems.add(lblSanPham);
-        listItems.add(lblHoaDon);
-        listItems.add(lblPhieuNhap);
-        listItems.add(lblNhanVien);
-        listItems.add(lblCongTy);
-        listItems.add(lblThongKe);
-        listItems.add(lblTaiKhoan);
-        listItems.add(lblPhanQuyen);
-
         lblSanPham.setBackground(Color.decode("#AAD8F4"));
         lblSanPham.setForeground(Color.white);
         lblSanPham.setOpaque(true);
-    }
-
-    void solveActionMenu() {
-        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
-        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
-        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
     }
 
     void solveHoverMenu() {
@@ -315,13 +417,13 @@ public class MainFrameGUI extends javax.swing.JFrame {
         spnMenu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         spnMenu.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         spnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        spnMenu.setPreferredSize(new java.awt.Dimension(260, 570));
+        spnMenu.setPreferredSize(new java.awt.Dimension(260, 550));
         spnMenu.setRequestFocusEnabled(false);
 
         pnListItem.setBackground(new java.awt.Color(152, 192, 230));
         pnListItem.setAutoscrolls(true);
         pnListItem.setPreferredSize(new java.awt.Dimension(260, 850));
-        pnListItem.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
+        pnListItem.setLayout(new java.awt.GridLayout(10, 0));
 
         lblSanPham.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(243, 243, 244));
@@ -490,7 +592,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnSideBarLayout.createSequentialGroup()
                     .addGap(120, 120, 120)
-                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -766,7 +868,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_itemLogOutActionPerformed
-   
+
     private void pnSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSanPhamMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_pnSanPhamMouseExited
@@ -783,9 +885,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblBanHangMouseClicked
 
- public static JFrame getMainFrameInstance() {
+    public static JFrame getMainFrameInstance() {
         return instance;
     }
+
     /**
      * @param args the command line arguments
      */

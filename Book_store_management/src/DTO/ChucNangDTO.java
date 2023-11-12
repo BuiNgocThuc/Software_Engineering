@@ -29,6 +29,18 @@ public class ChucNangDTO {
         this.TruyCap = TruyCap;
     }
 
+    public ChucNangDTO(String tenCN, String tinhTrang, int maCN, boolean Them, boolean Sua, boolean Xoa, boolean TruyCap) {
+        this.tenCN = tenCN;
+        this.tinhTrang = tinhTrang;
+        this.maCN = maCN;
+        this.Them = Them;
+        this.Sua = Sua;
+        this.Xoa = Xoa;
+        this.TruyCap = TruyCap;
+    }
+    
+    
+
     public boolean isThem() {
         return Them;
     }

@@ -132,6 +132,7 @@ public class TaiKhoanBUS {
                     layout.setVisible(true);
                     displayName(currentAcc, layout);
                     //PhanQuyen(lisrPer, layout);
+                    //layout.getChucNang();
                     acc.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
                     System.out.println(currentAcc.getTenTK());

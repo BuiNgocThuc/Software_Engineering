@@ -96,6 +96,33 @@ public class ChucNangDAO {
         }
         return res;
     }
+    
+    public ArrayList<ChucNangDTO> selectAllData() {
+        ArrayList<ChucNangDTO> res = new ArrayList<>();
+        try {
+            Connection conn = ConnectDB.getConnection();
+            Statement st = conn.createStatement();
+            String sql = "SELECT * FROM ChucNang";
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                int maCN = rs.getInt("MaCN");
+                String tenCN = rs.getNString("TenCN");
+                boolean them = rs.getBoolean("Them");
+                boolean xoa = rs.getBoolean("Xoa");
+                boolean sua = rs.getBoolean("Sua");
+                boolean truyCap = rs.getBoolean("Doc");
+                String TinhTrang = rs.getString("TinhTrang");
+                ChucNangDTO cn = new ChucNangDTO(tenCN, TinhTrang, maCN, them, sua, xoa, truyCap);
+                res.add(cn);
+            }
+
+            ConnectDB.closeConnection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
 
     public boolean Them(ChucNangDTO cn) {
         boolean ketQua = false;
@@ -120,18 +147,20 @@ public class ChucNangDAO {
         return ketQua;
     }
 
-    public int Sua(ChucNangDTO cn) {
-        int ketQua = 0;
+    public boolean Sua(ChucNangDTO cn) {
+        boolean ketQua = false;
         try {
             Connection conn = ConnectDB.getConnection();
-            String sql = "UPDATE ChucNang "
-                    + " SET TenCN=?"
-                    + " WHERE MaCN=?";
+            String sql = "UPDATE ChucNang SET TenCN = ?, Them = ?, Sua = ?, Xoa = ?, Doc = ? WHERE MaCN = ?";
             PreparedStatement pst = conn.prepareStatement(sql);
             pst.setString(1, cn.getTenCN());
-            pst.setInt(2, cn.getMaCN());
+            pst.setBoolean(2, cn.isThem());
+            pst.setBoolean(3, cn.isSua());
+            pst.setBoolean(4, cn.isXoa());
+            pst.setBoolean(5, cn.isTruyCap());
+            pst.setInt(6, cn.getMaCN());
 
-            ketQua = pst.executeUpdate();
+            ketQua = pst.executeUpdate() > 0;
 
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
@@ -140,21 +169,25 @@ public class ChucNangDAO {
         return ketQua;
     }
 
-    public int Xoa(ChucNangDTO cn) {
+    public boolean Xoa(int MaCN) {
         int ketQua = 0;
         try {
             Connection conn = ConnectDB.getConnection();
-            String sql = "DELETE FROM ChucNang "
+            String sql = "UPDATE ChucNang SET TINHTRANG = ? "
                     + " WHERE MaCN=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setInt(1, cn.getMaCN());
+            pst.setBoolean(1, false);
+            pst.setInt(2, MaCN);
 
             ketQua = pst.executeUpdate();
-
+            
             ConnectDB.closeConnection(conn);
+            if(ketQua > 0) {
+                return true;
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return ketQua;
+        return false;
     }
 }

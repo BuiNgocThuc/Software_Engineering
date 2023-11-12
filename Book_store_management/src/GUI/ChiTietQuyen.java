@@ -390,7 +390,7 @@ public final class ChiTietQuyen extends javax.swing.JFrame {
         int currentID = nqBUS.getCurrentID();
         int MaNQ = Integer.parseInt(txtID.getText().substring(2));
 
-        return currentID != MaNQ;
+        return currentID + 1 == MaNQ;
     }
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed

@@ -63,7 +63,7 @@
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btnXoa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                          <Component id="btnSua1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnSua" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btnLammoi" min="-2" pref="118" max="-2" attributes="0"/>
                       </Group>
@@ -88,7 +88,7 @@
                           <Component id="jLabel6" alignment="0" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="btnXoa" max="32767" attributes="0"/>
                           <Component id="btnThem" max="32767" attributes="0"/>
-                          <Component id="btnSua1" alignment="1" max="32767" attributes="0"/>
+                          <Component id="btnSua" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <Component id="btnLammoi" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -326,7 +326,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTimkiemActionPerformed"/>
           </Events>
         </Component>
-        <Component class="Components.ButtonRadius" name="btnSua1">
+        <Component class="Components.ButtonRadius" name="btnSua">
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="null"/>
@@ -352,7 +352,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSua1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
           </Events>
         </Component>
         <Component class="Components.ButtonRadius" name="btnLammoi">

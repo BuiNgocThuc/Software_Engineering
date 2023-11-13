@@ -43,17 +43,19 @@ public class CTPhanQuyenDAO {
         return listCTQ;
     }
 
-    public ArrayList<String> getPerByRole(String MaQuyen) {
-        ArrayList<String> listRole = new ArrayList<>();
+    public ArrayList<CTQuyenDTO> getPerByRole(int MaQuyen) {
+        ArrayList<CTQuyenDTO> listRole = new ArrayList<>();
         Connection conn = ConnectDB.getConnection();
         try {
-            String sql = "select MaCN from ChiTietQuyen where MaQuyen = ? and TinhTrang <> 0";
+            String sql = "select * from ChiTietQuyen where MaQuyen = ? and TinhTrang <> 0";
             pstm = conn.prepareStatement(sql);
-            pstm.setString(1, MaQuyen);
+            pstm.setInt(1, MaQuyen);
             ResultSet rs = pstm.executeQuery();
              while (rs.next()) {
-                String maCN = rs.getString("MaCN");
-                listRole.add(maCN);
+                int maCN = rs.getInt("MaCN");
+                String action = rs.getString("HanhDong");
+                CTQuyenDTO newCTQ = new CTQuyenDTO(1,MaQuyen, maCN, action, 1);
+                listRole.add(newCTQ);
             }
             
             
@@ -96,6 +98,28 @@ public class CTPhanQuyenDAO {
             PreparedStatement pst = conn.prepareStatement(sql);
 
             pst.setInt(1, MaNQ);
+
+            ketQua = pst.executeUpdate();
+
+            ConnectDB.closeConnection(conn);
+            if (ketQua != 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean XoaByMaCN(int MaCN) {
+         int ketQua = 0;
+        try {
+            Connection conn = ConnectDB.getConnection();
+            String sql = "UPDATE ChiTietQuyen SET TinhTrang = ? WHERE MaCN = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setBoolean(1, false);
+            pst.setInt(2, MaCN);
 
             ketQua = pst.executeUpdate();
 

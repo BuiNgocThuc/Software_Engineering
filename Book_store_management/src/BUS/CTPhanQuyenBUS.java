@@ -19,7 +19,7 @@ public class CTPhanQuyenBUS {
         return ctpqDAO.selectByID(MaNQ);
     }
     
-    public ArrayList<String> getPerByRole(String MaQuyen) {
+    public ArrayList<CTQuyenDTO> getPerByRole(int MaQuyen) {
         return ctpqDAO.getPerByRole(MaQuyen);
     }
     
@@ -44,5 +44,9 @@ public class CTPhanQuyenBUS {
     
     public boolean XoaCTQuyen(int MaNQ) {
         return ctpqDAO.Xoa(MaNQ);
+    }
+    
+    public boolean XoaByMaCN(int MaCN) {
+        return ctpqDAO.XoaByMaCN(MaCN);
     }
 }

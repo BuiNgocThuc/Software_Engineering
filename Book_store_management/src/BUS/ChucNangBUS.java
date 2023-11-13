@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.CTPhanQuyenDAO;
 import DAO.ChucNangDAO;
 import DTO.ChucNangDTO;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import javax.swing.table.TableModel;
 public class ChucNangBUS {
 
     ChucNangDAO cnDAO = new ChucNangDAO();
+    CTPhanQuyenBUS ctqBUS = new CTPhanQuyenBUS();
 
     public void createTableRole(DefaultTableModel modelPhieuNhap) {
         ArrayList<ChucNangDTO> listChucNang = selectAll();
@@ -106,6 +108,13 @@ public class ChucNangBUS {
     public boolean XoaChucNang(int MaCN) {
         boolean res = false;
         res = cnDAO.Xoa(MaCN);
+        if(res) {
+            ctqBUS.XoaByMaCN(MaCN);
+        }
         return res;
+    }
+    
+    public String getNameByID(int ID) {
+        return cnDAO.getNameByID(ID);
     }
 }

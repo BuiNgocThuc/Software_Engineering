@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.CTPhieuNhapBUS;
 import BUS.PhieuNhapBUS;
+import Components.ButtonRadius;
 import Util.sharedFunction;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
@@ -162,6 +163,20 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     public static DefaultTableModel getModelImportDetai() {
         return modelImportDetail;
     }
+
+    public ButtonRadius getBtnCancel() {
+        return btnCancel;
+    }
+
+    public ButtonRadius getBtnSave() {
+        return btnSave;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

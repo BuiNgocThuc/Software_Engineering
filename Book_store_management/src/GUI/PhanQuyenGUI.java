@@ -7,6 +7,7 @@ package GUI;
 import BUS.CTPhanQuyenBUS;
 import BUS.ChucNangBUS;
 import BUS.NhomQuyenBUS;
+import Components.ButtonRadius;
 import DTO.CTQuyenDTO;
 import DTO.ChucNangDTO;
 import Util.sharedFunction;
@@ -69,6 +70,19 @@ public class PhanQuyenGUI extends javax.swing.JPanel {
     public static DefaultTableModel getModelChucNang() {
         return modelChucNang;
     }
+
+    public ButtonRadius getBtnSua() {
+        return btnSua;
+    }
+
+    public ButtonRadius getBtnThem() {
+        return btnThem;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+    
 
     public void createTable() {
         tableNhomQuyen = createTablePhanQuyen();

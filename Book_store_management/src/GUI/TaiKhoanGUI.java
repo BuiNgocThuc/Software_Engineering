@@ -5,6 +5,7 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Components.ButtonRadius;
 import DAO.NhomQuyenDAO;
 import DAO.TaiKhoanDAO;
 import DTO.TaiKhoanDTO;
@@ -44,6 +45,20 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         createTable();
     }
 
+    public ButtonRadius getBtnSua() {
+        return btnSua;
+    }
+
+    public ButtonRadius getBtnThem() {
+        return btnThem;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+    
+    
+
     public void createTable() {
         tableTaikhoan = createTableTaikhoan();
         tableTaikhoan.setPreferredScrollableViewportSize(PanelTable.getPreferredSize());
@@ -75,7 +90,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         btnTimkiem = new Components.ButtonRadius();
         btnXoa = new Components.ButtonRadius();
         btnThem = new Components.ButtonRadius();
-        btnSua1 = new Components.ButtonRadius();
+        btnSua = new Components.ButtonRadius();
         btnLammoi = new Components.ButtonRadius();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -147,7 +162,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
@@ -200,19 +215,19 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
             }
         });
 
-        btnSua1.setBorder(null);
-        btnSua1.setForeground(new java.awt.Color(135, 172, 217));
-        btnSua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
-        btnSua1.setText("Sửa");
-        btnSua1.setFocusPainted(false);
-        btnSua1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnSua1.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnSua1.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnSua1.setRadius(40);
-        btnSua1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSua1.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBorder(null);
+        btnSua.setForeground(new java.awt.Color(135, 172, 217));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.setFocusPainted(false);
+        btnSua.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnSua.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnSua.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnSua.setRadius(40);
+        btnSua.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua1ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -254,7 +269,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
                             .addGap(30, 30, 30)
                             .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
-                            .addComponent(btnSua1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(30, 30, 30)
                             .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(PanelTable, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -274,7 +289,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSua1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,7 +366,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         cttk.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int selectedRow= tableTaikhoan.getSelectedRow();
         if(selectedRow!= -1){
             String maTK = (String) modelTaiKhoan.getValueAt(selectedRow, 1);
@@ -364,7 +379,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
         else{
             JOptionPane.showMessageDialog(this, "Chưa chọn tài khoản");
         }
-    }//GEN-LAST:event_btnSua1ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         tfTimkiem.setText("Tìm kiếm tài khoản");
@@ -442,7 +457,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnLammoi;
-    private Components.ButtonRadius btnSua1;
+    private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimkiem;
     private Components.ButtonRadius btnXoa;

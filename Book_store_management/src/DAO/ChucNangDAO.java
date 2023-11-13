@@ -24,6 +24,26 @@ public class ChucNangDAO {
 
     }
 
+    public String getNameByID(int ID) {
+        Connection conn = ConnectDB.getConnection();
+        try {
+            String sql = "SELECT TenCN FROM ChucNang WHERE MaCN= ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setString(1, ID+"");
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String TenNQ = rs.getNString("TenCN");
+                return TenNQ;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectDB.closeConnection(conn);
+        }
+        return null;
+    }
+
     public ArrayList<ChucNangDTO> selectStateRole() {
         ArrayList<ChucNangDTO> res = new ArrayList<>();
         try {
@@ -39,7 +59,7 @@ public class ChucNangDAO {
                 boolean xoa = rs.getBoolean("Xoa");
                 boolean sua = rs.getBoolean("Sua");
                 boolean truyCap = rs.getBoolean("Doc");
-                ChucNangDTO cn = new ChucNangDTO(tenCN, maCN, them,sua,xoa,truyCap);
+                ChucNangDTO cn = new ChucNangDTO(tenCN, maCN, them, sua, xoa, truyCap);
                 res.add(cn);
             }
 
@@ -49,8 +69,7 @@ public class ChucNangDAO {
         }
         return res;
     }
-    
-    
+
     public int getCurrentID() {
         int res = 0;
         try {
@@ -96,7 +115,7 @@ public class ChucNangDAO {
         }
         return res;
     }
-    
+
     public ArrayList<ChucNangDTO> selectAllData() {
         ArrayList<ChucNangDTO> res = new ArrayList<>();
         try {
@@ -180,9 +199,9 @@ public class ChucNangDAO {
             pst.setInt(2, MaCN);
 
             ketQua = pst.executeUpdate();
-            
+
             ConnectDB.closeConnection(conn);
-            if(ketQua > 0) {
+            if (ketQua > 0) {
                 return true;
             }
         } catch (SQLException e) {
@@ -190,4 +209,5 @@ public class ChucNangDAO {
         }
         return false;
     }
+
 }

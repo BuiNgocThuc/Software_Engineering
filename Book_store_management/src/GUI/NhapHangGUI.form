@@ -537,13 +537,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel8" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="lblHinhAnh" min="-2" pref="168" max="-2" attributes="0"/>
                               <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="1" attributes="0">
                                           <Component id="tfTenTacgia" min="-2" pref="248" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -555,14 +555,16 @@
                                           <Component id="tfTenSanpham" min="-2" pref="254" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="tfSoluong" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="tfSoluong" min="-2" pref="120" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="tfDongia" min="-2" pref="214" max="-2" attributes="0"/>
+                                      <Component id="tfDongia" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="tfPhanTram" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="btnChon" alignment="1" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="btnChon" min="-2" pref="100" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
                   </Group>
@@ -584,6 +586,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="tfSoluong" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="tfDongia" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfPhanTram" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
@@ -829,6 +832,26 @@
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder justification="1" position="1" title="&#x110;&#x1a1;n gi&#xe1; nh&#x1ead;p">
+                      <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder roundedCorners="true" thickness="2">
+                          <Color PropertyName="color" blue="d9" green="ac" red="87" type="rgb"/>
+                        </LineBorder>
+                      </Border>
+                      <Font PropertyName="font" name="Josefin Sans SemiBold" size="16" style="0"/>
+                      <Color PropertyName="color" blue="d9" green="ac" red="87" type="rgb"/>
+                    </TitledBorder>
+                  </Border>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="tfPhanTram">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Josefin Sans Medium" size="14" style="0"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+                    <TitledBorder justification="1" position="1" title="Ph&#x1ea7;n tr&#x103;m l&#x1ee3;i nhu&#x1ead;n">
                       <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                         <LineBorder roundedCorners="true" thickness="2">
                           <Color PropertyName="color" blue="d9" green="ac" red="87" type="rgb"/>

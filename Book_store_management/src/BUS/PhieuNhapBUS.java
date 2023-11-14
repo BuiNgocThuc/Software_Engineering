@@ -30,6 +30,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import java.awt.Image;
+import java.math.BigDecimal;
 
 /**
  *
@@ -52,30 +53,32 @@ public class PhieuNhapBUS {
         int IDNCC = pnDAO.queryByNameSupplier(nameNCC);
         String TenTK = tkBUS.getCurrentAcc().getTenTK();
         String NgayTao = cartImport.getTfNgaytao().getText();
-        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date startDate = new java.util.Date();
         try {
             startDate = df.parse(NgayTao);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Date ngayLap = new Date(startDate.getTime());
         double TongTien = Double.parseDouble(cartImport.getTfTongtien().getText());
-
-        PhieuNhapDTO pn = new PhieuNhapDTO(1, IDNCC + "", TenTK, TongTien, startDate, "1");
+        PhieuNhapDTO pn = new PhieuNhapDTO(1, IDNCC + "", TenTK, TongTien, ngayLap, "1");
         boolean res = pnDAO.Them(pn);
 
         if (res) {
             // lấy chi tiết phiếu nhập
             ArrayList<CTPhieuNhapDTO> listSPNhap = getListCTPN(cartImport);
-            boolean resCT, resSP = false;
+            boolean resCT = false, resSP = false;
             boolean success = false;
+            int i = 0;
             for (CTPhieuNhapDTO ctpn : listSPNhap) {
                 resCT = ctpnBUS.TaoCTPhieuNhap(ctpn);
                 if (!resCT) {
                     cartImport.displayErrorMessage("lỗi nhập hàng " + ctpn.getMaSP());
                 } else {
                     int newQuantity = ctpnBUS.getCurrentQuantity(ctpn.getMaSP()) + ctpn.getSoLuong();
-                    resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), newQuantity, ctpn.getDonGia());
+                    double giaBan = Double.parseDouble(cartImport.getTableChitiet().getModel().getValueAt(i++,3).toString());
+                    resSP = ctpnBUS.CapNhatSoLuong(ctpn.getMaSP(), newQuantity, giaBan);
                     if (resSP) {
                         success = true;
                     }
@@ -94,9 +97,9 @@ public class PhieuNhapBUS {
         int rows = cartImport.getTableChitiet().getModel().getRowCount();
         for (int i = 0; i < rows; i++) {
             int ID = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 0).toString().substring(2));
-            int quantity = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 2).toString());
-            int ThanhTien = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 3).toString());
-            int DonGiaNhap = ThanhTien / quantity;
+            int quantity = Integer.parseInt(cartImport.getTableChitiet().getModel().getValueAt(i, 1).toString());
+            double ThanhTien = Double.parseDouble(cartImport.getTableChitiet().getModel().getValueAt(i, 2).toString());
+            double DonGiaNhap = (double) ThanhTien / quantity;
             CTPhieuNhapDTO ctpn = new CTPhieuNhapDTO(IDPN, ID, DonGiaNhap, quantity);
             listID.add(ctpn);
         }
@@ -148,8 +151,8 @@ public class PhieuNhapBUS {
         cartImport.getTfTenSanpham().setText(cartImport.getTableSanPham().getValueAt(row_index, 2).toString());
         cartImport.getTfTenTacgia().setText(cartImport.getTableSanPham().getValueAt(row_index, 3).toString());
         cartImport.getTfTheloai().setText(cartImport.getTableSanPham().getValueAt(row_index, 4).toString());
-        double DonGia = Double.parseDouble(cartImport.getTableSanPham().getValueAt(row_index, 6).toString()) * 100 / 120;
-        cartImport.getTfDongia().setText(DonGia + "");
+//        double DonGia = Double.parseDouble(cartImport.getTableSanPham().getValueAt(row_index, 6).toString()) * 100 / 120;
+        cartImport.getTfDongia().setText("");
         cartImport.getTfSoluong().setText("");
         cartImport.getTfSoluong().requestFocus();
     }
@@ -157,9 +160,12 @@ public class PhieuNhapBUS {
     public void loadDataFromCart(NhapHangGUI cartImport, int row_index) {
         String idProduct = cartImport.getTableChitiet().getValueAt(row_index, 0).toString();
 //        String nameProduct = cartImport.getTableChitiet().getValueAt(row_index, 1).toString();
-        int newQuantity = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 2).toString());
-        int newPrice = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 3).toString()) / newQuantity;
-
+        int newQuantity = Integer.parseInt(cartImport.getTableChitiet().getValueAt(row_index, 1).toString());
+        double newPrice = (double) Double.parseDouble(cartImport.getTableChitiet().getValueAt(row_index, 2).toString()) / newQuantity *1.0;
+        double giaBan = Double.parseDouble(cartImport.getTableChitiet().getValueAt(row_index, 3).toString());
+        double chechLechGia = (BigDecimal.valueOf(giaBan).subtract(BigDecimal.valueOf(newPrice))).doubleValue();
+        double percent = (BigDecimal.valueOf(chechLechGia).divide(BigDecimal.valueOf(newPrice))).doubleValue();
+        double resPercent = BigDecimal.valueOf(percent).multiply(BigDecimal.valueOf(100.0)).doubleValue();
         int rowCount = cartImport.getTableSanPham().getModel().getRowCount();
         for (int i = 0; i < rowCount; i++) {
             Object value = cartImport.getTableSanPham().getModel().getValueAt(i, 1);
@@ -171,6 +177,7 @@ public class PhieuNhapBUS {
                 cartImport.getTfTheloai().setText(cartImport.getTableSanPham().getValueAt(i, 4).toString());
                 cartImport.getTfDongia().setText(newPrice + "");
                 cartImport.getTfSoluong().setText(newQuantity + "");
+                cartImport.getTfPhanTram().setText(resPercent+"");
                 cartImport.getTfSoluong().requestFocus();
                 return;
             }

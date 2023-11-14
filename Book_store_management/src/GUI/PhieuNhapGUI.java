@@ -605,6 +605,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
+        pnBUS.createTableImport(modelPhieuNhap);
     }//GEN-LAST:event_btnLammoiActionPerformed
 
     private void tfIDHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDHoadonActionPerformed

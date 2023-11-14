@@ -54,8 +54,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
         instance = this;
         //this.setUndecorated(true);
         initComponents();
-//        getChucNang();
-
+        //        getChucNang();
+        designComp();
         this.setLocationRelativeTo(null);
         sharedFunction.moveLayout(this, pnContainer);
         spnMenu.getVerticalScrollBar().setUnitIncrement(16);
@@ -346,15 +346,43 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     void designComp() {
-        //createListItems();
+        createListItems();
+        solveActionMenu();
         solveHoverMenu();
     }
 
-//    void createListItems() {
-//        lblSanPham.setBackground(Color.decode("#AAD8F4"));
-//        lblSanPham.setForeground(Color.white);
-//        lblSanPham.setOpaque(true);
-//    }
+    void createListItems() {
+        listItems.add(lblBanHang);
+        listItems.add(lblNhapHang);
+        listItems.add(lblSanPham);
+        listItems.add(lblHoaDon);
+        listItems.add(lblPhieuNhap);
+        listItems.add(lblNhanVien);
+        listItems.add(lblCongTy);
+        listItems.add(lblThongKe);
+        listItems.add(lblTaiKhoan);
+        listItems.add(lblPhanQuyen);
+
+        lblSanPham.setBackground(Color.decode("#AAD8F4"));
+        lblSanPham.setForeground(Color.white);
+        lblSanPham.setOpaque(true);
+        lblSanPham.setBackground(Color.decode("#AAD8F4"));
+        lblSanPham.setForeground(Color.white);
+        lblSanPham.setOpaque(true);
+    }
+
+    void solveActionMenu() {
+        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
+        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
+        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
+        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
+        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
+        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
+        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
+        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
+        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
+    }
 
     void solveHoverMenu() {
         for (JLabel lbl : listItems) {

@@ -10,7 +10,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Frame;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -137,7 +136,7 @@ public class sharedFunction {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
         // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
+         table.setAutoCreateRowSorter(true);
         // Vô hiệu hóa kéo cột
         table.getTableHeader().setReorderingAllowed(false);
         // Vô hiệu hóa kéo dãng cột

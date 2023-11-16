@@ -4,10 +4,34 @@
  */
 package BUS;
 
+import DAO.ThongKeDAO;
+import DTO.ThongKe.ThongKeDoanhThuDTO;
+import java.util.ArrayList;
+import java.util.Set;
+
 /**
  *
  * @author NGOC THUC
  */
 public class ThongKeBUS {
-    
+
+    private final ThongKeDAO thongKeDAO;
+
+    public ThongKeBUS() {
+        thongKeDAO = new ThongKeDAO();
+    }
+
+    public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTuNamDenNam(int namBatDau, int namKetThuc) {
+        return thongKeDAO.thongKeDoanhThuTuNamDenNam(namBatDau, namKetThuc);
+    }
+
+    public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoNam() {
+        return thongKeDAO.thongKeDoanhThuTheoNam();
+    }
+     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoThang(int nam){
+         return thongKeDAO.thongKeDoanhThuTheoThang(nam);
+     }
+    public Set<Integer> getDistinctYears(){
+        return thongKeDAO.getDistinctYears();
+    }
 }

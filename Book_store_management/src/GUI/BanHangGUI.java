@@ -883,13 +883,15 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setText(maHDtext);
 
         // Lấy ID nhân viên 
-        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-        txtIDNhanvien.setText("NV00" + tenTK);
+//        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+//        txtIDNhanvien.setText("NV00" + tenTK);
+        txtIDNhanvien.setText("NV004" );
         // Lấy ngày hiện tại
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = dateFormat.format(currentDate);
-        txtNgayTao.setText(formattedDate);
+//        Date currentDate = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        String formattedDate = dateFormat.format(currentDate);
+//        txtNgayTao.setText(formattedDate);
+         txtNgayTao.setText("15/07/2022");
     }
 
     // Cập nhật số lượng sản phẩm sau khi thanh toán

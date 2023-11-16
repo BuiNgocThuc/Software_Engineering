@@ -50,6 +50,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
         selectProduct();
         createCart();
         placeholder();
+       
     }
 
     public void selectProduct() {

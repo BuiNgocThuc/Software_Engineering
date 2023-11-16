@@ -6,7 +6,6 @@ package DAO;
 
 import Connection.ConnectDB;
 import DTO.CTHoaDonDTO;
-import DTO.HoaDonDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

@@ -28,10 +28,16 @@ public class ThongKeBUS {
     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoNam() {
         return thongKeDAO.thongKeDoanhThuTheoNam();
     }
-     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoThang(int nam){
-         return thongKeDAO.thongKeDoanhThuTheoThang(nam);
-     }
-    public Set<Integer> getDistinctYears(){
+
+    public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoThang(int nam) {
+        return thongKeDAO.thongKeDoanhThuTheoThang(nam);
+    }
+
+    public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTungNgayTrongThang(int nam, int thang) {
+        return thongKeDAO.thongKeDoanhThuTungNgayTrongThang(nam, thang);
+    }
+
+    public Set<Integer> getDistinctYears() {
         return thongKeDAO.getDistinctYears();
     }
 }

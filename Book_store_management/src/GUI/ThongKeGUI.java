@@ -10,6 +10,8 @@ import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
 import Util.sharedFunction;
 import java.awt.Color;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Set;
 import javax.swing.JComboBox;
@@ -35,6 +37,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         thongKeDoanhThuTheoNam();
         thongKeDoanhThuTheoThangTrongNam();
         ThongKeDoanhThuTungNgayTrongThang();
+        ThongKeDoanhThuTuNgayDenNgay();
     }
 
     /**
@@ -93,8 +96,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         btnThem6 = new Components.ButtonRadius();
         btnThem7 = new Components.ButtonRadius();
         btnThem8 = new Components.ButtonRadius();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        NgayBatDau = new com.toedter.calendar.JDateChooser();
+        NgayKetThuc = new com.toedter.calendar.JDateChooser();
         lblNam3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane2 = new javax.swing.JTabbedPane();
@@ -602,7 +605,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Tháng", "Vốn ", "Doanh thu", "Lợi nhuận"
+                "Ngày", "Vốn ", "Doanh thu", "Lợi nhuận"
             }
         ) {
             Class[] types = new Class [] {
@@ -681,11 +684,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addComponent(lblNam3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblNam2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(NgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(btnThem7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -693,10 +696,10 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addComponent(btnThem6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
-            .addGroup(PanelThongKeTheoThang2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 986, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelThongKeTheoThang2Layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
         );
         PanelThongKeTheoThang2Layout.setVerticalGroup(
             PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -708,13 +711,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                     .addComponent(btnThem6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblNam2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(NgayKetThuc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(lblNam3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(NgayBatDau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 561, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout ThongKeTuNgayDenNgayLayout = new javax.swing.GroupLayout(ThongKeTuNgayDenNgay);
@@ -725,9 +728,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         );
         ThongKeTuNgayDenNgayLayout.setVerticalGroup(
             ThongKeTuNgayDenNgayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ThongKeTuNgayDenNgayLayout.createSequentialGroup()
-                .addComponent(PanelThongKeTheoThang2, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 270, Short.MAX_VALUE))
+            .addComponent(PanelThongKeTheoThang2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jTabbedPanel.addTab("Thống kê từ ngày đến ngày", ThongKeTuNgayDenNgay);
@@ -1148,7 +1149,6 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNamDenNam(namBatDau, namKetThuc);
         loadDataTable((DefaultTableModel) tableTheoNam.getModel(), result);
         loadDataChartTheoNam(result);
-//        thongKeDoanhThuTheoNam();
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -1187,6 +1187,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem7ActionPerformed
         // TODO add your handling code here:
+        ThongKeDoanhThuTuNgayDenNgay();
     }//GEN-LAST:event_btnThem7ActionPerformed
 
     private void btnThem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem8ActionPerformed
@@ -1299,12 +1300,24 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private void ThongKeDoanhThuTungNgayTrongThang() {
         String selectedMonthString = cbThang.getSelectedItem().toString();
         int selectedYear = (int) cbNam1.getSelectedItem();
-        String monthNumberString = selectedMonthString.substring(6); // Bỏ đi "Tháng " để lấy số tháng
+        String monthNumberString = selectedMonthString.substring(6);
         int selectedMonth = Integer.parseInt(monthNumberString);
         ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTungNgayTrongThang(selectedYear, selectedMonth);
         loadDataTable((DefaultTableModel) tableTheoTungNgayTrongThang.getModel(), result);
         loadDataChartTungNgayTrongThang(result);
 
+    }
+
+    private void ThongKeDoanhThuTuNgayDenNgay() {
+        // Lấy ngày bắt đầu và kết thúc từ JDateChooser
+        java.util.Date startDate = NgayBatDau.getDate();
+        java.util.Date endDate = NgayKetThuc.getDate();
+
+        // Chuyển đổi thành LocalDate (Java 8+)
+//        LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+//        LocalDate endLocalDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNgayDenNgay( startDate , endDate);
+        loadDataTable((DefaultTableModel) TableTuNgayDenNgay.getModel(), result);
     }
 
     private void loadDataChartTungNgayTrongThang(ArrayList<ThongKeDoanhThuDTO> list) {
@@ -1358,6 +1371,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbThoiGian;
     private javax.swing.JComboBox<String> CbTieuChi;
+    private com.toedter.calendar.JDateChooser NgayBatDau;
+    private com.toedter.calendar.JDateChooser NgayKetThuc;
     private javax.swing.JPanel PanelThongKeTheoNam;
     private javax.swing.JPanel PanelThongKeTheoThang;
     private javax.swing.JPanel PanelThongKeTheoThang1;
@@ -1394,8 +1409,6 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<Integer> cbNamKetThuc;
     private javax.swing.JComboBox<String> cbThang;
     private javax.swing.JComboBox<String> cbTieuChi;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

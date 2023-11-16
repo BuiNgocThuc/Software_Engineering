@@ -992,10 +992,7 @@
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="PanelThongKeTheoThang2" min="-2" pref="383" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="270" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="PanelThongKeTheoThang2" alignment="0" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                       </Layout>
@@ -1009,11 +1006,11 @@
                                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                                       <Component id="lblNam3" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jDateChooser1" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="NgayBatDau" min="-2" pref="140" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="lblNam2" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jDateChooser2" min="-2" pref="140" max="-2" attributes="0"/>
+                                      <Component id="NgayKetThuc" min="-2" pref="140" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                                       <Component id="btnThem7" min="-2" pref="115" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1022,10 +1019,10 @@
                                       <Component id="btnThem6" min="-2" pref="115" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane7" min="-2" pref="986" max="-2" attributes="0"/>
-                                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace pref="14" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane7" min="-2" pref="974" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1039,16 +1036,16 @@
                                           <Component id="btnThem6" max="32767" attributes="0"/>
                                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                               <Component id="lblNam2" alignment="1" min="-2" pref="30" max="-2" attributes="0"/>
-                                              <Component id="jDateChooser2" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="NgayKetThuc" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                               <Component id="lblNam3" alignment="1" min="-2" pref="29" max="-2" attributes="0"/>
-                                              <Component id="jDateChooser1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                              <Component id="NgayBatDau" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane7" min="-2" pref="584" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jScrollPane7" min="-2" pref="561" max="-2" attributes="0"/>
+                                      <EmptySpace pref="18" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1065,7 +1062,7 @@
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                       <Table columnCount="4" rowCount="0">
-                                        <Column editable="true" title="Th&#xe1;ng" type="java.lang.Integer"/>
+                                        <Column editable="true" title="Ng&#xe0;y" type="java.lang.Integer"/>
                                         <Column editable="true" title="V&#x1ed1;n " type="java.lang.String"/>
                                         <Column editable="true" title="Doanh thu" type="java.lang.String"/>
                                         <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.String"/>
@@ -1202,9 +1199,9 @@
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem8ActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                            <Component class="com.toedter.calendar.JDateChooser" name="NgayBatDau">
                             </Component>
-                            <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+                            <Component class="com.toedter.calendar.JDateChooser" name="NgayKetThuc">
                             </Component>
                             <Component class="javax.swing.JLabel" name="lblNam3">
                               <Properties>

@@ -7,6 +7,7 @@ package BUS;
 import DAO.ThongKeDAO;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -35,6 +36,10 @@ public class ThongKeBUS {
 
     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTungNgayTrongThang(int nam, int thang) {
         return thongKeDAO.thongKeDoanhThuTungNgayTrongThang(nam, thang);
+    }
+
+    public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTuNgayDenNgay(Date ngayBatDau, Date ngayKetThuc) {
+        return thongKeDAO.thongKeDoanhThuTuNgayDenNgay(ngayBatDau, ngayKetThuc);
     }
 
     public Set<Integer> getDistinctYears() {

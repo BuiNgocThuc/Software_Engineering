@@ -9,19 +9,28 @@ package DTO.ThongKe;
  * @author ASUS
  */
 public class ThongKeDoanhThuDTO {
-    private final  int thoiGian;
-    private final long von;
-    private final  long doanhThu;
-    private final  long loiNhuan;
 
-    public ThongKeDoanhThuDTO(int thoiGian,  long von, long doanhThu, long loiNhuan) {
+    private String thoiGian;
+    private long von;
+    private long doanhThu;
+    private final long loiNhuan;
+    private String Ngay;
+
+    public ThongKeDoanhThuDTO(String thoiGian, long von, long doanhThu, long loiNhuan) {
         this.thoiGian = thoiGian;
         this.von = von;
         this.doanhThu = doanhThu;
         this.loiNhuan = loiNhuan;
     }
 
-    public int getThoiGian() {
+//    public ThongKeDoanhThuDTO(String Ngay, long von, long doanhThu, long loiNhuan) {
+//        this.Ngay = Ngay;
+//        this.von = von;
+//        this.doanhThu = doanhThu;
+//        this.loiNhuan = loiNhuan;
+//    }
+
+    public String getThoiGian() {
         return thoiGian;
     }
 
@@ -37,11 +46,13 @@ public class ThongKeDoanhThuDTO {
         return loiNhuan;
     }
 
+    public String getNgay() {
+        return Ngay;
+    }
+
     @Override
     public String toString() {
         return "ThongKeDoanhThuDTO{" + "thoiGian=" + thoiGian + ", von=" + von + ", doanhThu=" + doanhThu + ", loiNhuan=" + loiNhuan + '}';
     }
 
-  
-    
 }

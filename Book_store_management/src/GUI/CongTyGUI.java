@@ -344,6 +344,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         ChiTietCongTy ctcty = new ChiTietCongTy();
         ctcty.Model = 1;
+        ctcty.setId(ctyBus.selectLastId()+1);
         ctcty.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 

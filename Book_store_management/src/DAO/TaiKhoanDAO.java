@@ -302,4 +302,24 @@ public class TaiKhoanDAO {
 //  TaiKhoanDTO tk = new TaiKhoanDTO("9","nhanvien11", "123456", "1", "1", ngayTao);
 //    a.Sua(tk);
     }
+    public int selectLastID() {
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TOP 1 MaTK\n"
+                    + "FROM TaiKhoan\n"
+                    + "ORDER BY MaTK DESC";
+            PreparedStatement pst = c.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int MaTK = rs.getInt("MaTK");
+                return MaTK;
+
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

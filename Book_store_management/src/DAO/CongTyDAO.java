@@ -149,4 +149,24 @@ public class CongTyDAO {
         }
         return ketQua;
     }
+    public int selectLastID() {
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TOP 1 MaNCC\n"
+                    + "FROM NhaCungCap\n"
+                    + "ORDER BY MaNCC DESC";
+            PreparedStatement pst = c.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                int MaNCC = rs.getInt("MaNCC");
+                return MaNCC;
+
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

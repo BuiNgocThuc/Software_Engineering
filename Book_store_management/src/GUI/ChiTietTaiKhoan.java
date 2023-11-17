@@ -54,7 +54,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     }
     public void setData(int id){
         TaiKhoanDTO tk=tkbus.selectById(id);
-        txtId.setText(tk.getMaTK());
+        txtId.setText("TK"+tk.getMaTK());
         cboName.setSelectedItem(tk.getTenTK());
         txtMatKhau.setText(tk.getMatKhau());
         date.setDate(tk.getNgayTao());
@@ -64,6 +64,9 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         }else{
             cboTrangThai.setSelectedIndex(2);
         }
+    }
+    public void setId(int id){
+        txtId.setText("TK"+id);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +94,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         cboName = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocation(new java.awt.Point(600, 200));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
@@ -191,7 +195,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

@@ -23,12 +23,6 @@ public class ThongKeDoanhThuDTO {
         this.loiNhuan = loiNhuan;
     }
 
-//    public ThongKeDoanhThuDTO(String Ngay, long von, long doanhThu, long loiNhuan) {
-//        this.Ngay = Ngay;
-//        this.von = von;
-//        this.doanhThu = doanhThu;
-//        this.loiNhuan = loiNhuan;
-//    }
 
     public String getThoiGian() {
         return thoiGian;

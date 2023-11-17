@@ -12,6 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import Connection.ConnectDB;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeSanPhamBanDTO;
+import DTO.ThongKe.ThongKeTheLoaiBanDTO;
 import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Date;
@@ -23,82 +25,82 @@ import java.util.Set;
  * @author ASUS
  */
 public class ThongKeDAO {
-    
+
     public ArrayList< ThongKeDoanhThuDTO> thongKeDoanhThuTheoNam() {
         ArrayList< ThongKeDoanhThuDTO> danhSachDoanhThu = new ArrayList<>();
         String query = "SELECT YEAR(NgayTao) AS Nam, SUM(TongTien) AS DoanhThu FROM HoaDon GROUP BY YEAR(NgayTao)";
-        
+
         try (
                 java.sql.Connection conn = ConnectDB.getConnection(); PreparedStatement preparedStatement = conn.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
-            
+
             while (resultSet.next()) {
                 int nam = resultSet.getInt("Nam");
                 long doanhThu = resultSet.getLong("DoanhThu");
                 long von = tinhVonTrongNam(nam, conn);
                 long loiNhuan = doanhThu - von;
-                
+
                 ThongKeDoanhThuDTO doanhThuObj = new ThongKeDoanhThuDTO(String.valueOf(nam), von, doanhThu, loiNhuan);
                 danhSachDoanhThu.add(doanhThuObj);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return danhSachDoanhThu;
     }
-    
+
     public ArrayList< ThongKeDoanhThuDTO> thongKeDoanhThuTuNamDenNam(int namBatDau, int namKetThuc) {
         ArrayList< ThongKeDoanhThuDTO> danhSachDoanhThu = new ArrayList<>();
         String query = "SELECT YEAR(NgayTao) AS Nam, SUM(TongTien) AS DoanhThu FROM HoaDon WHERE YEAR(NgayTao) BETWEEN ? AND ? GROUP BY YEAR(NgayTao)";
-        
+
         try (
                 java.sql.Connection conn = ConnectDB.getConnection(); PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-            
+
             preparedStatement.setInt(1, namBatDau);
             preparedStatement.setInt(2, namKetThuc);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     int nam = resultSet.getInt("Nam");
                     long doanhThu = resultSet.getLong("DoanhThu");
                     long von = tinhVonTrongNam(nam, conn);
                     long loiNhuan = doanhThu - von;
-                    
+
                     ThongKeDoanhThuDTO doanhThuObj = new ThongKeDoanhThuDTO(String.valueOf(nam), von, doanhThu, loiNhuan);
                     danhSachDoanhThu.add(doanhThuObj);
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return danhSachDoanhThu;
     }
-    
+
     private long tinhVonTrongNam(int nam, java.sql.Connection connection) {
         long von = 0;
         String query = "SELECT SUM(TongTien) AS Von FROM PhieuNhap WHERE YEAR(NgayTao) = ?";
-        
+
         try (
                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            
+
             preparedStatement.setInt(1, nam);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     von = resultSet.getLong("Von");
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return von;
     }
-    
+
     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTheoThang(int nam) {
         ArrayList<ThongKeDoanhThuDTO> danhSachDoanhThu = new ArrayList<>();
 
@@ -114,7 +116,7 @@ public class ThongKeDAO {
 
         // Xóa bảng tạm sau khi sử dụng
         String dropTempTableQuery = "DROP TABLE #AllMonths;";
-        
+
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement statement = conn.createStatement(); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
             // Tạo bảng tạm
@@ -130,7 +132,7 @@ public class ThongKeDAO {
                     long doanhThu = resultSet.getLong("DoanhThu");
                     long von = tinhVonTungThangTrongNam(nam, conn, thang);
                     long loiNhuan = doanhThu - von;
-                    
+
                     ThongKeDoanhThuDTO doanhThuObj = new ThongKeDoanhThuDTO(String.valueOf(thang), von, doanhThu, loiNhuan);
                     danhSachDoanhThu.add(doanhThuObj);
                 }
@@ -138,14 +140,14 @@ public class ThongKeDAO {
 
             // Xóa bảng tạm
             statement.executeUpdate(dropTempTableQuery);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return danhSachDoanhThu;
     }
-    
+
     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTungNgayTrongThang(int nam, int thang) {
         ArrayList<ThongKeDoanhThuDTO> danhSachDoanhThu = new ArrayList<>();
 
@@ -165,7 +167,7 @@ public class ThongKeDAO {
 
         // Xóa bảng tạm sau khi sử dụng
         String dropTempTableQuery = "DROP TABLE #AllDays;";
-        
+
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement statement = conn.createStatement(); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
             // Tạo bảng tạm
@@ -182,7 +184,7 @@ public class ThongKeDAO {
                     long doanhThu = resultSet.getLong("DoanhThu");
                     long von = tinhVonTungNgayTrongThang(nam, thang, conn, ngay);
                     long loiNhuan = doanhThu - von;
-                    
+
                     ThongKeDoanhThuDTO doanhThuObj = new ThongKeDoanhThuDTO(ngay, von, doanhThu, loiNhuan);
                     danhSachDoanhThu.add(doanhThuObj);
                 }
@@ -190,19 +192,19 @@ public class ThongKeDAO {
 
             // Xóa bảng tạm
             statement.executeUpdate(dropTempTableQuery);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return danhSachDoanhThu;
     }
-    
+
     public ArrayList<ThongKeDoanhThuDTO> thongKeDoanhThuTuNgayDenNgay(Date ngayBatDau, Date ngayKetThuc) {
         ArrayList<ThongKeDoanhThuDTO> danhSachDoanhThu = new ArrayList<>();
-        
+
         if (ngayBatDau == null || ngayKetThuc == null) {
-            // Xử lý khi một trong hai ngày là null
+            // một trong hai ngày là null
             return danhSachDoanhThu;
         }
 
@@ -219,7 +221,7 @@ public class ThongKeDAO {
 
         // Xóa bảng tạm sau khi sử dụng
         String dropTempTableQuery = "DROP TABLE #AllDays;";
-        
+
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement createTempTableStatement = conn.createStatement(); PreparedStatement insertDaysStatement = conn.prepareStatement(insertDaysQuery); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
             // Tạo bảng tạm
@@ -248,7 +250,7 @@ public class ThongKeDAO {
                     // Chuyển đổi ngày thành chuỗi
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     String formattedDate = dateFormat.format(ngay);
-                    
+
                     ThongKeDoanhThuDTO doanhThuObj = new ThongKeDoanhThuDTO(formattedDate, von, doanhThu, loiNhuan);
                     danhSachDoanhThu.add(doanhThuObj);
                 }
@@ -256,36 +258,36 @@ public class ThongKeDAO {
 
             // Xóa bảng tạm
             createTempTableStatement.executeUpdate(dropTempTableQuery);
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return danhSachDoanhThu;
     }
 
 // Hàm tính vốn từ ngày đến ngày cho mỗi ngày trong khoảng
     private long tinhVonTungNgayTrongKhoangThoiGian(java.sql.Date ngay, java.sql.Connection connection) {
         long von = 0;
-        
+
         String query = "SELECT SUM(TongTien) AS Von FROM PhieuNhap WHERE NgayTao = ?";
-        
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setDate(1, ngay);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     von = resultSet.getLong("Von");
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return von;
     }
-    
+
     private long tinhVonTungNgayTrongThang(int nam, int thang, java.sql.Connection connection, String ngay) {
         long von = 0;
 
@@ -293,76 +295,76 @@ public class ThongKeDAO {
         String query = "SELECT SUM(TongTien) AS Von "
                 + "FROM PhieuNhap "
                 + "WHERE YEAR(NgayTao) = ? AND MONTH(NgayTao) = ? AND DAY(NgayTao) = ?";
-        
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, nam);
             preparedStatement.setInt(2, thang);
             preparedStatement.setString(3, ngay);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     von = resultSet.getLong("Von");
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return von;
     }
-    
+
     private long tinhVonTungThangTrongNam(int nam, java.sql.Connection connection, int thang) {
         long von = 0;
         String query = "SELECT SUM(TongTien) AS Von FROM PhieuNhap WHERE YEAR(NgayTao) = ? AND MONTH(NgayTao) = ?";
-        
+
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, nam);
             preparedStatement.setInt(2, thang);
-            
+
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
                     von = resultSet.getLong("Von");
                 }
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return von;
     }
-    
+
     public Map<String, Integer> thongKeSoLuongSachTheoTheLoai() {
         Map<String, Integer> thongKe = new HashMap<>();
-        
+
         try {
             java.sql.Connection conn = ConnectDB.getConnection();
             String sql = "SELECT TheLoai.TenTL, COUNT(Sach.MaSach) AS SoLuongSach "
                     + "FROM Sach "
                     + "JOIN TheLoai ON Sach.MaTL = TheLoai.MaTL "
                     + "GROUP BY TheLoai.TenTL";
-            
+
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            
+
             while (rs.next()) {
                 String tenTL = rs.getString("TenTL");
                 int soLuongSach = rs.getInt("SoLuongSach");
                 thongKe.put(tenTL, soLuongSach);
             }
-            
+
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return thongKe;
     }
-    
+
     public Set<Integer> getDistinctYears() {
         Set<Integer> years = new HashSet<>();
-        
+
         try {
             java.sql.Connection conn = ConnectDB.getConnection();
             String query = "SELECT DISTINCT YEAR(NgayTao) AS Nam FROM HoaDon";
@@ -372,11 +374,105 @@ public class ThongKeDAO {
                 int year = resultSet.getInt("Nam");
                 years.add(year);
             }
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return years;
     }
+
+    // Thống kê sản phẩm bán 
+    public ArrayList<ThongKeSanPhamBanDTO> thongKeSanPhamBanTrongKhoangThoiGian(Date ngayBatDau, Date ngayKetThuc) {
+
+        ArrayList<ThongKeSanPhamBanDTO> danhSachSanPham = new ArrayList<>();
+        if (ngayBatDau == null || ngayKetThuc == null) {
+            // một trong hai ngày là null
+            return danhSachSanPham;
+        }
+        String query = "SELECT SP.MaSP, SP.TenSP, "
+                + "SUM(CTHD.SoLuong) AS SoLuongBan, "
+                + "COUNT(DISTINCT HD.MaHD) AS SoDonBan, "
+                + "SUM(CTHD.SoLuong * CTHD.DonGia) AS DoanhThu "
+                + "FROM ChiTietHoaDon CTHD "
+                + "JOIN HoaDon HD ON CTHD.MaHD = HD.MaHD "
+                + "JOIN SanPham SP ON CTHD.MaSP = SP.MaSP "
+                + "WHERE HD.NgayTao BETWEEN ? AND ? "
+                + "GROUP BY SP.MaSP, SP.TenSP "
+                + "ORDER BY SoLuongBan DESC";
+
+        try (java.sql.Connection conn = ConnectDB.getConnection(); PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            preparedStatement.setDate(1, new java.sql.Date(ngayBatDau.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(ngayKetThuc.getTime()));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String maSP = resultSet.getString("MaSP");
+                    String tenSP = resultSet.getString("TenSP");
+                    int soLuongBan = resultSet.getInt("SoLuongBan");
+                    int soDonBan = resultSet.getInt("SoDonBan");
+                    long doanhThu = resultSet.getLong("DoanhThu");
+
+                    ThongKeSanPhamBanDTO thongKeObj = new ThongKeSanPhamBanDTO(maSP, tenSP, soLuongBan, soDonBan, doanhThu);
+                    danhSachSanPham.add(thongKeObj);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachSanPham;
+    }
+
+    // Thống kê thể loại
+    public ArrayList<ThongKeTheLoaiBanDTO> thongKeTheLoaiTrongKhoangThoiGian(Date ngayBatDau, Date ngayKetThuc) {
+        ArrayList<ThongKeTheLoaiBanDTO> danhSachTheLoai = new ArrayList<>();
+
+        if (ngayBatDau == null || ngayKetThuc == null) {
+            // Một trong hai ngày là null
+            return danhSachTheLoai;
+        }
+
+        String query = "SELECT TL.MaTL, TL.TenTL, "
+                + "COUNT(DISTINCT HD.MaHD) AS SoDonBan, "
+                + "SUM(CTHD.SoLuong) AS SoLuongSanPhamBan, "
+                + "SUM(CTHD.SoLuong * CTHD.DonGia) AS DoanhThu, "
+                + "(SELECT COUNT(DISTINCT SP.MaSP) FROM ChiTietHoaDon CTHD1 "
+                + "JOIN SanPham SP ON CTHD1.MaSP = SP.MaSP "
+                + "WHERE SP.MaTL = TL.MaTL) AS SoLoaiSanPham "
+                + "FROM ChiTietHoaDon CTHD "
+                + "JOIN HoaDon HD ON CTHD.MaHD = HD.MaHD "
+                + "JOIN SanPham SP ON CTHD.MaSP = SP.MaSP "
+                + "JOIN TheLoai TL ON SP.MaTL = TL.MaTL "
+                + "WHERE HD.NgayTao BETWEEN ? AND ? "
+                + "GROUP BY TL.MaTL, TL.TenTL "
+                + "ORDER BY SoLuongSanPhamBan DESC";
+
+        try (java.sql.Connection conn = ConnectDB.getConnection(); PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setDate(1, new java.sql.Date(ngayBatDau.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(ngayKetThuc.getTime()));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String maTL = resultSet.getString("MaTL");
+                    String tenTL = resultSet.getString("TenTL");
+                    int soDonBan = resultSet.getInt("SoDonBan");
+                    int soLuongSanPhamBan = resultSet.getInt("SoLuongSanPhamBan");
+                    long doanhThu = resultSet.getLong("DoanhThu");
+                    int soLoaiSanPham = resultSet.getInt("SoLoaiSanPham");
+
+                    ThongKeTheLoaiBanDTO thongKeObj = new ThongKeTheLoaiBanDTO(maTL, tenTL, soLuongSanPhamBan, soDonBan, soLoaiSanPham, doanhThu);
+                    danhSachTheLoai.add(thongKeObj);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachTheLoai;
+    }
+
 }

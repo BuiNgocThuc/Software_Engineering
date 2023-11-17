@@ -395,6 +395,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblThongKe.setText("Thống kê");
         lblThongKe.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblThongKe.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblThongKeMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblThongKe);
 
         lblTaiKhoan.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -782,6 +787,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_lblBanHangMouseClicked
+
+    private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblThongKeMouseClicked
 
  public static JFrame getMainFrameInstance() {
         return instance;

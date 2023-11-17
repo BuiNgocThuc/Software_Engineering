@@ -6,6 +6,8 @@ package BUS;
 
 import DAO.ThongKeDAO;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeSanPhamBanDTO;
+import DTO.ThongKe.ThongKeTheLoaiBanDTO;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
@@ -45,4 +47,14 @@ public class ThongKeBUS {
     public Set<Integer> getDistinctYears() {
         return thongKeDAO.getDistinctYears();
     }
+    
+    // thống kê sản phẩm bán
+    public ArrayList<ThongKeSanPhamBanDTO> thongKeSanPhamBanTrongKhoangThoiGian(Date ngayBatDau, Date ngayKetThuc) {
+        return thongKeDAO.thongKeSanPhamBanTrongKhoangThoiGian(ngayBatDau, ngayKetThuc);
+    }
+    
+    // thống kê thể loại bán
+    public ArrayList<ThongKeTheLoaiBanDTO> thongKeTheLoaiTrongKhoangThoiGian(Date ngayBatDau, Date ngayKetThuc){
+        return thongKeDAO.thongKeTheLoaiTrongKhoangThoiGian(ngayBatDau, ngayKetThuc);
+    } 
 }

@@ -1138,7 +1138,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"ID", "Tên sản phẩm", "SL", "T.Tiền", "", ""};
+        String[] columnNames = {"ID", "Sản phẩm", "SL", "T.Tiền", "", ""};
         modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {

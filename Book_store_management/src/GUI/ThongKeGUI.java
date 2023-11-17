@@ -9,10 +9,13 @@ import DTO.ThongKe.ThongKeDoanhThuDTO;
 import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
 import Util.sharedFunction;
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +30,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
      * Creates new form ThongKeGUI
      */
     private DefaultTableModel tableModel;
+    private JDateChooser fromDateChooser;
+    private JDateChooser toDateChooser;
     private ThongKeBUS tkBUS = new ThongKeBUS();
     Chart chart;
 
@@ -758,10 +763,44 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             new String [] {
                 "MaSP", "TenSP", "SL bán", "SL đơn  bán", "Vốn ", "Doanh thu ", "Lợi nhuận"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(TableSanPham);
+        if (TableSanPham.getColumnModel().getColumnCount() > 0) {
+            TableSanPham.getColumnModel().getColumn(0).setMinWidth(60);
+            TableSanPham.getColumnModel().getColumn(0).setPreferredWidth(60);
+            TableSanPham.getColumnModel().getColumn(0).setMaxWidth(60);
+            TableSanPham.getColumnModel().getColumn(1).setMinWidth(300);
+            TableSanPham.getColumnModel().getColumn(1).setPreferredWidth(300);
+            TableSanPham.getColumnModel().getColumn(1).setMaxWidth(300);
+            TableSanPham.getColumnModel().getColumn(2).setMinWidth(100);
+            TableSanPham.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableSanPham.getColumnModel().getColumn(2).setMaxWidth(100);
+            TableSanPham.getColumnModel().getColumn(3).setMinWidth(100);
+            TableSanPham.getColumnModel().getColumn(3).setPreferredWidth(100);
+            TableSanPham.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
 
         CbThoiGian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay ", "Hôm qua", "7 ngày qua", "30 ngày qua", "Tháng trước ", "Tháng này", "Năm trước ", "Năm nay", "Tùy chọn khác" }));
+        CbThoiGian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbThoiGianActionPerformed(evt);
+            }
+        });
 
         lblThoiGian.setText("Khoảng thời gian");
 
@@ -820,22 +859,23 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(lblThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(CbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(CbTieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btnThem12, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnThem13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addComponent(btnThem14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(lblThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CbTieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnThem12, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnThem13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnThem14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -851,9 +891,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(btnThem12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(245, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(303, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Sản phẩm", jPanel7);
@@ -866,10 +906,39 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "MaTL", "TenTL", "SL bán", "SL đơn  bán", "Vốn ", "Doanh thu ", "Lợi nhuận"
+                "MaTL", "TenTL", "SL bán", "SL đơn ", "Vốn ", "Doanh thu ", "Lợi nhuận"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane5.setViewportView(TableTheLoai);
+        if (TableTheLoai.getColumnModel().getColumnCount() > 0) {
+            TableTheLoai.getColumnModel().getColumn(0).setMinWidth(60);
+            TableTheLoai.getColumnModel().getColumn(0).setPreferredWidth(60);
+            TableTheLoai.getColumnModel().getColumn(0).setMaxWidth(60);
+            TableTheLoai.getColumnModel().getColumn(1).setMinWidth(300);
+            TableTheLoai.getColumnModel().getColumn(1).setPreferredWidth(300);
+            TableTheLoai.getColumnModel().getColumn(1).setMaxWidth(300);
+            TableTheLoai.getColumnModel().getColumn(2).setMinWidth(100);
+            TableTheLoai.getColumnModel().getColumn(2).setPreferredWidth(100);
+            TableTheLoai.getColumnModel().getColumn(2).setMaxWidth(100);
+            TableTheLoai.getColumnModel().getColumn(3).setMinWidth(100);
+            TableTheLoai.getColumnModel().getColumn(3).setPreferredWidth(100);
+            TableTheLoai.getColumnModel().getColumn(3).setMaxWidth(100);
+        }
 
         cbKhoangThoiGian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay ", "Hôm qua", "7 ngày qua", "30 ngày qua", "Tháng trước ", "Tháng này", "Năm trước ", "Năm nay", "Tùy chọn khác" }));
 
@@ -942,11 +1011,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addComponent(btnThem10, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(btnThem11, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(48, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 976, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -961,9 +1030,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(btnThem9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(294, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -1226,6 +1295,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThongKe1MouseClicked
 
+    private void CbThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbThoiGianActionPerformed
+        // TODO add your handling code here:
+        fromDateChooser = new JDateChooser();
+        toDateChooser = new JDateChooser();
+        updateDateChoosers();
+    }//GEN-LAST:event_CbThoiGianActionPerformed
+
     // Hàm để đổ danh sách năm vào ComboBox
 //    public void populateComboBox() {
 //        Set<Integer> years = tkBUS.getDistinctYears();
@@ -1274,6 +1350,10 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         sharedFunction.EditTableContent(TableTuNgayDenNgay);
         sharedFunction.EditHeaderTable(tableTheoTungNgayTrongThang);
         sharedFunction.EditTableContent(tableTheoTungNgayTrongThang);
+        sharedFunction.EditHeaderTable(TableSanPham);
+        sharedFunction.EditTableContent(TableSanPham);
+        sharedFunction.EditHeaderTable(TableTheLoai);
+        sharedFunction.EditTableContent(TableTheLoai);
 
     }
 
@@ -1316,7 +1396,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Chuyển đổi thành LocalDate (Java 8+)
 //        LocalDate startLocalDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 //        LocalDate endLocalDate = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNgayDenNgay( startDate , endDate);
+        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNgayDenNgay(startDate, endDate);
         loadDataTable((DefaultTableModel) TableTuNgayDenNgay.getModel(), result);
     }
 
@@ -1368,6 +1448,59 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanelChartThang.repaint();
         jPanelChartThang.validate();
     }
+
+    private void updateDateChoosers() {
+        String selectedRange = (String) CbThoiGian.getSelectedItem();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar calendar = Calendar.getInstance();
+
+        if ("Hôm nay".equals(selectedRange)) {
+            fromDateChooser.setDate(calendar.getTime());
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("Hôm qua".equals(selectedRange)) {
+            calendar.add(Calendar.DATE, -1);
+            fromDateChooser.setDate(calendar.getTime());
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("7 ngày qua".equals(selectedRange)) {
+            calendar.add(Calendar.DATE, -6);
+            fromDateChooser.setDate(calendar.getTime());
+            toDateChooser.setDate(Calendar.getInstance().getTime());
+        } else if ("30 ngày qua".equals(selectedRange)) {
+            calendar.add(Calendar.DATE, -29);
+            fromDateChooser.setDate(calendar.getTime());
+            toDateChooser.setDate(Calendar.getInstance().getTime());
+        } else if ("Tháng trước".equals(selectedRange)) {
+            calendar.add(Calendar.MONTH, -1);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            fromDateChooser.setDate(calendar.getTime());
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("Tháng này".equals(selectedRange)) {
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            fromDateChooser.setDate(calendar.getTime());
+            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("Năm trước".equals(selectedRange)) {
+            calendar.add(Calendar.YEAR, -1);
+            calendar.set(Calendar.MONTH, 0);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            fromDateChooser.setDate(calendar.getTime());
+            calendar.set(Calendar.MONTH, 11);
+            calendar.set(Calendar.DAY_OF_MONTH, 31);
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("Năm nay".equals(selectedRange)) {
+            calendar.set(Calendar.MONTH, 0);
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            fromDateChooser.setDate(calendar.getTime());
+            calendar.set(Calendar.MONTH, 11);
+            calendar.set(Calendar.DAY_OF_MONTH, 31);
+            toDateChooser.setDate(calendar.getTime());
+        } else if ("Tùy chọn khác".equals(selectedRange)) {
+            // Hiển thị các JDateChooser và cho người dùng chọn ngày bắt đầu và kết thúc
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbThoiGian;
     private javax.swing.JComboBox<String> CbTieuChi;

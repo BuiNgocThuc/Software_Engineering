@@ -1261,23 +1261,26 @@
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="lblThoiGian" min="-2" pref="104" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="CbThoiGian" min="-2" pref="170" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                                  <Component id="CbTieuChi" min="-2" pref="172" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                                  <Component id="btnThem12" min="-2" pref="115" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="btnThem13" min="-2" pref="115" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                  <Component id="btnThem14" min="-2" pref="115" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" pref="1000" max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="lblThoiGian" min="-2" pref="104" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="CbThoiGian" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="CbTieuChi" min="-2" pref="172" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnThem12" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnThem13" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="btnThem14" min="-2" pref="115" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="jScrollPane3" min="-2" pref="979" max="-2" attributes="0"/>
+                                          <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -1298,9 +1301,9 @@
                                           <Component id="btnThem14" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane3" min="-2" pref="321" max="-2" attributes="0"/>
-                                  <EmptySpace pref="245" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" min="-2" pref="286" max="-2" attributes="0"/>
+                                  <EmptySpace pref="303" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -1317,33 +1320,33 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                   <Table columnCount="7" rowCount="4">
-                                    <Column editable="true" title="MaSP" type="java.lang.Object"/>
-                                    <Column editable="true" title="TenSP" type="java.lang.Object"/>
-                                    <Column editable="true" title="SL b&#xe1;n" type="java.lang.Object"/>
+                                    <Column editable="true" title="MaSP" type="java.lang.String"/>
+                                    <Column editable="true" title="TenSP" type="java.lang.String"/>
+                                    <Column editable="true" title="SL b&#xe1;n" type="java.lang.Integer"/>
                                     <Column editable="true" title="SL &#x111;&#x1a1;n  b&#xe1;n" type="java.lang.Object"/>
-                                    <Column editable="true" title="V&#x1ed1;n " type="java.lang.Object"/>
-                                    <Column editable="true" title="Doanh thu " type="java.lang.Object"/>
-                                    <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.Object"/>
+                                    <Column editable="true" title="V&#x1ed1;n " type="java.lang.String"/>
+                                    <Column editable="false" title="Doanh thu " type="java.lang.String"/>
+                                    <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.String"/>
                                   </Table>
                                 </Property>
                                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                   <TableColumnModel selectionModel="0">
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                    <Column maxWidth="60" minWidth="60" prefWidth="60" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                    <Column maxWidth="300" minWidth="300" prefWidth="300" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
                                     </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                    <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                                       <Title/>
                                       <Editor/>
                                       <Renderer/>
@@ -1388,6 +1391,9 @@
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CbThoiGianActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -1554,12 +1560,12 @@
                                       <Component id="btnThem10" min="-2" pref="115" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                       <Component id="btnThem11" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="48" max="32767" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane5" pref="989" max="32767" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" pref="976" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1579,9 +1585,9 @@
                                               <Component id="btnThem11" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane5" min="-2" pref="333" max="-2" attributes="0"/>
-                                      <EmptySpace pref="233" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane5" min="-2" pref="295" max="-2" attributes="0"/>
+                                      <EmptySpace pref="294" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1598,33 +1604,33 @@
                                   <Properties>
                                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                                       <Table columnCount="7" rowCount="4">
-                                        <Column editable="true" title="MaTL" type="java.lang.Object"/>
-                                        <Column editable="true" title="TenTL" type="java.lang.Object"/>
-                                        <Column editable="true" title="SL b&#xe1;n" type="java.lang.Object"/>
-                                        <Column editable="true" title="SL &#x111;&#x1a1;n  b&#xe1;n" type="java.lang.Object"/>
-                                        <Column editable="true" title="V&#x1ed1;n " type="java.lang.Object"/>
-                                        <Column editable="true" title="Doanh thu " type="java.lang.Object"/>
-                                        <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.Object"/>
+                                        <Column editable="false" title="MaTL" type="java.lang.Integer"/>
+                                        <Column editable="true" title="TenTL" type="java.lang.String"/>
+                                        <Column editable="true" title="SL b&#xe1;n" type="java.lang.Integer"/>
+                                        <Column editable="true" title="SL &#x111;&#x1a1;n " type="java.lang.Integer"/>
+                                        <Column editable="true" title="V&#x1ed1;n " type="java.lang.String"/>
+                                        <Column editable="true" title="Doanh thu " type="java.lang.String"/>
+                                        <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.String"/>
                                       </Table>
                                     </Property>
                                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                                       <TableColumnModel selectionModel="0">
-                                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                        <Column maxWidth="60" minWidth="60" prefWidth="60" resizable="true">
                                           <Title/>
                                           <Editor/>
                                           <Renderer/>
                                         </Column>
-                                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                        <Column maxWidth="300" minWidth="300" prefWidth="300" resizable="true">
                                           <Title/>
                                           <Editor/>
                                           <Renderer/>
                                         </Column>
-                                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                        <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                                           <Title/>
                                           <Editor/>
                                           <Renderer/>
                                         </Column>
-                                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                        <Column maxWidth="100" minWidth="100" prefWidth="100" resizable="true">
                                           <Title/>
                                           <Editor/>
                                           <Renderer/>

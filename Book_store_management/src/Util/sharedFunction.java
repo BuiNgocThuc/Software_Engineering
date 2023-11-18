@@ -199,7 +199,16 @@ public class sharedFunction {
         return amount;
 
     }
+  public static long parseVNDString(String moneyString) {
 
+        // Loại bỏ các ký tự không cần thiết từ chuỗi đơn giá
+        moneyString = moneyString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
+
+        // Chuyển đổi chuỗi thành số double
+        long amount = Long.parseLong(moneyString);
+        return amount;
+
+    }
     public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex) {
         double totalPrice = 0.0;
         for (int i = 0; i < model.getRowCount(); i++) {

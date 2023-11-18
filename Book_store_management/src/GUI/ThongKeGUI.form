@@ -127,6 +127,9 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabbedPane1MouseClicked"/>
+          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -211,9 +214,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="cbNamKetThuc" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Component id="btnThongKe" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="btnInPDF" min="-2" pref="118" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="btnLammoi" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="btnXuatExcel" min="-2" pref="118" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -239,8 +242,8 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="btnThongKe" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btnLammoi" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnInPDF" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnXuatExcel" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -261,21 +264,32 @@
                                   <Border info="null"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbNamKetThucItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNamKetThucActionPerformed"/>
+                              </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
                             <Component class="javax.swing.JComboBox" name="cbNamBatDau">
                               <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                                  <StringArray count="0"/>
+                                </Property>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbNamBatDauItemStateChanged"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbNamBatDauActionPerformed"/>
+                              </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnThongKe">
+                            <Component class="Components.ButtonRadius" name="btnInPDF">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -286,7 +300,7 @@
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/Assets/icon_24px/back.png"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="Th&#x1ed1;ng k&#xea;"/>
+                                <Property name="text" type="java.lang.String" value="In PDF"/>
                                 <Property name="focusPainted" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Josefin Sans SemiBold" size="17" style="0"/>
@@ -304,10 +318,10 @@
                                 <Property name="radius" type="int" value="40"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThongKeActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInPDFActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnLammoi">
+                            <Component class="Components.ButtonRadius" name="btnXuatExcel">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -318,7 +332,7 @@
                                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                                   <Image iconType="3" name="/Assets/icon_24px/back.png"/>
                                 </Property>
-                                <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
+                                <Property name="text" type="java.lang.String" value="Xu&#x1ea5;t Excel"/>
                                 <Property name="focusPainted" type="boolean" value="false"/>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                                   <Font name="Josefin Sans SemiBold" size="17" style="0"/>
@@ -336,7 +350,7 @@
                                 <Property name="radius" type="int" value="40"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLammoiActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXuatExcelActionPerformed"/>
                               </Events>
                             </Component>
                             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -518,7 +532,7 @@
                                 </Property>
                               </Properties>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
                             <Container class="javax.swing.JScrollPane" name="jScrollPane2">
@@ -959,8 +973,11 @@
                                   <StringArray count="0"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbNam1ItemStateChanged"/>
+                              </Events>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Integer&gt;"/>
+                                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -1518,13 +1535,12 @@
                         <Component class="javax.swing.JComboBox" name="cbTopSanPham">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="6">
+                              <StringArray count="5">
                                 <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
                                 <StringItem index="1" value="Top 3"/>
                                 <StringItem index="2" value="Top 5"/>
                                 <StringItem index="3" value="Top 10"/>
                                 <StringItem index="4" value="Top 20"/>
-                                <StringItem index="5" value=" "/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -1806,13 +1822,12 @@
                         <Component class="javax.swing.JComboBox" name="cbTopTheLoai">
                           <Properties>
                             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                              <StringArray count="6">
+                              <StringArray count="5">
                                 <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
                                 <StringItem index="1" value="Top 3"/>
                                 <StringItem index="2" value="Top 5"/>
                                 <StringItem index="3" value="Top 10"/>
                                 <StringItem index="4" value="Top 20"/>
-                                <StringItem index="5" value=" "/>
                               </StringArray>
                             </Property>
                           </Properties>
@@ -1843,7 +1858,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" pref="1000" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" pref="989" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1851,9 +1866,9 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="137" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                           <Component id="jScrollPane4" min="-2" pref="340" max="-2" attributes="0"/>
-                          <EmptySpace pref="278" max="32767" attributes="0"/>
+                          <EmptySpace pref="339" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1869,22 +1884,16 @@
                     <Component class="javax.swing.JTable" name="TableThoiGian">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="6" rowCount="4">
-                            <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.Object"/>
-                            <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng &#x111;&#x1a1;n" type="java.lang.Object"/>
-                            <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng SP" type="java.lang.Object"/>
-                            <Column editable="true" title="V&#x1ed1;n" type="java.lang.Object"/>
-                            <Column editable="true" title="Doanh thu" type="java.lang.Object"/>
-                            <Column editable="true" title="L&#x1ee3;i nhu&#x1ead;n" type="java.lang.Object"/>
+                          <Table columnCount="5" rowCount="4">
+                            <Column editable="true" title="STT" type="java.lang.Integer"/>
+                            <Column editable="true" title="Th&#x1edd;i gian" type="java.lang.String"/>
+                            <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng &#x111;&#x1a1;n" type="java.lang.Integer"/>
+                            <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng SP" type="java.lang.Integer"/>
+                            <Column editable="true" title="Doanh thu" type="java.lang.String"/>
                           </Table>
                         </Property>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="0">
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                              <Title/>
-                              <Editor/>
-                              <Renderer/>
-                            </Column>
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>

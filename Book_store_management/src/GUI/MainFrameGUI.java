@@ -615,6 +615,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnContent.add(pnPhieuNhap, "card8");
 
         pnThongKe.setBackground(new java.awt.Color(102, 153, 0));
+        pnThongKe.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnThongKeMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnThongKeLayout = new javax.swing.GroupLayout(pnThongKe);
         pnThongKe.setLayout(pnThongKeLayout);
@@ -791,6 +796,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_lblThongKeMouseClicked
+
+    private void pnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnThongKeMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnThongKeMouseClicked
 
  public static JFrame getMainFrameInstance() {
         return instance;

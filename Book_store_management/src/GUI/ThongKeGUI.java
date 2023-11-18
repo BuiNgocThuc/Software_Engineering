@@ -8,9 +8,11 @@ import BUS.ThongKeBUS;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
 import DTO.ThongKe.ThongKeSanPhamBanDTO;
 import DTO.ThongKe.ThongKeTheLoaiBanDTO;
+import ExportFile.PdfExporter;
 import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
 import Util.sharedFunction;
+import com.sun.jdi.IntegerType;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
@@ -18,7 +20,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -33,19 +37,21 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     /**
      * Creates new form ThongKeGUI
      */
-
     private ThongKeBUS tkBUS = new ThongKeBUS();
     Chart chart;
 
     public ThongKeGUI() {
         initComponents();
-        formatTable();
+        setDefaultValues(spngaybatdau, spngayketthuc, CbThoiGianSanPham);
+        setDefaultValues(tlngaybatdau, tlngayketthuc, CbThoiGianTheLoai);
         populateComboBoxALL();
-        thongKeDoanhThuTheoNam();
+        thongKeDoanhThuTuNamDenNam();
         thongKeDoanhThuTheoThangTrongNam();
         ThongKeDoanhThuTungNgayTrongThang();
         ThongKeDoanhThuTuNgayDenNgay();
         thongKeSanPhamBanTrongKhoangThoiGian();
+        thongKeSanPhamBanTrongKhoangThoiGian();
+        formatTable();
     }
 
     /**
@@ -67,8 +73,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         PanelThongKeTheoNam = new javax.swing.JPanel();
         cbNamKetThuc = new javax.swing.JComboBox<>();
         cbNamBatDau = new javax.swing.JComboBox<>();
-        btnThongKe = new Components.ButtonRadius();
-        btnLammoi = new Components.ButtonRadius();
+        btnInPDF = new Components.ButtonRadius();
+        btnXuatExcel = new Components.ButtonRadius();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTheoNam = new javax.swing.JTable();
         lblNamBatDau = new javax.swing.JLabel();
@@ -158,6 +164,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
         jTabbedPane1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         jTabbedPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,40 +184,60 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         cbNamKetThuc.setToolTipText("");
         cbNamKetThuc.setBorder(null);
-
-        cbNamBatDau.setBorder(null);
-
-        btnThongKe.setBorder(null);
-        btnThongKe.setForeground(new java.awt.Color(135, 172, 217));
-        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnThongKe.setText("Thống kê");
-        btnThongKe.setFocusPainted(false);
-        btnThongKe.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThongKe.setIconTextGap(0);
-        btnThongKe.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnThongKe.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThongKe.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThongKe.setRadius(40);
-        btnThongKe.addActionListener(new java.awt.event.ActionListener() {
+        cbNamKetThuc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNamKetThucItemStateChanged(evt);
+            }
+        });
+        cbNamKetThuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThongKeActionPerformed(evt);
+                cbNamKetThucActionPerformed(evt);
             }
         });
 
-        btnLammoi.setBorder(null);
-        btnLammoi.setForeground(new java.awt.Color(135, 172, 217));
-        btnLammoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnLammoi.setText("Làm mới");
-        btnLammoi.setFocusPainted(false);
-        btnLammoi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnLammoi.setIconTextGap(0);
-        btnLammoi.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnLammoi.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnLammoi.setRadius(40);
-        btnLammoi.addActionListener(new java.awt.event.ActionListener() {
+        cbNamBatDau.setBorder(null);
+        cbNamBatDau.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNamBatDauItemStateChanged(evt);
+            }
+        });
+        cbNamBatDau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLammoiActionPerformed(evt);
+                cbNamBatDauActionPerformed(evt);
+            }
+        });
+
+        btnInPDF.setBorder(null);
+        btnInPDF.setForeground(new java.awt.Color(135, 172, 217));
+        btnInPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnInPDF.setText("In PDF");
+        btnInPDF.setFocusPainted(false);
+        btnInPDF.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnInPDF.setIconTextGap(0);
+        btnInPDF.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnInPDF.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnInPDF.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnInPDF.setRadius(40);
+        btnInPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInPDFActionPerformed(evt);
+            }
+        });
+
+        btnXuatExcel.setBorder(null);
+        btnXuatExcel.setForeground(new java.awt.Color(135, 172, 217));
+        btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        btnXuatExcel.setText("Xuất Excel");
+        btnXuatExcel.setFocusPainted(false);
+        btnXuatExcel.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnXuatExcel.setIconTextGap(0);
+        btnXuatExcel.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnXuatExcel.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnXuatExcel.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnXuatExcel.setRadius(40);
+        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXuatExcelActionPerformed(evt);
             }
         });
 
@@ -255,9 +286,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbNamKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnInPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(PanelThongKeTheoNamLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,8 +309,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                     .addGroup(PanelThongKeTheoNamLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(PanelThongKeTheoNamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThongKe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnInPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -543,6 +574,12 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         btnThem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem5ActionPerformed(evt);
+            }
+        });
+
+        cbNam1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbNam1ItemStateChanged(evt);
             }
         });
 
@@ -869,7 +906,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanelChartSanPhamBan.setBackground(new java.awt.Color(255, 102, 153));
         jPanelChartSanPhamBan.setLayout(new java.awt.BorderLayout());
 
-        cbTopSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Top 3", "Top 5", "Top 10", "Top 20", " " }));
+        cbTopSanPham.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Top 3", "Top 5", "Top 10", "Top 20" }));
         cbTopSanPham.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbTopSanPhamItemStateChanged(evt);
@@ -1036,7 +1073,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanelChartTheLoai.setBackground(new java.awt.Color(255, 102, 153));
         jPanelChartTheLoai.setLayout(new java.awt.BorderLayout());
 
-        cbTopTheLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Top 3", "Top 5", "Top 10", "Top 20", " " }));
+        cbTopTheLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Top 3", "Top 5", "Top 10", "Top 20" }));
         cbTopTheLoai.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbTopTheLoaiItemStateChanged(evt);
@@ -1117,15 +1154,23 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         TableThoiGian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Thời gian", "Số lượng đơn", "Số lượng SP", "Vốn", "Doanh thu", "Lợi nhuận"
+                "STT", "Thời gian", "Số lượng đơn", "Số lượng SP", "Doanh thu"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane4.setViewportView(TableThoiGian);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1134,15 +1179,15 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(137, 137, 137)
+                .addGap(76, 76, 76)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(278, Short.MAX_VALUE))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Khách mua hàng theo thời gian", jPanel9);
@@ -1235,11 +1280,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void jTabbedPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPanelMouseClicked
         // TODO add your handling code here:
-        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTheoNam();
-        loadDataTableDoanhThu((DefaultTableModel) tableTheoNam.getModel(), result);
-        loadDataChartTheoNam(result);
-        populateComboBox(cbNamBatDau);
-        populateComboBox(cbNamKetThuc);
+//        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTheoNam();
+//        loadDataTableDoanhThu((DefaultTableModel) tableTheoNam.getModel(), result);
+//        loadDataChartTheoNam(result);
+//        populateComboBox(cbNamBatDau);
+//        populateComboBox(cbNamKetThuc);
     }//GEN-LAST:event_jTabbedPanelMouseClicked
 
     private void ThongKeTheoThangTrongNamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeTheoThangTrongNamMouseClicked
@@ -1250,19 +1295,24 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ThongKeTheoNamMouseClicked
 
-    private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
+    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
-        thongKeDoanhThuTheoNam();
-    }//GEN-LAST:event_btnLammoiActionPerformed
+    }//GEN-LAST:event_btnXuatExcelActionPerformed
 
-    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
+    private void btnInPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPDFActionPerformed
         // TODO add your handling code here:
-        int namBatDau = (int) cbNamBatDau.getSelectedItem();
-        int namKetThuc = (int) cbNamKetThuc.getSelectedItem();
-        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNamDenNam(namBatDau, namKetThuc);
-        loadDataTableDoanhThu((DefaultTableModel) tableTheoNam.getModel(), result);
-        loadDataChartTheoNam(result);
-    }//GEN-LAST:event_btnThongKeActionPerformed
+        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
+        String namBatDau = cbNamBatDau.getSelectedItem().toString();
+        String namKetThuc = cbNamKetThuc.getSelectedItem().toString();
+        // Gọi hàm chọn đường dẫn
+        String filePath = PdfExporter.chooseFilePath();
+        if (filePath != null) {
+            PdfExporter.exportToPdf(list, filePath,namBatDau,namKetThuc,"Nguyễn Minh Thuận");
+        } else {
+
+        }
+
+    }//GEN-LAST:event_btnInPDFActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
@@ -1382,29 +1432,49 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_CbTieuChiItemStateChanged
 
-    // Hàm để đổ danh sách năm vào ComboBox
-//    public void populateComboBox() {
-//        Set<Integer> years = tkBUS.getDistinctYears();
-//
-////        // Xóa tất cả các item cũ trong ComboBox
-//        cbNamBatDau.removeAllItems();
-//        cbNamKetThuc.removeAllItems();
-//        // Thêm các năm vào ComboBox
-//        for (Integer year : years) {
-//            cbNamBatDau.addItem(year);
-//            cbNamKetThuc.addItem(year);
-//        }
-//    }
-    public void populateComboBox(JComboBox<Integer> comboBox) {
+    private void cbNamKetThucItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNamKetThucItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNamKetThucItemStateChanged
+
+    private void cbNamBatDauItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNamBatDauItemStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbNamBatDauItemStateChanged
+
+    private void cbNam1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNam1ItemStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cbNam1ItemStateChanged
+
+    private void cbNamBatDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNamBatDauActionPerformed
+        // TODO add your handling code here:
+        thongKeDoanhThuTuNamDenNam();
+    }//GEN-LAST:event_cbNamBatDauActionPerformed
+
+    private void cbNamKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNamKetThucActionPerformed
+        // TODO add your handling code here:
+        thongKeDoanhThuTuNamDenNam();
+    }//GEN-LAST:event_cbNamKetThucActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void populateComboBox(JComboBox<String> comboBox) {
         Set<Integer> years = tkBUS.getDistinctYears();
+
+        // Chuyển Set thành List và sắp xếp giảm dần
+        List<Integer> sortedYears = new ArrayList<>(years);
+        Collections.sort(sortedYears, Collections.reverseOrder());
 
         // Xóa tất cả các item cũ trong ComboBox
         comboBox.removeAllItems();
 
-        // Thêm các năm vào ComboBox
-        for (Integer year : years) {
-            comboBox.addItem(year);
+        // Thêm các năm đã sắp xếp vào ComboBox
+        for (Integer year : sortedYears) {
+            comboBox.addItem(year + "");
         }
+
     }
 
     private void loadDataTableDoanhThu(DefaultTableModel tableModel, ArrayList<ThongKeDoanhThuDTO> ketQua) {
@@ -1481,24 +1551,40 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         sharedFunction.EditTableContent(TableSanPham);
         sharedFunction.EditHeaderTable(TableTheLoai);
         sharedFunction.EditTableContent(TableTheLoai);
+        sharedFunction.EditHeaderTable(TableThoiGian);
+        sharedFunction.EditTableContent(TableThoiGian);
 
     }
 
     private void populateComboBoxALL() {
-        populateComboBox(cbNam);
-        populateComboBox(cbNam1);
         populateComboBox(cbNamBatDau);
         populateComboBox(cbNamKetThuc);
+        populateComboBox(cbNam);
+        populateComboBox(cbNam1);
     }
 
-    private void thongKeDoanhThuTheoNam() {
-        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTheoNam();
+    private void thongKeDoanhThuTuNamDenNam() {
+        String selectedNamBatDau = (String) cbNamBatDau.getSelectedItem();
+        String selectedNamKetThuc = (String) cbNamKetThuc.getSelectedItem();
+
+        if (selectedNamBatDau == null || selectedNamKetThuc == null) {
+            return;
+        }
+
+        int namBatDau = Integer.parseInt(selectedNamBatDau);
+        int namKetThuc = Integer.parseInt(selectedNamKetThuc);
+
+        if (!isValidYearRange(namBatDau, namKetThuc)) {
+            return;
+        }
+
+        ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNamDenNam(namBatDau, namKetThuc);
         loadDataTableDoanhThu((DefaultTableModel) tableTheoNam.getModel(), result);
         loadDataChartTheoNam(result);
     }
 
     private void thongKeDoanhThuTheoThangTrongNam() {
-        int selectedYear = (int) cbNam.getSelectedItem();
+        int selectedYear = Integer.parseInt((String) cbNam.getSelectedItem());
         ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTheoThang(selectedYear);
         loadDataTableDoanhThu((DefaultTableModel) tableTheoThang.getModel(), result);
         loadDataChartTheoThang(result);
@@ -1506,7 +1592,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void ThongKeDoanhThuTungNgayTrongThang() {
         String selectedMonthString = cbThang.getSelectedItem().toString();
-        int selectedYear = (int) cbNam1.getSelectedItem();
+        int selectedYear = Integer.parseInt((String) cbNam1.getSelectedItem());
         String monthNumberString = selectedMonthString.substring(6);
         int selectedMonth = Integer.parseInt(monthNumberString);
         ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTungNgayTrongThang(selectedYear, selectedMonth);
@@ -1545,7 +1631,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanelChartNgay.validate();
     }
 
-    public void loadDataChartTheoNam(ArrayList<ThongKeDoanhThuDTO> list) {
+    private void loadDataChartTheoNam(ArrayList<ThongKeDoanhThuDTO> list) {
         jPanelChartNam.removeAll();
         chart = new Chart();
         chart.addLegend("Vốn", new Color(245, 189, 135));
@@ -1627,7 +1713,22 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             calendar.set(Calendar.MONTH, 11);
             calendar.set(Calendar.DAY_OF_MONTH, 31);
             ngayketthuc.setDate(calendar.getTime());
+        } else {
+            ngaybatdau.setDate(null);
+            ngayketthuc.setDate(null);
         }
+    }
+
+    private void setDefaultValues(JDateChooser ngaybatdau, JDateChooser ngayketthuc, JComboBox<String> cb) {
+        // Set giá trị mặc định cho cbTopSanPham
+        cb.setSelectedItem("7 ngày qua");
+        Calendar calendar = Calendar.getInstance();
+        // Set định dạng ngày tháng năm cho JDateChooser
+        ngaybatdau.setDateFormatString("dd/MM/yyyy");
+        ngayketthuc.setDateFormatString("dd/MM/yyyy");
+        calendar.add(Calendar.DATE, -6);
+        ngaybatdau.setDate(calendar.getTime());
+        ngayketthuc.setDate(Calendar.getInstance().getTime());
     }
 
     private void thongKeSanPhamBanTrongKhoangThoiGian() {
@@ -1663,7 +1764,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         }
 
         ArrayList<ThongKeTheLoaiBanDTO> result = tkBUS.thongKeTheLoaiTrongKhoangThoiGian(startDate, endDate);
-     
+
         // Chọn số lượng dòng để hiển thị
         int selectedRowCount = getSelectedRowCount(cbTopTheLoai);
 
@@ -1675,6 +1776,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     // Phương thức kiểm tra ngày bắt đầu và kết thúc
     private boolean isValidDateRange(java.util.Date startDate, java.util.Date endDate) {
         return startDate == null || endDate == null || !startDate.after(endDate);
+    }
+
+    private boolean isValidYearRange(int namBatDau, int namKetThuc) {
+        if (namBatDau > namKetThuc) {
+            JOptionPane.showMessageDialog(this, "Năm bắt đầu không được lớn hơn năm kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     private void loadDataChartSanPhamBan(ArrayList<ThongKeSanPhamBanDTO> list, int number) {
@@ -1738,12 +1847,31 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 0;
         }; // Hiển thị tất cả dòng
     }
+
+    // In pdf
+    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTheoNam() {
+        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
+        DefaultTableModel tableModel = (DefaultTableModel) tableTheoNam.getModel();
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            String Nam = (String) tableModel.getValueAt(row, 0);
+            String VonVND = (String) tableModel.getValueAt(row, 1);
+            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
+            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
+
+            long von = sharedFunction.parseVNDString(VonVND);
+            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
+            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
+            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(Nam, von, doanhThu, loiNhuan);
+
+            list.add(item);
+        }
+
+        return list;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> CbThoiGian1;
     private javax.swing.JComboBox<String> CbThoiGianSanPham;
     private javax.swing.JComboBox<String> CbThoiGianTheLoai;
     private javax.swing.JComboBox<String> CbTieuChi;
-    private javax.swing.JComboBox<String> CbTieuChi1;
     private javax.swing.JComboBox<String> CbTieuChiTheLoai;
     private com.toedter.calendar.JDateChooser NgayBatDau;
     private com.toedter.calendar.JDateChooser NgayKetThuc;
@@ -1752,7 +1880,6 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JPanel PanelThongKeTheoThang1;
     private javax.swing.JPanel PanelThongKeTheoThang2;
     private javax.swing.JTable TableSanPham;
-    private javax.swing.JTable TableSanPham1;
     private javax.swing.JTable TableTheLoai;
     private javax.swing.JTable TableThoiGian;
     private javax.swing.JTable TableTuNgayDenNgay;
@@ -1760,14 +1887,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JPanel ThongKeTheoNgayTrongThang;
     private javax.swing.JPanel ThongKeTheoThangTrongNam;
     private javax.swing.JPanel ThongKeTuNgayDenNgay;
-    private Components.ButtonRadius btnLammoi;
+    private Components.ButtonRadius btnInPDF;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnThem1;
     private Components.ButtonRadius btnThem13;
     private Components.ButtonRadius btnThem14;
-    private Components.ButtonRadius btnThem15;
-    private Components.ButtonRadius btnThem16;
-    private Components.ButtonRadius btnThem17;
     private Components.ButtonRadius btnThem18;
     private Components.ButtonRadius btnThem19;
     private Components.ButtonRadius btnThem2;
@@ -1776,19 +1900,18 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private Components.ButtonRadius btnThem6;
     private Components.ButtonRadius btnThem7;
     private Components.ButtonRadius btnThem8;
-    private Components.ButtonRadius btnThongKe;
     private Components.ButtonRadius btnThongKe1;
-    private javax.swing.JComboBox<Integer> cbNam;
-    private javax.swing.JComboBox<Integer> cbNam1;
-    private javax.swing.JComboBox<Integer> cbNamBatDau;
-    private javax.swing.JComboBox<Integer> cbNamKetThuc;
+    private Components.ButtonRadius btnXuatExcel;
+    private javax.swing.JComboBox<String> cbNam;
+    private javax.swing.JComboBox<String> cbNam1;
+    private javax.swing.JComboBox<String> cbNamBatDau;
+    private javax.swing.JComboBox<String> cbNamKetThuc;
     private javax.swing.JComboBox<String> cbThang;
     private javax.swing.JComboBox<String> cbTopSanPham;
     private javax.swing.JComboBox<String> cbTopTheLoai;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -1808,10 +1931,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane3;
     private javax.swing.JTabbedPane jTabbedPaneTheLoai;
     private javax.swing.JTabbedPane jTabbedPanel;
     private javax.swing.JLabel lblNam;
@@ -1822,7 +1943,6 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JLabel lblNamKetThuc;
     private javax.swing.JLabel lblNamKetThuc2;
     private javax.swing.JLabel lblThoiGian;
-    private javax.swing.JLabel lblThoiGian1;
     private javax.swing.JLabel lblThoiGian2;
     private com.toedter.calendar.JDateChooser spngaybatdau;
     private com.toedter.calendar.JDateChooser spngayketthuc;

@@ -850,6 +850,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             String TongTientext = tfTongtien.getText();
             Double TongTien = sharedFunction.parseMoneyString(TongTientext);
             String TienKhach = tfTienkhach.getText();
+            String tienKhachVND = sharedFunction.formatVND(sharedFunction.stringToDouble( TienKhach));
             String TienThoi = tfTienthoi.getText();
             HoaDonDTO hoaDon = new HoaDonDTO(IDNhanVien, TongTien, NgayTao);
             boolean hoaDonLuuThanhCong = hoaDonBUS.luuHoaDon(hoaDon);
@@ -870,7 +871,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             if (hoaDonLuuThanhCong && luuChiTiet) {
                 // Thực hiện các thao tác sau khi thanh toán thành công
                 updateProductQuantity();
-                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, TienKhach, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
+                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, tienKhachVND ,TienThoi, TongTientext, NgayTaotext, modelHoaDon);
                 bill.setVisible(true);
             }
         }

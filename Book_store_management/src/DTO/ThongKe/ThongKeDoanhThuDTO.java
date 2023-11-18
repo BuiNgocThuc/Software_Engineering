@@ -13,15 +13,18 @@ public class ThongKeDoanhThuDTO {
     private String thoiGian;
     private long von;
     private long doanhThu;
-    private final long loiNhuan;
+    private long loiNhuan;
     private String Ngay;
 
+    private String vonVND,doanhThuVND,loiNhuanVND;
     public ThongKeDoanhThuDTO(String thoiGian, long von, long doanhThu, long loiNhuan) {
         this.thoiGian = thoiGian;
         this.von = von;
         this.doanhThu = doanhThu;
         this.loiNhuan = loiNhuan;
     }
+
+
 
 
     public String getThoiGian() {
@@ -43,6 +46,7 @@ public class ThongKeDoanhThuDTO {
     public String getNgay() {
         return Ngay;
     }
+
 
     @Override
     public String toString() {

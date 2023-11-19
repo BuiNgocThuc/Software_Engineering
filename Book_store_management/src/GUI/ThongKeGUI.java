@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.ThongKeBUS;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeHoaDonBanDTO;
 import DTO.ThongKe.ThongKeSanPhamBanDTO;
 import DTO.ThongKe.ThongKeTheLoaiBanDTO;
 import ExportFile.ExcelExporter;
@@ -45,6 +46,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         initComponents();
         setDefaultValues(spngaybatdau, spngayketthuc, CbThoiGianSanPham);
         setDefaultValues(tlngaybatdau, tlngayketthuc, CbThoiGianTheLoai);
+        setDefaultValues(tgngaybatdau, tgngayketthuc, CbThoiGian);
         populateComboBoxALL();
         thongKeDoanhThuTuNamDenNam();
         thongKeDoanhThuTheoThangTrongNam();
@@ -52,6 +54,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         ThongKeDoanhThuTuNgayDenNgay();
         thongKeSanPhamBanTrongKhoangThoiGian();
         thongKeSanPhamBanTrongKhoangThoiGian();
+        thongKeHoaDonTrongKhoangThoiGian();
         formatTable();
     }
 
@@ -143,9 +146,12 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanel9 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         TableThoiGian = new javax.swing.JTable();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        lblThoiGian1 = new javax.swing.JLabel();
+        CbThoiGian = new javax.swing.JComboBox<>();
+        tgngaybatdau = new com.toedter.calendar.JDateChooser();
+        tgngayketthuc = new com.toedter.calendar.JDateChooser();
+        excelThoiGian = new Components.ButtonRadius();
+        pdfThoiGian = new Components.ButtonRadius();
 
         setMaximumSize(new java.awt.Dimension(1020, 750));
         setPreferredSize(new java.awt.Dimension(1020, 750));
@@ -1155,17 +1161,17 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         TableThoiGian.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Thời gian", "Số lượng đơn", "Số lượng SP", "Doanh thu"
+                "STT", "Thời gian", "Số lượng đơn", "Số lượng SP", "Số loại SP", "Doanh thu"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -1173,66 +1179,113 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             }
         });
         jScrollPane4.setViewportView(TableThoiGian);
+        if (TableThoiGian.getColumnModel().getColumnCount() > 0) {
+            TableThoiGian.getColumnModel().getColumn(0).setMinWidth(50);
+            TableThoiGian.getColumnModel().getColumn(0).setPreferredWidth(50);
+            TableThoiGian.getColumnModel().getColumn(0).setMaxWidth(50);
+        }
+
+        lblThoiGian1.setText("Khoảng thời gian");
+
+        CbThoiGian.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hôm nay", "Hôm qua", "7 ngày qua", "30 ngày qua", "Tháng trước", "Tháng này", "Năm trước", "Năm nay", "Tùy chọn khác" }));
+        CbThoiGian.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                CbThoiGianItemStateChanged(evt);
+            }
+        });
+        CbThoiGian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CbThoiGianActionPerformed(evt);
+            }
+        });
+
+        tgngaybatdau.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tgngaybatdauPropertyChange(evt);
+            }
+        });
+
+        tgngayketthuc.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tgngayketthucPropertyChange(evt);
+            }
+        });
+
+        excelThoiGian.setBorder(null);
+        excelThoiGian.setForeground(new java.awt.Color(135, 172, 217));
+        excelThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelThoiGian.setText("Xuất excel");
+        excelThoiGian.setFocusPainted(false);
+        excelThoiGian.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelThoiGian.setMaximumSize(new java.awt.Dimension(100, 40));
+        excelThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
+        excelThoiGian.setRadius(40);
+        excelThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        excelThoiGian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                excelThoiGianActionPerformed(evt);
+            }
+        });
+
+        pdfThoiGian.setBorder(null);
+        pdfThoiGian.setForeground(new java.awt.Color(135, 172, 217));
+        pdfThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfThoiGian.setText("In pdf");
+        pdfThoiGian.setFocusPainted(false);
+        pdfThoiGian.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        pdfThoiGian.setMaximumSize(new java.awt.Dimension(100, 40));
+        pdfThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
+        pdfThoiGian.setRadius(40);
+        pdfThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pdfThoiGian.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pdfThoiGianActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+            .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(lblThoiGian1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tgngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tgngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(excelThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pdfThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblThoiGian1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tgngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tgngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(excelThoiGian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(pdfThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 619, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Khách mua hàng theo thời gian", jPanel9);
-
-        jPanel3.setBackground(new java.awt.Color(0, 204, 204));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1012, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Tồn kho", jPanel4);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1012, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 755, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Nhân viên", jPanel6);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1298,13 +1351,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
-       ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
+        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
         String namBatDau = cbNamBatDau.getSelectedItem().toString();
         String namKetThuc = cbNamKetThuc.getSelectedItem().toString();
         // Gọi hàm chọn đường dẫn
         String filePath = ExcelExporter.chooseFilePath();
         if (filePath != null) {
-           ExcelExporter.exportToExcel(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
+            ExcelExporter.exportToExcel(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
         } else {
 
         }
@@ -1395,7 +1448,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void spngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spngaybatdauPropertyChange
         // TODO add your handling code here:
+        java.util.Date startDate = spngaybatdau.getDate();
+        java.util.Date endDate = spngayketthuc.getDate();
 
+        // Kiểm tra ngày bắt đầu và kết thúc
+        if (!isValidDateRange(startDate, endDate)) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_spngaybatdauPropertyChange
 
     private void spngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spngayketthucPropertyChange
@@ -1432,6 +1492,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void tlngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tlngaybatdauPropertyChange
         // TODO add your handling code here:
+        java.util.Date startDate = tlngaybatdau.getDate();
+        java.util.Date endDate = tlngayketthuc.getDate();
+
+        // Kiểm tra ngày bắt đầu và kết thúc
+        if (!isValidDateRange(startDate, endDate)) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }//GEN-LAST:event_tlngaybatdauPropertyChange
 
     private void cbTopTheLoaiItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTopTheLoaiItemStateChanged
@@ -1471,6 +1539,40 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
+    private void CbThoiGianItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CbThoiGianItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbThoiGianItemStateChanged
+
+    private void CbThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbThoiGianActionPerformed
+        // TODO add your handling code here:
+        updateDateChoosers(tgngaybatdau, tgngayketthuc, CbThoiGian);
+    }//GEN-LAST:event_CbThoiGianActionPerformed
+
+    private void tgngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tgngaybatdauPropertyChange
+        // TODO add your handling code here:
+        java.util.Date startDate = tgngaybatdau.getDate();
+        java.util.Date endDate = tgngayketthuc.getDate();
+
+        // Kiểm tra ngày bắt đầu và kết thúc
+        if (!isValidDateRange(startDate, endDate)) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_tgngaybatdauPropertyChange
+
+    private void tgngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tgngayketthucPropertyChange
+        // TODO add your handling code here:
+        thongKeHoaDonTrongKhoangThoiGian();
+    }//GEN-LAST:event_tgngayketthucPropertyChange
+
+    private void excelThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelThoiGianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_excelThoiGianActionPerformed
+
+    private void pdfThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfThoiGianActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pdfThoiGianActionPerformed
+
     private void populateComboBox(JComboBox<String> comboBox) {
         Set<Integer> years = tkBUS.getDistinctYears();
 
@@ -1478,10 +1580,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         List<Integer> sortedYears = new ArrayList<>(years);
         Collections.sort(sortedYears, Collections.reverseOrder());
 
-        // Xóa tất cả các item cũ trong ComboBox
         comboBox.removeAllItems();
 
-        // Thêm các năm đã sắp xếp vào ComboBox
         for (Integer year : sortedYears) {
             comboBox.addItem(year + "");
         }
@@ -1489,10 +1589,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     }
 
     private void loadDataTableDoanhThu(DefaultTableModel tableModel, ArrayList<ThongKeDoanhThuDTO> ketQua) {
-        // Xóa dữ liệu cũ trong model
         tableModel.setRowCount(0);
 
-        // Thêm dữ liệu mới từ danh sách vào model
         for (ThongKeDoanhThuDTO doanhThu : ketQua) {
             String von = sharedFunction.formatVND(doanhThu.getVon());
             String doanhthu = sharedFunction.formatVND(doanhThu.getDoanhThu());
@@ -1503,10 +1601,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     }
 
     private void loadDataTableSanPhamBan(DefaultTableModel tableModel, ArrayList<ThongKeSanPhamBanDTO> ketQua, int selectedRowCount) {
-        // Xóa dữ liệu cũ trong model
         tableModel.setRowCount(0);
 
-        // Thêm dữ liệu mới từ danh sách vào model
         int count = 0;
         for (ThongKeSanPhamBanDTO sp : ketQua) {
             if (count >= selectedRowCount) {
@@ -1526,14 +1622,12 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     }
 
     private void loadDataTableTheLoaiBan(DefaultTableModel tableModel, ArrayList<ThongKeTheLoaiBanDTO> ketQua, int selectedRowCount) {
-        // Xóa dữ liệu cũ trong model
         tableModel.setRowCount(0);
 
-        // Thêm dữ liệu mới từ danh sách vào model
         int count = 0;
         for (ThongKeTheLoaiBanDTO tl : ketQua) {
             if (count >= selectedRowCount) {
-                break; // Đã hiển thị đủ số lượng dòng được chọn
+                break;
             }
 
             String masp = sharedFunction.FormatID("TL", Integer.parseInt(tl.getMaTL()));
@@ -1547,6 +1641,22 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
             count++;
         }
+    }
+
+    private void loadDataTableHoaDonBan(DefaultTableModel tableModel, ArrayList<ThongKeHoaDonBanDTO> ketQua) {
+        tableModel.setRowCount(0);
+
+        int count = 1;
+        for (ThongKeHoaDonBanDTO hd : ketQua) {
+            String thoiGian = hd.getThoiGian();
+            int soHoaDon = hd.getSoHoaDon();
+            int soLuongSP = hd.getSoSP();
+            int soLoaiSP = hd.getSoLoaiSP();
+            String doanhthu = sharedFunction.formatVND(hd.getDoanhThu());
+            Object[] rowData = {count++, thoiGian, soHoaDon, soLuongSP, soLoaiSP, doanhthu};
+            tableModel.addRow(rowData);
+        }
+
     }
 
     private void formatTable() {
@@ -1682,7 +1792,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Set định dạng ngày tháng năm cho JDateChooser
         ngaybatdau.setDateFormatString("dd/MM/yyyy");
         ngayketthuc.setDateFormatString("dd/MM/yyyy");
-
+        ngaybatdau.setDate(null);
+        ngayketthuc.setDate(null);
         if ("Hôm nay".equals(selectedRange)) {
             ngaybatdau.setDate(calendar.getTime());
             ngayketthuc.setDate(calendar.getTime());
@@ -1784,6 +1895,22 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         loadDataChartTheLoaiBan(result, selectedRowCount);
     }
 
+    private void thongKeHoaDonTrongKhoangThoiGian() {
+        // Lấy ngày bắt đầu và kết thúc từ JDateChooser
+        java.util.Date startDate = tgngaybatdau.getDate();
+        java.util.Date endDate = tgngayketthuc.getDate();
+
+        // Kiểm tra ngày bắt đầu và kết thúc
+        if (!isValidDateRange(startDate, endDate)) {
+            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        ArrayList<ThongKeHoaDonBanDTO> result = tkBUS.thongKeHoaDonTrongKhoangThoiGian(startDate, endDate);
+
+        loadDataTableHoaDonBan((DefaultTableModel) TableThoiGian.getModel(), result);
+
+    }
+
     // Phương thức kiểm tra ngày bắt đầu và kết thúc
     private boolean isValidDateRange(java.util.Date startDate, java.util.Date endDate) {
         return startDate == null || endDate == null || !startDate.after(endDate);
@@ -1837,6 +1964,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jPanelChartTheLoai.repaint();
         jPanelChartTheLoai.validate();
     }
+// thống kê hóa đơn bán trong khoảng thời gian
 
     private int getSelectedRowCount(JComboBox<String> cb) {
         // Lấy giá trị được chọn từ JComboBox
@@ -1880,6 +2008,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         return list;
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> CbThoiGian;
     private javax.swing.JComboBox<String> CbThoiGianSanPham;
     private javax.swing.JComboBox<String> CbThoiGianTheLoai;
     private javax.swing.JComboBox<String> CbTieuChi;
@@ -1920,15 +2049,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbThang;
     private javax.swing.JComboBox<String> cbTopSanPham;
     private javax.swing.JComboBox<String> cbTopTheLoai;
+    private Components.ButtonRadius excelThoiGian;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelChartNam;
@@ -1954,12 +2081,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JLabel lblNamKetThuc;
     private javax.swing.JLabel lblNamKetThuc2;
     private javax.swing.JLabel lblThoiGian;
+    private javax.swing.JLabel lblThoiGian1;
     private javax.swing.JLabel lblThoiGian2;
+    private Components.ButtonRadius pdfThoiGian;
     private com.toedter.calendar.JDateChooser spngaybatdau;
     private com.toedter.calendar.JDateChooser spngayketthuc;
     private javax.swing.JTable tableTheoNam;
     private javax.swing.JTable tableTheoThang;
     private javax.swing.JTable tableTheoTungNgayTrongThang;
+    private com.toedter.calendar.JDateChooser tgngaybatdau;
+    private com.toedter.calendar.JDateChooser tgngayketthuc;
     private com.toedter.calendar.JDateChooser tlngaybatdau;
     private com.toedter.calendar.JDateChooser tlngayketthuc;
     // End of variables declaration//GEN-END:variables

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import Connection.ConnectDB;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeHoaDonBanDTO;
 import DTO.ThongKe.ThongKeSanPhamBanDTO;
 import DTO.ThongKe.ThongKeTheLoaiBanDTO;
 import java.text.SimpleDateFormat;
@@ -108,24 +109,19 @@ public class ThongKeDAO {
         String createTempTableQuery = "CREATE TABLE #AllMonths (Month INT);"
                 + "INSERT INTO #AllMonths VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12);";
 
-        // LEFT JOIN để lấy doanh thu của từng tháng
         String selectQuery = "SELECT M.Month AS Thang, ISNULL(SUM(HD.TongTien), 0) AS DoanhThu "
                 + "FROM #AllMonths M "
                 + "LEFT JOIN HoaDon HD ON M.Month = MONTH(HD.NgayTao) AND YEAR(HD.NgayTao) = ? "
                 + "GROUP BY M.Month;";
 
-        // Xóa bảng tạm sau khi sử dụng
         String dropTempTableQuery = "DROP TABLE #AllMonths;";
 
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement statement = conn.createStatement(); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
-            // Tạo bảng tạm
             statement.executeUpdate(createTempTableQuery);
 
-            // Thiết lập tham số cho câu truy vấn
             preparedStatement.setInt(1, nam);
 
-            // Thực hiện truy vấn và xử lý kết quả
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     int thang = resultSet.getInt("Thang");
@@ -159,25 +155,20 @@ public class ThongKeDAO {
             createTempTableQuery += "INSERT INTO #AllDays VALUES (" + i + ");";
         }
 
-        // Thực hiện LEFT JOIN để lấy doanh thu của từng ngày
         String selectQuery = "SELECT D.Day AS Ngay, ISNULL(SUM(HD.TongTien), 0) AS DoanhThu "
                 + "FROM #AllDays D "
                 + "LEFT JOIN HoaDon HD ON D.Day = DAY(HD.NgayTao) AND MONTH(HD.NgayTao) = ? AND YEAR(HD.NgayTao) = ? "
                 + "GROUP BY D.Day;";
 
-        // Xóa bảng tạm sau khi sử dụng
         String dropTempTableQuery = "DROP TABLE #AllDays;";
 
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement statement = conn.createStatement(); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
-            // Tạo bảng tạm
             statement.executeUpdate(createTempTableQuery);
 
-            // Thiết lập tham số cho câu truy vấn
             preparedStatement.setInt(1, thang);
             preparedStatement.setInt(2, nam);
 
-            // Thực hiện truy vấn và xử lý kết quả
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     String ngay = resultSet.getString("Ngay");
@@ -208,11 +199,10 @@ public class ThongKeDAO {
             return danhSachDoanhThu;
         }
 
-        // Tạo bảng tạm với tất cả các ngày trong khoảng thời gian
+        // Tạo bảng tạm với tất cả các ngày trong khoảng thời gian        
         String createTempTableQuery = "CREATE TABLE #AllDays (Ngay DATE);";
         String insertDaysQuery = "INSERT INTO #AllDays VALUES (?);";
 
-        // Thực hiện LEFT JOIN để lấy doanh thu của từng ngày
         String selectQuery = "SELECT A.Ngay AS Ngay, ISNULL(SUM(HD.TongTien), 0) AS DoanhThu "
                 + "FROM #AllDays A "
                 + "LEFT JOIN HoaDon HD ON A.Ngay = CONVERT(DATE, HD.NgayTao) "
@@ -224,10 +214,8 @@ public class ThongKeDAO {
 
         try (java.sql.Connection conn = ConnectDB.getConnection(); java.sql.Statement createTempTableStatement = conn.createStatement(); PreparedStatement insertDaysStatement = conn.prepareStatement(insertDaysQuery); PreparedStatement preparedStatement = conn.prepareStatement(selectQuery)) {
 
-            // Tạo bảng tạm
             createTempTableStatement.executeUpdate(createTempTableQuery);
 
-            // Insert các ngày trong khoảng thời gian vào bảng tạm
             java.sql.Date currentDate = new java.sql.Date(ngayBatDau.getTime());
             while (!currentDate.after(ngayKetThuc)) {
                 insertDaysStatement.setDate(1, new java.sql.Date(currentDate.getTime()));
@@ -235,11 +223,9 @@ public class ThongKeDAO {
                 currentDate = new java.sql.Date(currentDate.getTime() + 24 * 60 * 60 * 1000); // Tăng 1 ngày
             }
 
-            // Thiết lập tham số cho câu truy vấn
             preparedStatement.setDate(1, new java.sql.Date(ngayBatDau.getTime()));
             preparedStatement.setDate(2, new java.sql.Date(ngayKetThuc.getTime()));
 
-            // Thực hiện truy vấn và xử lý kết quả
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     java.sql.Date ngay = resultSet.getDate("Ngay");
@@ -247,7 +233,6 @@ public class ThongKeDAO {
                     long von = tinhVonTungNgayTrongKhoangThoiGian(ngay, conn);
                     long loiNhuan = doanhThu - von;
 
-                    // Chuyển đổi ngày thành chuỗi
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     String formattedDate = dateFormat.format(ngay);
 
@@ -473,6 +458,59 @@ public class ThongKeDAO {
         }
 
         return danhSachTheLoai;
+    }
+
+// Thống kê Số hóa đơn bán được trong khoảng thời gian
+    public ArrayList<ThongKeHoaDonBanDTO> thongKeHoaDonTrongKhoangThoiGian(Date ngayBatDau, Date ngayKetThuc) {
+        ArrayList<ThongKeHoaDonBanDTO> danhSachHoaDon = new ArrayList<>();
+
+        if (ngayBatDau == null || ngayKetThuc == null) {
+            // Một trong hai ngày là null
+            return danhSachHoaDon;
+        }
+
+        String query = "WITH AllDays AS ( "
+                + "    SELECT ? AS Ngay "
+                + "    UNION ALL "
+                + "    SELECT DATEADD(DAY, 1, Ngay) "
+                + "    FROM AllDays "
+                + "    WHERE DATEADD(DAY, 1, Ngay) <= ? "
+                + ") "
+                + "SELECT A.Ngay, "
+                + "    COUNT(DISTINCT HD.MaHD) AS SoLuongDon, "
+                + "    SUM(ISNULL(CTHD.SoLuong, 0)) AS SoLuongSanPham, "
+                + "    COUNT(DISTINCT CTHD.MaSP) AS SoLoaiSanPham, "
+                + "    SUM(ISNULL(CTHD.SoLuong * CTHD.DonGia, 0)) AS DoanhThu "
+                + "FROM AllDays A "
+                + "LEFT JOIN HoaDon HD ON A.Ngay = CONVERT(DATE, HD.NgayTao) "
+                + "LEFT JOIN ChiTietHoaDon CTHD ON HD.MaHD = CTHD.MaHD "
+                + "GROUP BY A.Ngay "
+                + "ORDER BY A.Ngay "
+                + "OPTION (MAXRECURSION 0)";;
+
+        try (java.sql.Connection conn = ConnectDB.getConnection(); PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setDate(1, new java.sql.Date(ngayBatDau.getTime()));
+            preparedStatement.setDate(2, new java.sql.Date(ngayKetThuc.getTime()));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Date ngay = resultSet.getDate("Ngay");
+                    int soLuongDon = resultSet.getInt("SoLuongDon");
+                    int soLuongSanPham = resultSet.getInt("SoLuongSanPham");
+                    int soLoaiSanPham = resultSet.getInt("SoLoaiSanPham");
+                    long doanhThu = resultSet.getLong("DoanhThu");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String formattedDate = dateFormat.format(ngay);
+                    ThongKeHoaDonBanDTO thongKeObj = new ThongKeHoaDonBanDTO(formattedDate, soLuongDon, soLuongSanPham, soLoaiSanPham, doanhThu);
+                    danhSachHoaDon.add(thongKeObj);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return danhSachHoaDon;
     }
 
 }

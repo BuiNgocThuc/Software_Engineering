@@ -214,9 +214,9 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="cbNamKetThuc" min="-2" pref="100" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-                                      <Component id="btnInPDF" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="pdfBtnDoanhThuTheoNam" min="-2" pref="118" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="btnXuatExcel" min="-2" pref="118" max="-2" attributes="0"/>
+                                      <Component id="excelBtnDoanhThuTheoNam" min="-2" pref="118" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -242,8 +242,8 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="btnInPDF" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="btnXuatExcel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="pdfBtnDoanhThuTheoNam" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="excelBtnDoanhThuTheoNam" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -289,7 +289,7 @@
                                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                               </AuxValues>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnInPDF">
+                            <Component class="Components.ButtonRadius" name="pdfBtnDoanhThuTheoNam">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -318,10 +318,12 @@
                                 <Property name="radius" type="int" value="40"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInPDFActionPerformed"/>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnDoanhThuTheoNamMouseEntered"/>
+                                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnDoanhThuTheoNamMouseExited"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfBtnDoanhThuTheoNamActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnXuatExcel">
+                            <Component class="Components.ButtonRadius" name="excelBtnDoanhThuTheoNam">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -350,7 +352,9 @@
                                 <Property name="radius" type="int" value="40"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXuatExcelActionPerformed"/>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnDoanhThuTheoNamMouseEntered"/>
+                                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnDoanhThuTheoNamMouseExited"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelBtnDoanhThuTheoNamActionPerformed"/>
                               </Events>
                             </Component>
                             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -488,9 +492,9 @@
                                               <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
                                               <Component id="btnThem1" min="-2" pref="115" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="btnThem2" min="-2" pref="115" max="-2" attributes="0"/>
+                                              <Component id="excelBtnTheoThang" min="-2" pref="115" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="btnThem" min="-2" pref="115" max="-2" attributes="0"/>
+                                              <Component id="pdfBtnTheoThang" min="-2" pref="115" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="8" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -508,10 +512,10 @@
                                               <Component id="cbNam" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="btnThem" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="pdfBtnTheoThang" alignment="1" min="-2" max="-2" attributes="0"/>
                                               <Component id="btnThem1" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="btnThem2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="excelBtnTheoThang" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jScrollPane2" min="-2" pref="302" max="-2" attributes="0"/>
@@ -596,7 +600,7 @@
                                 <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n n&#x103;m"/>
                               </Properties>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnThem">
+                            <Component class="Components.ButtonRadius" name="pdfBtnTheoThang">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -622,7 +626,9 @@
                                 <Property name="verticalTextPosition" type="int" value="3"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnTheoThangMouseEntered"/>
+                                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnTheoThangMouseExited"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfBtnTheoThangActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="Components.ButtonRadius" name="btnThem1">
@@ -651,10 +657,11 @@
                                 <Property name="verticalTextPosition" type="int" value="3"/>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnThem1MouseEntered"/>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem1ActionPerformed"/>
                               </Events>
                             </Component>
-                            <Component class="Components.ButtonRadius" name="btnThem2">
+                            <Component class="Components.ButtonRadius" name="excelBtnTheoThang">
                               <Properties>
                                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                                   <Border info="null"/>
@@ -680,7 +687,9 @@
                                 <Property name="verticalTextPosition" type="int" value="3"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem2ActionPerformed"/>
+                                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnTheoThangMouseEntered"/>
+                                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnTheoThangMouseExited"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelBtnTheoThangActionPerformed"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -1297,9 +1306,9 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="cbTopSanPham" min="-2" pref="105" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                          <Component id="btnThem13" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <Component id="excelBtn" min="-2" pref="115" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnThem14" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <Component id="pdfBtn" min="-2" pref="115" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
@@ -1321,8 +1330,8 @@
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="btnThem13" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="btnThem14" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="excelBtn" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="pdfBtn" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                                   <Component id="CbThoiGianSanPham" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -1455,7 +1464,7 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="Components.ButtonRadius" name="btnThem13">
+                        <Component class="Components.ButtonRadius" name="excelBtn">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
@@ -1481,10 +1490,12 @@
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem13ActionPerformed"/>
+                            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnMouseEntered"/>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnMouseExited"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelBtnActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="Components.ButtonRadius" name="btnThem14">
+                        <Component class="Components.ButtonRadius" name="pdfBtn">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
@@ -1510,7 +1521,9 @@
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem14ActionPerformed"/>
+                            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnMouseEntered"/>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnMouseExited"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfBtnActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="spngayketthuc">
@@ -1581,9 +1594,9 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="cbTopTheLoai" min="-2" pref="105" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                          <Component id="btnThem18" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <Component id="excelBtnTheLoai" min="-2" pref="115" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="btnThem19" min="-2" pref="115" max="-2" attributes="0"/>
+                                          <Component id="pdfBtnTheLoai" min="-2" pref="115" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -1605,8 +1618,8 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="1" attributes="0">
                                               <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="btnThem18" alignment="0" max="32767" attributes="0"/>
-                                                  <Component id="btnThem19" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="excelBtnTheLoai" alignment="0" max="32767" attributes="0"/>
+                                                  <Component id="pdfBtnTheLoai" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                                   <Component id="CbThoiGianTheLoai" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
@@ -1742,7 +1755,7 @@
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
                         </Component>
-                        <Component class="Components.ButtonRadius" name="btnThem18">
+                        <Component class="Components.ButtonRadius" name="excelBtnTheLoai">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
@@ -1768,10 +1781,12 @@
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem18ActionPerformed"/>
+                            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnTheLoaiMouseEntered"/>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelBtnTheLoaiMouseExited"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelBtnTheLoaiActionPerformed"/>
                           </Events>
                         </Component>
-                        <Component class="Components.ButtonRadius" name="btnThem19">
+                        <Component class="Components.ButtonRadius" name="pdfBtnTheLoai">
                           <Properties>
                             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                               <Border info="null"/>
@@ -1797,7 +1812,9 @@
                             <Property name="verticalTextPosition" type="int" value="3"/>
                           </Properties>
                           <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThem19ActionPerformed"/>
+                            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnTheLoaiMouseEntered"/>
+                            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfBtnTheLoaiMouseExited"/>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfBtnTheLoaiActionPerformed"/>
                           </Events>
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="tlngayketthuc">
@@ -2030,6 +2047,8 @@
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelThoiGianMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="excelThoiGianMouseExited"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="excelThoiGianActionPerformed"/>
                   </Events>
                 </Component>
@@ -2059,6 +2078,8 @@
                     <Property name="verticalTextPosition" type="int" value="3"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfThoiGianMouseEntered"/>
+                    <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="pdfThoiGianMouseExited"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pdfThoiGianActionPerformed"/>
                   </Events>
                 </Component>

@@ -17,6 +17,7 @@ import Util.sharedFunction;
 import com.sun.jdi.IntegerType;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -77,8 +78,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         PanelThongKeTheoNam = new javax.swing.JPanel();
         cbNamKetThuc = new javax.swing.JComboBox<>();
         cbNamBatDau = new javax.swing.JComboBox<>();
-        btnInPDF = new Components.ButtonRadius();
-        btnXuatExcel = new Components.ButtonRadius();
+        pdfBtnDoanhThuTheoNam = new Components.ButtonRadius();
+        excelBtnDoanhThuTheoNam = new Components.ButtonRadius();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableTheoNam = new javax.swing.JTable();
         lblNamBatDau = new javax.swing.JLabel();
@@ -90,9 +91,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tableTheoThang = new javax.swing.JTable();
         lblNam = new javax.swing.JLabel();
-        btnThem = new Components.ButtonRadius();
+        pdfBtnTheoThang = new Components.ButtonRadius();
         btnThem1 = new Components.ButtonRadius();
-        btnThem2 = new Components.ButtonRadius();
+        excelBtnTheoThang = new Components.ButtonRadius();
         jPanelChartThang = new javax.swing.JPanel();
         ThongKeTheoNgayTrongThang = new javax.swing.JPanel();
         PanelThongKeTheoThang1 = new javax.swing.JPanel();
@@ -125,8 +126,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         CbThoiGianSanPham = new javax.swing.JComboBox<>();
         lblThoiGian = new javax.swing.JLabel();
         CbTieuChi = new javax.swing.JComboBox<>();
-        btnThem13 = new Components.ButtonRadius();
-        btnThem14 = new Components.ButtonRadius();
+        excelBtn = new Components.ButtonRadius();
+        pdfBtn = new Components.ButtonRadius();
         spngayketthuc = new com.toedter.calendar.JDateChooser();
         spngaybatdau = new com.toedter.calendar.JDateChooser();
         jPanelChartSanPhamBan = new javax.swing.JPanel();
@@ -137,8 +138,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         CbThoiGianTheLoai = new javax.swing.JComboBox<>();
         lblThoiGian2 = new javax.swing.JLabel();
         CbTieuChiTheLoai = new javax.swing.JComboBox<>();
-        btnThem18 = new Components.ButtonRadius();
-        btnThem19 = new Components.ButtonRadius();
+        excelBtnTheLoai = new Components.ButtonRadius();
+        pdfBtnTheLoai = new Components.ButtonRadius();
         tlngayketthuc = new com.toedter.calendar.JDateChooser();
         tlngaybatdau = new com.toedter.calendar.JDateChooser();
         jPanelChartTheLoai = new javax.swing.JPanel();
@@ -214,37 +215,53 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             }
         });
 
-        btnInPDF.setBorder(null);
-        btnInPDF.setForeground(new java.awt.Color(135, 172, 217));
-        btnInPDF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnInPDF.setText("In PDF");
-        btnInPDF.setFocusPainted(false);
-        btnInPDF.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnInPDF.setIconTextGap(0);
-        btnInPDF.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnInPDF.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnInPDF.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnInPDF.setRadius(40);
-        btnInPDF.addActionListener(new java.awt.event.ActionListener() {
+        pdfBtnDoanhThuTheoNam.setBorder(null);
+        pdfBtnDoanhThuTheoNam.setForeground(new java.awt.Color(135, 172, 217));
+        pdfBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        pdfBtnDoanhThuTheoNam.setText("In PDF");
+        pdfBtnDoanhThuTheoNam.setFocusPainted(false);
+        pdfBtnDoanhThuTheoNam.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        pdfBtnDoanhThuTheoNam.setIconTextGap(0);
+        pdfBtnDoanhThuTheoNam.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        pdfBtnDoanhThuTheoNam.setMaximumSize(new java.awt.Dimension(100, 40));
+        pdfBtnDoanhThuTheoNam.setPreferredSize(new java.awt.Dimension(100, 40));
+        pdfBtnDoanhThuTheoNam.setRadius(40);
+        pdfBtnDoanhThuTheoNam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pdfBtnDoanhThuTheoNamMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pdfBtnDoanhThuTheoNamMouseExited(evt);
+            }
+        });
+        pdfBtnDoanhThuTheoNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInPDFActionPerformed(evt);
+                pdfBtnDoanhThuTheoNamActionPerformed(evt);
             }
         });
 
-        btnXuatExcel.setBorder(null);
-        btnXuatExcel.setForeground(new java.awt.Color(135, 172, 217));
-        btnXuatExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
-        btnXuatExcel.setText("Xuất Excel");
-        btnXuatExcel.setFocusPainted(false);
-        btnXuatExcel.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnXuatExcel.setIconTextGap(0);
-        btnXuatExcel.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        btnXuatExcel.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnXuatExcel.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnXuatExcel.setRadius(40);
-        btnXuatExcel.addActionListener(new java.awt.event.ActionListener() {
+        excelBtnDoanhThuTheoNam.setBorder(null);
+        excelBtnDoanhThuTheoNam.setForeground(new java.awt.Color(135, 172, 217));
+        excelBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        excelBtnDoanhThuTheoNam.setText("Xuất Excel");
+        excelBtnDoanhThuTheoNam.setFocusPainted(false);
+        excelBtnDoanhThuTheoNam.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelBtnDoanhThuTheoNam.setIconTextGap(0);
+        excelBtnDoanhThuTheoNam.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        excelBtnDoanhThuTheoNam.setMaximumSize(new java.awt.Dimension(100, 40));
+        excelBtnDoanhThuTheoNam.setPreferredSize(new java.awt.Dimension(100, 40));
+        excelBtnDoanhThuTheoNam.setRadius(40);
+        excelBtnDoanhThuTheoNam.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                excelBtnDoanhThuTheoNamMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                excelBtnDoanhThuTheoNamMouseExited(evt);
+            }
+        });
+        excelBtnDoanhThuTheoNam.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXuatExcelActionPerformed(evt);
+                excelBtnDoanhThuTheoNamActionPerformed(evt);
             }
         });
 
@@ -293,9 +310,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbNamKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
-                .addComponent(btnInPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pdfBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(excelBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(PanelThongKeTheoNamLayout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 995, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,8 +333,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                     .addGroup(PanelThongKeTheoNamLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(PanelThongKeTheoNamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnInPDF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnXuatExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pdfBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(excelBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -381,19 +398,27 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         lblNam.setForeground(new java.awt.Color(135, 172, 217));
         lblNam.setText("Chọn năm");
 
-        btnThem.setBorder(null);
-        btnThem.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem.setText("In pdf");
-        btnThem.setFocusPainted(false);
-        btnThem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem.setRadius(40);
-        btnThem.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        pdfBtnTheoThang.setBorder(null);
+        pdfBtnTheoThang.setForeground(new java.awt.Color(135, 172, 217));
+        pdfBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtnTheoThang.setText("In pdf");
+        pdfBtnTheoThang.setFocusPainted(false);
+        pdfBtnTheoThang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        pdfBtnTheoThang.setMaximumSize(new java.awt.Dimension(100, 40));
+        pdfBtnTheoThang.setPreferredSize(new java.awt.Dimension(100, 40));
+        pdfBtnTheoThang.setRadius(40);
+        pdfBtnTheoThang.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pdfBtnTheoThang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pdfBtnTheoThangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pdfBtnTheoThangMouseExited(evt);
+            }
+        });
+        pdfBtnTheoThang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                pdfBtnTheoThangActionPerformed(evt);
             }
         });
 
@@ -407,25 +432,38 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         btnThem1.setPreferredSize(new java.awt.Dimension(100, 40));
         btnThem1.setRadius(40);
         btnThem1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnThem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnThem1MouseEntered(evt);
+            }
+        });
         btnThem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem1ActionPerformed(evt);
             }
         });
 
-        btnThem2.setBorder(null);
-        btnThem2.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem2.setText("Xuất excel");
-        btnThem2.setFocusPainted(false);
-        btnThem2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem2.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem2.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem2.setRadius(40);
-        btnThem2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem2.addActionListener(new java.awt.event.ActionListener() {
+        excelBtnTheoThang.setBorder(null);
+        excelBtnTheoThang.setForeground(new java.awt.Color(135, 172, 217));
+        excelBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtnTheoThang.setText("Xuất excel");
+        excelBtnTheoThang.setFocusPainted(false);
+        excelBtnTheoThang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelBtnTheoThang.setMaximumSize(new java.awt.Dimension(100, 40));
+        excelBtnTheoThang.setPreferredSize(new java.awt.Dimension(100, 40));
+        excelBtnTheoThang.setRadius(40);
+        excelBtnTheoThang.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        excelBtnTheoThang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                excelBtnTheoThangMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                excelBtnTheoThangMouseExited(evt);
+            }
+        });
+        excelBtnTheoThang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem2ActionPerformed(evt);
+                excelBtnTheoThangActionPerformed(evt);
             }
         });
 
@@ -444,9 +482,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addGap(191, 191, 191)
                         .addComponent(btnThem1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnThem2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(excelBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pdfBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -459,9 +497,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(lblNam, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbNam, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelThongKeTheoThangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnThem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pdfBtnTheoThang, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnThem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnThem2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(excelBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(17, 17, 17))
@@ -866,35 +904,51 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             }
         });
 
-        btnThem13.setBorder(null);
-        btnThem13.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem13.setText("Xuất excel");
-        btnThem13.setFocusPainted(false);
-        btnThem13.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem13.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem13.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem13.setRadius(40);
-        btnThem13.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem13.addActionListener(new java.awt.event.ActionListener() {
+        excelBtn.setBorder(null);
+        excelBtn.setForeground(new java.awt.Color(135, 172, 217));
+        excelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtn.setText("Xuất excel");
+        excelBtn.setFocusPainted(false);
+        excelBtn.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelBtn.setMaximumSize(new java.awt.Dimension(100, 40));
+        excelBtn.setPreferredSize(new java.awt.Dimension(100, 40));
+        excelBtn.setRadius(40);
+        excelBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        excelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                excelBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                excelBtnMouseExited(evt);
+            }
+        });
+        excelBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem13ActionPerformed(evt);
+                excelBtnActionPerformed(evt);
             }
         });
 
-        btnThem14.setBorder(null);
-        btnThem14.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem14.setText("In pdf");
-        btnThem14.setFocusPainted(false);
-        btnThem14.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem14.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem14.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem14.setRadius(40);
-        btnThem14.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem14.addActionListener(new java.awt.event.ActionListener() {
+        pdfBtn.setBorder(null);
+        pdfBtn.setForeground(new java.awt.Color(135, 172, 217));
+        pdfBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtn.setText("In pdf");
+        pdfBtn.setFocusPainted(false);
+        pdfBtn.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        pdfBtn.setMaximumSize(new java.awt.Dimension(100, 40));
+        pdfBtn.setPreferredSize(new java.awt.Dimension(100, 40));
+        pdfBtn.setRadius(40);
+        pdfBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pdfBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pdfBtnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pdfBtnMouseExited(evt);
+            }
+        });
+        pdfBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem14ActionPerformed(evt);
+                pdfBtnActionPerformed(evt);
             }
         });
 
@@ -940,9 +994,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTopSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(btnThem13, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(excelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThem14, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -958,8 +1012,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnThem13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnThem14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(excelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(CbThoiGianSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1033,35 +1087,51 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         CbTieuChiTheLoai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Thể loại bán chạy", "Doanh thu cao nhất", " " }));
 
-        btnThem18.setBorder(null);
-        btnThem18.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem18.setText("Xuất excel");
-        btnThem18.setFocusPainted(false);
-        btnThem18.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem18.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem18.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem18.setRadius(40);
-        btnThem18.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem18.addActionListener(new java.awt.event.ActionListener() {
+        excelBtnTheLoai.setBorder(null);
+        excelBtnTheLoai.setForeground(new java.awt.Color(135, 172, 217));
+        excelBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtnTheLoai.setText("Xuất excel");
+        excelBtnTheLoai.setFocusPainted(false);
+        excelBtnTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelBtnTheLoai.setMaximumSize(new java.awt.Dimension(100, 40));
+        excelBtnTheLoai.setPreferredSize(new java.awt.Dimension(100, 40));
+        excelBtnTheLoai.setRadius(40);
+        excelBtnTheLoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        excelBtnTheLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                excelBtnTheLoaiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                excelBtnTheLoaiMouseExited(evt);
+            }
+        });
+        excelBtnTheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem18ActionPerformed(evt);
+                excelBtnTheLoaiActionPerformed(evt);
             }
         });
 
-        btnThem19.setBorder(null);
-        btnThem19.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
-        btnThem19.setText("In pdf");
-        btnThem19.setFocusPainted(false);
-        btnThem19.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnThem19.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnThem19.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnThem19.setRadius(40);
-        btnThem19.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnThem19.addActionListener(new java.awt.event.ActionListener() {
+        pdfBtnTheLoai.setBorder(null);
+        pdfBtnTheLoai.setForeground(new java.awt.Color(135, 172, 217));
+        pdfBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtnTheLoai.setText("In pdf");
+        pdfBtnTheLoai.setFocusPainted(false);
+        pdfBtnTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        pdfBtnTheLoai.setMaximumSize(new java.awt.Dimension(100, 40));
+        pdfBtnTheLoai.setPreferredSize(new java.awt.Dimension(100, 40));
+        pdfBtnTheLoai.setRadius(40);
+        pdfBtnTheLoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pdfBtnTheLoai.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pdfBtnTheLoaiMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pdfBtnTheLoaiMouseExited(evt);
+            }
+        });
+        pdfBtnTheLoai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThem19ActionPerformed(evt);
+                pdfBtnTheLoaiActionPerformed(evt);
             }
         });
 
@@ -1107,9 +1177,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTopTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)
-                        .addComponent(btnThem18, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(excelBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnThem19, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pdfBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1125,8 +1195,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(btnThem18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnThem19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(excelBtnTheLoai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pdfBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(CbThoiGianTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblThoiGian2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1221,6 +1291,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         excelThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
         excelThoiGian.setRadius(40);
         excelThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        excelThoiGian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                excelThoiGianMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                excelThoiGianMouseExited(evt);
+            }
+        });
         excelThoiGian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 excelThoiGianActionPerformed(evt);
@@ -1237,6 +1315,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         pdfThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
         pdfThoiGian.setRadius(40);
         pdfThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        pdfThoiGian.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                pdfThoiGianMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                pdfThoiGianMouseExited(evt);
+            }
+        });
         pdfThoiGian.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pdfThoiGianActionPerformed(evt);
@@ -1349,7 +1435,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ThongKeTheoNamMouseClicked
 
-    private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
+    private void excelBtnDoanhThuTheoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnDoanhThuTheoNamActionPerformed
         // TODO add your handling code here:
         ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
         String namBatDau = cbNamBatDau.getSelectedItem().toString();
@@ -1361,9 +1447,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         } else {
 
         }
-    }//GEN-LAST:event_btnXuatExcelActionPerformed
+    }//GEN-LAST:event_excelBtnDoanhThuTheoNamActionPerformed
 
-    private void btnInPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPDFActionPerformed
+    private void pdfBtnDoanhThuTheoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnDoanhThuTheoNamActionPerformed
         // TODO add your handling code here:
         ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
         String namBatDau = cbNamBatDau.getSelectedItem().toString();
@@ -1376,20 +1462,20 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         }
 
-    }//GEN-LAST:event_btnInPDFActionPerformed
+    }//GEN-LAST:event_pdfBtnDoanhThuTheoNamActionPerformed
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+    private void pdfBtnTheoThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThemActionPerformed
+    }//GEN-LAST:event_pdfBtnTheoThangActionPerformed
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
         // TODO add your handling code here:
         thongKeDoanhThuTheoThangTrongNam();
     }//GEN-LAST:event_btnThem1ActionPerformed
 
-    private void btnThem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem2ActionPerformed
+    private void excelBtnTheoThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnTheoThangActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem2ActionPerformed
+    }//GEN-LAST:event_excelBtnTheoThangActionPerformed
 
     private void btnThem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem3ActionPerformed
         // TODO add your handling code here:
@@ -1425,13 +1511,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_ThongKeTuNgayDenNgayMouseClicked
 
-    private void btnThem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem13ActionPerformed
+    private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem13ActionPerformed
+    }//GEN-LAST:event_excelBtnActionPerformed
 
-    private void btnThem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem14ActionPerformed
+    private void pdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem14ActionPerformed
+    }//GEN-LAST:event_pdfBtnActionPerformed
 
     private void btnThongKe1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKe1MouseClicked
         // TODO add your handling code here:
@@ -1477,13 +1563,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         updateDateChoosers(tlngaybatdau, tlngayketthuc, CbThoiGianTheLoai);
     }//GEN-LAST:event_CbThoiGianTheLoaiActionPerformed
 
-    private void btnThem18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem18ActionPerformed
+    private void excelBtnTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnTheLoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem18ActionPerformed
+    }//GEN-LAST:event_excelBtnTheLoaiActionPerformed
 
-    private void btnThem19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem19ActionPerformed
+    private void pdfBtnTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheLoaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnThem19ActionPerformed
+    }//GEN-LAST:event_pdfBtnTheLoaiActionPerformed
 
     private void tlngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tlngayketthucPropertyChange
         // TODO add your handling code here:
@@ -1572,6 +1658,111 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private void pdfThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfThoiGianActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pdfThoiGianActionPerformed
+
+    private void excelBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnMouseEntered
+        // TODO add your handling code here:
+        excelBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_excelBtnMouseEntered
+
+    private void pdfBtnDoanhThuTheoNamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnDoanhThuTheoNamMouseEntered
+        // TODO add your handling code here:
+        pdfBtnDoanhThuTheoNam.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_pdfBtnDoanhThuTheoNamMouseEntered
+
+    private void pdfBtnDoanhThuTheoNamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnDoanhThuTheoNamMouseExited
+        // TODO add your handling code here:
+        pdfBtnDoanhThuTheoNam.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_pdfBtnDoanhThuTheoNamMouseExited
+
+    private void excelBtnDoanhThuTheoNamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnDoanhThuTheoNamMouseEntered
+        // TODO add your handling code here:
+        excelBtnDoanhThuTheoNam.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_excelBtnDoanhThuTheoNamMouseEntered
+
+    private void btnThem1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThem1MouseEntered
+        // TODO add your handling code here:
+        btnThem1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_btnThem1MouseEntered
+
+    private void excelBtnTheoThangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnTheoThangMouseEntered
+        // TODO add your handling code here:
+        excelBtnTheoThang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_excelBtnTheoThangMouseEntered
+
+    private void excelBtnTheLoaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnTheLoaiMouseEntered
+        // TODO add your handling code here:
+        excelBtnTheLoai.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_excelBtnTheLoaiMouseEntered
+
+    private void pdfBtnTheLoaiMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnTheLoaiMouseEntered
+        // TODO add your handling code here:
+        pdfBtnTheLoai.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_pdfBtnTheLoaiMouseEntered
+
+    private void excelThoiGianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelThoiGianMouseEntered
+        // TODO add your handling code here:
+        excelThoiGian.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_excelThoiGianMouseEntered
+
+    private void pdfThoiGianMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfThoiGianMouseEntered
+        // TODO add your handling code here:
+        pdfThoiGian.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_pdfThoiGianMouseEntered
+
+    private void excelThoiGianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelThoiGianMouseExited
+        // TODO add your handling code here:
+        excelThoiGian.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_excelThoiGianMouseExited
+
+    private void pdfThoiGianMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfThoiGianMouseExited
+        // TODO add your handling code here:
+        pdfThoiGian.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_pdfThoiGianMouseExited
+
+    private void excelBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnMouseExited
+        // TODO add your handling code here:
+        excelBtn.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_excelBtnMouseExited
+
+    private void pdfBtnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnMouseExited
+        // TODO add your handling code here:
+        pdfBtn.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_pdfBtnMouseExited
+
+    private void excelBtnTheLoaiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnTheLoaiMouseExited
+        // TODO add your handling code here:
+        excelBtnTheLoai.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_excelBtnTheLoaiMouseExited
+
+    private void pdfBtnTheLoaiMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnTheLoaiMouseExited
+        // TODO add your handling code here:
+        pdfBtnTheLoai.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_pdfBtnTheLoaiMouseExited
+
+    private void excelBtnDoanhThuTheoNamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnDoanhThuTheoNamMouseExited
+        // TODO add your handling code here:
+        excelBtnDoanhThuTheoNam.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_excelBtnDoanhThuTheoNamMouseExited
+
+    private void excelBtnTheoThangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnTheoThangMouseExited
+        // TODO add your handling code here:
+        excelBtnTheoThang.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_excelBtnTheoThangMouseExited
+
+    private void pdfBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnMouseEntered
+        // TODO add your handling code here:
+        pdfBtn.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_pdfBtnMouseEntered
+
+    private void pdfBtnTheoThangMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangMouseEntered
+        // TODO add your handling code here:
+        pdfBtnTheoThang.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_pdfBtnTheoThangMouseEntered
+
+    private void pdfBtnTheoThangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangMouseExited
+        // TODO add your handling code here:
+           pdfBtnTheoThang.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_pdfBtnTheoThangMouseExited
 
     private void populateComboBox(JComboBox<String> comboBox) {
         Set<Integer> years = tkBUS.getDistinctYears();
@@ -2027,21 +2218,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JPanel ThongKeTheoNgayTrongThang;
     private javax.swing.JPanel ThongKeTheoThangTrongNam;
     private javax.swing.JPanel ThongKeTuNgayDenNgay;
-    private Components.ButtonRadius btnInPDF;
-    private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnThem1;
-    private Components.ButtonRadius btnThem13;
-    private Components.ButtonRadius btnThem14;
-    private Components.ButtonRadius btnThem18;
-    private Components.ButtonRadius btnThem19;
-    private Components.ButtonRadius btnThem2;
     private Components.ButtonRadius btnThem3;
     private Components.ButtonRadius btnThem5;
     private Components.ButtonRadius btnThem6;
     private Components.ButtonRadius btnThem7;
     private Components.ButtonRadius btnThem8;
     private Components.ButtonRadius btnThongKe1;
-    private Components.ButtonRadius btnXuatExcel;
     private javax.swing.JComboBox<String> cbNam;
     private javax.swing.JComboBox<String> cbNam1;
     private javax.swing.JComboBox<String> cbNamBatDau;
@@ -2049,6 +2232,10 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbThang;
     private javax.swing.JComboBox<String> cbTopSanPham;
     private javax.swing.JComboBox<String> cbTopTheLoai;
+    private Components.ButtonRadius excelBtn;
+    private Components.ButtonRadius excelBtnDoanhThuTheoNam;
+    private Components.ButtonRadius excelBtnTheLoai;
+    private Components.ButtonRadius excelBtnTheoThang;
     private Components.ButtonRadius excelThoiGian;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -2083,6 +2270,10 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     private javax.swing.JLabel lblThoiGian;
     private javax.swing.JLabel lblThoiGian1;
     private javax.swing.JLabel lblThoiGian2;
+    private Components.ButtonRadius pdfBtn;
+    private Components.ButtonRadius pdfBtnDoanhThuTheoNam;
+    private Components.ButtonRadius pdfBtnTheLoai;
+    private Components.ButtonRadius pdfBtnTheoThang;
     private Components.ButtonRadius pdfThoiGian;
     private com.toedter.calendar.JDateChooser spngaybatdau;
     private com.toedter.calendar.JDateChooser spngayketthuc;

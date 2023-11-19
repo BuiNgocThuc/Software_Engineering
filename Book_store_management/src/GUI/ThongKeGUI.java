@@ -8,6 +8,7 @@ import BUS.ThongKeBUS;
 import DTO.ThongKe.ThongKeDoanhThuDTO;
 import DTO.ThongKe.ThongKeSanPhamBanDTO;
 import DTO.ThongKe.ThongKeTheLoaiBanDTO;
+import ExportFile.ExcelExporter;
 import ExportFile.PdfExporter;
 import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
@@ -1297,6 +1298,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnXuatExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExcelActionPerformed
         // TODO add your handling code here:
+       ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
+        String namBatDau = cbNamBatDau.getSelectedItem().toString();
+        String namKetThuc = cbNamKetThuc.getSelectedItem().toString();
+        // Gọi hàm chọn đường dẫn
+        String filePath = ExcelExporter.chooseFilePath();
+        if (filePath != null) {
+           ExcelExporter.exportToExcel(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
+        } else {
+
+        }
     }//GEN-LAST:event_btnXuatExcelActionPerformed
 
     private void btnInPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInPDFActionPerformed
@@ -1307,7 +1318,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = PdfExporter.chooseFilePath();
         if (filePath != null) {
-            PdfExporter.exportToPdf(list, filePath,namBatDau,namKetThuc,"Nguyễn Minh Thuận");
+            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
         } else {
 
         }

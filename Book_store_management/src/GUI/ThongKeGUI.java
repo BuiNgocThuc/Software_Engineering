@@ -1457,7 +1457,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = PdfExporter.chooseFilePath();
         if (filePath != null) {
-            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
+//            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
+            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận", "NamBatDauNamKetThuc");
         } else {
 
         }
@@ -1465,7 +1466,19 @@ public final class ThongKeGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_pdfBtnDoanhThuTheoNamActionPerformed
 
     private void pdfBtnTheoThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:   ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
+        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoThangTrongNam();
+        String nam = cbNam.getSelectedItem().toString();
+
+        // Gọi hàm chọn đường dẫn
+        String filePath = PdfExporter.chooseFilePath();
+        if (filePath != null) {
+//            PdfExporter.exportToPdf(list, filePath, nam, nam, "Nguyễn Minh Thuận");
+            PdfExporter.exportToPdf(list, filePath, nam, nam, "Nguyễn Minh Thuận", "Nam");
+        } else {
+
+        }
+
     }//GEN-LAST:event_pdfBtnTheoThangActionPerformed
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
@@ -1479,6 +1492,17 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem3ActionPerformed
         // TODO add your handling code here:
+        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTungNgayTrongThang();
+        String nam = cbNam1.getSelectedItem().toString();
+        String thang = cbThang.getSelectedItem().toString();
+        // Gọi hàm chọn đường dẫn
+        String filePath = PdfExporter.chooseFilePath();
+        if (filePath != null) {
+//            PdfExporter.exportToPdf(list, filePath, nam, thang, "Nguyễn Minh Thuận");
+            PdfExporter.exportToPdf(list, filePath, nam, thang, "Nguyễn Minh Thuận", "Thang");
+        } else {
+
+        }
     }//GEN-LAST:event_btnThem3ActionPerformed
 
     private void btnThongKe1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKe1ActionPerformed
@@ -1496,6 +1520,21 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem6ActionPerformed
         // TODO add your handling code here:
+        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTuNgayDenNgay();
+        java.util.Date startDate = NgayBatDau.getDate();
+        java.util.Date endDate = NgayKetThuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        // Gọi hàm chọn đường dẫn
+        String filePath = PdfExporter.chooseFilePath();
+        if (filePath != null) {
+//            PdfExporter.exportToPdf(list, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận");
+            PdfExporter.exportToPdf(list, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
+        } else {
+
+        }
     }//GEN-LAST:event_btnThem6ActionPerformed
 
     private void btnThem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem7ActionPerformed
@@ -1761,7 +1800,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void pdfBtnTheoThangMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangMouseExited
         // TODO add your handling code here:
-           pdfBtnTheoThang.setCursor(Cursor.getDefaultCursor());
+        pdfBtnTheoThang.setCursor(Cursor.getDefaultCursor());
     }//GEN-LAST:event_pdfBtnTheoThangMouseExited
 
     private void populateComboBox(JComboBox<String> comboBox) {
@@ -1985,50 +2024,65 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         ngayketthuc.setDateFormatString("dd/MM/yyyy");
         ngaybatdau.setDate(null);
         ngayketthuc.setDate(null);
-        if ("Hôm nay".equals(selectedRange)) {
-            ngaybatdau.setDate(calendar.getTime());
-            ngayketthuc.setDate(calendar.getTime());
-        } else if ("Hôm qua".equals(selectedRange)) {
-            calendar.add(Calendar.DATE, -1);
-            ngaybatdau.setDate(calendar.getTime());
-            ngayketthuc.setDate(calendar.getTime());
-        } else if ("7 ngày qua".equals(selectedRange)) {
-            calendar.add(Calendar.DATE, -6);
-            ngaybatdau.setDate(calendar.getTime());
-            ngayketthuc.setDate(Calendar.getInstance().getTime());
-        } else if ("30 ngày qua".equals(selectedRange)) {
-            calendar.add(Calendar.DATE, -29);
-            ngaybatdau.setDate(calendar.getTime());
-            ngayketthuc.setDate(Calendar.getInstance().getTime());
-        } else if ("Tháng trước".equals(selectedRange)) {
-            calendar.add(Calendar.MONTH, -1);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            ngaybatdau.setDate(calendar.getTime());
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            ngayketthuc.setDate(calendar.getTime());
-        } else if ("Tháng này".equals(selectedRange)) {
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            ngaybatdau.setDate(calendar.getTime());
-            calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
-            ngayketthuc.setDate(calendar.getTime());
-        } else if ("Năm trước".equals(selectedRange)) {
-            calendar.add(Calendar.YEAR, -1);
-            calendar.set(Calendar.MONTH, 0);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            ngaybatdau.setDate(calendar.getTime());
-            calendar.set(Calendar.MONTH, 11);
-            calendar.set(Calendar.DAY_OF_MONTH, 31);
-            ngayketthuc.setDate(calendar.getTime());
-        } else if ("Năm nay".equals(selectedRange)) {
-            calendar.set(Calendar.MONTH, 0);
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            ngaybatdau.setDate(calendar.getTime());
-            calendar.set(Calendar.MONTH, 11);
-            calendar.set(Calendar.DAY_OF_MONTH, 31);
-            ngayketthuc.setDate(calendar.getTime());
-        } else {
+        if (null == selectedRange) {
             ngaybatdau.setDate(null);
             ngayketthuc.setDate(null);
+        } else {
+            switch (selectedRange) {
+                case "Hôm nay" -> {
+                    ngaybatdau.setDate(calendar.getTime());
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                case "Hôm qua" -> {
+                    calendar.add(Calendar.DATE, -1);
+                    ngaybatdau.setDate(calendar.getTime());
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                case "7 ngày qua" -> {
+                    calendar.add(Calendar.DATE, -6);
+                    ngaybatdau.setDate(calendar.getTime());
+                    ngayketthuc.setDate(Calendar.getInstance().getTime());
+                }
+                case "30 ngày qua" -> {
+                    calendar.add(Calendar.DATE, -29);
+                    ngaybatdau.setDate(calendar.getTime());
+                    ngayketthuc.setDate(Calendar.getInstance().getTime());
+                }
+                case "Tháng trước" -> {
+                    calendar.add(Calendar.MONTH, -1);
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                    ngaybatdau.setDate(calendar.getTime());
+                    calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                case "Tháng này" -> {
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                    ngaybatdau.setDate(calendar.getTime());
+                    calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                case "Năm trước" -> {
+                    calendar.add(Calendar.YEAR, -1);
+                    calendar.set(Calendar.MONTH, 0);
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                    ngaybatdau.setDate(calendar.getTime());
+                    calendar.set(Calendar.MONTH, 11);
+                    calendar.set(Calendar.DAY_OF_MONTH, 31);
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                case "Năm nay" -> {
+                    calendar.set(Calendar.MONTH, 0);
+                    calendar.set(Calendar.DAY_OF_MONTH, 1);
+                    ngaybatdau.setDate(calendar.getTime());
+                    calendar.set(Calendar.MONTH, 11);
+                    calendar.set(Calendar.DAY_OF_MONTH, 31);
+                    ngayketthuc.setDate(calendar.getTime());
+                }
+                default -> {
+                    ngaybatdau.setDate(null);
+                    ngayketthuc.setDate(null);
+                }
+            }
         }
     }
 
@@ -2192,6 +2246,66 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
             long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
             ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(Nam, von, doanhThu, loiNhuan);
+
+            list.add(item);
+        }
+
+        return list;
+    }
+
+    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTheoThangTrongNam() {
+        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
+        DefaultTableModel tableModel = (DefaultTableModel) tableTheoThang.getModel();
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            String thang = (String) tableModel.getValueAt(row, 0);
+            String VonVND = (String) tableModel.getValueAt(row, 1);
+            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
+            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
+
+            long von = sharedFunction.parseVNDString(VonVND);
+            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
+            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
+            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(thang, von, doanhThu, loiNhuan);
+
+            list.add(item);
+        }
+
+        return list;
+    }
+
+    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTungNgayTrongThang() {
+        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
+        DefaultTableModel tableModel = (DefaultTableModel) tableTheoTungNgayTrongThang.getModel();
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            String ngay = (String) tableModel.getValueAt(row, 0);
+            String VonVND = (String) tableModel.getValueAt(row, 1);
+            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
+            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
+
+            long von = sharedFunction.parseVNDString(VonVND);
+            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
+            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
+            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(ngay, von, doanhThu, loiNhuan);
+
+            list.add(item);
+        }
+
+        return list;
+    }
+
+    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTuNgayDenNgay() {
+        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
+        DefaultTableModel tableModel = (DefaultTableModel) TableTuNgayDenNgay.getModel();
+        for (int row = 0; row < tableModel.getRowCount(); row++) {
+            String ngay = (String) tableModel.getValueAt(row, 0);
+            String VonVND = (String) tableModel.getValueAt(row, 1);
+            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
+            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
+
+            long von = sharedFunction.parseVNDString(VonVND);
+            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
+            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
+            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(ngay, von, doanhThu, loiNhuan);
 
             list.add(item);
         }

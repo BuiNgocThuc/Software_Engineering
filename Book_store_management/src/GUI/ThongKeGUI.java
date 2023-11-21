@@ -14,17 +14,13 @@ import ExportFile.PdfExporter;
 import GUI.Component.Chart.BarChart.Chart;
 import GUI.Component.Chart.BarChart.ModelChart;
 import Util.sharedFunction;
-import com.sun.jdi.IntegerType;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.swing.JComboBox;
@@ -1437,48 +1433,37 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void excelBtnDoanhThuTheoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnDoanhThuTheoNamActionPerformed
         // TODO add your handling code here:
-        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
         String namBatDau = cbNamBatDau.getSelectedItem().toString();
         String namKetThuc = cbNamKetThuc.getSelectedItem().toString();
         // Gọi hàm chọn đường dẫn
-        String filePath = ExcelExporter.chooseFilePath();
+        String filePath = sharedFunction.chooseFilePath("xlsx");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
-        } else {
-
+            ExcelExporter.exportToExcel(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận","NamBatDauNamKetThuc");
         }
     }//GEN-LAST:event_excelBtnDoanhThuTheoNamActionPerformed
 
     private void pdfBtnDoanhThuTheoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnDoanhThuTheoNamActionPerformed
         // TODO add your handling code here:
-        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
         String namBatDau = cbNamBatDau.getSelectedItem().toString();
         String namKetThuc = cbNamKetThuc.getSelectedItem().toString();
         // Gọi hàm chọn đường dẫn
-        String filePath = PdfExporter.chooseFilePath();
+        String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-//            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận");
-            PdfExporter.exportToPdf(list, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận", "NamBatDauNamKetThuc");
-        } else {
-
+            PdfExporter.exportToPdfDoanhThu(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận", "NamBatDauNamKetThuc");
         }
 
     }//GEN-LAST:event_pdfBtnDoanhThuTheoNamActionPerformed
 
     private void pdfBtnTheoThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheoThangActionPerformed
         // TODO add your handling code here:   ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoNam();
-        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTheoThangTrongNam();
         String nam = cbNam.getSelectedItem().toString();
 
         // Gọi hàm chọn đường dẫn
-        String filePath = PdfExporter.chooseFilePath();
+        String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
 //            PdfExporter.exportToPdf(list, filePath, nam, nam, "Nguyễn Minh Thuận");
-            PdfExporter.exportToPdf(list, filePath, nam, nam, "Nguyễn Minh Thuận", "Nam");
-        } else {
-
+            PdfExporter.exportToPdfDoanhThu(tableTheoThang, filePath, nam, nam, "Nguyễn Minh Thuận", "Nam");
         }
-
     }//GEN-LAST:event_pdfBtnTheoThangActionPerformed
 
     private void btnThem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem1ActionPerformed
@@ -1488,20 +1473,23 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void excelBtnTheoThangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnTheoThangActionPerformed
         // TODO add your handling code here:
+        String namBatDau = cbNam.getSelectedItem().toString();
+        // Gọi hàm chọn đường dẫn
+        String filePath = sharedFunction.chooseFilePath("xlsx");
+        if (filePath != null) {
+            ExcelExporter.exportToExcel(tableTheoThang, filePath, namBatDau, namBatDau, "Nguyễn Minh Thuận","Nam");
+        }
+
     }//GEN-LAST:event_excelBtnTheoThangActionPerformed
 
     private void btnThem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem3ActionPerformed
         // TODO add your handling code here:
-        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTungNgayTrongThang();
         String nam = cbNam1.getSelectedItem().toString();
         String thang = cbThang.getSelectedItem().toString();
         // Gọi hàm chọn đường dẫn
-        String filePath = PdfExporter.chooseFilePath();
+        String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-//            PdfExporter.exportToPdf(list, filePath, nam, thang, "Nguyễn Minh Thuận");
-            PdfExporter.exportToPdf(list, filePath, nam, thang, "Nguyễn Minh Thuận", "Thang");
-        } else {
-
+            PdfExporter.exportToPdfDoanhThu(tableTheoTungNgayTrongThang, filePath, nam, thang, "Nguyễn Minh Thuận", "Thang");
         }
     }//GEN-LAST:event_btnThem3ActionPerformed
 
@@ -1512,6 +1500,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem5ActionPerformed
         // TODO add your handling code here:
+     String nam = cbNam1.getSelectedItem().toString();
+        String thang = cbThang.getSelectedItem().toString();
+        // Gọi hàm chọn đường dẫn
+        String filePath = sharedFunction.chooseFilePath("xlsx");
+        if (filePath != null) {
+            ExcelExporter.exportToExcel(tableTheoNam, filePath, nam, thang, "Nguyễn Minh Thuận","Thang");
+        }
+
     }//GEN-LAST:event_btnThem5ActionPerformed
 
     private void ThongKeTheoNgayTrongThangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeTheoNgayTrongThangMouseClicked
@@ -1520,20 +1516,15 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem6ActionPerformed
         // TODO add your handling code here:
-        ArrayList<ThongKeDoanhThuDTO> list = getDataFromTableTuNgayDenNgay();
         java.util.Date startDate = NgayBatDau.getDate();
         java.util.Date endDate = NgayKetThuc.getDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String formattedStartDate = dateFormat.format(startDate);
         String formattedEndDate = dateFormat.format(endDate);
 
-        // Gọi hàm chọn đường dẫn
-        String filePath = PdfExporter.chooseFilePath();
+        String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-//            PdfExporter.exportToPdf(list, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận");
-            PdfExporter.exportToPdf(list, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
-        } else {
-
+            PdfExporter.exportToPdfDoanhThu(TableTuNgayDenNgay, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
         }
     }//GEN-LAST:event_btnThem6ActionPerformed
 
@@ -1544,6 +1535,17 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void btnThem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThem8ActionPerformed
         // TODO add your handling code here:
+           java.util.Date startDate = NgayBatDau.getDate();
+        java.util.Date endDate = NgayKetThuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+            ExcelExporter.exportToExcel(TableTuNgayDenNgay, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
+        }
+         
     }//GEN-LAST:event_btnThem8ActionPerformed
 
     private void ThongKeTuNgayDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ThongKeTuNgayDenNgayMouseClicked
@@ -1556,6 +1558,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void pdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnActionPerformed
         // TODO add your handling code here:
+        java.util.Date startDate = spngaybatdau.getDate();
+        java.util.Date endDate = spngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+            PdfExporter.exportToPdfReport(formattedStartDate, formattedEndDate, TableSanPham, "Báo cáo kết quả sản phẩm bán từ ", filePath);
+        }
     }//GEN-LAST:event_pdfBtnActionPerformed
 
     private void btnThongKe1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThongKe1MouseClicked
@@ -1608,6 +1620,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void pdfBtnTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheLoaiActionPerformed
         // TODO add your handling code here:
+        java.util.Date startDate = tlngaybatdau.getDate();
+        java.util.Date endDate = tlngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+            PdfExporter.exportToPdfReport(formattedStartDate, formattedEndDate, TableTheLoai, "Báo cáo kết quả thể loại bán được từ ", filePath);
+        }
     }//GEN-LAST:event_pdfBtnTheLoaiActionPerformed
 
     private void tlngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tlngayketthucPropertyChange
@@ -1692,10 +1714,32 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void excelThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelThoiGianActionPerformed
         // TODO add your handling code here:
+        java.util.Date startDate = tgngaybatdau.getDate();
+        java.util.Date endDate = tgngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("xlsx");
+        if (filePath != null) {
+            ExcelExporter.exportToExcel(formattedStartDate, formattedEndDate , TableThoiGian, filePath);
+        }
+
     }//GEN-LAST:event_excelThoiGianActionPerformed
 
     private void pdfThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfThoiGianActionPerformed
         // TODO add your handling code here:
+        java.util.Date startDate = tgngaybatdau.getDate();
+        java.util.Date endDate = tgngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+            PdfExporter.exportToPdfReport(formattedStartDate, formattedEndDate, TableThoiGian, "Báo cáo khách hàng mua theo khoảng thời gian từ ", filePath);
+        }
+
     }//GEN-LAST:event_pdfThoiGianActionPerformed
 
     private void excelBtnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excelBtnMouseEntered
@@ -2232,86 +2276,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         }; // Hiển thị tất cả dòng
     }
 
-    // In pdf
-    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTheoNam() {
-        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
-        DefaultTableModel tableModel = (DefaultTableModel) tableTheoNam.getModel();
-        for (int row = 0; row < tableModel.getRowCount(); row++) {
-            String Nam = (String) tableModel.getValueAt(row, 0);
-            String VonVND = (String) tableModel.getValueAt(row, 1);
-            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
-            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
 
-            long von = sharedFunction.parseVNDString(VonVND);
-            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
-            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
-            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(Nam, von, doanhThu, loiNhuan);
-
-            list.add(item);
-        }
-
-        return list;
-    }
-
-    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTheoThangTrongNam() {
-        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
-        DefaultTableModel tableModel = (DefaultTableModel) tableTheoThang.getModel();
-        for (int row = 0; row < tableModel.getRowCount(); row++) {
-            String thang = (String) tableModel.getValueAt(row, 0);
-            String VonVND = (String) tableModel.getValueAt(row, 1);
-            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
-            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
-
-            long von = sharedFunction.parseVNDString(VonVND);
-            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
-            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
-            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(thang, von, doanhThu, loiNhuan);
-
-            list.add(item);
-        }
-
-        return list;
-    }
-
-    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTungNgayTrongThang() {
-        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
-        DefaultTableModel tableModel = (DefaultTableModel) tableTheoTungNgayTrongThang.getModel();
-        for (int row = 0; row < tableModel.getRowCount(); row++) {
-            String ngay = (String) tableModel.getValueAt(row, 0);
-            String VonVND = (String) tableModel.getValueAt(row, 1);
-            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
-            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
-
-            long von = sharedFunction.parseVNDString(VonVND);
-            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
-            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
-            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(ngay, von, doanhThu, loiNhuan);
-
-            list.add(item);
-        }
-
-        return list;
-    }
-
-    private ArrayList<ThongKeDoanhThuDTO> getDataFromTableTuNgayDenNgay() {
-        ArrayList<ThongKeDoanhThuDTO> list = new ArrayList<>();
-        DefaultTableModel tableModel = (DefaultTableModel) TableTuNgayDenNgay.getModel();
-        for (int row = 0; row < tableModel.getRowCount(); row++) {
-            String ngay = (String) tableModel.getValueAt(row, 0);
-            String VonVND = (String) tableModel.getValueAt(row, 1);
-            String DoanhThuVND = (String) tableModel.getValueAt(row, 2);
-            String LoiNhuanVND = (String) tableModel.getValueAt(row, 3);
-
-            long von = sharedFunction.parseVNDString(VonVND);
-            long doanhThu = sharedFunction.parseVNDString(DoanhThuVND);
-            long loiNhuan = sharedFunction.parseVNDString(LoiNhuanVND);
-            ThongKeDoanhThuDTO item = new ThongKeDoanhThuDTO(ngay, von, doanhThu, loiNhuan);
-
-            list.add(item);
-        }
-
-        return list;
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> CbThoiGian;
     private javax.swing.JComboBox<String> CbThoiGianSanPham;

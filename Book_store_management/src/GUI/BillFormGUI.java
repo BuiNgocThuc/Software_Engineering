@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import ExportFile.PdfExporter;
 import Util.sharedFunction;
 import javax.swing.table.DefaultTableModel;
 
@@ -184,6 +185,11 @@ public class BillFormGUI extends javax.swing.JFrame {
         btnInHoadon.setPreferredSize(new java.awt.Dimension(130, 40));
         btnInHoadon.setRadius(40);
         btnInHoadon.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInHoadon.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInHoadonActionPerformed(evt);
+            }
+        });
 
         btnQuaylai.setForeground(new java.awt.Color(135, 172, 217));
         btnQuaylai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
@@ -373,6 +379,24 @@ public class BillFormGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnQuaylaiActionPerformed
+
+    private void btnInHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoadonActionPerformed
+        // TODO add your handling code here:
+ 
+    String MaHD = tfHD.getText();
+    String ngayTao = tfNgayTao.getText();
+    String thuNgan = tfThuNgan1.getText();
+    String tongTien = tfTongTien.getText();
+    String khachDua = tfKhachDua.getText();
+    String tienThoi = tfTienThoi.getText();
+
+  
+
+      String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+            PdfExporter.exportToPdfHoaDon(MaHD, ngayTao, thuNgan, tbHoadon, tongTien, khachDua, tienThoi, filePath);
+        } 
+    }//GEN-LAST:event_btnInHoadonActionPerformed
 
     /**
      * @param args the command line arguments

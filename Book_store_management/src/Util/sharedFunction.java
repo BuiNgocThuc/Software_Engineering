@@ -14,11 +14,14 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -136,7 +140,7 @@ public class sharedFunction {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
         // Vô hiệu hóa sắp xếp cột tự động
-         table.setAutoCreateRowSorter(true);
+        table.setAutoCreateRowSorter(true);
         // Vô hiệu hóa kéo cột
         table.getTableHeader().setReorderingAllowed(false);
         // Vô hiệu hóa kéo dãng cột
@@ -199,7 +203,8 @@ public class sharedFunction {
         return amount;
 
     }
-  public static long parseVNDString(String moneyString) {
+
+    public static long parseVNDString(String moneyString) {
 
         // Loại bỏ các ký tự không cần thiết từ chuỗi đơn giá
         moneyString = moneyString.replaceAll("[^\\d.]", "").replaceAll("\\.", "").trim();
@@ -209,6 +214,7 @@ public class sharedFunction {
         return amount;
 
     }
+
     public static double calculateTotalPrice(DefaultTableModel model, int priceColumnIndex) {
         double totalPrice = 0.0;
         for (int i = 0; i < model.getRowCount(); i++) {
@@ -271,4 +277,40 @@ public class sharedFunction {
         frame.setVisible(true);
     }
 
+    public static String getCurrentDateTime() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public static String chooseFilePath(String fileType) {
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter;
+
+        switch (fileType.toLowerCase()) {
+            case "pdf" ->
+                filter = new FileNameExtensionFilter("PDF files (*.pdf)", "pdf");
+            case "xlsx" ->
+                filter = new FileNameExtensionFilter("Excel files (*.xlsx)", "xlsx");
+            default ->
+                throw new IllegalArgumentException("Unsupported file type: " + fileType);
+        }
+
+        fileChooser.setFileFilter(filter);
+
+        int userSelection = fileChooser.showSaveDialog(null);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String filePath = fileToSave.getAbsolutePath();
+
+            if (!filePath.toLowerCase().endsWith("." + fileType.toLowerCase())) {
+                filePath += "." + fileType.toLowerCase();
+            }
+
+            return filePath;
+        } else {
+            return null;
+        }
+    }
 }

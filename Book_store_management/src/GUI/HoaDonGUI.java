@@ -8,6 +8,7 @@ import BUS.CTHoaDonBUS;
 import BUS.HoaDonBUS;
 import DTO.CTHoaDonDTO;
 import DTO.HoaDonDTO;
+import ExportFile.PdfExporter;
 import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -500,6 +501,19 @@ public final class HoaDonGUI extends javax.swing.JPanel {
 
     private void btnInHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInHoaDonActionPerformed
         // TODO add your handling code here:
+     String MaHD = tfIDHoadon.getText();
+     String ngayTao = tfNgaytao.getText();
+     String thuNgan = "Nguyễn Minh Thuận";
+     String tongTien = tfTongtien.getText();
+   
+
+   
+
+      String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+          PdfExporter.exportToPdfHoaDon(MaHD, ngayTao, thuNgan, tableChiTietHoaDon, tongTien, null, null, filePath);
+        } 
+                           
     }//GEN-LAST:event_btnInHoaDonActionPerformed
 
     private void tfTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTimkiemActionPerformed

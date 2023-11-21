@@ -199,4 +199,24 @@ public class NhanVienDAO {
         }
         return ketqua;
     }
+    public String selectLastID() {
+        try {
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT TOP 1 MaNV\n"
+                    + "FROM NhanVien\n"
+                    + "ORDER BY MaNV DESC";
+            PreparedStatement pst = c.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String MaNV = rs.getString("MaNV");
+                return MaNV;
+
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

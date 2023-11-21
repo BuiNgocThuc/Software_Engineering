@@ -235,7 +235,9 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         txtSDT.setText(ctyDto.getSDT());
         txtDiaChi.setText(ctyDto.getDiaChi());
     }
-
+    public void setId(int id){
+        txtID.setText("CT00" + id);
+    }
     /**
      * @param args the command line arguments
      */

@@ -58,4 +58,7 @@ public class NhanVienBUS {
             return false;
         }
     }
+    public String lastId(){
+        return nvDao.selectLastID();
+    }
 }

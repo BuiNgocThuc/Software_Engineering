@@ -56,4 +56,7 @@ public class CongTyBUS {
             return false;
         }
     }
+    public int selectLastId(){
+        return ctyDao.selectLastID();
+    }
 }

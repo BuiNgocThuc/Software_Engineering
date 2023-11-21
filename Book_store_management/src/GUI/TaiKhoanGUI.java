@@ -363,6 +363,7 @@ public class TaiKhoanGUI extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         ChiTietTaiKhoan cttk=new ChiTietTaiKhoan();
         cttk.Model=1;
+        cttk.setId(tkBUS.selectLastId()+1);
         cttk.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 

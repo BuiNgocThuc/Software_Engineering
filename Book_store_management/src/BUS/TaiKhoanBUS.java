@@ -176,4 +176,7 @@ public class TaiKhoanBUS {
             return false;
         }
     }
+    public int selectLastId(){
+        return tkDAO.selectLastID();
+    }
 }

@@ -21,7 +21,7 @@ public class PdfExporter {
 
     private static final String FONT_PATH = "Libraries/Font/TimesNewRoman/SVN-Times New Roman.ttf";
 
-    public static void exportToPdfDoanhThu(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String reportType) {
+    public static void exportToPdfDoanhThu(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String Title,String reportType) {
         Document document = new Document();
 
         try {
@@ -37,7 +37,7 @@ public class PdfExporter {
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
             document.open();
 
-            String titleText = generateTitle(namBatDau, namKetThuc, reportType);
+            String titleText = generateTitle(namBatDau, namKetThuc, Title,reportType);
             Paragraph title = new Paragraph(titleText, fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
@@ -197,26 +197,26 @@ public class PdfExporter {
     }
 
 
-    public static String generateTitle(String namBatDau, String namKetThuc, String reportType) {
+    public static String generateTitle(String namBatDau, String namKetThuc, String title,String reportType) {
         switch (reportType) {
             case "NamBatDauNamKetThuc" -> {
                 if (namBatDau.equals(namKetThuc)) {
-                    return "Báo Cáo Doanh Thu Năm " + namBatDau;
+                    return title +" Năm " + namBatDau;
                 } else {
-                    return "Báo Cáo Doanh Thu Từ Năm " + namBatDau + " Đến Năm " + namKetThuc;
+                    return title + "  Từ Năm " + namBatDau + " Đến Năm " + namKetThuc;
                 }
             }
             case "Nam" -> {
-                return "Báo Cáo Doanh Thu Năm " + namBatDau;
+                return title+ " Trong Năm " + namBatDau;
             }
             case "Thang" -> {
-                return "Báo Cáo Doanh Thu Năm " + namBatDau + " của  " + namKetThuc;
+                return title + namKetThuc + " năm  " + namBatDau;
             }
             case "NgayDenNgay" -> {
-                return "Báo Cáo Doanh Thu Từ Ngày " + namBatDau + " Đến Ngày " + namKetThuc;
+                return title + " Từ Ngày " + namBatDau + " Đến Ngày " + namKetThuc;
             }
             default -> {
-                return "Báo Cáo Doanh Thu";
+                return title;
             }
         }
     }

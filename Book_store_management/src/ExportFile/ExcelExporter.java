@@ -49,7 +49,7 @@ public class ExcelExporter {
         return boldCenterStyle;
     }
 
-    public static void exportToExcel(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String reportType) {
+    public static void exportToExcel(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String Title, String reportType) {
         Workbook workbook = new XSSFWorkbook();
 
         try {
@@ -59,7 +59,7 @@ public class ExcelExporter {
                 sharedFunction.displayErrorMessage("File đã tồn tại");
                 return;
             }
-            String titleText = PdfExporter.generateTitle(namBatDau, namKetThuc, reportType);;
+            String titleText = PdfExporter.generateTitle(namBatDau, namKetThuc, Title, reportType);
 
             Sheet sheet = workbook.createSheet(titleText);
 
@@ -70,20 +70,22 @@ public class ExcelExporter {
             Row titleRow = sheet.createRow(0);
             Cell titleCell = titleRow.createCell(0);
             int numberOfColumns = dataTable.getColumnCount();
-            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, numberOfColumns +3));
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, numberOfColumns + 3));
             titleCell.setCellStyle(titleStyle);
             titleCell.setCellValue(titleText);
-
-            Row dateRow = sheet.createRow(1);
-            Cell dateCell = dateRow.createCell(0);
+            sheet.createRow(1);
+            Row dateRow = sheet.createRow(2);
+            Cell dateCell = dateRow.createCell(2);
             dateCell.setCellValue("Ngày Tạo: " + sharedFunction.getCurrentDateTime());
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, numberOfColumns - 1));
-            Row employeeRow = sheet.createRow(2);
-            Cell employeeCell = employeeRow.createCell(0);
+            sheet.addMergedRegion(new CellRangeAddress(2, 2, 2, numberOfColumns));
+
+            Row employeeRow = sheet.createRow(3);
+            Cell employeeCell = employeeRow.createCell(2);
+            sheet.addMergedRegion(new CellRangeAddress(3, 3, 2, numberOfColumns));
             employeeCell.setCellValue("Nhân Viên: " + nguoiTao);
-            sheet.addMergedRegion(new CellRangeAddress(2, 2, 0, numberOfColumns - 1));
+
             // Thêm khoảng trắng giữa ngày tạo và người tạo
-            sheet.createRow(3);
+            sheet.createRow(4);
 
             // Thêm bảng vào sheet
             createTable(sheet, dataTable, workbook);
@@ -101,14 +103,14 @@ public class ExcelExporter {
     }
 
     private static void createTable(Sheet sheet, JTable dataTable, Workbook workbook) {
-        Row headerRow = sheet.createRow(4);
+        Row headerRow = sheet.createRow(5);
 
         CellStyle boldCenterStyle = createBoldCenterCellStyle(workbook, 14);
 
         // Thêm tiêu đề cột
-        for (int col = 0; col < dataTable.getColumnCount(); col++) {
+        for (int col = 2; col < dataTable.getColumnCount()+2; col++) {
             Cell cell = headerRow.createCell(col);
-            cell.setCellValue(dataTable.getColumnName(col));
+            cell.setCellValue(dataTable.getColumnName(col-2));
             cell.setCellStyle(boldCenterStyle);
         }
 
@@ -117,18 +119,18 @@ public class ExcelExporter {
         int rowCount = model.getRowCount();
         int colCount = model.getColumnCount();
 
-        int rowNum = 5;
+        int rowNum = 6;
         for (int row = 0; row < rowCount; row++) {
             Row dataRow = sheet.createRow(rowNum++);
-            for (int col = 0; col < colCount; col++) {
+            for (int col = 2; col < colCount+2; col++) {
                 Cell cell = dataRow.createCell(col);
-                cell.setCellValue(String.valueOf(model.getValueAt(row, col)));
+                cell.setCellValue(String.valueOf(model.getValueAt(row, col-2)));
                 cell.setCellStyle(createCenterCellStyle(workbook));
             }
         }
 
         // Tự động đặt độ rộng cột dựa trên nội dung
-        for (int i = 0; i < colCount; i++) {
+        for (int i = 2; i < colCount+2; i++) {
             sheet.autoSizeColumn(i);
         }
     }

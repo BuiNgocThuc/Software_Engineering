@@ -1438,7 +1438,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = sharedFunction.chooseFilePath("xlsx");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận","NamBatDauNamKetThuc");
+            ExcelExporter.exportToExcel(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận","Báo cáo doanh thu","NamBatDauNamKetThuc");
         }
     }//GEN-LAST:event_excelBtnDoanhThuTheoNamActionPerformed
 
@@ -1449,7 +1449,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-            PdfExporter.exportToPdfDoanhThu(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận", "NamBatDauNamKetThuc");
+            PdfExporter.exportToPdfDoanhThu(tableTheoNam, filePath, namBatDau, namKetThuc, "Nguyễn Minh Thuận", "Báo cáo doanh thu","NamBatDauNamKetThuc");
         }
 
     }//GEN-LAST:event_pdfBtnDoanhThuTheoNamActionPerformed
@@ -1462,7 +1462,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
 //            PdfExporter.exportToPdf(list, filePath, nam, nam, "Nguyễn Minh Thuận");
-            PdfExporter.exportToPdfDoanhThu(tableTheoThang, filePath, nam, nam, "Nguyễn Minh Thuận", "Nam");
+            PdfExporter.exportToPdfDoanhThu(tableTheoThang, filePath, nam, nam, "Nguyễn Minh Thuận", "Báo cáo doanh thu","Nam");
         }
     }//GEN-LAST:event_pdfBtnTheoThangActionPerformed
 
@@ -1477,7 +1477,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = sharedFunction.chooseFilePath("xlsx");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(tableTheoThang, filePath, namBatDau, namBatDau, "Nguyễn Minh Thuận","Nam");
+            ExcelExporter.exportToExcel(tableTheoThang, filePath, namBatDau, namBatDau, "Nguyễn Minh Thuận","Báo cáo doanh thu","Nam");
         }
 
     }//GEN-LAST:event_excelBtnTheoThangActionPerformed
@@ -1489,7 +1489,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-            PdfExporter.exportToPdfDoanhThu(tableTheoTungNgayTrongThang, filePath, nam, thang, "Nguyễn Minh Thuận", "Thang");
+         PdfExporter.exportToPdfDoanhThu(tableTheoTungNgayTrongThang, filePath, nam, thang, "Nguyễn Minh Thuận", "Báo cáo doanh thu","Thang");
         }
     }//GEN-LAST:event_btnThem3ActionPerformed
 
@@ -1505,7 +1505,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Gọi hàm chọn đường dẫn
         String filePath = sharedFunction.chooseFilePath("xlsx");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(tableTheoNam, filePath, nam, thang, "Nguyễn Minh Thuận","Thang");
+            ExcelExporter.exportToExcel(tableTheoNam, filePath, nam, thang, "Nguyễn Minh Thuận","Báo cáo doanh thu ","Thang");
         }
 
     }//GEN-LAST:event_btnThem5ActionPerformed
@@ -1524,7 +1524,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-            PdfExporter.exportToPdfDoanhThu(TableTuNgayDenNgay, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
+            PdfExporter.exportToPdfDoanhThu(TableTuNgayDenNgay, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "Báo cáo doanh thu","NgayDenNgay");
         }
     }//GEN-LAST:event_btnThem6ActionPerformed
 
@@ -1543,7 +1543,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(TableTuNgayDenNgay, filePath, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận", "NgayDenNgay");
+            ExcelExporter.exportToExcel(TableTuNgayDenNgay, formattedStartDate, formattedEndDate, "Nguyễn Minh Thuận","Báo cáo doanh thu", "NgayDenNgay",filePath);
         }
          
     }//GEN-LAST:event_btnThem8ActionPerformed
@@ -1554,6 +1554,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void excelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnActionPerformed
         // TODO add your handling code here:
+             java.util.Date startDate = spngaybatdau.getDate();
+        java.util.Date endDate = spngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+              ExcelExporter.exportToExcel( TableSanPham,formattedStartDate, formattedEndDate ,"Nguyễn Minh Thuận", "Danh sách thể loại bán ","NgayDenNgay",filePath); 
+        }
     }//GEN-LAST:event_excelBtnActionPerformed
 
     private void pdfBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnActionPerformed
@@ -1616,6 +1626,16 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void excelBtnTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelBtnTheLoaiActionPerformed
         // TODO add your handling code here:
+           java.util.Date startDate = tlngaybatdau.getDate();
+        java.util.Date endDate = tlngayketthuc.getDate();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String formattedStartDate = dateFormat.format(startDate);
+        String formattedEndDate = dateFormat.format(endDate);
+
+        String filePath = sharedFunction.chooseFilePath("pdf");
+        if (filePath != null) {
+              ExcelExporter.exportToExcel( TableTheLoai,formattedStartDate, formattedEndDate ,"Nguyễn Minh Thuận", "Danh sách sản phẩm bán ","NgayDenNgay",filePath); 
+        }
     }//GEN-LAST:event_excelBtnTheLoaiActionPerformed
 
     private void pdfBtnTheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfBtnTheLoaiActionPerformed
@@ -1722,7 +1742,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         String filePath = sharedFunction.chooseFilePath("xlsx");
         if (filePath != null) {
-            ExcelExporter.exportToExcel(formattedStartDate, formattedEndDate , TableThoiGian, filePath);
+            ExcelExporter.exportToExcel( TableThoiGian,formattedStartDate, formattedEndDate ,"Nguyễn Minh Thuận", "Báo cáo khách hàng mua theo khoảng thời gian từ","NgayDenNgay",filePath);
         }
 
     }//GEN-LAST:event_excelThoiGianActionPerformed

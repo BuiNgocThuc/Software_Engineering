@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.SanPhamBUS;
 import BUS.TheLoaiBUS;
+import Components.ButtonRadius;
 import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
 import Util.sharedFunction;
@@ -66,6 +67,20 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         PanelTable.setLayout(new BorderLayout());
         PanelTable.add(scrollPaneSanPham);
     }
+
+    public ButtonRadius getBtnSua() {
+        return btnSua;
+    }
+
+    public ButtonRadius getBtnThem() {
+        return btnThem;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.

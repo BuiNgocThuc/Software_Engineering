@@ -20,19 +20,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
      * Creates new form ChiTietNhanVien
      */
     NhanVienDAO nvDao = new NhanVienDAO();
-    public static int Model = 0;
-
+    public static int Model;
     public ChiTietNhanVien() {
-        initComponents();
-        fullCV();
-    }
-
-    public void fullCV() {
-        ArrayList<String> listcv = nvDao.fullChucVu();
-        cboChucVu.addItem("");
-        for (int i = 0; i < listcv.size(); i++) {
-            cboChucVu.addItem(listcv.get(i).toString());
-        }
+        initComponents();   
     }
     NhanVienBUS nvBus = new NhanVienBUS();
 
@@ -41,13 +31,18 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         NhanVienDTO nvDto = nvBus.selectNhanVienById(id);
         txtId.setText(nvDto.getMaNV());
         cboGioiTinh.setSelectedItem(nvDto.getGioiTinh());
-        cboChucVu.setSelectedItem(nvBus.getChucVu(id));
         txtName.setText(nvDto.getTenNV());
         txtDiaChi.setText(nvDto.getDiaChi());
         txtEmail.setText(nvDto.getEmail());
         txtSdt.setText(nvDto.getSDT());
     }
-
+    public void setFocusable(int model) {
+        if(model==1){
+            txtId.setFocusable(true);
+        }else{
+            txtId.setFocusable(false);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,8 +65,6 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         btnHuy = new Components.ButtonRadius();
         jLabel3 = new javax.swing.JLabel();
         cboGioiTinh = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        cboChucVu = new javax.swing.JComboBox<>();
         txtSdt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -169,13 +162,6 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Nam", "Nữ" }));
         cboGioiTinh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
-        jLabel4.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(135, 172, 217));
-        jLabel4.setText("Chức vụ");
-
-        cboChucVu.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        cboChucVu.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
-
         txtSdt.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtSdt.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Số điện thoại", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
         txtSdt.setMaximumSize(new java.awt.Dimension(480, 50));
@@ -196,14 +182,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3))
                             .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,13 +207,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cboChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -276,31 +253,39 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
         } else if (cboGioiTinh.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Giới tính chưa được chọn");
-        } else if (cboChucVu.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Chức vụ chưa được chọn");
-        }
-        if (checkExistId(txtId.getText())) {
-            nv.setMaNV(txtId.getText());
-            nv.setTenNV(txtName.getText());
-            nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
-            nv.setSDT(txtSdt.getText());
-            nv.setEmail(txtEmail.getText());
-            nv.setDiaChi(txtDiaChi.getText());
-            nv.setTinhTrang("Đang làm việc");
         } else {
-            JOptionPane.showMessageDialog(this, "Mã nhân viên này đã có");
-        }
-        String cv = cboChucVu.getSelectedItem().toString();
-        int chucvu = nvDao.getIdChucVu(cv);
-        if (Model == 1) {
-            if (nvBus.insertNhanVien(nv, chucvu)) {
-                setVisible(false);
+            //String cv = cboChucVu.getSelectedItem().toString();
+            //int chucvu = nvDao.getIdChucVu(cv);
+            if (Model == 1) {
+                if (checkExistId(txtId.getText())) {
+                    nv.setMaNV(txtId.getText());
+                    nv.setTenNV(txtName.getText());
+                    nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+                    nv.setSDT(txtSdt.getText());
+                    nv.setEmail(txtEmail.getText());
+                    nv.setDiaChi(txtDiaChi.getText());
+                    nv.setTinhTrang("Đang làm việc");
+                    if (nvBus.insertNhanVien(nv)) {
+                        setVisible(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "Mã nhân viên này đã có");
+                }
+
+            } else {
+                nv.setMaNV(txtId.getText());
+                nv.setTenNV(txtName.getText());
+                nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+                nv.setSDT(txtSdt.getText());
+                nv.setEmail(txtEmail.getText());
+                nv.setDiaChi(txtDiaChi.getText());
+                nv.setTinhTrang("Đang làm việc");
+                if (nvBus.updateNhanVien(nv)) {
+                    setVisible(false);
+                }
             }
-        } else {
-            if (nvBus.updateNhanVien(nv, chucvu)) {
-                setVisible(false);
-            }
         }
+
 
     }//GEN-LAST:event_btnLuuActionPerformed
 
@@ -311,8 +296,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
     public boolean checkExistId(String id) {
         ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
         for (int i = 0; i < listnv.size(); i++) {
-            if (id.toLowerCase().equals(listnv.get(i).toString().toLowerCase())) {
-                return false;
+            if (id.toLowerCase().equals(listnv.get(i).getMaNV().toLowerCase())) {
+                System.out.println("false");
+                return false;    
             }
         }
         return true;
@@ -356,12 +342,10 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnLuu;
-    private javax.swing.JComboBox<String> cboChucVu;
     private javax.swing.JComboBox<String> cboGioiTinh;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

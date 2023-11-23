@@ -38,6 +38,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
 
         addPlaceholderStyle(txtUsername, "Username");
         addPlaceholderStyle(txtPassword, "Password");
+        
     }
 
     public JPasswordField getTxtPassword() {

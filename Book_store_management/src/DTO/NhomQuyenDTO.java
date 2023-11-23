@@ -9,20 +9,21 @@ package DTO;
  * @author NGOC THUC
  */
 public class NhomQuyenDTO {
-    private String MaNQ, TenNQ, MoTa, TinhTrang;
+    private String TenNQ, MoTa, TinhTrang;
+    private int MaNQ;
 
-    public NhomQuyenDTO(String MaNQ, String TenNQ, String MoTa, String TinhTrang) {
+    public NhomQuyenDTO(int MaNQ, String TenNQ, String MoTa, String TinhTrang) {
         this.MaNQ = MaNQ;
         this.TenNQ = TenNQ;
         this.MoTa = MoTa;
         this.TinhTrang = TinhTrang;
     }
 
-    public String getMaNQ() {
+    public int getMaNQ() {
         return MaNQ;
     }
 
-    public void setMaNQ(String MaNQ) {
+    public void setMaNQ(int MaNQ) {
         this.MaNQ = MaNQ;
     }
 

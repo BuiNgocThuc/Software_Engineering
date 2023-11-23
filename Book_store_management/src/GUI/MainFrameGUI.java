@@ -4,12 +4,13 @@
  */
 package GUI;
 
+import BUS.ChucNangBUS;
 import BUS.SanPhamBUS;
+import DTO.CTQuyenDTO;
+import DTO.ChucNangDTO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -42,58 +43,318 @@ public class MainFrameGUI extends javax.swing.JFrame {
     PhanQuyenGUI phanQuyenGUI = new PhanQuyenGUI();
     SanPhamGUI sanPhamGUI = new SanPhamGUI();
     CongTyGUI congTyGUI = new CongTyGUI();
+    developGUI developGUI = new developGUI();
 
-//    ChucNangBUS cnBUS = new ChucNangBUS();
-//    ArrayList<ChucNangDTO> dscn = new ArrayList<>();
+    ChucNangBUS cnBUS = new ChucNangBUS();
+    private static ArrayList<ChucNangDTO> dscn = new ArrayList<>();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
-  private static JFrame instance;
+    private static JFrame instance;
+
     public MainFrameGUI() {
         instance = this;
         //this.setUndecorated(true);
         initComponents();
-        designComp();
+//        getChucNang();
+
         this.setLocationRelativeTo(null);
         sharedFunction.moveLayout(this, pnContainer);
+        spnMenu.getVerticalScrollBar().setUnitIncrement(16);
+    }
 
+    public void setInittialButtonState() {
+        taiKhoanGUI.getBtnThem().setVisible(false);
+        taiKhoanGUI.getBtnSua().setVisible(false);
+        taiKhoanGUI.getBtnXoa().setVisible(false);
+        phanQuyenGUI.getBtnThem().setVisible(false);
+        phanQuyenGUI.getBtnSua().setVisible(false);
+        phanQuyenGUI.getBtnXoa().setVisible(false);
+        sanPhamGUI.getBtnThem().setVisible(false);
+        sanPhamGUI.getBtnSua().setVisible(false);
+        sanPhamGUI.getBtnXoa().setVisible(false);
+        phieuNhapGUI.getBtnSave().setVisible(false);
+        phieuNhapGUI.getBtnCancel().setVisible(false);
+        phieuNhapGUI.getBtnXoa().setVisible(false);
+        nhanVienGUI.getBtnThem().setVisible(false);
+        nhanVienGUI.getBtnSua().setVisible(false);
+        nhanVienGUI.getBtnXoa().setVisible(false);
+        congTyGUI.getBtnThem().setVisible(false);
+        congTyGUI.getBtnSua().setVisible(false);
+        congTyGUI.getBtnXoa().setVisible(false);
+    }
+
+    public void setAction(String action, int MaCN) {
+        switch (MaCN) {
+            case 1: // Tài khoản
+                switch (action) {
+                    case "Thêm":
+                        taiKhoanGUI.getBtnThem().setVisible(true);
+                        break;
+                    case "Sửa":
+                        taiKhoanGUI.getBtnSua().setVisible(true);
+                        break;
+                    case "Xóa":
+                        taiKhoanGUI.getBtnXoa().setVisible(true);
+                        break;
+
+                }
+                break;
+
+            case 2: // Phân quyền
+                switch (action) {
+                    case "Thêm":
+                        phanQuyenGUI.getBtnThem().setVisible(true);
+                        break;
+                    case "Sửa":
+                        phanQuyenGUI.getBtnSua().setVisible(true);
+                        break;
+                    case "Xóa":
+                        phanQuyenGUI.getBtnXoa().setVisible(true);
+                        break;
+
+                }
+                break;
+            case 3: // Sản phẩm
+                switch (action) {
+                    case "Thêm":
+                        sanPhamGUI.getBtnThem().setVisible(true);
+                        break;
+                    case "Sửa":
+                        sanPhamGUI.getBtnSua().setVisible(true);
+                        break;
+                    case "Xóa":
+                        sanPhamGUI.getBtnXoa().setVisible(true);
+                        break;
+
+                }
+                break;
+            case 4: // Nhập hàng
+                switch (action) {
+                    case "Thêm":
+
+                        break;
+                    case "Sửa":
+
+                        break;
+                    case "Xóa":
+
+                        break;
+
+                }
+                break;
+            case 5: // Bán hàng
+                switch (action) {
+                    case "Thêm":
+
+                        break;
+                    case "Sửa":
+
+                        break;
+                    case "Xóa":
+
+                        break;
+
+                }
+                break;
+            case 6: // Phiếu Nhập
+                switch (action) {
+                    case "Thêm":
+
+                        break;
+                    case "Sửa":
+                        phieuNhapGUI.getBtnSave().setVisible(true);
+                        phieuNhapGUI.getBtnCancel().setVisible(true);
+                        break;
+                    case "Xóa":
+                        phieuNhapGUI.getBtnXoa().setVisible(true);
+                        break;
+                }
+                break;
+            case 7: //Hóa đơn
+                switch (action) {
+                    case "Thêm":
+
+                        break;
+                    case "Sửa":
+
+                        break;
+                    case "Xóa":
+
+                        break;
+
+                }
+                break;
+            case 8: // Nhân viên
+                switch (action) {
+                    case "Thêm":
+                        nhanVienGUI.getBtnThem().setVisible(true);
+                        break;
+                    case "Sửa":
+                        nhanVienGUI.getBtnSua().setVisible(true);
+                        break;
+                    case "Xóa":
+                        nhanVienGUI.getBtnXoa().setVisible(true);
+                        break;
+
+                }
+                break;
+            case 9: // Nhà cung cấp
+                switch (action) {
+                    case "Thêm":
+                        congTyGUI.getBtnThem().setVisible(true);
+                        break;
+                    case "Sửa":
+                        congTyGUI.getBtnSua().setVisible(true);
+                        break;
+                    case "Xóa":
+                        congTyGUI.getBtnXoa().setVisible(true);
+                        break;
+
+                }
+                break;
+            case 10: // thống kê
+                switch (action) {
+                    case "Thêm":
+
+                        break;
+                    case "Sửa":
+
+                        break;
+                    case "Xóa":
+
+                        break;
+                }
+                break;
+
+        }
+    }
+
+    boolean checkExistLabel(JLabel label, ArrayList<JLabel> listLabel) {
+        return listLabel.contains(label);
+    }
+
+    public void getChucNang(ArrayList<CTQuyenDTO> listPer) {
+        for (CTQuyenDTO cn : listPer) {
+            setAction(cn.getHanhDong(), cn.getMaCN());
+            switch (cn.getMaCN()) {
+                case 1: //Tài khoản
+                    if (!checkExistLabel(lblTaiKhoan, listItems)) {
+                        lblTaiKhoan.setVisible(true);
+                        listItems.add(lblTaiKhoan);
+                        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
+                    }
+                    break;
+                case 2:// phân quyền
+                    if (!checkExistLabel(lblPhanQuyen, listItems)) {
+                        lblPhanQuyen.setVisible(true);
+                        listItems.add(lblPhanQuyen);
+                        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
+                    }
+                    break;
+                case 3://sản phẩm
+                    if (!checkExistLabel(lblSanPham, listItems)) {
+                        lblSanPham.setVisible(true);
+                        listItems.add(lblSanPham);
+                        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
+                    }
+                    break;
+                case 4://nhập hàng
+                    if (!checkExistLabel(lblNhapHang, listItems)) {
+                        lblNhapHang.setVisible(true);
+                        listItems.add(lblNhapHang);
+                        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
+                    }
+                    break;
+                case 5://bán hàng
+                    if (!checkExistLabel(lblBanHang, listItems)) {
+                        lblBanHang.setVisible(true);
+                        listItems.add(lblBanHang);
+                        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
+                    }
+                    break;
+                case 6://phiếu nhập
+                    if (!checkExistLabel(lblPhieuNhap, listItems)) {
+                        lblPhieuNhap.setVisible(true);
+                        listItems.add(lblPhieuNhap);
+                        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
+                    }
+                    break;
+                case 7:// hóa đơn
+                    if (!checkExistLabel(lblHoaDon, listItems)) {
+                        lblHoaDon.setVisible(true);
+                        listItems.add(lblHoaDon);
+                        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
+                    }
+                    break;
+                case 8:// nhân viên
+                    if (!checkExistLabel(lblNhanVien, listItems)) {
+                        lblNhanVien.setVisible(true);
+                        listItems.add(lblNhanVien);
+                        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
+                    }
+                    break;
+
+                case 9:// nhà cung cấp
+                    if (!checkExistLabel(lblCongTy, listItems)) {
+                        lblCongTy.setVisible(true);
+                        listItems.add(lblCongTy);
+                        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
+                    }
+                    break;
+                case 10:// thống kê
+                    if (!checkExistLabel(lblThongKe, listItems)) {
+                        lblThongKe.setVisible(true);
+                        listItems.add(lblThongKe);
+                        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
+                    }
+                    break;
+
+                default: //chức năng khác
+                    String TenCN = cnBUS.getNameByID(cn.getMaCN());
+                    JLabel newLabel = createNewMenu(TenCN);
+                    pnListItem.add(newLabel);
+                    listItems.add(newLabel);
+                    newLabel.addMouseListener(new handleMouseEvent(pnContent, developGUI));
+                    break;
+            }
+        }
+        createSidebar();
+        designComp();
+    }
+
+    public void createSidebar() {
+//        GridLayout glayout = new GridLayout();
+//        glayout.setRows(listItems.size());
+//        pnListItem.setLayout(glayout);
+        pnListItem.setPreferredSize(new java.awt.Dimension(260, listItems.size() * 85));
+    }
+
+    JLabel createNewMenu(String name) {
+        JLabel label = new JLabel("", JLabel.CENTER);
+        label.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
+        label.setForeground(new java.awt.Color(243, 243, 244));
+        //label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_40px/cart_2.png"))); // NOI18N
+        label.setText(name);
+        label.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        label.setPreferredSize(new java.awt.Dimension(260, 80));
+        label.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                //lblBanHangMouseClicked(evt);
+            }
+        });
+
+        return label;
     }
 
     void designComp() {
-        spnMenu.getVerticalScrollBar().setUnitIncrement(16);
-
-        createListItems();
-        solveActionMenu();
+        //createListItems();
         solveHoverMenu();
     }
 
-    void createListItems() {
-        listItems.add(lblBanHang);
-        listItems.add(lblNhapHang);
-        listItems.add(lblSanPham);
-        listItems.add(lblHoaDon);
-        listItems.add(lblPhieuNhap);
-        listItems.add(lblNhanVien);
-        listItems.add(lblCongTy);
-        listItems.add(lblThongKe);
-        listItems.add(lblTaiKhoan);
-        listItems.add(lblPhanQuyen);
-
-        lblSanPham.setBackground(Color.decode("#AAD8F4"));
-        lblSanPham.setForeground(Color.white);
-        lblSanPham.setOpaque(true);
-    }
-
-    void solveActionMenu() {
-        lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
-        lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
-        lblSanPham.addMouseListener(new handleMouseEvent(pnContent, sanPhamGUI));
-        lblHoaDon.addMouseListener(new handleMouseEvent(pnContent, hoaDonGUI));
-        lblPhieuNhap.addMouseListener(new handleMouseEvent(pnContent, phieuNhapGUI));
-        lblNhanVien.addMouseListener(new handleMouseEvent(pnContent, nhanVienGUI));
-        lblCongTy.addMouseListener(new handleMouseEvent(pnContent, congTyGUI));
-        lblTaiKhoan.addMouseListener(new handleMouseEvent(pnContent, taiKhoanGUI));
-        lblPhanQuyen.addMouseListener(new handleMouseEvent(pnContent, phanQuyenGUI));
-        lblThongKe.addMouseListener(new handleMouseEvent(pnContent, thongKeGUI));
-    }
+//    void createListItems() {
+//        lblSanPham.setBackground(Color.decode("#AAD8F4"));
+//        lblSanPham.setForeground(Color.white);
+//        lblSanPham.setOpaque(true);
+//    }
 
     void solveHoverMenu() {
         for (JLabel lbl : listItems) {
@@ -319,13 +580,12 @@ public class MainFrameGUI extends javax.swing.JFrame {
         spnMenu.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         spnMenu.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         spnMenu.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        spnMenu.setPreferredSize(new java.awt.Dimension(260, 570));
+        spnMenu.setPreferredSize(new java.awt.Dimension(260, 550));
         spnMenu.setRequestFocusEnabled(false);
 
-        pnListItem.setBackground(new java.awt.Color(152, 192, 230));
+        pnListItem.setBackground(new java.awt.Color(204, 0, 102));
         pnListItem.setAutoscrolls(true);
         pnListItem.setPreferredSize(new java.awt.Dimension(260, 850));
-        pnListItem.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 0));
 
         lblSanPham.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
         lblSanPham.setForeground(new java.awt.Color(243, 243, 244));
@@ -499,7 +759,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGroup(pnSideBarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnSideBarLayout.createSequentialGroup()
                     .addGap(120, 120, 120)
-                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spnMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -791,7 +1051,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_itemLogOutActionPerformed
-   
+
     private void pnSanPhamMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnSanPhamMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_pnSanPhamMouseExited
@@ -808,17 +1068,10 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lblBanHangMouseClicked
 
-    private void lblThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThongKeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_lblThongKeMouseClicked
-
-    private void pnThongKeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnThongKeMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pnThongKeMouseClicked
-
  public static JFrame getMainFrameInstance() {
         return instance;
     }
+
     /**
      * @param args the command line arguments
      */

@@ -6,6 +6,7 @@ package GUI;
 
 import BUS.CTPhieuNhapBUS;
 import BUS.PhieuNhapBUS;
+import Components.ButtonRadius;
 import Util.sharedFunction;
 import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
@@ -162,6 +163,20 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     public static DefaultTableModel getModelImportDetai() {
         return modelImportDetail;
     }
+
+    public ButtonRadius getBtnCancel() {
+        return btnCancel;
+    }
+
+    public ButtonRadius getBtnSave() {
+        return btnSave;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -566,10 +581,18 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
+        if(tfIDHoadon.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn phiếu nhập cần xóa", "lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         int res = JOptionPane.showConfirmDialog(null, "Xác nhận muốn xóa phiếu nhập?", "xác nhận", JOptionPane.YES_NO_OPTION);
         if (res == JOptionPane.YES_OPTION) {
             int MaPN = Integer.parseInt(modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString().substring(2));
-            pnBUS.XoaPhieuNhap(MaPN);
+            boolean xoa = pnBUS.XoaPhieuNhap(MaPN);
+            if(xoa) {
+                JOptionPane.showMessageDialog(null, "Xóa phiếu nhập thành công!!");
+            }
+            modelImportDetail.setRowCount(0);
             pnBUS.createTableImport(modelPhieuNhap);
 
             tfCongTy.setText("");
@@ -603,6 +626,10 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // TODO add your handling code here:
+        if(tfIDHoadon.getText().isBlank()) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn phiếu nhập cần sửa");
+            return;
+        }
         if (modelImportDetail.getRowCount() == 0) {
             int confirmDel = JOptionPane.showConfirmDialog(this, "Bảng sản phẩm nhập đang rỗng, xác nhận xóa phiếu nhập ?", "thông báo", JOptionPane.YES_NO_OPTION);
             if (confirmDel == JOptionPane.YES_OPTION) {

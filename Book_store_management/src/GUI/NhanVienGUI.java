@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package GUI;
+
 import BUS.NhanVienBUS;
+import Components.ButtonRadius;
 import DAO.NhanVienDAO;
 import DTO.NhanVienDTO;
 import Util.sharedFunction;
@@ -36,6 +38,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
      * Creates new form NhanVienGUI
      */
     JTable tableNhanvien = new JTable();
+
     public NhanVienGUI() {
         initComponents();
         tableNhanvien = createTableNhanvien();
@@ -48,30 +51,47 @@ public class NhanVienGUI extends javax.swing.JPanel {
         loadData(tableNhanvien);
     }
     private static int count = 1;
-    
 
+    public ButtonRadius getBtnSua() {
+        return btnSua;
+    }
+
+    public ButtonRadius getBtnThem() {
+        return btnThem;
+    }
+
+    public ButtonRadius getBtnXoa() {
+        return btnXoa;
+    }
+
+    
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
-        count=1;
+        count = 1;
         NhanVienBUS nvBus = new NhanVienBUS();
-        ArrayList<NhanVienDTO> listnv=nvBus.selectAll();
-        for(int i=0;i<listnv.size();i++){
-            String manv=listnv.get(i).getMaNV();
-            String tennv=listnv.get(i).getTenNV();
-            String gioitinh=listnv.get(i).getGioiTinh();
-            String chucvu=getChucVu(manv);
-            String sdt=listnv.get(i).getSDT();
-            String email=listnv.get(i).getEmail();
-            String diachi=listnv.get(i).getDiaChi();
-            model.addRow(new Object[]{count++, manv, tennv,gioitinh,chucvu ,sdt,email, diachi});
+        ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
+        for (int i = 0; i < listnv.size(); i++) {
+            String manv = listnv.get(i).getMaNV();
+            String tennv = listnv.get(i).getTenNV();
+            String gioitinh = listnv.get(i).getGioiTinh();
+            String chucvu = getChucVu(manv);
+            if (chucvu == null) {
+                chucvu = "Chưa phân công";
+            }
+            String sdt = listnv.get(i).getSDT();
+            String email = listnv.get(i).getEmail();
+            String diachi = listnv.get(i).getDiaChi();
+            model.addRow(new Object[]{count++, manv, tennv, gioitinh, chucvu, sdt, email, diachi});
         }
-        
+
     }
-    public String getChucVu(String id){
+
+    public String getChucVu(String id) {
         NhanVienBUS nvBus = new NhanVienBUS();
         return nvBus.getChucVu(id);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +111,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         tfTimkiem = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnTimkiem = new Components.ButtonRadius();
-        btnSua1 = new Components.ButtonRadius();
+        btnSua = new Components.ButtonRadius();
         btnLammoi = new Components.ButtonRadius();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -195,7 +215,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(8, 8, 8)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfTimkiem, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                    .addComponent(tfTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 22, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
@@ -216,19 +236,19 @@ public class NhanVienGUI extends javax.swing.JPanel {
             }
         });
 
-        btnSua1.setBorder(null);
-        btnSua1.setForeground(new java.awt.Color(135, 172, 217));
-        btnSua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
-        btnSua1.setText("Sửa");
-        btnSua1.setFocusPainted(false);
-        btnSua1.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
-        btnSua1.setMaximumSize(new java.awt.Dimension(100, 40));
-        btnSua1.setPreferredSize(new java.awt.Dimension(100, 40));
-        btnSua1.setRadius(40);
-        btnSua1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnSua1.addActionListener(new java.awt.event.ActionListener() {
+        btnSua.setBorder(null);
+        btnSua.setForeground(new java.awt.Color(135, 172, 217));
+        btnSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
+        btnSua.setText("Sửa");
+        btnSua.setFocusPainted(false);
+        btnSua.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        btnSua.setMaximumSize(new java.awt.Dimension(100, 40));
+        btnSua.setPreferredSize(new java.awt.Dimension(100, 40));
+        btnSua.setRadius(40);
+        btnSua.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSua1ActionPerformed(evt);
+                btnSuaActionPerformed(evt);
             }
         });
 
@@ -270,7 +290,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(btnSua1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(PanelTable, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -290,7 +310,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSua1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnSua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(btnLammoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7)
                 .addComponent(PanelTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -312,35 +332,43 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        String temp = null;
         NhanVienBUS nvBus = new NhanVienBUS();
-        int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
-        if (option == JOptionPane.YES_OPTION) {
-            temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-            nvBus.deleteNhanVien(temp);
+
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (option == JOptionPane.YES_OPTION) {
+                String temp = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+                nvBus.deleteNhanVien(temp);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn nhân viên nào");
         }
-        count=1;
+
+        count = 1;
         loadData(tableNhanvien);
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        ChiTietNhanVien ctnv=new ChiTietNhanVien();
-        ctnv.Model=1;
+        ChiTietNhanVien ctnv = new ChiTietNhanVien();
+        ctnv.Model = 1;
+        ctnv.setFocusable(1);
         ctnv.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
-    private void btnSua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSua1ActionPerformed
-        ChiTietNhanVien ctnv=new ChiTietNhanVien();
-        String id = null;
-        id= (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
-        if (id != null) {
-            ctnv.setData(id);
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        int selectedRow = tableNhanvien.getSelectedRow();
+        if (selectedRow >= 0) {
+            ChiTietNhanVien ctnv = new ChiTietNhanVien();
             ctnv.Model = 2;
+            ctnv.setFocusable(2);
+            String id = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
+            ctnv.setData(id);
             ctnv.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Chưa chọn Công ty để sửa");
+            JOptionPane.showMessageDialog(this, "Chưa chọn Nhân viên để sửa");
         }
-    }//GEN-LAST:event_btnSua1ActionPerformed
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         tfTimkiem.setText("Tìm kiếm công ty");
@@ -353,13 +381,13 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTimkiemMouseClicked
 
     private void tfTimkiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTimkiemFocusLost
-        if(tfTimkiem.getText().equals("")){
+        if (tfTimkiem.getText().equals("")) {
             tfTimkiem.setText("Tìm kiếm nhân viên");
         }
     }//GEN-LAST:event_tfTimkiemFocusLost
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-       TimKiem();
+        TimKiem();
     }//GEN-LAST:event_btnTimkiemActionPerformed
     public void TimKiem() {
         ArrayList<NhanVienDTO> nvTK = new ArrayList<>();
@@ -375,10 +403,15 @@ public class NhanVienGUI extends javax.swing.JPanel {
         count = 1;
         for (NhanVienDTO u : nvTK) {
             //[] row = new Object[]{};
-            model.addRow(new Object[]{count++, u.getMaNV(), u.getTenNV(),u.getGioiTinh(),"" ,u.getSDT(),u.getEmail(), u.getDiaChi()});
+            String chucvu = getChucVu(u.getMaNV());
+            if (chucvu == null) {
+                chucvu = "Chưa phân công";
+            }
+            model.addRow(new Object[]{count++, u.getMaNV(), u.getTenNV(), u.getGioiTinh(), chucvu, u.getSDT(), u.getEmail(), u.getDiaChi()});
         }
         tableNhanvien.setModel(model);
     }
+
     public static void EditHeaderTable(JTable table) {
         // Tăng độ cao của header
         table.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 40)); // Điều chỉnh 40 thành độ cao
@@ -447,7 +480,8 @@ public class NhanVienGUI extends javax.swing.JPanel {
         columnModel.getColumn(5).setPreferredWidth(200); // Độ rộng cột 5
         columnModel.getColumn(6).setPreferredWidth(200); // Độ rộng cột 6
         columnModel.getColumn(7).setPreferredWidth(400); // Độ rộng cột 6
-        sharedFunction.EditHeaderTable(table);EditHeaderTable(table);
+        sharedFunction.EditHeaderTable(table);
+        EditHeaderTable(table);
         sharedFunction.EditTableContent(table);
         return table;
     }
@@ -484,7 +518,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable;
     private Components.ButtonRadius btnLammoi;
-    private Components.ButtonRadius btnSua1;
+    private Components.ButtonRadius btnSua;
     private Components.ButtonRadius btnThem;
     private Components.ButtonRadius btnTimkiem;
     private Components.ButtonRadius btnXoa;

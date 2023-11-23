@@ -21,7 +21,7 @@ public class PdfExporter {
 
     private static final String FONT_PATH = "Libraries/Font/TimesNewRoman/SVN-Times New Roman.ttf";
 
-    public static void exportToPdfDoanhThu(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String Title,String reportType) {
+    public static void exportToPdfDoanhThu(JTable dataTable, String filePath, String namBatDau, String namKetThuc, String nguoiTao, String Title, String reportType) {
         Document document = new Document();
 
         try {
@@ -37,7 +37,7 @@ public class PdfExporter {
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
             document.open();
 
-            String titleText = generateTitle(namBatDau, namKetThuc, Title,reportType);
+            String titleText = generateTitle(namBatDau, namKetThuc, Title, reportType);
             Paragraph title = new Paragraph(titleText, fontTitle);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
@@ -184,8 +184,6 @@ public class PdfExporter {
         return table;
     }
 
-    
-
     private static Font setFont(String fontPath, int size, int style, BaseColor color) {
         try {
             BaseFont unicodeFont = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
@@ -196,24 +194,28 @@ public class PdfExporter {
         }
     }
 
-
-    public static String generateTitle(String namBatDau, String namKetThuc, String title,String reportType) {
+    public static String generateTitle(String namBatDau, String namKetThuc, String title, String reportType) {
         switch (reportType) {
             case "NamBatDauNamKetThuc" -> {
                 if (namBatDau.equals(namKetThuc)) {
-                    return title +" Năm " + namBatDau;
+                    return title + " Năm " + namBatDau;
                 } else {
                     return title + "  Từ Năm " + namBatDau + " Đến Năm " + namKetThuc;
                 }
             }
             case "Nam" -> {
-                return title+ " Trong Năm " + namBatDau;
+                return title + " Trong Năm " + namBatDau;
             }
             case "Thang" -> {
                 return title + namKetThuc + " năm  " + namBatDau;
             }
             case "NgayDenNgay" -> {
-                return title + " Từ Ngày " + namBatDau + " Đến Ngày " + namKetThuc;
+                if (namBatDau.equals(namKetThuc)) {
+                    return title + " Ngay " + namBatDau;
+                } else {
+                    return title + " Từ Ngày " + namBatDau + " Đến Ngày " + namKetThuc;
+                }
+
             }
             default -> {
                 return title;

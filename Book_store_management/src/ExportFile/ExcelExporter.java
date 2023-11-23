@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.ss.util.WorkbookUtil;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 public class ExcelExporter {
 
@@ -60,8 +62,9 @@ public class ExcelExporter {
                 return;
             }
             String titleText = PdfExporter.generateTitle(namBatDau, namKetThuc, Title, reportType);
-
-            Sheet sheet = workbook.createSheet(titleText);
+            String safeSheetName = WorkbookUtil.createSafeSheetName(Title);
+            XSSFSheet sheet = (XSSFSheet) workbook.createSheet( safeSheetName);
+       
 
             // Tạo CellStyle cho tiêu đề
             CellStyle titleStyle = createTitleCellStyle(workbook, 16);
@@ -108,9 +111,9 @@ public class ExcelExporter {
         CellStyle boldCenterStyle = createBoldCenterCellStyle(workbook, 14);
 
         // Thêm tiêu đề cột
-        for (int col = 2; col < dataTable.getColumnCount()+2; col++) {
+        for (int col = 2; col < dataTable.getColumnCount() + 2; col++) {
             Cell cell = headerRow.createCell(col);
-            cell.setCellValue(dataTable.getColumnName(col-2));
+            cell.setCellValue(dataTable.getColumnName(col - 2));
             cell.setCellStyle(boldCenterStyle);
         }
 
@@ -122,15 +125,15 @@ public class ExcelExporter {
         int rowNum = 6;
         for (int row = 0; row < rowCount; row++) {
             Row dataRow = sheet.createRow(rowNum++);
-            for (int col = 2; col < colCount+2; col++) {
+            for (int col = 2; col < colCount + 2; col++) {
                 Cell cell = dataRow.createCell(col);
-                cell.setCellValue(String.valueOf(model.getValueAt(row, col-2)));
+                cell.setCellValue(String.valueOf(model.getValueAt(row, col - 2)));
                 cell.setCellStyle(createCenterCellStyle(workbook));
             }
         }
 
         // Tự động đặt độ rộng cột dựa trên nội dung
-        for (int i = 2; i < colCount+2; i++) {
+        for (int i = 2; i < colCount + 2; i++) {
             sheet.autoSizeColumn(i);
         }
     }

@@ -974,8 +974,6 @@ public final class NhapHangGUI extends javax.swing.JPanel {
         table.setSelectionBackground(Color.WHITE);
         table.setSelectionForeground(new Color(153, 184, 224));
         table.setFocusable(false);
-        // Vô hiệu hóa sắp xếp cột tự động
-        // table.setAutoCreateRowSorter(false);
         // Vô hiệu hóa kéo cột
         table.getTableHeader().setReorderingAllowed(false);
         // Vô hiệu hóa kéo dãng cột
@@ -1071,13 +1069,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
     }
 
-    private void addPlaceholderStyle(JTextField textField, String name) {
-        Font customFont = new Font("Tahoma", Font.BOLD, 16);
-        textField.setFont(customFont);
-        textField.setForeground(new Color(157, 185, 223));
-        textField.setText(name);
 
-    }
 
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);

@@ -8,11 +8,14 @@ import BUS.SanPhamBUS;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
@@ -247,6 +250,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblSetting = new javax.swing.JLabel();
         pnContent = new javax.swing.JPanel();
         pnSanPham = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         pnBanHang = new javax.swing.JPanel();
         pnNhapHang = new javax.swing.JPanel();
         pnCongTy = new javax.swing.JPanel();
@@ -505,21 +509,24 @@ public class MainFrameGUI extends javax.swing.JFrame {
         pnContent.setLayout(new java.awt.CardLayout());
 
         pnSanPham.setBackground(new java.awt.Color(153, 255, 255));
+        pnSanPham.setPreferredSize(new java.awt.Dimension(1020, 750));
         pnSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 pnSanPhamMouseExited(evt);
             }
         });
 
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/poster/GUI_poster.jpg"))); // NOI18N
+
         javax.swing.GroupLayout pnSanPhamLayout = new javax.swing.GroupLayout(pnSanPham);
         pnSanPham.setLayout(pnSanPhamLayout);
         pnSanPhamLayout.setHorizontalGroup(
             pnSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnSanPhamLayout.setVerticalGroup(
             pnSanPhamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
 
         pnContent.add(pnSanPham, "card2");
@@ -541,19 +548,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
         pnNhapHang.setBackground(new java.awt.Color(204, 153, 0));
 
-        javax.swing.GroupLayout pnNhapHangLayout = new javax.swing.GroupLayout(pnNhapHang);
-        pnNhapHang.setLayout(pnNhapHangLayout);
-        pnNhapHangLayout.setHorizontalGroup(
-            pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1020, Short.MAX_VALUE)
-        );
-        pnNhapHangLayout.setVerticalGroup(
-            pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-
-        pnContent.add(pnNhapHang, "card4");
-
         pnCongTy.setBackground(new java.awt.Color(0, 204, 153));
 
         javax.swing.GroupLayout pnCongTyLayout = new javax.swing.GroupLayout(pnCongTy);
@@ -567,7 +561,28 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGap(0, 750, Short.MAX_VALUE)
         );
 
-        pnContent.add(pnCongTy, "card5");
+        javax.swing.GroupLayout pnNhapHangLayout = new javax.swing.GroupLayout(pnNhapHang);
+        pnNhapHang.setLayout(pnNhapHangLayout);
+        pnNhapHangLayout.setHorizontalGroup(
+            pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1020, Short.MAX_VALUE)
+            .addGroup(pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnNhapHangLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pnCongTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        pnNhapHangLayout.setVerticalGroup(
+            pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+            .addGroup(pnNhapHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnNhapHangLayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(pnCongTy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pnContent.add(pnNhapHang, "card4");
 
         pnNhanVien.setBackground(new java.awt.Color(51, 102, 255));
 
@@ -851,6 +866,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblBanHang;
     private javax.swing.JLabel lblCongTy;
     private javax.swing.JLabel lblHoaDon;

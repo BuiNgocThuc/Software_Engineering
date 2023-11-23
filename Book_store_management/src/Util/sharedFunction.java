@@ -122,6 +122,7 @@ public class sharedFunction {
 
     public static void EditTableContent(JTable table) {
         // Đặt độ cao cho từng dòng (trừ header)
+
         int rowHeight = 30;
         table.setRowHeight(rowHeight);
         table.setGridColor(new Color(153, 184, 224));
@@ -139,6 +140,8 @@ public class sharedFunction {
         for (int i = 0; i < table.getColumnCount(); i++) {
             table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+        // Vô hiệu hóa sửa nội dung trong ô
+        table.setDefaultEditor(Object.class, null);
         // Vô hiệu hóa sắp xếp cột tự động
         table.setAutoCreateRowSorter(true);
         // Vô hiệu hóa kéo cột

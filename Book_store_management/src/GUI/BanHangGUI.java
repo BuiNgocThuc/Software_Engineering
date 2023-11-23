@@ -794,6 +794,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
             tfTienkhach.requestFocus();
             return;
         }
+        if (!sharedFunction.isPositiveInteger(tfTienkhach.getText())) {
+            sharedFunction.displayErrorMessage("Tiền khách đưa không hợp lệ");
+            tfTienkhach.requestFocus();
+            return;
+        }
 
         // Kiểm tra tiền thối có hợp lệ không
         boolean isChangeValid = isChangeValid();
@@ -850,7 +855,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             String TongTientext = tfTongtien.getText();
             Double TongTien = sharedFunction.parseMoneyString(TongTientext);
             String TienKhach = tfTienkhach.getText();
-            String tienKhachVND = sharedFunction.formatVND(sharedFunction.stringToDouble( TienKhach));
+            String tienKhachVND = sharedFunction.formatVND(sharedFunction.stringToDouble(TienKhach));
             String TienThoi = tfTienthoi.getText();
             HoaDonDTO hoaDon = new HoaDonDTO(IDNhanVien, TongTien, NgayTao);
             boolean hoaDonLuuThanhCong = hoaDonBUS.luuHoaDon(hoaDon);
@@ -871,7 +876,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             if (hoaDonLuuThanhCong && luuChiTiet) {
                 // Thực hiện các thao tác sau khi thanh toán thành công
                 updateProductQuantity();
-                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, tienKhachVND ,TienThoi, TongTientext, NgayTaotext, modelHoaDon);
+                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, tienKhachVND, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
                 bill.setVisible(true);
             }
         }
@@ -884,15 +889,15 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setText(maHDtext);
 
         // Lấy ID nhân viên 
-//        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-//        txtIDNhanvien.setText("NV00" + tenTK);
-        txtIDNhanvien.setText("NV004" );
+        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
+        txtIDNhanvien.setText("NV00" + tenTK);
+        txtIDNhanvien.setText("NV004");
         // Lấy ngày hiện tại
         Date currentDate = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String formattedDate = dateFormat.format(currentDate);
         txtNgayTao.setText(formattedDate);
-//         txtNgayTao.setText("15/07/2022");
+
     }
 
     // Cập nhật số lượng sản phẩm sau khi thanh toán
@@ -1038,17 +1043,22 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private void updateTienThoiLai() {
         // Lấy số tiền khách đưa từ JTextField
         String tienKhachDuaStr = tfTienkhach.getText();
+
         if (!tienKhachDuaStr.isEmpty()) {
-            double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
-            double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
-            double tienThoiLai = tienKhachDua - tongTien;
-            if (tienThoiLai >= 0) {
-                tfTienthoi.setForeground(Color.black);
-            } else {
-                tfTienthoi.setForeground(Color.RED);
+            if (sharedFunction.isPositiveInteger(tienKhachDuaStr)) {
+                double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
+                double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
+                double tienThoiLai = tienKhachDua - tongTien;
+                if (tienThoiLai >= 0) {
+                    tfTienthoi.setForeground(Color.black);
+                } else {
+                    tfTienthoi.setForeground(Color.RED);
+                }
+                // Cập nhật giá trị vào JTextField Tiền thối lại
+                tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
+            }else{
+                sharedFunction.displayErrorMessage("Tiền khách đưa không hợp lệ");
             }
-            // Cập nhật giá trị vào JTextField Tiền thối lại
-            tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
         }
     }
     private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
@@ -1113,7 +1123,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void tfTienkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTienkhachActionPerformed
         // TODO add your handling code here:
-//        updateTienThoiLai();
+
     }//GEN-LAST:event_tfTienkhachActionPerformed
 
     private void tfTienkhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTienkhachKeyReleased
@@ -1128,9 +1138,9 @@ public final class BanHangGUI extends javax.swing.JPanel {
         if (selectedIndex != 5) {
             sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
         } else {
-          
+
             LocAnd l = new LocAnd(2);
-            sharedFunction.openNewFrame( l);
+            sharedFunction.openNewFrame(l);
         }
     }//GEN-LAST:event_timKiemTheoActionPerformed
 //    public static String FormatMaHD(int MaHD) {

@@ -133,7 +133,7 @@ public class TaiKhoanBUS {
                     displayName(currentAcc, layout);
                     //PhanQuyen(lisrPer, layout);
                     acc.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+                    
                     System.out.println(currentAcc.getTenTK());
                 }
             }

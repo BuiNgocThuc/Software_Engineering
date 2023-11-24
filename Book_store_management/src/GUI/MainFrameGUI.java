@@ -355,7 +355,6 @@ public class MainFrameGUI extends javax.swing.JFrame {
 //        lblSanPham.setForeground(Color.white);
 //        lblSanPham.setOpaque(true);
 //    }
-
     void solveHoverMenu() {
         for (JLabel lbl : listItems) {
             labelStates.put(lbl, false);
@@ -609,6 +608,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblNhapHang.setText("Nhập hàng");
         lblNhapHang.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNhapHang.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblNhapHang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNhapHangMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblNhapHang);
 
         lblCongTy.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -878,10 +882,17 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private void lblBanHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBanHangMouseClicked
         // TODO add your handling code here:
 
-
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        SanPhamGUI.loadTableSanPham(listSanPham, BanHangGUI.getModelSanPham());
     }//GEN-LAST:event_lblBanHangMouseClicked
 
- public static JFrame getMainFrameInstance() {
+    private void lblNhapHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNhapHangMouseClicked
+        // TODO add your handling code here:
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        SanPhamGUI.loadTableSanPham(listSanPham, NhapHangGUI.getModelSanPham());
+    }//GEN-LAST:event_lblNhapHangMouseClicked
+
+    public static JFrame getMainFrameInstance() {
         return instance;
     }
 

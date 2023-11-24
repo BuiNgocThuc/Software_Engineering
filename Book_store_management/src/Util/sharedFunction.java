@@ -160,25 +160,15 @@ public class sharedFunction {
         }
     }
 
-    public static int convertToInteger(String input, String startsWith) {
-        if (input.startsWith(startsWith)) {
-            // Nếu chuỗi bắt đầu bằng "SP," cắt bỏ "SP" và chuyển phần số còn lại thành số nguyên
-            String numericPart = input.substring(2); // Lấy phần số sau "SP"
-            try {
-                return Integer.parseInt(numericPart); // Trả về số nguyên nếu thành công
-            } catch (NumberFormatException e) {
-                // Xử lý lỗi nếu không thể chuyển đổi thành số nguyên
-                return -1;
-            }
-        } else {
-            // Nếu chuỗi không bắt đầu bằng "SP," thử chuyển chuỗi thành số nguyên
+    public static int convertToInteger(String input) {
+
             try {
                 return Integer.parseInt(input); // Trả về số nguyên nếu thành công
             } catch (NumberFormatException e) {
                 // Xử lý lỗi nếu không thể chuyển đổi thành số nguyên
                 return -1;
             }
-        }
+        
     }
 
     public static void displayErrorMessage(String message) {

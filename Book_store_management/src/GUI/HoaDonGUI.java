@@ -96,7 +96,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         int selectRow = tableHoaDon.getSelectedRow();
         if (selectRow >= 0) {
             String maHDText = (String) tableHoaDon.getValueAt(selectRow, 1);
-            int MaHD = sharedFunction.convertToInteger(maHDText, "HD");
+            int MaHD = Integer.parseInt(maHDText.substring(2));
             CTHoaDonBUS cthd = new CTHoaDonBUS();
             ArrayList<CTHoaDonDTO> listCTHD = cthd.findHoaDonByMaHD(MaHD);
             int STT = 1;
@@ -505,9 +505,6 @@ public final class HoaDonGUI extends javax.swing.JPanel {
      String ngayTao = tfNgaytao.getText();
      String thuNgan = "Nguyễn Minh Thuận";
      String tongTien = tfTongtien.getText();
-   
-
-   
 
       String filePath = sharedFunction.chooseFilePath("pdf");
         if (filePath != null) {
@@ -659,28 +656,38 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         return table;
     }
 
-    private void addPlaceholderStyle(JTextField textField, String name) {
-        Font customFont = new Font("Tahoma", Font.BOLD, 16);
-        textField.setFont(customFont);
-        textField.setForeground(new Color(157, 185, 223));
-        textField.setText(name);
-
-    }
-
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }
 
-    public void findHoaDonByMaHD(String maHD, DefaultTableModel model) {
-        if (maHD.isEmpty() || maHD.trim().equals("Tìm kiếm theo mã hóa đơn")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hóa đơn", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+   public void findHoaDonByMaHD(String maHD, DefaultTableModel model) {
+    ArrayList<HoaDonDTO> dshd = hoaDonBUS.getAll();
+
+    if (maHD.isEmpty() || maHD.trim().equals("Tìm kiếm theo mã hóa đơn")) {
+        loadDataTableHoaDon(dshd, modelHoaDon);
+    } else {
+        if (maHD.toUpperCase().startsWith("HD")) {
+            // Nếu chuỗi bắt đầu bằng "HD", tìm kiếm trong danh sách mã hóa đơn
+            String maHDDisplay = maHD.toUpperCase();
+            ArrayList<HoaDonDTO> filteredList = new ArrayList<>();
+
+            for (HoaDonDTO hoaDon : dshd) {
+                  String maHDtext = sharedFunction.FormatID("HD", hoaDon.getMaHD());
+                if (maHDtext.equals(maHDDisplay)) {
+                    filteredList.add(hoaDon);
+                }
+            }
+
+            if (!filteredList.isEmpty()) {
+                loadDataTableHoaDon(filteredList, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            int maHDnumber = sharedFunction.convertToInteger(maHD, "HD");
+            int maHDnumber = sharedFunction.convertToInteger(maHD);
             if (maHDnumber == -1) {
-                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
                 ArrayList<HoaDonDTO> listHoaDon = hoaDonBUS.findHoaDonByMaHD(maHDnumber);
                 if (!listHoaDon.isEmpty()) {
                     loadDataTableHoaDon(listHoaDon, model);
@@ -689,8 +696,9 @@ public final class HoaDonGUI extends javax.swing.JPanel {
                 }
             }
         }
-
     }
+}
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTable1;
     private javax.swing.JPanel PanelTable2;

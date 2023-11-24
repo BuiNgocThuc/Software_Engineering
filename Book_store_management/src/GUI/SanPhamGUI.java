@@ -912,7 +912,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm 
-            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(maSP);
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP_or_MaSP(maSP);
             if (!listSanPham.isEmpty()) {
                 loadTableSanPham(listSanPham, model);
 
@@ -971,17 +971,33 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
-    public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
+ public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
+    if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        loadTableSanPham(listSanPham, modelSanPham);
+    } else {
+        if (maSP.toUpperCase().startsWith("SP")) {
+            // Nếu chuỗi bắt đầu bằng "SP", tìm kiếm trong danh sách mã sản phẩm
+            String maSPDisplay = maSP.toUpperCase();
+            ArrayList<SanPhamDTO> filteredList = new ArrayList<>();
 
-        if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            for (SanPhamDTO sanPham : sanPhamBUS.getAllSanPham()) {
+                      String maSPtext = sharedFunction.FormatID("SP", sanPham.getMaSP());
+                if (maSPtext.equals(maSPDisplay)) {
+                    filteredList.add(sanPham);
+                }
+            }
+
+            if (!filteredList.isEmpty()) {
+                loadTableSanPham(filteredList, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            int maSPnumber = sharedFunction.convertToInteger(maSP, "SP");
+            int maSPnumber = sharedFunction.convertToInteger(maSP.substring(2));
             if (maSPnumber == -1) {
-                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
                 ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByMaSP(maSPnumber);
                 if (!listSanPham.isEmpty()) {
                     loadTableSanPham(listSanPham, model);
@@ -990,8 +1006,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 }
             }
         }
-
     }
+}
+
 
   public static DefaultTableModel getModelSanPham() {
         return modelSanPham;

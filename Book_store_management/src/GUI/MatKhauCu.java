@@ -5,6 +5,8 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import java.awt.Cursor;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -22,9 +24,11 @@ public class MatKhauCu extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
     }
 
-    public JTextField getTfMatkhaucu() {
-        return tfMatkhaucu;
+    public JPasswordField getTxtPassword() {
+        return txtPassword;
     }
+
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,9 +42,12 @@ public class MatKhauCu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfMatkhaucu = new javax.swing.JTextField();
         btnXacnhan = new Components.ButtonRadius();
         btnHuy = new Components.ButtonRadius();
+        jLabel2 = new javax.swing.JLabel();
+        jpanelPassword = new Components.Jpanel();
+        txtPassword = new javax.swing.JPasswordField();
+        eyePassword = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,10 +75,6 @@ public class MatKhauCu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        tfMatkhaucu.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        tfMatkhaucu.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu cũ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        tfMatkhaucu.setPreferredSize(new java.awt.Dimension(64, 50));
-
         btnXacnhan.setForeground(new java.awt.Color(135, 172, 217));
         btnXacnhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnXacnhan.setText("Xác nhận");
@@ -85,6 +88,11 @@ public class MatKhauCu extends javax.swing.JFrame {
         btnXacnhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXacnhanMouseClicked(evt);
+            }
+        });
+        btnXacnhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacnhanActionPerformed(evt);
             }
         });
 
@@ -103,32 +111,121 @@ public class MatKhauCu extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(135, 172, 217));
+        jLabel2.setText("Mật khẩu cũ");
+
+        jpanelPassword.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelPassword.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelPassword.setRoundBottomLeft(40);
+        jpanelPassword.setRoundBottomRight(40);
+        jpanelPassword.setRoundTopLeft(40);
+        jpanelPassword.setRoundTopRight(40);
+        jpanelPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpanelPasswordFocusLost(evt);
+            }
+        });
+
+        txtPassword.setBackground(new java.awt.Color(243, 243, 244));
+        txtPassword.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
+        txtPassword.setForeground(new java.awt.Color(0, 0, 0));
+        txtPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtPassword.setBorder(null);
+        txtPassword.setEchoChar('\u0000');
+        txtPassword.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtPasswordFocusLost(evt);
+            }
+        });
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
+
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
+        eyePassword.setBorder(null);
+        eyePassword.setContentAreaFilled(false);
+        eyePassword.setFocusPainted(false);
+        eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseExited(evt);
+            }
+        });
+        eyePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eyePasswordActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelPasswordLayout = new javax.swing.GroupLayout(jpanelPassword);
+        jpanelPassword.setLayout(jpanelPasswordLayout);
+        jpanelPasswordLayout.setHorizontalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPasswordLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpanelPasswordLayout.setVerticalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(jpanelPasswordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfMatkhaucu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpanelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(tfMatkhaucu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jpanelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,6 +251,66 @@ public class MatKhauCu extends javax.swing.JFrame {
         // TODO add your handling code here:
         new TaiKhoanBUS().checkOldPass(this);
     }//GEN-LAST:event_btnXacnhanMouseClicked
+
+    private void btnXacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacnhanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXacnhanActionPerformed
+
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        // TODO add your handling code here:
+        if (txtPassword.getText().equals("Password")) {
+            txtPassword.setText("");
+            txtPassword.requestFocus();
+            txtPassword.setEchoChar('\u25CF');
+       
+        }
+    }//GEN-LAST:event_txtPasswordFocusGained
+
+    private void txtPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusLost
+        // TODO add your handling code here:
+        if (txtPassword.getText().equals("")) {
+            txtPassword.setEchoChar('\u0000');
+          
+        }
+    }//GEN-LAST:event_txtPasswordFocusLost
+
+    private void eyePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePasswordMouseClicked
+
+    private void eyePasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseEntered
+        // TODO add your handling code here:
+        eyePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_eyePasswordMouseEntered
+
+    private void eyePasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseExited
+        // TODO add your handling code here:
+        eyePassword.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_eyePasswordMouseExited
+
+    private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
+        // TODO add your handling code here:
+        String password = new String(txtPassword.getPassword());
+        if (password.equals("Password") || password.equals("")) {
+            // Nếu mật khẩu rỗng hoặc là "Password", không thay đổi EchoChar
+        } else {
+            if (txtPassword.getEchoChar() == 0) {
+                txtPassword.setEchoChar('\u25CF'); // Hiển thị mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
+            } else {
+                txtPassword.setEchoChar((char) 0); // Ẩn mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
+            }
+        }
+    }//GEN-LAST:event_eyePasswordActionPerformed
+
+    private void jpanelPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanelPasswordFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpanelPasswordFocusLost
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,9 +353,12 @@ public class MatKhauCu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnXacnhan;
+    private javax.swing.JButton eyePassword;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField tfMatkhaucu;
+    private Components.Jpanel jpanelPassword;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

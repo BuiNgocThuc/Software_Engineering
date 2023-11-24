@@ -623,6 +623,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtTimKiem.setText("Tìm kiếm sản phẩm");
         txtTimKiem.setBorder(null);
         txtTimKiem.setHighlighter(null);
+        txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTimKiemFocusGained(evt);
+            }
+        });
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
@@ -1143,6 +1148,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
             sharedFunction.openNewFrame(l);
         }
     }//GEN-LAST:event_timKiemTheoActionPerformed
+
+    private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemFocusGained
 //    public static String FormatMaHD(int MaHD) {
 //        return String.format("HD%02d", MaHD);
 //    }

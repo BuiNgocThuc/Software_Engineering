@@ -46,7 +46,9 @@ public class PhieuNhapBUS {
     public ArrayList<SanPhamDTO> loadSanPham() {
         return spDAO.selectAll();
     }
-
+  public ArrayList<PhieuNhapDTO> findPhieuNhapByMaPN(int maPN) {
+        return pnDAO.getLikeByID(maPN);
+    }
     public void NhapHang(NhapHangGUI cartImport) {
         String nameNCC = cartImport.getCbCongTy().getSelectedItem().toString();
         int IDNCC = pnDAO.queryByNameSupplier(nameNCC);

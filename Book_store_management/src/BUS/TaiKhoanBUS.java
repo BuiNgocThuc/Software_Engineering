@@ -117,15 +117,16 @@ public class TaiKhoanBUS {
                     displayName(currentAcc, layout);
                     PhanQuyen(listPer, layout);
                     acc.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
+                 
                 }
             }
         }
     }
 
     public void checkOldPass(MatKhauCu oldPass) {
-        String txtOldPass = oldPass.getTfMatkhaucu().getText();
-        boolean checkPass = currentAcc.getMatKhau().equals(txtOldPass);
+        String txtOldPass = new String(oldPass.getTxtPassword().getPassword());
+        if(!txtOldPass.isEmpty()){
+               boolean checkPass = currentAcc.getMatKhau().equals(txtOldPass);
         if (checkPass) {
             MatKhauMoiGUI newPass = new MatKhauMoiGUI();
             newPass.setVisible(true);
@@ -133,6 +134,10 @@ public class TaiKhoanBUS {
         } else {
             JOptionPane.showMessageDialog(null, "Mật khẩu không chính xác!");
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu");
+        }
+     
     }
 
     public void DoiMatKhau(MatKhauMoiGUI newPass) {

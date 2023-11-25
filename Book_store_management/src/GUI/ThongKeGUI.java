@@ -211,7 +211,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         pdfBtnDoanhThuTheoNam.setBorder(null);
         pdfBtnDoanhThuTheoNam.setForeground(new java.awt.Color(135, 172, 217));
-        pdfBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        pdfBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         pdfBtnDoanhThuTheoNam.setText("In PDF");
         pdfBtnDoanhThuTheoNam.setFocusPainted(false);
         pdfBtnDoanhThuTheoNam.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
@@ -236,7 +236,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         excelBtnDoanhThuTheoNam.setBorder(null);
         excelBtnDoanhThuTheoNam.setForeground(new java.awt.Color(135, 172, 217));
-        excelBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/back.png"))); // NOI18N
+        excelBtnDoanhThuTheoNam.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         excelBtnDoanhThuTheoNam.setText("Xuất Excel");
         excelBtnDoanhThuTheoNam.setFocusPainted(false);
         excelBtnDoanhThuTheoNam.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
@@ -303,8 +303,8 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addComponent(lblNamKetThuc)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbNamKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(198, 198, 198)
-                .addComponent(excelBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(172, 172, 172)
+                .addComponent(excelBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pdfBtnDoanhThuTheoNam, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -399,14 +399,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         pdfBtnTheoThang.setBorder(null);
         pdfBtnTheoThang.setForeground(new java.awt.Color(135, 172, 217));
-        pdfBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         pdfBtnTheoThang.setText("In pdf");
         pdfBtnTheoThang.setFocusPainted(false);
         pdfBtnTheoThang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         pdfBtnTheoThang.setMaximumSize(new java.awt.Dimension(100, 40));
         pdfBtnTheoThang.setPreferredSize(new java.awt.Dimension(100, 40));
         pdfBtnTheoThang.setRadius(40);
-        pdfBtnTheoThang.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pdfBtnTheoThang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pdfBtnTheoThangMouseEntered(evt);
@@ -423,14 +422,15 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         excelBtnTheoThang.setBorder(null);
         excelBtnTheoThang.setForeground(new java.awt.Color(135, 172, 217));
-        excelBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtnTheoThang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         excelBtnTheoThang.setText("Xuất excel");
         excelBtnTheoThang.setFocusPainted(false);
         excelBtnTheoThang.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
+        excelBtnTheoThang.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        excelBtnTheoThang.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         excelBtnTheoThang.setMaximumSize(new java.awt.Dimension(100, 40));
         excelBtnTheoThang.setPreferredSize(new java.awt.Dimension(100, 40));
         excelBtnTheoThang.setRadius(40);
-        excelBtnTheoThang.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         excelBtnTheoThang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 excelBtnTheoThangMouseEntered(evt);
@@ -457,11 +457,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(lblNam)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbNam, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(318, 318, 318)
-                        .addComponent(excelBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pdfBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 8, Short.MAX_VALUE)))
+                        .addGap(265, 265, 265)
+                        .addComponent(excelBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pdfBtnTheoThang, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelThongKeTheoThangLayout.setVerticalGroup(
@@ -489,7 +489,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             .addComponent(PanelThongKeTheoThang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(ThongKeTheoThangTrongNamLayout.createSequentialGroup()
                 .addComponent(jPanelChartThang, javax.swing.GroupLayout.PREFERRED_SIZE, 1002, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         ThongKeTheoThangTrongNamLayout.setVerticalGroup(
             ThongKeTheoThangTrongNamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -550,14 +550,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         btnThem3.setBorder(null);
         btnThem3.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         btnThem3.setText("In pdf");
         btnThem3.setFocusPainted(false);
         btnThem3.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem3.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem3.setPreferredSize(new java.awt.Dimension(100, 40));
         btnThem3.setRadius(40);
-        btnThem3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnThem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem3ActionPerformed(evt);
@@ -566,14 +565,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         btnThem5.setBorder(null);
         btnThem5.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         btnThem5.setText("Xuất excel");
         btnThem5.setFocusPainted(false);
         btnThem5.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem5.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem5.setPreferredSize(new java.awt.Dimension(100, 40));
         btnThem5.setRadius(40);
-        btnThem5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnThem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem5ActionPerformed(evt);
@@ -601,9 +599,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(lblNamKetThuc2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbThang, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(317, 317, 317)
-                        .addComponent(btnThem5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(277, 277, 277)
+                        .addComponent(btnThem5, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
                         .addComponent(btnThem3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
@@ -673,14 +671,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         btnThem6.setBorder(null);
         btnThem6.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         btnThem6.setText("In pdf");
         btnThem6.setFocusPainted(false);
         btnThem6.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem6.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem6.setPreferredSize(new java.awt.Dimension(100, 40));
         btnThem6.setRadius(40);
-        btnThem6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnThem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem6ActionPerformed(evt);
@@ -689,14 +686,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         btnThem8.setBorder(null);
         btnThem8.setForeground(new java.awt.Color(135, 172, 217));
-        btnThem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        btnThem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         btnThem8.setText("Xuất excel");
         btnThem8.setFocusPainted(false);
         btnThem8.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         btnThem8.setMaximumSize(new java.awt.Dimension(100, 40));
         btnThem8.setPreferredSize(new java.awt.Dimension(100, 40));
         btnThem8.setRadius(40);
-        btnThem8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnThem8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThem8ActionPerformed(evt);
@@ -735,7 +731,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelThongKeTheoThang2Layout.createSequentialGroup()
                 .addContainerGap(14, Short.MAX_VALUE)
-                .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelThongKeTheoThang2Layout.createSequentialGroup()
                         .addComponent(lblThoiGian3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -744,21 +740,21 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(DoanhThutgngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(DoanhThutgngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(262, 262, 262)
-                        .addComponent(btnThem8, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnThem8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnThem6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addGap(24, 24, 24))
         );
         PanelThongKeTheoThang2Layout.setVerticalGroup(
             PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelThongKeTheoThang2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnThem8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnThem6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnThem6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThem8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelThongKeTheoThang2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblThoiGian3, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(DoanhThuCbThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -858,14 +854,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         excelBtn.setBorder(null);
         excelBtn.setForeground(new java.awt.Color(135, 172, 217));
-        excelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         excelBtn.setText("Xuất excel");
         excelBtn.setFocusPainted(false);
         excelBtn.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         excelBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         excelBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         excelBtn.setRadius(40);
-        excelBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         excelBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 excelBtnMouseEntered(evt);
@@ -882,14 +877,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         pdfBtn.setBorder(null);
         pdfBtn.setForeground(new java.awt.Color(135, 172, 217));
-        pdfBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         pdfBtn.setText("In pdf");
         pdfBtn.setFocusPainted(false);
         pdfBtn.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         pdfBtn.setMaximumSize(new java.awt.Dimension(100, 40));
         pdfBtn.setPreferredSize(new java.awt.Dimension(100, 40));
         pdfBtn.setRadius(40);
-        pdfBtn.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pdfBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pdfBtnMouseEntered(evt);
@@ -934,6 +928,9 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addComponent(jPanelChartSanPhamBan, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(lblThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(CbThoiGianSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -945,17 +942,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(CbTieuChi, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTopSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(excelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(excelBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jPanelChartSanPhamBan, javax.swing.GroupLayout.PREFERRED_SIZE, 979, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addContainerGap(16, Short.MAX_VALUE))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -963,14 +957,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(excelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(CbThoiGianSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(lblThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(CbTieuChi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbTopSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbTopSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(excelBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pdfBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(spngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -1041,14 +1034,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         excelBtnTheLoai.setBorder(null);
         excelBtnTheLoai.setForeground(new java.awt.Color(135, 172, 217));
-        excelBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         excelBtnTheLoai.setText("Xuất excel");
         excelBtnTheLoai.setFocusPainted(false);
         excelBtnTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         excelBtnTheLoai.setMaximumSize(new java.awt.Dimension(100, 40));
         excelBtnTheLoai.setPreferredSize(new java.awt.Dimension(100, 40));
         excelBtnTheLoai.setRadius(40);
-        excelBtnTheLoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         excelBtnTheLoai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 excelBtnTheLoaiMouseEntered(evt);
@@ -1065,14 +1057,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         pdfBtnTheLoai.setBorder(null);
         pdfBtnTheLoai.setForeground(new java.awt.Color(135, 172, 217));
-        pdfBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfBtnTheLoai.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         pdfBtnTheLoai.setText("In pdf");
         pdfBtnTheLoai.setFocusPainted(false);
         pdfBtnTheLoai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         pdfBtnTheLoai.setMaximumSize(new java.awt.Dimension(100, 40));
         pdfBtnTheLoai.setPreferredSize(new java.awt.Dimension(100, 40));
         pdfBtnTheLoai.setRadius(40);
-        pdfBtnTheLoai.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pdfBtnTheLoai.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pdfBtnTheLoaiMouseEntered(evt);
@@ -1125,11 +1116,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(tlngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CbTieuChiTheLoai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CbTieuChiTheLoai, 0, 148, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbTopTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16)
-                        .addComponent(excelBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(excelBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(pdfBtnTheLoai, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18))
@@ -1235,14 +1226,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         excelThoiGian.setBorder(null);
         excelThoiGian.setForeground(new java.awt.Color(135, 172, 217));
-        excelThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        excelThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/excel.png"))); // NOI18N
         excelThoiGian.setText("Xuất excel");
         excelThoiGian.setFocusPainted(false);
         excelThoiGian.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         excelThoiGian.setMaximumSize(new java.awt.Dimension(100, 40));
         excelThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
         excelThoiGian.setRadius(40);
-        excelThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         excelThoiGian.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 excelThoiGianMouseEntered(evt);
@@ -1259,14 +1249,13 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
         pdfThoiGian.setBorder(null);
         pdfThoiGian.setForeground(new java.awt.Color(135, 172, 217));
-        pdfThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/add.png"))); // NOI18N
+        pdfThoiGian.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/pdf.png"))); // NOI18N
         pdfThoiGian.setText("In pdf");
         pdfThoiGian.setFocusPainted(false);
         pdfThoiGian.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 17)); // NOI18N
         pdfThoiGian.setMaximumSize(new java.awt.Dimension(100, 40));
         pdfThoiGian.setPreferredSize(new java.awt.Dimension(100, 40));
         pdfThoiGian.setRadius(40);
-        pdfThoiGian.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         pdfThoiGian.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pdfThoiGianMouseEntered(evt);
@@ -1288,9 +1277,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(lblThoiGian1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1299,11 +1286,11 @@ public final class ThongKeGUI extends javax.swing.JPanel {
                         .addComponent(tgngaybatdau, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tgngayketthuc, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(excelThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pdfThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
+                        .addComponent(excelThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(pdfThoiGian, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

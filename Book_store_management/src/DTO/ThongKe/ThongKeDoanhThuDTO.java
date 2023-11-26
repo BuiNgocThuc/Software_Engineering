@@ -24,9 +24,6 @@ public class ThongKeDoanhThuDTO {
         this.loiNhuan = loiNhuan;
     }
 
-
-
-
     public String getThoiGian() {
         return thoiGian;
     }

@@ -235,6 +235,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     public void getChucNang(ArrayList<CTQuyenDTO> listPer) {
+        String nameNewLabel= "";
         for (CTQuyenDTO cn : listPer) {
             setAction(cn.getHanhDong(), cn.getMaCN());
             switch (cn.getMaCN()) {
@@ -312,10 +313,15 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
                 default: //chức năng khác
                     String TenCN = cnBUS.getNameByID(cn.getMaCN());
+                    if(TenCN.equals(nameNewLabel)){
+                        continue;
+                    }
+                    nameNewLabel = TenCN;
                     JLabel newLabel = createNewMenu(TenCN);
                     pnListItem.add(newLabel);
                     listItems.add(newLabel);
                     newLabel.addMouseListener(new handleMouseEvent(pnContent, developGUI));
+                    
                     break;
             }
         }

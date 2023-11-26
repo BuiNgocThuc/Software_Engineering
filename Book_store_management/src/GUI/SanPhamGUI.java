@@ -13,9 +13,7 @@ import Util.sharedFunction;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Font;
 import java.util.ArrayList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -592,21 +590,13 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaMouseExited
 
     private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
-//        // TODO add your handling code here:
-//        if (txtTimKiem.getText().equals("Tìm kiếm")) {
-//            txtTimKiem.setText("");
-//
-////            txtTimKiem.requestFocus();
-//            removePlaceholderStyle(txtTimKiem);
-//        }
+     // TODO add your handling code here:
+
     }//GEN-LAST:event_txtTimKiemFocusGained
 
     private void txtTimKiemFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusLost
-//        // TODO add your handling code here:
-//        if (txtTimKiem.getText().equals("")) {
-//            addPlaceholderStyle(txtTimKiem, "Tìm kiếm");
-//            System.out.println("hi1" + txtTimKiem.getText());
-//        }
+      // TODO add your handling code here:
+
     }//GEN-LAST:event_txtTimKiemFocusLost
 
     private void txtTimKiemMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseEntered
@@ -699,15 +689,14 @@ public final class SanPhamGUI extends javax.swing.JPanel {
     private void timKiemTheoPopupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {//GEN-FIRST:event_timKiemTheoPopupMenuWillBecomeInvisible
         // TODO add your handling code here:
 
-// Lấy mô hình của ComboBox
-        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) timKiemTheo.getModel();
-
-// Kiểm tra xem mục đầu tiên có phải là "Chọn thể loại" không
-        if (model.getElementAt(0).equals("Tìm kiếm theo")) {
-            // Ẩn hoặc thay đổi mục "Chọn thể loại"
-            model.removeElement("Tìm kiếm theo"); // Để xóa mục
-            // Hoặc model.setElementAt("Một lựa chọn khác", 0); để thay đổi nó
-        }
+//        DefaultComboBoxModel<String> model = (DefaultComboBoxModel<String>) timKiemTheo.getModel();
+//
+//// Kiểm tra xem mục đầu tiên có phải là "Chọn thể loại" không
+//        if (model.getElementAt(0).equals("Tìm kiếm theo")) {
+//            // Ẩn hoặc thay đổi mục "Chọn thể loại"
+//            model.removeElement("Tìm kiếm theo"); // Để xóa mục
+//            // Hoặc model.setElementAt("Một lựa chọn khác", 0); để thay đổi nó
+//        }
     }//GEN-LAST:event_timKiemTheoPopupMenuWillBecomeInvisible
 
     private void timKiemTheoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_timKiemTheoFocusGained
@@ -821,13 +810,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
         return String.format("SP%02d", MaSP);
     }
 
-    private void addPlaceholderStyle(JTextField textField, String name) {
-        Font customFont = new Font("Tahoma", Font.BOLD, 16);
-        textField.setFont(customFont);
-        textField.setForeground(new Color(157, 185, 223));
-        textField.setText(name);
-
-    }
+  
 
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
@@ -929,7 +912,7 @@ public final class SanPhamGUI extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mã hoặc tên sản phẩm cần tìm kiếm.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         } else {
             // Nếu không rỗng, tiến hành  gọi phương thức từ lớp BUS để tìm kiếm 
-            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP(maSP);
+            ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByTenSP_or_MaSP(maSP);
             if (!listSanPham.isEmpty()) {
                 loadTableSanPham(listSanPham, model);
 
@@ -988,17 +971,33 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     }
 
-    public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
+ public void findSanPhamByMaSP(String maSP, DefaultTableModel model) {
+    if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
+        ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
+        loadTableSanPham(listSanPham, modelSanPham);
+    } else {
+        if (maSP.toUpperCase().startsWith("SP")) {
+            // Nếu chuỗi bắt đầu bằng "SP", tìm kiếm trong danh sách mã sản phẩm
+            String maSPDisplay = maSP.toUpperCase();
+            ArrayList<SanPhamDTO> filteredList = new ArrayList<>();
 
-        if (maSP.isEmpty() || maSP.trim().equals("Tìm kiếm theo mã sản phẩm")) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã sản phẩm.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            for (SanPhamDTO sanPham : sanPhamBUS.getAllSanPham()) {
+                      String maSPtext = sharedFunction.FormatID("SP", sanPham.getMaSP());
+                if (maSPtext.equals(maSPDisplay)) {
+                    filteredList.add(sanPham);
+                }
+            }
+
+            if (!filteredList.isEmpty()) {
+                loadTableSanPham(filteredList, model);
+            } else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            }
         } else {
-            int maSPnumber = sharedFunction.convertToInteger(maSP, "SP");
+            int maSPnumber = sharedFunction.convertToInteger(maSP.substring(2));
             if (maSPnumber == -1) {
-                // Nếu maSP không hợp lệ hoặc không thể chuyển thành số nguyên, thông báo 
                 JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                // MaSP có thể chuyển thành số nguyên, tiến hành gọi phương thức từ lớp BUS để tìm kiếm
                 ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.findSPByMaSP(maSPnumber);
                 if (!listSanPham.isEmpty()) {
                     loadTableSanPham(listSanPham, model);
@@ -1007,8 +1006,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
                 }
             }
         }
-
     }
+}
+
 
   public static DefaultTableModel getModelSanPham() {
         return modelSanPham;

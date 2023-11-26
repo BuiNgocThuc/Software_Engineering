@@ -483,30 +483,9 @@ public class CongTyGUI extends javax.swing.JPanel {
         return table;
     }
 
-    public void CustomizeCcolumnWidth(JTable table, int column1, int column2, int column3) {
+    
 
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Tắt tự động điều chỉnh rộng cột
-//       table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        TableColumnModel columnModel = table.getColumnModel();
-        // Tính tổng độ rộng của các cột cố định
-        int fixedColumnsWidth = column1 + column2 + column3;
-//    
-//    // Xác định độ rộng của cột cuối (cột 4) bằng phần còn lại của không gian
-        int column4 = 1003 - fixedColumnsWidth;
-
-        columnModel.getColumn(0).setPreferredWidth(column1); // Độ rộng cột 0
-        columnModel.getColumn(1).setPreferredWidth(column2); // Độ rộng cột 1
-        columnModel.getColumn(2).setPreferredWidth(column3); // Độ rộng cột 2
-        columnModel.getColumn(3).setPreferredWidth(column4); // Độ rộng cột 3
-    }
-
-    private void addPlaceholderStyle(JTextField textField, String name) {
-        Font customFont = new Font("Tahoma", Font.BOLD, 16);
-        textField.setFont(customFont);
-        textField.setForeground(new Color(157, 185, 223));
-        textField.setText(name);
-
-    }
+ 
 
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);

@@ -47,7 +47,9 @@ public class PhieuNhapBUS {
     public ArrayList<SanPhamDTO> loadSanPham() {
         return spDAO.selectAll();
     }
-
+  public ArrayList<PhieuNhapDTO> findPhieuNhapByMaPN(int maPN) {
+        return pnDAO.getLikeByID(maPN);
+    }
     public void NhapHang(NhapHangGUI cartImport) {
         String nameNCC = cartImport.getCbCongTy().getSelectedItem().toString();
         int IDNCC = pnDAO.queryByNameSupplier(nameNCC);
@@ -129,8 +131,8 @@ public class PhieuNhapBUS {
         cartImport.getTfIDHoadon().setText(IDPN);
         String nameNV = tkBUS.selectNameStaff(tkBUS.getCurrentAcc().getTenTK());
 
-        cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
-        cartImport.getTfNgaytao().setText(formattedDate);
+       cartImport.getTfIDNhanvien().setText(nameNV); // sửa sau
+        cartImport.getTfNgaytao().setText( formattedDate);
 
         cartImport.getTfIDHoadon().setFocusable(false);
         cartImport.getTfIDNhanvien().setFocusable(false);

@@ -118,21 +118,21 @@ public class TheLoaiDAO {
         return false;
     }
 
-    public boolean checkTheLoaiDaTonTaiSanPham(int MaTL) {
-        String query = "SELECT COUNT(*) FROM SanPham WHERE MaTL = ? AND TinhTrang = 1";
-        try {
-            Connection conn = ConnectDB.getConnection();
-            PreparedStatement pst = conn.prepareStatement(query);
-            pst.setInt(1, MaTL);
-            ResultSet resultSet = pst.executeQuery();
-            if (resultSet.next()) {
-                int count = resultSet.getInt(1);
-                return count > 0;
-            }
-        } catch (SQLException e) {
-        }
-        return false;
-    }
+//    public boolean checkTheLoaiDaTonTaiSanPham(int MaTL) {
+//        String query = "SELECT COUNT(*) FROM SanPham WHERE MaTL = ? AND TinhTrang = 1";
+//        try {
+//            Connection conn = ConnectDB.getConnection();
+//            PreparedStatement pst = conn.prepareStatement(query);
+//            pst.setInt(1, MaTL);
+//            ResultSet resultSet = pst.executeQuery();
+//            if (resultSet.next()) {
+//                int count = resultSet.getInt(1);
+//                return count > 0;
+//            }
+//        } catch (SQLException e) {
+//        }
+//        return false;
+//    }
 
     // thêm thể loại
     public boolean addTheLoai(TheLoaiDTO tl) {

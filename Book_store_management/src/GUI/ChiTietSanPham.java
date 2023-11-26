@@ -640,11 +640,11 @@ public class ChiTietSanPham extends javax.swing.JFrame {
         }
 
         // Kiểm tra thể loại
-        Object selectedItem = listTheLoai.getSelectedItem();
-        if (selectedItem == null) {
+        String selectedItem = listTheLoai.getSelectedItem().toString();
+        if (selectedItem.equals("Chọn thể loại")) {
             errors.add("Vui lòng chọn thể loại.");
             errorComponents.add(listTheLoai);
-        }
+        }          
 
         // Kiểm tra tác giả
         if (txtTacGia.getText().isEmpty()) {
@@ -655,14 +655,8 @@ public class ChiTietSanPham extends javax.swing.JFrame {
             txtTacGia.setBorder(originalBorder);
         }
 
-        // Kiểm tra combobox "tìm kiếm theo"
-        int selectedSearchIndex = listTheLoai.getSelectedIndex();
-        if (selectedSearchIndex == 0) {
-            errors.add("Vui lòng chọn thể loại.");
-            errorComponents.add(listTheLoai);
-        } else {
-            listTheLoai.setBorder(originalBorder);
-        }
+    
+  
         // Kiểm tra năm xuất bản
         if (txtNamXB.getText().isEmpty()) {
             errors.add("Vui lòng nhập năm xuất bản");

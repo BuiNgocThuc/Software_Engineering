@@ -5,6 +5,9 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import java.awt.Cursor;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
@@ -26,15 +29,15 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         return txtConfirmPass;
     }
 
-    public void setTxtConfirmPass(JTextField txtConfirmPass) {
-        this.txtConfirmPass = txtConfirmPass;
+    public void setTxtConfirmPass( JPasswordField ConfirmPass) {
+        this.txtConfirmPass = ConfirmPass;
     }
 
     public JTextField getTxtNewPass() {
         return txtNewPass;
     }
 
-    public void setTxtNewPass(JTextField txtNewPass) {
+    public void setTxtNewPass(JPasswordField txtNewPass) {
         this.txtNewPass = txtNewPass;
     }
 
@@ -47,13 +50,92 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jpanelPassword6 = new Components.Jpanel();
+        txtNewPass2 = new javax.swing.JPasswordField();
+        eyePassword6 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNewPass = new javax.swing.JTextField();
         btnXacnhan = new Components.ButtonRadius();
         btnHuy = new Components.ButtonRadius();
-        txtConfirmPass = new javax.swing.JTextField();
+        jpanelPassword = new Components.Jpanel();
+        txtNewPass = new javax.swing.JPasswordField();
+        eyePassword = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jpanelPassword7 = new Components.Jpanel();
+        txtConfirmPass = new javax.swing.JPasswordField();
+        eyePassword7 = new javax.swing.JButton();
+
+        jpanelPassword6.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelPassword6.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelPassword6.setRoundBottomLeft(40);
+        jpanelPassword6.setRoundBottomRight(40);
+        jpanelPassword6.setRoundTopLeft(40);
+        jpanelPassword6.setRoundTopRight(40);
+        jpanelPassword6.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpanelPassword6FocusLost(evt);
+            }
+        });
+
+        txtNewPass2.setBackground(new java.awt.Color(243, 243, 244));
+        txtNewPass2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNewPass2.setForeground(new java.awt.Color(0, 0, 0));
+        txtNewPass2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNewPass2.setBorder(null);
+        txtNewPass2.setEchoChar('\u0000');
+        txtNewPass2.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtNewPass2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNewPass2FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNewPass2FocusLost(evt);
+            }
+        });
+
+        eyePassword6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
+        eyePassword6.setBorder(null);
+        eyePassword6.setContentAreaFilled(false);
+        eyePassword6.setFocusPainted(false);
+        eyePassword6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eyePassword6MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eyePassword6MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eyePassword6MouseExited(evt);
+            }
+        });
+        eyePassword6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eyePassword6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelPassword6Layout = new javax.swing.GroupLayout(jpanelPassword6);
+        jpanelPassword6.setLayout(jpanelPassword6Layout);
+        jpanelPassword6Layout.setHorizontalGroup(
+            jpanelPassword6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPassword6Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(txtNewPass2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(eyePassword6, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpanelPassword6Layout.setVerticalGroup(
+            jpanelPassword6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eyePassword6, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(jpanelPassword6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtNewPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,10 +163,6 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        txtNewPass.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        txtNewPass.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Mật khẩu mới", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        txtNewPass.setPreferredSize(new java.awt.Dimension(64, 50));
-
         btnXacnhan.setForeground(new java.awt.Color(135, 172, 217));
         btnXacnhan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/fix.png"))); // NOI18N
         btnXacnhan.setText("Xác nhận");
@@ -98,6 +176,11 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         btnXacnhan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXacnhanMouseClicked(evt);
+            }
+        });
+        btnXacnhan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXacnhanActionPerformed(evt);
             }
         });
 
@@ -116,9 +199,155 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             }
         });
 
-        txtConfirmPass.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        txtConfirmPass.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "Nhập lại mật khẩu", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
-        txtConfirmPass.setPreferredSize(new java.awt.Dimension(64, 50));
+        jpanelPassword.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelPassword.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelPassword.setRoundBottomLeft(40);
+        jpanelPassword.setRoundBottomRight(40);
+        jpanelPassword.setRoundTopLeft(40);
+        jpanelPassword.setRoundTopRight(40);
+        jpanelPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpanelPasswordFocusLost(evt);
+            }
+        });
+
+        txtNewPass.setBackground(new java.awt.Color(243, 243, 244));
+        txtNewPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtNewPass.setForeground(new java.awt.Color(0, 0, 0));
+        txtNewPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNewPass.setBorder(null);
+        txtNewPass.setEchoChar('\u0000');
+        txtNewPass.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtNewPass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNewPassFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNewPassFocusLost(evt);
+            }
+        });
+
+        eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
+        eyePassword.setBorder(null);
+        eyePassword.setContentAreaFilled(false);
+        eyePassword.setFocusPainted(false);
+        eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseExited(evt);
+            }
+        });
+        eyePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eyePasswordActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelPasswordLayout = new javax.swing.GroupLayout(jpanelPassword);
+        jpanelPassword.setLayout(jpanelPasswordLayout);
+        jpanelPasswordLayout.setHorizontalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPasswordLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpanelPasswordLayout.setVerticalGroup(
+            jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(jpanelPasswordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(135, 172, 217));
+        jLabel2.setText("Xác nhận mật khẩu mới");
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(135, 172, 217));
+        jLabel3.setText("Mật khẩu mới");
+
+        jpanelPassword7.setBackground(new java.awt.Color(243, 243, 244));
+        jpanelPassword7.setPreferredSize(new java.awt.Dimension(208, 37));
+        jpanelPassword7.setRoundBottomLeft(40);
+        jpanelPassword7.setRoundBottomRight(40);
+        jpanelPassword7.setRoundTopLeft(40);
+        jpanelPassword7.setRoundTopRight(40);
+        jpanelPassword7.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jpanelPassword7FocusLost(evt);
+            }
+        });
+
+        txtConfirmPass.setBackground(new java.awt.Color(243, 243, 244));
+        txtConfirmPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtConfirmPass.setForeground(new java.awt.Color(0, 0, 0));
+        txtConfirmPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtConfirmPass.setBorder(null);
+        txtConfirmPass.setEchoChar('\u0000');
+        txtConfirmPass.setPreferredSize(new java.awt.Dimension(65, 20));
+        txtConfirmPass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtConfirmPassFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtConfirmPassFocusLost(evt);
+            }
+        });
+
+        eyePassword7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
+        eyePassword7.setBorder(null);
+        eyePassword7.setContentAreaFilled(false);
+        eyePassword7.setFocusPainted(false);
+        eyePassword7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eyePassword7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eyePassword7MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                eyePassword7MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                eyePassword7MouseExited(evt);
+            }
+        });
+        eyePassword7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eyePassword7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpanelPassword7Layout = new javax.swing.GroupLayout(jpanelPassword7);
+        jpanelPassword7.setLayout(jpanelPassword7Layout);
+        jpanelPassword7Layout.setHorizontalGroup(
+            jpanelPassword7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPassword7Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(eyePassword7, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jpanelPassword7Layout.setVerticalGroup(
+            jpanelPassword7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(eyePassword7, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addGroup(jpanelPassword7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtConfirmPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,29 +355,42 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txtConfirmPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpanelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jpanelPassword7, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpanelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpanelPassword7, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnXacnhan, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(btnXacnhan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -172,8 +414,144 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
 
     private void btnXacnhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXacnhanMouseClicked
         // TODO add your handling code here:
-        new TaiKhoanBUS().DoiMatKhau(this);
+       
     }//GEN-LAST:event_btnXacnhanMouseClicked
+
+    private void eyePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePasswordMouseClicked
+
+    private void eyePasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseEntered
+        // TODO add your handling code here:
+        eyePassword.setCursor(new Cursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_eyePasswordMouseEntered
+
+    private void eyePasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseExited
+        // TODO add your handling code here:
+        eyePassword.setCursor(Cursor.getDefaultCursor());
+    }//GEN-LAST:event_eyePasswordMouseExited
+
+    private void eyePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePasswordActionPerformed
+        // TODO add your handling code here:
+        String password = new String(txtNewPass.getPassword());
+        if (password.equals("Password") || password.equals("")) {
+            // Nếu mật khẩu rỗng hoặc là "Password", không thay đổi EchoChar
+        } else {
+            if (txtNewPass.getEchoChar() == 0) {
+                txtNewPass.setEchoChar('\u25CF'); // Hiển thị mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
+            } else {
+                txtNewPass.setEchoChar((char) 0); // Ẩn mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
+            }
+        }
+    }//GEN-LAST:event_eyePasswordActionPerformed
+
+    private void jpanelPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanelPasswordFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpanelPasswordFocusLost
+
+    private void txtNewPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPassFocusLost
+        // TODO add your handling code here:
+        if (txtNewPass.getText().equals("")) {
+            txtNewPass.setEchoChar('\u0000');
+          
+        }
+    }//GEN-LAST:event_txtNewPassFocusLost
+
+    private void txtNewPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPassFocusGained
+        // TODO add your handling code here:
+        if (txtNewPass.getText().equals("Password")) {
+            txtNewPass.setText("");
+            txtNewPass.requestFocus();
+            txtNewPass.setEchoChar('\u25CF');
+          
+        }
+    }//GEN-LAST:event_txtNewPassFocusGained
+
+    private void eyePassword6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword6MouseClicked
+
+    private void eyePassword6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword6MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword6MouseEntered
+
+    private void eyePassword6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword6MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword6MouseExited
+
+    private void eyePassword6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePassword6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword6ActionPerformed
+
+    private void jpanelPassword6FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanelPassword6FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpanelPassword6FocusLost
+
+    private void txtNewPass2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPass2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewPass2FocusLost
+
+    private void txtNewPass2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPass2FocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewPass2FocusGained
+
+    private void txtConfirmPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPassFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConfirmPassFocusGained
+
+    private void txtConfirmPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPassFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtConfirmPassFocusLost
+
+    private void eyePassword7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword7MouseClicked
+
+    private void eyePassword7MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword7MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword7MouseEntered
+
+    private void eyePassword7MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword7MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePassword7MouseExited
+
+    private void eyePassword7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyePassword7ActionPerformed
+        // TODO add your handling code here:
+           String password = new String(txtConfirmPass.getPassword());
+        if (password.equals("Password") || password.equals("")) {
+         
+        } else {
+            if (txtConfirmPass.getEchoChar() == 0) {
+                txtConfirmPass.setEchoChar('\u25CF'); // Hiển thị mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_open.png")));
+            } else {
+               txtConfirmPass.setEchoChar((char) 0); // Ẩn mật khẩu
+                eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("./../Assets/icon_24px/eye_close.png")));
+            }
+            
+        }
+    }//GEN-LAST:event_eyePassword7ActionPerformed
+
+    private void jpanelPassword7FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jpanelPassword7FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpanelPassword7FocusLost
+
+    private void btnXacnhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXacnhanActionPerformed
+        // TODO add your handling code here:
+          String Newpassword = new String(txtNewPass.getPassword());
+        if (Newpassword.equals("")) {
+         JOptionPane.showMessageDialog(null,"Vui lòng nhập  mật khẩu mới" );
+         return;
+        }
+        String Confimpassword = new String(txtConfirmPass.getPassword());
+        if (Confimpassword.equals("")) {
+         JOptionPane.showMessageDialog(null,"Vui lòng xác nhận mật khẩu mới" );
+         return;
+        }       
+         new TaiKhoanBUS().DoiMatKhau(this);
+    }//GEN-LAST:event_btnXacnhanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,10 +591,34 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnXacnhan;
+    private javax.swing.JButton eyePassword;
+    private javax.swing.JButton eyePassword1;
+    private javax.swing.JButton eyePassword2;
+    private javax.swing.JButton eyePassword3;
+    private javax.swing.JButton eyePassword5;
+    private javax.swing.JButton eyePassword6;
+    private javax.swing.JButton eyePassword7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelUsername3;
+    private javax.swing.JLabel jLabelUsername4;
+    private javax.swing.JLabel jLabelUsername5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField txtConfirmPass;
-    private javax.swing.JTextField txtNewPass;
+    private Components.Jpanel jpanelPassword;
+    private Components.Jpanel jpanelPassword1;
+    private Components.Jpanel jpanelPassword2;
+    private Components.Jpanel jpanelPassword3;
+    private Components.Jpanel jpanelPassword5;
+    private Components.Jpanel jpanelPassword6;
+    private Components.Jpanel jpanelPassword7;
+    private javax.swing.JPasswordField txtConfirmPass;
+    private javax.swing.JPasswordField txtNewPass;
+    private javax.swing.JPasswordField txtNewPass1;
+    private javax.swing.JPasswordField txtNewPass2;
+    private javax.swing.JPasswordField txtPassword1;
+    private javax.swing.JPasswordField txtPassword2;
+    private javax.swing.JPasswordField txtPassword3;
     // End of variables declaration//GEN-END:variables
 }

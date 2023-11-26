@@ -6,6 +6,7 @@ package DAO;
 
 import Connection.ConnectDB;
 import DTO.CongTyDTO;
+import DTO.HoaDonDTO;
 import DTO.PhieuNhapDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -173,6 +174,32 @@ public class PhieuNhapDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public ArrayList<PhieuNhapDTO> getLikeByID(int id) {
+        ArrayList<PhieuNhapDTO> ketQua = new ArrayList<>();
+        try {
+
+            Connection c = ConnectDB.getConnection();
+            String sql = "SELECT * FROM PhieuNhap WHERE MaPN like  ?";
+            PreparedStatement pst = c.prepareStatement(sql);
+            pst.setString(1, "%" + id + "%");
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPN = rs.getInt("MaPN");
+                String MaNCC = rs.getString("MaNCC");
+                String TenTK = rs.getNString("TenTK");
+                Date NgayTao = rs.getDate("NgayTao");
+                double TongTien = rs.getFloat("TongTien");
+                String TinhTrang = rs.getString("TinhTrang");
+                PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
+                ketQua.add(pn);
+            }
+            ConnectDB.closeConnection(c);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ketQua;
     }
 
     public boolean Them(PhieuNhapDTO pn) {

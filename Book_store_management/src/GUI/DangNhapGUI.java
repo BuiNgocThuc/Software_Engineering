@@ -174,6 +174,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         BTNdangNhap.setBorder(null);
         BTNdangNhap.setForeground(new java.awt.Color(152, 179, 214));
         BTNdangNhap.setText("Đăng nhập ");
+        BTNdangNhap.setFocusPainted(false);
         BTNdangNhap.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         BTNdangNhap.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BTNdangNhap.setMargin(new java.awt.Insets(2, 0, 8, 0));
@@ -206,6 +207,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
         txtUsername.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtUsername.setText("Username");
         txtUsername.setBorder(null);
+        txtUsername.setNextFocusableComponent(txtPassword);
         txtUsername.setPreferredSize(new java.awt.Dimension(65, 20));
         txtUsername.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -288,8 +290,12 @@ public class DangNhapGUI extends javax.swing.JFrame {
         eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
         eyePassword.setBorder(null);
         eyePassword.setContentAreaFilled(false);
+        eyePassword.setFocusPainted(false);
         eyePassword.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         eyePassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eyePasswordMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 eyePasswordMouseEntered(evt);
             }
@@ -561,6 +567,10 @@ public class DangNhapGUI extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void eyePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eyePasswordMouseClicked
 
     /**
      * @param args the command line arguments

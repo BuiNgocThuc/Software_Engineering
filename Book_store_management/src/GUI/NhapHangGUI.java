@@ -857,7 +857,8 @@ public final class NhapHangGUI extends javax.swing.JPanel {
             double percent = (double) phanTram / 100;
             double loiNhuan = price * percent;
             double giaBan = BigDecimal.valueOf(price).add(BigDecimal.valueOf(loiNhuan)).doubleValue(); // tính giá bán = giá nhập * phần trăm lợi nhuận
-            double totalPriceDbl = (double) price * quantity;
+            long totalPriceDbl = (long) price * quantity;
+            
             Object[] row = {
                 IDSanPham, quantity, totalPriceDbl, giaBan, "", ""
             };
@@ -881,19 +882,22 @@ public final class NhapHangGUI extends javax.swing.JPanel {
         tfSoluong.setText("");
         tfDongia.setText("");
         tfPhanTram.setText("");
+        lblHinhAnh.setIcon(null);
+        lblHinhAnh.setText("Hình ảnh");
+       
     }
 
     public void getTotalCart() {
         int rowCount = modelCartImport.getRowCount();
-        int totalPrice = 0;
+        long totalPrice = 0;
 
         for (int i = 0; i < rowCount; i++) {
             Object value = modelCartImport.getValueAt(i, 2);
             String stringValue = value.toString(); // Chuyển đổi giá trị thành chuỗi
-            totalPrice += Double.parseDouble(stringValue);
+            totalPrice += Long.parseLong(stringValue);
         }
 
-        tfTongtien.setText(totalPrice + "");
+        tfTongtien.setText(sharedFunction.formatVND(totalPrice));
     }
 
     public int existProduct(String id) {
@@ -1033,7 +1037,7 @@ public final class NhapHangGUI extends javax.swing.JPanel {
                 } else if (columnIndex == 4 || columnIndex == 5) { // Cột Đơn giá
                     return ImageIcon.class; // Kiểu dữ liệu Icon
                 }else if(columnIndex == 2 || columnIndex == 3) {
-                    return Double.class;
+                    return Long.class;
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
             }

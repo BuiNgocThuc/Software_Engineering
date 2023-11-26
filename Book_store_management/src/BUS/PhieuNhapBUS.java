@@ -13,6 +13,7 @@ import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import GUI.NhapHangGUI;
 import GUI.PhieuNhapGUI;
+import Util.sharedFunction;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +64,8 @@ public class PhieuNhapBUS {
             e.printStackTrace();
         }
         Date ngayLap = new Date(startDate.getTime());
-        double TongTien = Double.parseDouble(cartImport.getTfTongtien().getText());
+        String total = cartImport.getTfTongtien().getText();
+        long TongTien = (long) sharedFunction.parseMoneyString(total);
         PhieuNhapDTO pn = new PhieuNhapDTO(1, IDNCC + "", TenTK, TongTien, ngayLap, "1");
         boolean res = pnDAO.Them(pn);
 
@@ -231,7 +233,7 @@ public class PhieuNhapBUS {
         importInfo.getTfNgayLap().setText(pnSelected.getNgayTao() + "");
         String nameNCC = pnDAO.selectSupplierByID(pnSelected.getMaNCC());
         importInfo.getTfCongTy().setText(nameNCC);
-        importInfo.getTfTongTien().setText(pnSelected.getTongTien() + "");
+        importInfo.getTfTongTien().setText(sharedFunction.formatVND(pnSelected.getTongTien()));
 
         ArrayList<CTPhieuNhapDTO> listCTPN = ctpnBUS.selectByID(Integer.parseInt(idPN));
         for (CTPhieuNhapDTO ctpn : listCTPN) {
@@ -239,9 +241,9 @@ public class PhieuNhapBUS {
             String idSPText = String.format("SP%02d", idSP);
             String nameSP = pnDAO.getNameSPByID(idSP);
             int soLuong = ctpn.getSoLuong();
-            double donGiaNhap = ctpn.getDonGia() * soLuong;
+            long tongGiaNhap = (long) ctpn.getDonGia() * soLuong;
 
-            Object[] rowSP = {idSPText, nameSP, soLuong, donGiaNhap};
+            Object[] rowSP = {idSPText, nameSP, soLuong, sharedFunction.formatVND(tongGiaNhap)};
 
             importInfo.getModelImportDetai().addRow(rowSP);
         }

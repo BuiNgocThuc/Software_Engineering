@@ -114,9 +114,9 @@ public class PhieuNhapDAO {
             while (rs.next()) {
                 int MaPN = rs.getInt("MaPN");
                 String MaNCC = rs.getString("MaNCC");
-                String TenTK = rs.getNString("TenTK");
+                String TenTK = rs.getString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
-                double TongTien = rs.getFloat("TongTien");
+                long TongTien = rs.getLong("TongTien");
                 String TinhTrang = rs.getString("TinhTrang");
 
                 PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
@@ -163,7 +163,7 @@ public class PhieuNhapDAO {
                 String MaNCC = rs.getString("MaNCC");
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
-                double TongTien = rs.getFloat("TongTien");
+                long TongTien = rs.getLong("TongTien");
                 String TinhTrang = rs.getString("TinhTrang");
 
                 PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
@@ -190,7 +190,7 @@ public class PhieuNhapDAO {
                 String MaNCC = rs.getString("MaNCC");
                 String TenTK = rs.getNString("TenTK");
                 Date NgayTao = rs.getDate("NgayTao");
-                double TongTien = rs.getFloat("TongTien");
+                long TongTien = rs.getLong("TongTien");
                 String TinhTrang = rs.getString("TinhTrang");
                 PhieuNhapDTO pn = new PhieuNhapDTO(MaPN, MaNCC, TenTK, TongTien, NgayTao, TinhTrang);
                 ketQua.add(pn);

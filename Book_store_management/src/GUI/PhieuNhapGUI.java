@@ -81,7 +81,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                     String maPN = modelPhieuNhap.getValueAt(tablePhieunhap.getSelectedRow(), 1).toString();
                     String maSP = modelImportDetail.getValueAt(row, 0).toString();
                     int soLuong = Integer.parseInt(modelImportDetail.getValueAt(row, 2).toString());
-                    double thanhTien = Double.parseDouble(modelImportDetail.getValueAt(row, 3).toString());
+                    long thanhTien = (long) sharedFunction.parseMoneyString(modelImportDetail.getValueAt(row, 3).toString());
                     double donGia = thanhTien / soLuong;
 
                     ctpnGUI.getTxtIDPhieuNhap().setText(maPN);
@@ -576,8 +576,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
         // TODO add your handling code here:
         String searchKeyword = tfTimkiem.getText().trim();
-        if (searchKeyword.isEmpty()|| searchKeyword.equals("Tìm kiếm theo mã phiếu nhập")) {
-            ArrayList<PhieuNhapDTO>  dspn = pnBUS.loadPhieuNhap();
+        if (searchKeyword.isEmpty() || searchKeyword.equals("Tìm kiếm theo mã phiếu nhập")) {
+            ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
             loadDataTablePhieuNhap(dspn, modelPhieuNhap);
         }
         findPhieuNhapByMaPN(tfTimkiem.getText(), modelPhieuNhap);
@@ -609,7 +609,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
         // TODO add your handling code here:
-        pnBUS.createTableImport(modelPhieuNhap);
+        ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
+        loadDataTablePhieuNhap(dspn, modelPhieuNhap);
     }//GEN-LAST:event_btnLammoiActionPerformed
 
     private void tfIDHoadonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIDHoadonActionPerformed
@@ -785,7 +786,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 if (columnIndex == 2) { // Cột STT và Số lượng
                     return Integer.class; // Kiểu dữ liệu Integer
                 } else if (columnIndex == 3) { // Cột Đơn giá
-                    return Float.class; // Kiểu dữ liệu Float
+                    return Long.class; // Kiểu dữ liệu Float
                 } else if (columnIndex == 4 || columnIndex == 5) {
                     return ImageIcon.class;
                 }
@@ -822,7 +823,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                     return Integer.class; // Kiểu dữ liệu Integer
 
                 } else if (columnIndex == 4) { // Cột Đơn giá
-                    return Double.class; // Kiểu dữ liệu Float
+                    return Long.class; // Kiểu dữ liệu Float
 
                 }
                 return String.class; // Các cột khác có kiểu dữ liệu String
@@ -845,45 +846,45 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     }
 
     public void findPhieuNhapByMaPN(String maPN, DefaultTableModel model) {
-       ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
+        ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
 
-    if (maPN.isEmpty() || maPN.trim().equals("Tìm kiếm theo mã phiếu nhập")) {
-        loadDataTablePhieuNhap(dspn, modelPhieuNhap);
-    } else {
-        if (maPN.toUpperCase().startsWith("PN")) {
-            // Nếu chuỗi bắt đầu bằng "PN", tìm kiếm trong danh sách mã hóa đơn
-            String maPNDisplay = maPN.toUpperCase();
-            ArrayList<PhieuNhapDTO> filteredList = new ArrayList<>();
-
-            for (PhieuNhapDTO phieuNhap : dspn) {
-                  String maPNtext = sharedFunction.FormatID("PN", phieuNhap.getMaPN());
-                if (maPNtext.equals(maPNDisplay)) {
-                    filteredList.add(phieuNhap);
-                }
-            }
-
-            if (!filteredList.isEmpty()) {
-                loadDataTablePhieuNhap(filteredList, model);
-            } else {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            }
+        if (maPN.isEmpty() || maPN.trim().equals("Tìm kiếm theo mã phiếu nhập")) {
+            loadDataTablePhieuNhap(dspn, modelPhieuNhap);
         } else {
-            int maPNnumber = sharedFunction.convertToInteger(maPN);
-            if (maPNnumber == -1) {
-                JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                ArrayList<PhieuNhapDTO> listPhieuNhap = pnBUS.findPhieuNhapByMaPN(maPNnumber);
-                if (!listPhieuNhap.isEmpty()) {
-                    loadDataTablePhieuNhap(listPhieuNhap, model);
+            if (maPN.toUpperCase().startsWith("PN")) {
+                // Nếu chuỗi bắt đầu bằng "PN", tìm kiếm trong danh sách mã hóa đơn
+                String maPNDisplay = maPN.toUpperCase();
+                ArrayList<PhieuNhapDTO> filteredList = new ArrayList<>();
+
+                for (PhieuNhapDTO phieuNhap : dspn) {
+                    String maPNtext = sharedFunction.FormatID("PN", phieuNhap.getMaPN());
+                    if (maPNtext.equals(maPNDisplay)) {
+                        filteredList.add(phieuNhap);
+                    }
+                }
+
+                if (!filteredList.isEmpty()) {
+                    loadDataTablePhieuNhap(filteredList, model);
                 } else {
                     JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                int maPNnumber = sharedFunction.convertToInteger(maPN);
+                if (maPNnumber == -1) {
+                    JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    ArrayList<PhieuNhapDTO> listPhieuNhap = pnBUS.findPhieuNhapByMaPN(maPNnumber);
+                    if (!listPhieuNhap.isEmpty()) {
+                        loadDataTablePhieuNhap(listPhieuNhap, model);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Không tìm thấy kết quả.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
             }
         }
     }
-    }
 
-    public void loadDataTablePhieuNhap(ArrayList<PhieuNhapDTO> listPhieuNhap, DefaultTableModel modelPhieuNhap) {
+    public static void loadDataTablePhieuNhap(ArrayList<PhieuNhapDTO> listPhieuNhap, DefaultTableModel modelPhieuNhap) {
         modelPhieuNhap.setRowCount(0);
         int STT = 1;
         for (PhieuNhapDTO pn : listPhieuNhap) {
@@ -891,7 +892,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             String maPNtext = sharedFunction.FormatID("PN", maPN);
             String maNV = pn.getTenTK();
             Date ngayLap = pn.getNgayTao();
-            Double TongTien = pn.getTongTien();
+            long TongTien = pn.getTongTien();
             String TongTienText = sharedFunction.formatVND(TongTien);
             Object[] row = {STT++, maPNtext, maNV, ngayLap, TongTienText};
             modelPhieuNhap.addRow(row);

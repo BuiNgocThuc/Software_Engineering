@@ -60,7 +60,6 @@ public class CongTyDAO {
                 Boolean TinhTrang = rs.getBoolean("TinhTrang");
 
                 ctyDto = new CongTyDTO(MaNCC, TenNCC, SDT, DiaChi, TinhTrang);
-                System.out.println(ctyDto.toString());
             }
             ConnectDB.closeConnection(conn);
         } catch (SQLException e) {

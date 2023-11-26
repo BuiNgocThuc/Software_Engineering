@@ -433,13 +433,10 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="lblRole" min="-2" pref="114" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="27" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="lblName" max="32767" attributes="0"/>
+                              <Component id="lblRole" max="32767" attributes="0"/>
+                              <Component id="lblName" pref="153" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblSetting" min="-2" pref="41" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       </Group>

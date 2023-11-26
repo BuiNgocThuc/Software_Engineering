@@ -57,7 +57,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         instance = this;
         //this.setUndecorated(true);
         initComponents();
-        //designComp();
+//        designComp();
         this.setLocationRelativeTo(null);
         sharedFunction.moveLayout(this, pnContainer);
         spnMenu.getVerticalScrollBar().setUnitIncrement(16);

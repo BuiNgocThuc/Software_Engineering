@@ -110,6 +110,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 450));
 
         jPanel2.setBackground(new java.awt.Color(135, 172, 217));
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 40));
@@ -253,9 +254,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 444, Short.MAX_VALUE)
         );
 
         pack();

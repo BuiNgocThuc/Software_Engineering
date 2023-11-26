@@ -72,12 +72,12 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(500, 150));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(400, 560));
+        setPreferredSize(new java.awt.Dimension(400, 570));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 500));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 560));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 570));
 
         jPanel2.setBackground(new java.awt.Color(135, 172, 217));
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 40));
@@ -238,7 +238,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();

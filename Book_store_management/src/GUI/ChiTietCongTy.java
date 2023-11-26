@@ -64,6 +64,9 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         setLocation(new java.awt.Point(600, 200));
         setUndecorated(true);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(418, 502));
+
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
         lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThongTinChiTiet.setForeground(new java.awt.Color(238, 242, 250));
@@ -191,7 +194,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -213,6 +216,8 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
         } else {
+            int id= Integer.parseInt(txtID.getText().substring(4));
+            cty.setMaNCC(id);
             cty.setTenNCC(txtName.getText());
             cty.setSDT(txtSDT.getText());
             cty.setDiaChi(txtDiaChi.getText());

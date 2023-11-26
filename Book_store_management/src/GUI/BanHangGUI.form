@@ -603,7 +603,7 @@
                               <EmptySpace min="16" pref="16" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnChon" min="-2" pref="117" max="-2" attributes="0"/>
+                              <Component id="btnChon" min="-2" pref="108" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>

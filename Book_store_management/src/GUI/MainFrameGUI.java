@@ -5,9 +5,11 @@
 package GUI;
 
 import BUS.ChucNangBUS;
+import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.CTQuyenDTO;
 import DTO.ChucNangDTO;
+import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
@@ -48,6 +50,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     ChucNangBUS cnBUS = new ChucNangBUS();
     private static ArrayList<ChucNangDTO> dscn = new ArrayList<>();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    PhieuNhapBUS pnBUS = new PhieuNhapBUS();
     private static JFrame instance;
 
     public MainFrameGUI() {
@@ -670,6 +673,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblPhieuNhap.setText("Phiếu nhập");
         lblPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhieuNhap.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPhieuNhapMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblPhieuNhap);
 
         lblThongKe.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -733,10 +741,8 @@ public class MainFrameGUI extends javax.swing.JFrame {
             .addGroup(pnInfoLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(pnInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnInfoLayout.createSequentialGroup()
-                        .addComponent(lblRole, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 27, Short.MAX_VALUE))
-                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(lblRole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(lblSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
@@ -924,6 +930,12 @@ public class MainFrameGUI extends javax.swing.JFrame {
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         SanPhamGUI.loadTableSanPham(listSanPham, NhapHangGUI.getModelSanPham());
     }//GEN-LAST:event_lblNhapHangMouseClicked
+
+    private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
+        // TODO add your handling code here:
+                ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
+        PhieuNhapGUI.loadDataTablePhieuNhap(dspn, PhieuNhapGUI.getModelPhieuNhap());
+    }//GEN-LAST:event_lblPhieuNhapMouseClicked
 
     public static JFrame getMainFrameInstance() {
         return instance;

@@ -13,10 +13,10 @@ import java.util.Date;
 public class PhieuNhapDTO {
     private int MaPN;
     private String MaNCC, TenTK, TinhTrang;
-    private double TongTien;
+    private long TongTien;
     private Date NgayTao;
 
-    public PhieuNhapDTO(int MaPN, String MaNCC, String TenTK, double TongTien, Date NgayTao, String TinhTrang) {
+    public PhieuNhapDTO(int MaPN, String MaNCC, String TenTK, long TongTien, Date NgayTao, String TinhTrang) {
         this.MaPN = MaPN;
         this.MaNCC = MaNCC;
         this.TenTK = TenTK;
@@ -57,11 +57,11 @@ public class PhieuNhapDTO {
         this.TenTK = TenTK;
     }
 
-    public double getTongTien() {
+    public long getTongTien() {
         return TongTien;
     }
 
-    public void setTongTien(double TongTien) {
+    public void setTongTien(long TongTien) {
         this.TongTien = TongTien;
     }
 

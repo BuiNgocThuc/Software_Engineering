@@ -19,10 +19,12 @@ public class BillFormGUI extends javax.swing.JFrame {
      * Creates new form BillFormGUI
      */
         public BillFormGUI() {
+            this.setUndecorated(true);
         initComponents();
     }
 
     public BillFormGUI(String IDhoaDon, String TenNV, String TienKhachDua, String TienThoi, String TongTien, String NgayTao, DefaultTableModel model) {
+        this.setUndecorated(true);
         initComponents();
         for (int i = 0; i < model.getRowCount(); i++) {
             String tenSanPham = (String) model.getValueAt(i, 1);

@@ -51,7 +51,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         ThongKeDoanhThuTungNgayTrongThang();
         ThongKeDoanhThuTuNgayDenNgay();
         thongKeSanPhamBanTrongKhoangThoiGian();
-        thongKeSanPhamBanTrongKhoangThoiGian();
+        thongKeTheLoaiBanTrongKhoangThoiGian();
         thongKeHoaDonTrongKhoangThoiGian();
         formatTable();
     }

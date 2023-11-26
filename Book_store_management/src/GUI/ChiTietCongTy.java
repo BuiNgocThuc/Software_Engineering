@@ -62,6 +62,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(600, 200));
+        setUndecorated(true);
 
         lblThongTinChiTiet.setBackground(new java.awt.Color(134, 172, 218));
         lblThongTinChiTiet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -72,7 +73,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         lblThongTinChiTiet.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblThongTinChiTiet.setOpaque(true);
 
-        txtID.setEditable(false);
+        txtID.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtID.setActionCommand("<Not Set>");
         txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtID.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -86,12 +87,14 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         lblID2.setForeground(new java.awt.Color(148, 181, 222));
         lblID2.setText("Tên Nhà Cung Cấp");
 
+        txtName.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
         lblID5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         lblID5.setForeground(new java.awt.Color(148, 181, 222));
         lblID5.setText("Số điện thoại");
 
+        txtSDT.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtSDT.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
 
         lblID6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
@@ -122,6 +125,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
             }
         });
 
+        txtDiaChi.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(txtDiaChi);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -172,7 +176,8 @@ public class ChiTietCongTy extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonRadius1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -186,8 +191,8 @@ public class ChiTietCongTy extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -203,6 +208,8 @@ public class ChiTietCongTy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên không được để trống");
         } else if (txtSDT.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "SĐT không được để trống");
+        } else if (txtSDT.getText().equals("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "SĐT phải có 10 số");
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
         } else {
@@ -213,10 +220,12 @@ public class ChiTietCongTy extends javax.swing.JFrame {
             CongTyBUS ctyBus = new CongTyBUS();
             if (Model == 1) {
                 if (ctyBus.insertCongTy(cty)) {
+                    CongTyGUI.update();
                     setVisible(false);
                 }
             } else {
                 if (ctyBus.updateCongTy(cty)) {
+                    CongTyGUI.update();
                     setVisible(false);
                 }
             }

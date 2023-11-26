@@ -9,8 +9,11 @@ import BUS.TaiKhoanBUS;
 import DAO.NhanVienDAO;
 import DTO.NhanVienDTO;
 import DTO.TaiKhoanDTO;
+import Util.sharedFunction;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,6 +33,10 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         initComponents();
         loadTenTaiKhoan();
         loadMaQuyen();
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        date.setDate(today);
+        
     }
 
     public void loadMaQuyen() {
@@ -44,9 +51,9 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     }
 
     public void loadTenTaiKhoan() {
-        ArrayList<NhanVienDTO> listnv = nvbus.selectAll();
+        ArrayList<NhanVienDTO> listnv = nvbus.selectAllChuaTaoTK();
         cboName.removeAllItems();
-        cboName.addItem("");
+        cboName.addItem("Chọn Tên tài khoản");
         for (int i = 0; i < listnv.size(); i++) {
             String name = listnv.get(i).getMaNV();
             cboName.addItem(name);
@@ -58,15 +65,11 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         cboName.setSelectedItem(tk.getTenTK());
         txtMatKhau.setText(tk.getMatKhau());
         date.setDate(tk.getNgayTao());
-        cboQuyen.setSelectedIndex(Integer.parseInt(tk.getMaQuyen()));
-        if(tk.getTinhTrang().equals("1")){
-            cboTrangThai.setSelectedIndex(1);
-        }else{
-            cboTrangThai.setSelectedIndex(2);
-        }
+        cboQuyen.setSelectedItem((tk.getMaQuyen()));
     }
-    public void setId(int id){
-        txtId.setText("TK"+id);
+    
+    public void setID(){
+        txtId.setText(sharedFunction.FormatID("TK", tkbus.selectLastId()+1));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -86,8 +89,6 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         btnTimkiem1 = new Components.ButtonRadius();
         jLabel3 = new javax.swing.JLabel();
         cboQuyen = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        cboTrangThai = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         date = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
@@ -95,6 +96,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(600, 200));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
@@ -173,22 +175,17 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         cboQuyen.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Admin", "Saler", "Stoker", "Manager" }));
         cboQuyen.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
-        jLabel4.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(135, 172, 217));
-        jLabel4.setText("Trạng thái");
-
-        cboTrangThai.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hoạt động", "Khóa" }));
-        cboTrangThai.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
-
         jLabel5.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(135, 172, 217));
         jLabel5.setText("Tên tài khoản");
+
+        date.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 16)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(135, 172, 217));
         jLabel6.setText("Ngày lập");
 
+        cboName.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         cboName.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -209,13 +206,10 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
                     .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboQuyen, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cboTrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cboName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))))
+                        .addComponent(jLabel3)))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,29 +218,25 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cboName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtMatKhau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(1, 1, 1)
                 .addComponent(cboQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addGap(1, 1, 1)
-                .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnTimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnTimkiem1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,7 +247,9 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -277,8 +269,6 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ngày không được để trống");
         } else if (cboQuyen.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Quyền chưa được chọn");
-        } else if (cboTrangThai.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Trạng thái chưa được chọn");
         } else {
             //String cv = cboChucVu.getSelectedItem().toString();
             //int chucvu = nvDao.getIdChucVu(cv);
@@ -289,6 +279,7 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
                     tk.setNgayTao(date.getDate());
                     tk.setMaQuyen(cboQuyen.getSelectedItem().toString());
                     if (tkbus.insertTaiKhoan(tk)) {
+                        TaiKhoanGUI.update();
                         setVisible(false);
                     }
                 } else {
@@ -301,13 +292,9 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
                 tk.setMatKhau(txtMatKhau.getText());
                 tk.setNgayTao(date.getDate());
                 tk.setMaQuyen(cboQuyen.getSelectedItem().toString());
-                if(cboTrangThai.getSelectedIndex()==1){
-                    tk.setTinhTrang("true");
-                }
-                else{
-                    tk.setTinhTrang("false");
-                }
+                
                 if (tkbus.updateTaiKhoan(tk)) {
+                    TaiKhoanGUI.update();
                     setVisible(false);
                 }
             }
@@ -364,11 +351,9 @@ public class ChiTietTaiKhoan extends javax.swing.JFrame {
     private Components.ButtonRadius btnTimkiem1;
     private javax.swing.JComboBox<String> cboName;
     private javax.swing.JComboBox<String> cboQuyen;
-    private javax.swing.JComboBox<String> cboTrangThai;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

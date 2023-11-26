@@ -17,8 +17,8 @@ public class CongTyBUS {
 
     CongTyDAO ctyDao = new CongTyDAO();
 
-    public ArrayList<CongTyDTO> selectAll() {
-        return ctyDao.selectAll();
+    public static ArrayList<CongTyDTO> selectAll() {
+        return CongTyDAO.selectAll();
     }
     public ArrayList<CongTyDTO> searchCongTy(String tukhoa) {
         return ctyDao.searchCongTy(tukhoa);

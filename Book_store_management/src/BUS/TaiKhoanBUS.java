@@ -27,15 +27,15 @@ public class TaiKhoanBUS {
     private String tenTK, matKhau;
     private static TaiKhoanDTO currentAcc;
 
-    public ArrayList<TaiKhoanDTO> selectAll() {
-        return tkDAO.selectAll();
+    public static ArrayList<TaiKhoanDTO> selectAll() {
+        return TaiKhoanDAO.selectAll();
     }
 
     public static TaiKhoanDTO getCurrentAcc() {
         return currentAcc;
     }
 
-    public void createTableAccount(DefaultTableModel modelTaiKhoan) {
+    public static void createTableAccount(DefaultTableModel modelTaiKhoan) {
         ArrayList<TaiKhoanDTO> listAccount = selectAll();
         modelTaiKhoan.setRowCount(0);
         int STT = 1;
@@ -43,7 +43,7 @@ public class TaiKhoanBUS {
             String MaTK = "TK" + acc.getMaTK();
             String TenTK = acc.getTenTK();
             String MatKhau = acc.getMatKhau();
-            String TenNQ = nqDAO.selectNameByID(acc.getMaQuyen());
+            String TenNQ = NhomQuyenDAO.selectNameByID(acc.getMaQuyen());
             String NgayTao = acc.getNgayTao().toString();
             Object[] row = {STT++, MaTK, TenTK, MatKhau, TenNQ, NgayTao};
             modelTaiKhoan.addRow(row);

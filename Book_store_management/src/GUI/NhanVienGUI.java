@@ -36,7 +36,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienGUI
      */
-    JTable tableNhanvien = new JTable();
+    private static JTable tableNhanvien = new JTable();
 
     public NhanVienGUI() {
         initComponents();
@@ -49,8 +49,28 @@ public class NhanVienGUI extends javax.swing.JPanel {
         PanelTable.add(scrollPaneSanPham);
         loadData(tableNhanvien);
     }
-    private static int count = 1;
-
+    
+    public static void update(){
+        DefaultTableModel model = (DefaultTableModel) tableNhanvien.getModel();
+        model.setRowCount(0);
+        count = 1;
+        NhanVienBUS nvBus = new NhanVienBUS();
+        ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
+        for (int i = 0; i < listnv.size(); i++) {
+            String manv = listnv.get(i).getMaNV();
+            String tennv = listnv.get(i).getTenNV();
+            String gioitinh = listnv.get(i).getGioiTinh();
+            String chucvu = getChucVu(manv);
+            if (chucvu == null) {
+                chucvu = "Chưa phân công";
+            }
+            String sdt = listnv.get(i).getSDT();
+            String email = listnv.get(i).getEmail();
+            String diachi = listnv.get(i).getDiaChi();
+            model.addRow(new Object[]{count++, manv, tennv, gioitinh, chucvu, sdt, email, diachi});
+        }
+    }
+    private static int count = 1;    
     public void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
@@ -73,7 +93,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
 
     }
 
-    public String getChucVu(String id) {
+    public static String getChucVu(String id) {
         NhanVienBUS nvBus = new NhanVienBUS();
         return nvBus.getChucVu(id);
     }
@@ -168,7 +188,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         tfTimkiem.setBackground(new java.awt.Color(243, 243, 244));
         tfTimkiem.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         tfTimkiem.setForeground(new java.awt.Color(135, 172, 217));
-        tfTimkiem.setText("Tìm kiếm sản phẩm");
+        tfTimkiem.setText("Tìm kiếm nhân viên");
         tfTimkiem.setBorder(null);
         tfTimkiem.setHighlighter(null);
         tfTimkiem.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -338,7 +358,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         ChiTietNhanVien ctnv = new ChiTietNhanVien();
         ctnv.Model = 1;
-        ctnv.setFocusable(1);
+        ctnv.setID();
         ctnv.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -347,7 +367,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             ChiTietNhanVien ctnv = new ChiTietNhanVien();
             ctnv.Model = 2;
-            ctnv.setFocusable(2);
+
             String id = (String) (tableNhanvien.getValueAt(tableNhanvien.getSelectedRow(), 1));
             ctnv.setData(id);
             ctnv.setVisible(true);
@@ -357,7 +377,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSua1ActionPerformed
 
     private void btnLammoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLammoiActionPerformed
-        tfTimkiem.setText("Tìm kiếm công ty");
+        tfTimkiem.setText("Tìm kiếm nhân viên");
         count = 1;
         loadData(tableNhanvien);
     }//GEN-LAST:event_btnLammoiActionPerformed
@@ -373,7 +393,14 @@ public class NhanVienGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_tfTimkiemFocusLost
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
-        TimKiem();
+        String searchKeyword = tfTimkiem.getText().trim();
+        System.err.println(searchKeyword);
+        if (searchKeyword.isEmpty() || searchKeyword.equals("Tìm kiếm nhân viên")) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy");
+        } else {
+            TimKiem();
+        }
+
     }//GEN-LAST:event_btnTimkiemActionPerformed
     public void TimKiem() {
         ArrayList<NhanVienDTO> nvTK = new ArrayList<>();

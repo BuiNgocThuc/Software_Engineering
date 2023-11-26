@@ -174,10 +174,10 @@ public class TaiKhoanBUS {
     public boolean updateTaiKhoan(TaiKhoanDTO tk) {
         int check = tkDAO.Sua(tk);
         if (check > 0) {
-            JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công");
+            JOptionPane.showMessageDialog(null, "Sửa tài khoản thành công");
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, "Thêm tài khoản thất bại");
+            JOptionPane.showMessageDialog(null, "Sửa tài khoản thất bại");
             return false;
         }
     }

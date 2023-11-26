@@ -252,9 +252,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống");
         } else if (txtSdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống");
-        } else if (txtSdt.getText().equals("\\d{10}")) {
+        } else if (txtSdt.getText().matches("\\d{10}")) {
             JOptionPane.showMessageDialog(this, "SĐT phải có 10 số");
-        } else if (txtEmail.getText().equals("")) {
+        } else if (txtEmail.getText().matches("")) {
             JOptionPane.showMessageDialog(this, "Email không được để trống");
         } else if (txtEmail.getText().equals(".*@gmail\\.com")) {
             JOptionPane.showMessageDialog(this, "Email không hợp lệ");

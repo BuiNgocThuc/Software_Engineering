@@ -230,8 +230,9 @@ public class TaiKhoanDAO {
             pst.setString(2, taiKhoan.getMatKhau());
             pst.setInt(3, quyen);
             pst.setString(4, new SimpleDateFormat("yyyy-MM-dd").format(taiKhoan.getNgayTao()));
-            pst.setBoolean(5, Boolean.parseBoolean(taiKhoan.getTinhTrang()));
-            pst.setString(6, taiKhoan.getMaTK());
+            pst.setBoolean(5, true);
+            int id= Integer.parseInt(taiKhoan.getMaTK().substring(2));
+            pst.setInt(6, id);
 
             ketQua = pst.executeUpdate();
 

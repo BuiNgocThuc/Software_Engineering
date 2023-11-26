@@ -5,9 +5,11 @@
 package GUI;
 
 import BUS.ChucNangBUS;
+import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.CTQuyenDTO;
 import DTO.ChucNangDTO;
+import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
 import java.awt.Color;
@@ -48,6 +50,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     ChucNangBUS cnBUS = new ChucNangBUS();
     private static ArrayList<ChucNangDTO> dscn = new ArrayList<>();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    PhieuNhapBUS pnBUS = new PhieuNhapBUS();
     private static JFrame instance;
 
     public MainFrameGUI() {
@@ -670,6 +673,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblPhieuNhap.setText("Phiếu nhập");
         lblPhieuNhap.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblPhieuNhap.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblPhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPhieuNhapMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblPhieuNhap);
 
         lblThongKe.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -922,6 +930,12 @@ public class MainFrameGUI extends javax.swing.JFrame {
         ArrayList<SanPhamDTO> listSanPham = sanPhamBUS.getAllSanPham();
         SanPhamGUI.loadTableSanPham(listSanPham, NhapHangGUI.getModelSanPham());
     }//GEN-LAST:event_lblNhapHangMouseClicked
+
+    private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
+        // TODO add your handling code here:
+                ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
+        PhieuNhapGUI.loadDataTablePhieuNhap(dspn, PhieuNhapGUI.getModelPhieuNhap());
+    }//GEN-LAST:event_lblPhieuNhapMouseClicked
 
     public static JFrame getMainFrameInstance() {
         return instance;

@@ -208,7 +208,7 @@ public class ChiTietCongTy extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên không được để trống");
         } else if (txtSDT.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "SĐT không được để trống");
-        } else if (txtSDT.getText().matches("\\d{10}")) {
+        } else if (!txtSDT.getText().matches("\\d{10}")) {
             JOptionPane.showMessageDialog(this, "SĐT phải có 10 số");
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");

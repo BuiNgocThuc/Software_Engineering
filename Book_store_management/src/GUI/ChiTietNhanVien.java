@@ -71,13 +71,13 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(500, 150));
-        setMaximumSize(new java.awt.Dimension(647, 2147483647));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(400, 560));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
         jPanel1.setMinimumSize(new java.awt.Dimension(400, 500));
-        jPanel1.setPreferredSize(new java.awt.Dimension(400, 500));
+        jPanel1.setPreferredSize(new java.awt.Dimension(400, 560));
 
         jPanel2.setBackground(new java.awt.Color(135, 172, 217));
         jPanel2.setMaximumSize(new java.awt.Dimension(500, 40));
@@ -209,13 +209,13 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(12, 12, 12)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(cboGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(txtSdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -246,17 +246,15 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
 
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         NhanVienDTO nv = new NhanVienDTO();
-        if (txtId.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "ID nhân viên không được để trống");
-        } else if (txtName.getText().equals("")) {
+        if (txtName.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống");
         } else if (txtSdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống");
-        } else if (txtSdt.getText().matches("\\d{10}")) {
+        } else if (!txtSdt.getText().matches("\\d{10}")) {
             JOptionPane.showMessageDialog(this, "SĐT phải có 10 số");
-        } else if (txtEmail.getText().matches("")) {
+        } else if (txtEmail.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Email không được để trống");
-        } else if (txtEmail.getText().equals(".*@gmail\\.com")) {
+        } else if (!txtEmail.getText().matches(".*@gmail\\.com")) {
             JOptionPane.showMessageDialog(this, "Email không hợp lệ");
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
@@ -266,34 +264,50 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
             //String cv = cboChucVu.getSelectedItem().toString();
             //int chucvu = nvDao.getIdChucVu(cv);
             if (Model == 1) {
-                if (checkExistId(txtId.getText())) {
-                    nv.setMaNV(txtId.getText());
-                    nv.setTenNV(txtName.getText());
-                    nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
-                    nv.setSDT(txtSdt.getText());
-                    nv.setEmail(txtEmail.getText());
-                    nv.setDiaChi(txtDiaChi.getText());
-                    nv.setTinhTrang("Đang làm việc");
-                    if (nvBus.insertNhanVien(nv)) {
-                        NhanVienGUI.update();
-                        setVisible(false);
+                if (checkExistSdt(txtSdt.getText())) {
+                    if (checkExistEmail(txtEmail.getText())) {
+                        nv.setMaNV(txtId.getText());
+                        nv.setTenNV(txtName.getText());
+                        nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+                        nv.setSDT(txtSdt.getText());
+                        nv.setEmail(txtEmail.getText());
+                        nv.setDiaChi(txtDiaChi.getText());
+                        nv.setTinhTrang("Đang làm việc");
+                        if (nvBus.insertNhanVien(nv)) {
+                            NhanVienGUI.update();
+                            setVisible(false);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Email này đã có");
                     }
+
                 } else {
-                    JOptionPane.showMessageDialog(this, "Mã nhân viên này đã có");
+                    JOptionPane.showMessageDialog(this, "Số điện thoại này đã có");
                 }
 
             } else {
-                nv.setMaNV(txtId.getText());
-                nv.setTenNV(txtName.getText());
-                nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
-                nv.setSDT(txtSdt.getText());
-                nv.setEmail(txtEmail.getText());
-                nv.setDiaChi(txtDiaChi.getText());
-                nv.setTinhTrang("Đang làm việc");
-                if (nvBus.updateNhanVien(nv)) {
-                    NhanVienGUI.update();
-                    setVisible(false);
+
+                if (checkExistSdt(txtSdt.getText())) {
+                    if (checkExistEmail(txtEmail.getText())) {
+                        nv.setMaNV(txtId.getText());
+                        nv.setTenNV(txtName.getText());
+                        nv.setGioiTinh(cboGioiTinh.getSelectedItem().toString());
+                        nv.setSDT(txtSdt.getText());
+                        nv.setEmail(txtEmail.getText());
+                        nv.setDiaChi(txtDiaChi.getText());
+                        nv.setTinhTrang("Đang làm việc");
+                        if (nvBus.updateNhanVien(nv)) {
+                            NhanVienGUI.update();
+                            setVisible(false);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Email này đã có");
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Số điện thoại này đã có");
                 }
+
             }
         }
 
@@ -308,6 +322,28 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
         for (int i = 0; i < listnv.size(); i++) {
             if (id.toLowerCase().equals(listnv.get(i).getMaNV().toLowerCase())) {
+                System.out.println("false");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkExistSdt(String sdt) {
+        ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
+        for (int i = 0; i < listnv.size(); i++) {
+            if (sdt.toLowerCase().equals(listnv.get(i).getSDT().toLowerCase())) {
+                System.out.println("false");
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean checkExistEmail(String email) {
+        ArrayList<NhanVienDTO> listnv = nvBus.selectAll();
+        for (int i = 0; i < listnv.size(); i++) {
+            if (email.toLowerCase().equals(listnv.get(i).getEmail().toLowerCase())) {
                 System.out.println("false");
                 return false;
             }

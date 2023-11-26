@@ -124,10 +124,9 @@ public class CTPhieuNhapDAO {
             Connection conn = ConnectDB.getConnection();
             String sql = "UPDATE SanPham SET SoLuong=?, DonGia=? WHERE MaSP=?";
             PreparedStatement pst = conn.prepareStatement(sql);
-
-            double giaBan = (double) DonGia * 120 / 100;
+            
             pst.setInt(1, SoLuong);
-            pst.setDouble(2, giaBan);
+            pst.setDouble(2, DonGia);
             pst.setInt(3, MaSP);
             rowUpdate = pst.executeUpdate() > 0;
             ConnectDB.closeConnection(conn);

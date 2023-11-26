@@ -6,6 +6,7 @@ package BUS;
 
 import DAO.NhomQuyenDAO;
 import DAO.TaiKhoanDAO;
+import DTO.CTQuyenDTO;
 import DTO.NhanVienDTO;
 import DTO.TaiKhoanDTO;
 import GUI.DangNhapGUI;
@@ -53,7 +54,7 @@ public class TaiKhoanBUS {
     public TaiKhoanDTO selectByUsername(String username) {
         return tkDAO.selectByUsername(username);
     }
-    
+
     public TaiKhoanDTO selectById(int id) {
         return tkDAO.selectById(id);
     }
@@ -62,7 +63,7 @@ public class TaiKhoanBUS {
         return currentPass.equals(inputPass);
     }
 
-    public void PhanQuyen(ArrayList<String> lisrPer, MainFrameGUI layout) {
+    public void PhanQuyen(ArrayList<CTQuyenDTO> listPer, MainFrameGUI layout) {
         layout.getLblBanHang().setVisible(false);
         layout.getLblCongTy().setVisible(false);
         layout.getLblHoaDon().setVisible(false);
@@ -73,32 +74,10 @@ public class TaiKhoanBUS {
         layout.getLblSanPham().setVisible(false);
         layout.getLblTaiKhoan().setVisible(false);
         layout.getLblThongKe().setVisible(false);
-
-        for (String per : lisrPer) {
-            switch (per) {
-                case "1" ->
-                    layout.getLblTaiKhoan().setVisible(true);
-                case "2" ->
-                    layout.getLblPhanQuyen().setVisible(true);
-                case "3" ->
-                    layout.getLblSanPham().setVisible(true);
-                case "4" ->
-                    layout.getLblNhapHang().setVisible(true);
-                case "5" ->
-                    layout.getLblBanHang().setVisible(true);
-                case "6" ->
-                    layout.getLblPhieuNhap().setVisible(true);
-                case "7" ->
-                    layout.getLblHoaDon().setVisible(true);
-                case "8" ->
-                    layout.getLblNhanVien().setVisible(true);
-                case "9" ->
-                    layout.getLblCongTy().setVisible(true);
-                case "10" ->
-                    layout.getLblThongKe().setVisible(true);
-            }
-        }
+        layout.setInittialButtonState();
+        layout.getChucNang(listPer);
     }
+
     public String selectNameStaff(String TenTK) {
         return tkDAO.selectStaffByID(TenTK);
     }
@@ -131,22 +110,23 @@ public class TaiKhoanBUS {
                     return;
                 } else {
                     String maQuyen = currentAcc.getMaQuyen();
-                    ArrayList<String> lisrPer = new CTPhanQuyenBUS().getPerByRole(maQuyen);
+                    int MaNQ = Integer.parseInt(maQuyen);
+                    ArrayList<CTQuyenDTO> listPer = new CTPhanQuyenBUS().getPerByRole(MaNQ);
                     MainFrameGUI layout = new MainFrameGUI();
                     layout.setVisible(true);
                     displayName(currentAcc, layout);
-                    //PhanQuyen(lisrPer, layout);
+                    PhanQuyen(listPer, layout);
                     acc.setVisible(false);
-                    JOptionPane.showMessageDialog(null, "Đăng nhập thành công!");
-                    System.out.println(currentAcc.getTenTK());
+                 
                 }
             }
         }
     }
 
     public void checkOldPass(MatKhauCu oldPass) {
-        String txtOldPass = oldPass.getTfMatkhaucu().getText();
-        boolean checkPass = currentAcc.getMatKhau().equals(txtOldPass);
+        String txtOldPass = new String(oldPass.getTxtPassword().getPassword());
+        if(!txtOldPass.isEmpty()){
+               boolean checkPass = currentAcc.getMatKhau().equals(txtOldPass);
         if (checkPass) {
             MatKhauMoiGUI newPass = new MatKhauMoiGUI();
             newPass.setVisible(true);
@@ -154,6 +134,10 @@ public class TaiKhoanBUS {
         } else {
             JOptionPane.showMessageDialog(null, "Mật khẩu không chính xác!");
         }
+        }else{
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập mật khẩu");
+        }
+     
     }
 
     public void DoiMatKhau(MatKhauMoiGUI newPass) {
@@ -176,23 +160,24 @@ public class TaiKhoanBUS {
         return tkDAO.Xoa(ID) != 0;
     }
 
-    public boolean insertTaiKhoan(TaiKhoanDTO tk){
+    public boolean insertTaiKhoan(TaiKhoanDTO tk) {
         int check = tkDAO.Them(tk);
-        if(check>0){
+        if (check > 0) {
             JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công");
             return true;
-        }else{
-            JOptionPane.showMessageDialog(null,"Thêm tài khoản thất bại");
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm tài khoản thất bại");
             return false;
         }
     }
-    public boolean updateTaiKhoan(TaiKhoanDTO tk){
+
+    public boolean updateTaiKhoan(TaiKhoanDTO tk) {
         int check = tkDAO.Sua(tk);
-        if(check>0){
+        if (check > 0) {
             JOptionPane.showMessageDialog(null, "Thêm tài khoản thành công");
             return true;
-        }else{
-            JOptionPane.showMessageDialog(null,"Thêm tài khoản thất bại");
+        } else {
+            JOptionPane.showMessageDialog(null, "Thêm tài khoản thất bại");
             return false;
         }
     }

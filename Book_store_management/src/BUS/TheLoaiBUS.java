@@ -39,9 +39,6 @@ public class TheLoaiBUS {
     }
 
     public boolean deleteTheLoaiByMaTL(int maTL) {
-        if (theLoaiDAO.checkTheLoaiDaTonTaiSanPham(maTL)) {
-            return false;
-        }
         return theLoaiDAO.deleteTheLoaiByMaTL(maTL);
     }
 

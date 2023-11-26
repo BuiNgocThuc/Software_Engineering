@@ -9,9 +9,10 @@ package DTO;
  * @author NGOC THUC
  */
 public class CTQuyenDTO {
-    private String MaCTQ, MaQuyen, MaCN, HanhDong, TinhTrang;
+    private String HanhDong;
+    private int MaQuyen, MaCN, MaCTQ, TinhTrang;
 
-    public CTQuyenDTO(String MaCTQ, String MaQuyen, String MaCN, String HanhDong, String TinhTrang) {
+    public CTQuyenDTO(int MaCTQ, int MaQuyen, int MaCN, String HanhDong, int TinhTrang) {
         this.MaCTQ = MaCTQ;
         this.MaQuyen = MaQuyen;
         this.MaCN = MaCN;
@@ -19,27 +20,27 @@ public class CTQuyenDTO {
         this.TinhTrang = TinhTrang;
     }
 
-    public String getMaCTQ() {
+    public int getMaCTQ() {
         return MaCTQ;
     }
 
-    public void setMaCTQ(String MaCTQ) {
+    public void setMaCTQ(int MaCTQ) {
         this.MaCTQ = MaCTQ;
     }
 
-    public String getMaQuyen() {
+    public int getMaQuyen() {
         return MaQuyen;
     }
 
-    public void setMaQuyen(String MaQuyen) {
+    public void setMaQuyen(int MaQuyen) {
         this.MaQuyen = MaQuyen;
     }
 
-    public String getMaCN() {
+    public int getMaCN() {
         return MaCN;
     }
 
-    public void setMaCN(String MaCN) {
+    public void setMaCN(int MaCN) {
         this.MaCN = MaCN;
     }
 
@@ -51,11 +52,11 @@ public class CTQuyenDTO {
         this.HanhDong = HanhDong;
     }
 
-    public String getTinhTrang() {
+    public int getTinhTrang() {
         return TinhTrang;
     }
 
-    public void setTinhTrang(String TinhTrang) {
+    public void setTinhTrang(int TinhTrang) {
         this.TinhTrang = TinhTrang;
     }
     

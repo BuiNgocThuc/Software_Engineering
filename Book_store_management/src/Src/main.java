@@ -13,8 +13,9 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author NGOC THUC
  */
 public class main {
+
     public static void main(String[] args) {
-       try {
+        try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException
                 | UnsupportedLookAndFeelException e) {

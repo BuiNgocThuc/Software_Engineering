@@ -44,6 +44,9 @@ public class SanPhamBUS {
         return sanPhamDAO.Update(sp);
     }
     
+      public ArrayList<SanPhamDTO>  searchProducts(String tenSP, String theLoai, String tacGia, Double giaBatDau, Double giaKetThuc){
+        return sanPhamDAO.searchProducts(tenSP, theLoai, tacGia, giaBatDau, giaKetThuc);
+    }
     public ArrayList<SanPhamDTO> findSPByTenSP_or_MaSP(String temp) {
         return sanPhamDAO.findSPByTenSP_or_MaSP(temp);
     }

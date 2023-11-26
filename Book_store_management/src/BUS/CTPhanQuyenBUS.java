@@ -5,6 +5,7 @@
 package BUS;
 
 import DAO.CTPhanQuyenDAO;
+import DTO.CTQuyenDTO;
 import java.util.ArrayList;
 
 /**
@@ -14,7 +15,38 @@ import java.util.ArrayList;
 public class CTPhanQuyenBUS {
     CTPhanQuyenDAO ctpqDAO = new CTPhanQuyenDAO();
     
-    public ArrayList<String> getPerByRole(String MaQuyen) {
+     public ArrayList<CTQuyenDTO> getListCTQ(int MaNQ) {
+        return ctpqDAO.selectByID(MaNQ);
+    }
+    
+    public ArrayList<CTQuyenDTO> getPerByRole(int MaQuyen) {
         return ctpqDAO.getPerByRole(MaQuyen);
+    }
+    
+    public boolean TaoCTQuyen(ArrayList<CTQuyenDTO> listCTQ) {
+        boolean res = false;
+        for(CTQuyenDTO ctq : listCTQ) {
+            res = ctpqDAO.Them(ctq);
+        }
+        return res;
+    }
+    
+    public boolean SuaCTQuyen(ArrayList<CTQuyenDTO> listCTQ, int MaNQ) {
+        boolean res = false;
+        
+        boolean deleteCTQ = XoaCTQuyen(MaNQ);
+        
+        if(deleteCTQ){
+            res = TaoCTQuyen(listCTQ);
+        }
+        return res;
+    }
+    
+    public boolean XoaCTQuyen(int MaNQ) {
+        return ctpqDAO.Xoa(MaNQ);
+    }
+    
+    public boolean XoaByMaCN(int MaCN) {
+        return ctpqDAO.XoaByMaCN(MaCN);
     }
 }

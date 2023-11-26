@@ -4,6 +4,24 @@
  */
 package GUI;
 
+import BUS.ChucNangBUS;
+import DTO.ChucNangDTO;
+import Util.sharedFunction;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.MatteBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author NGOC THUC
@@ -13,8 +31,93 @@ public class ChiTietChucNang extends javax.swing.JFrame {
     /**
      * Creates new form ChiTietChucNang
      */
-    public ChiTietChucNang() {
+    private static JTable tblAction;
+    private static DefaultTableModel modelAction;
+    ChucNangBUS cnBUS = new ChucNangBUS();
+    private PhanQuyenGUI nqGUI;
+
+    public ChiTietChucNang(PhanQuyenGUI nqGUI) {
+        this.nqGUI = nqGUI;
+        this.setUndecorated(true);
         initComponents();
+        createTable();
+        this.setLocationRelativeTo(null);
+    }
+
+    public JTextField getTxtID() {
+        return txtID;
+    }
+
+    public JTextField getTxtName() {
+        return txtName;
+    }
+
+    public static JTable getTblAction() {
+        return tblAction;
+    }
+
+    public static DefaultTableModel getModelAction() {
+        return modelAction;
+    }
+
+    public void createTable() {
+        String[] columnNames = {"Hành Động", "Lựa Chọn"};
+        Object[][] data = {{"Thêm", false}, {"Sửa", false}, {"Xóa", false}, {"Truy Cập", true}};
+        modelAction = new DefaultTableModel() {
+            @Override
+            public Class<?> getColumnClass(int columnIndex) {
+                switch (columnIndex) {
+                    case 1:
+                        return Boolean.class;
+                    default:
+                        return String.class;
+                }
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return column == 1 && row != 3;
+            }
+
+        };
+        modelAction.setDataVector(data, columnNames);
+        // Tạo JTable với DefaultTableModel
+        tblAction = new JTable(modelAction);
+
+        TableColumnModel columnModel = tblAction.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(177); // Độ rộng cột 0
+        columnModel.getColumn(1).setPreferredWidth(177); // Độ rộng cột 1
+
+        sharedFunction.EditHeaderTable(tblAction);
+        editTableContent(tblAction);
+
+        tblAction.setPreferredScrollableViewportSize(pnTable.getPreferredSize());
+        JScrollPane scrollPaneSanPham = new JScrollPane(tblAction);
+        MatteBorder matteBorder = new MatteBorder(0, 1, 1, 1, new Color(164, 191, 226));
+        scrollPaneSanPham.setBorder(matteBorder);
+        pnTable.setLayout(new BorderLayout());
+        pnTable.add(scrollPaneSanPham);
+    }
+
+    public void editTableContent(JTable table) {
+        int rowHeight = 40;
+        table.setRowHeight(rowHeight);
+        table.setGridColor(new Color(153, 184, 224));
+        table.setShowGrid(true);
+        table.setBackground(Color.WHITE);
+        table.setSelectionForeground(new Color(253, 191, 84));
+        table.setSelectionBackground(Color.WHITE);
+        table.setFocusable(false);
+        table.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        Font font = new Font("Segoe UI", Font.PLAIN, 14);
+        table.setFont(font);
+        // Căn giữa nội dung trong các ô chữ
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        for (int i = 0; i < table.getColumnCount() - 1; i++) {
+            table.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            table.setEditingColumn(i);
+        }
     }
 
     /**
@@ -30,14 +133,17 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         lblID2 = new javax.swing.JLabel();
         lblThongTinChiTiet2 = new javax.swing.JLabel();
         lblTenTheLoai2 = new javax.swing.JLabel();
-        txtID2 = new javax.swing.JTextField();
+        txtID = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
         btnHuy = new Components.ButtonRadius();
         btnLuu = new Components.ButtonRadius();
+        pnTable = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(400, 500));
 
         PanelOverview2.setBackground(new java.awt.Color(255, 255, 255));
+        PanelOverview2.setPreferredSize(new java.awt.Dimension(400, 500));
 
         lblID2.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 18)); // NOI18N
         lblID2.setForeground(new java.awt.Color(148, 181, 222));
@@ -56,19 +162,20 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         lblTenTheLoai2.setForeground(new java.awt.Color(148, 181, 222));
         lblTenTheLoai2.setText("Tên Chức Năng");
 
-        txtID2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        txtID2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtID2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
-        txtID2.setDisabledTextColor(new java.awt.Color(187, 187, 187));
-        txtID2.setFocusable(false);
-        txtID2.addActionListener(new java.awt.event.ActionListener() {
+        txtID.setBackground(new java.awt.Color(255, 255, 255));
+        txtID.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        txtID.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtID.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
+        txtID.setDisabledTextColor(new java.awt.Color(187, 187, 187));
+        txtID.setFocusable(false);
+        txtID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtID2ActionPerformed(evt);
+                txtIDActionPerformed(evt);
             }
         });
 
         txtName.setBackground(new java.awt.Color(255, 255, 255));
-        txtName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        txtName.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         txtName.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtName.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(190, 210, 235), 2));
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -121,28 +228,41 @@ public class ChiTietChucNang extends javax.swing.JFrame {
             }
         });
 
+        pnTable.setPreferredSize(new java.awt.Dimension(0, 200));
+
+        javax.swing.GroupLayout pnTableLayout = new javax.swing.GroupLayout(pnTable);
+        pnTable.setLayout(pnTableLayout);
+        pnTableLayout.setHorizontalGroup(
+            pnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        pnTableLayout.setVerticalGroup(
+            pnTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 203, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout PanelOverview2Layout = new javax.swing.GroupLayout(PanelOverview2);
         PanelOverview2.setLayout(PanelOverview2Layout);
         PanelOverview2Layout.setHorizontalGroup(
             PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblThongTinChiTiet2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(PanelOverview2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(25, 25, 25)
                 .addGroup(PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelOverview2Layout.createSequentialGroup()
                         .addComponent(lblID2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(PanelOverview2Layout.createSequentialGroup()
-                        .addGroup(PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(PanelOverview2Layout.createSequentialGroup()
-                                    .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
-                                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtID2, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(lblTenTheLoai2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 20, Short.MAX_VALUE))))
+                        .addGroup(PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelOverview2Layout.createSequentialGroup()
+                                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE)
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtName)
+                            .addComponent(txtID)
+                            .addComponent(lblTenTheLoai2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnTable, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                        .addGap(0, 21, Short.MAX_VALUE))))
         );
         PanelOverview2Layout.setVerticalGroup(
             PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,16 +271,18 @@ public class ChiTietChucNang extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblID2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtID2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTenTheLoai2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnTable, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelOverview2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,9 +301,9 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtID2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtID2ActionPerformed
+    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtID2ActionPerformed
+    }//GEN-LAST:event_txtIDActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -199,7 +321,7 @@ public class ChiTietChucNang extends javax.swing.JFrame {
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         // TODO add your handling code here:
-        dispose(); // Đóng frame
+        this.dispose(); // Đóng frame
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnLuuMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseEntered
@@ -211,9 +333,67 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         // TODO add your handling code here:
         // Đặt lại con trỏ thành con trỏ mặc định khi di ra
     }//GEN-LAST:event_btnLuuMouseExited
+    public ArrayList<String> getListAction() {
+        ArrayList<String> list = new ArrayList<>();
 
+        for (int i = 0; i < tblAction.getRowCount(); ++i) {
+            Object value = tblAction.getValueAt(i, 1);
+            String nameCN = tblAction.getValueAt(i, 0).toString();
+            if (value instanceof Boolean && (Boolean) value) {
+                list.add(nameCN);
+            }
+        }
+
+        return list;
+    }
+
+    public boolean checkCurrentID() {
+        int currentID = cnBUS.getCurrentID();
+        int MaNQ = Integer.parseInt(txtID.getText().substring(2));
+
+        return currentID + 1 == MaNQ; // Id hiện tại bằng id mới trong UI
+    }
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
         // TODO add your handling code here:
+        String name = txtName.getText();
+        int id = Integer.parseInt(txtID.getText().substring(2));
+        ArrayList<String> listAction = getListAction();
+        boolean them = false, sua = false, xoa = false, doc = false;
+        for (String action : listAction) {
+            switch (action) {
+                case "Thêm":
+                    them = true;
+                    break;
+                case "Sửa":
+                    sua = true;
+                    break;
+                case "Xóa":
+                    xoa = true;
+                    break;
+                case "Truy Cập":
+                    doc = true;
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        ChucNangDTO cnDTO = new ChucNangDTO(name, id, them, sua, xoa, doc);
+        if (checkCurrentID()) {
+            boolean addCN = cnBUS.ThemChucNang(cnDTO);
+            if(addCN) {
+                JOptionPane.showMessageDialog(null, "Tạo chức năng thành công");
+                cnBUS.createTableRole(nqGUI.getModelChucNang());
+                this.dispose();
+            }
+        } else {
+            boolean updateCN = cnBUS.SuaChucNang(cnDTO);
+            if(updateCN) {
+                JOptionPane.showMessageDialog(null, "Sửa chức năng thành công");
+                cnBUS.createTableRole(nqGUI.getModelChucNang());
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
 
     /**
@@ -246,29 +426,20 @@ public class ChiTietChucNang extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ChiTietChucNang().setVisible(true);
+                //new ChiTietChucNang().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel PanelOverview;
-    private javax.swing.JPanel PanelOverview1;
     private javax.swing.JPanel PanelOverview2;
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnLuu;
-    private javax.swing.JLabel lblID;
-    private javax.swing.JLabel lblID1;
     private javax.swing.JLabel lblID2;
-    private javax.swing.JLabel lblTenTheLoai;
-    private javax.swing.JLabel lblTenTheLoai1;
     private javax.swing.JLabel lblTenTheLoai2;
-    private javax.swing.JLabel lblThongTinChiTiet;
-    private javax.swing.JLabel lblThongTinChiTiet1;
     private javax.swing.JLabel lblThongTinChiTiet2;
+    private javax.swing.JPanel pnTable;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtID1;
-    private javax.swing.JTextField txtID2;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }

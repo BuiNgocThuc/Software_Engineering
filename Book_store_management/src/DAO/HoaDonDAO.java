@@ -59,8 +59,8 @@ public class HoaDonDAO {
                 Date NgayTao = rs.getDate("NgayTao");
                 double TongTien = rs.getFloat("TongTien");
 
-                HoaDonDTO pn = new HoaDonDTO(MaHD, TenTK, TongTien, NgayTao);
-                ketQua.add(pn);
+                HoaDonDTO hd = new HoaDonDTO(MaHD, TenTK, TongTien, NgayTao);
+                ketQua.add(hd);
             }
             ConnectDB.closeConnection(c);
         } catch (SQLException e) {

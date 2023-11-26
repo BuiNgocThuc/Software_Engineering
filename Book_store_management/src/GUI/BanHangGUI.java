@@ -45,9 +45,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
      * Creates new form BanHangGUI
      */
     private static JTable tableSanPham;
+    private static DefaultTableModel modelSanPham;
     private static JTable tableHoaDon;
     private static DefaultTableModel modelHoaDon;
-    private static DefaultTableModel modelSanPham;
+
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     SanPhamGUI sanPhamGUI = new SanPhamGUI();
     HoaDonBUS hoaDonBUS = new HoaDonBUS();
@@ -551,7 +552,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
                                 .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(16, 16, 16))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                        .addComponent(btnChon, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnChon, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
@@ -622,6 +623,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtTimKiem.setText("Tìm kiếm sản phẩm");
         txtTimKiem.setBorder(null);
         txtTimKiem.setHighlighter(null);
+        txtTimKiem.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTimKiemFocusGained(evt);
+            }
+        });
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
@@ -699,7 +705,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
         timKiemTheo.setBackground(new java.awt.Color(255, 255, 255));
         timKiemTheo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Đơn giá" }));
+        timKiemTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tìm kiếm theo", "Mã sản phẩm", "Tên sản phẩm", "Tác giả", "Thể loại", "Tìm kiếm nâng cao" }));
         timKiemTheo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         timKiemTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -793,6 +799,11 @@ public final class BanHangGUI extends javax.swing.JPanel {
             tfTienkhach.requestFocus();
             return;
         }
+        if (!sharedFunction.isPositiveInteger(tfTienkhach.getText())) {
+            sharedFunction.displayErrorMessage("Tiền khách đưa không hợp lệ");
+            tfTienkhach.requestFocus();
+            return;
+        }
 
         // Kiểm tra tiền thối có hợp lệ không
         boolean isChangeValid = isChangeValid();
@@ -849,6 +860,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             String TongTientext = tfTongtien.getText();
             Double TongTien = sharedFunction.parseMoneyString(TongTientext);
             String TienKhach = tfTienkhach.getText();
+            String tienKhachVND = sharedFunction.formatVND(sharedFunction.stringToDouble(TienKhach));
             String TienThoi = tfTienthoi.getText();
             HoaDonDTO hoaDon = new HoaDonDTO(IDNhanVien, TongTien, NgayTao);
             boolean hoaDonLuuThanhCong = hoaDonBUS.luuHoaDon(hoaDon);
@@ -869,7 +881,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
             if (hoaDonLuuThanhCong && luuChiTiet) {
                 // Thực hiện các thao tác sau khi thanh toán thành công
                 updateProductQuantity();
-                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, TienKhach, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
+                BillFormGUI bill = new BillFormGUI(HDtext, IDNhanVien, tienKhachVND, TienThoi, TongTientext, NgayTaotext, modelHoaDon);
                 bill.setVisible(true);
             }
         }
@@ -882,13 +894,15 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtIDHoadon.setText(maHDtext);
 
         // Lấy ID nhân viên 
-        String tenTK = TaiKhoanBUS.getCurrentAcc().getMaTK();
-        txtIDNhanvien.setText("NV00" + tenTK);
+        String tenTK = TaiKhoanBUS.getCurrentAcc().getTenTK();
+        txtIDNhanvien.setText( tenTK);
         // Lấy ngày hiện tại
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        String formattedDate = dateFormat.format(currentDate);
-        txtNgayTao.setText(formattedDate);
+//        Date currentDate = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//        String formattedDate = dateFormat.format(currentDate);
+//        txtNgayTao.setText(formattedDate);
+    txtNgayTao.setText("22/12/2024");
+
     }
 
     // Cập nhật số lượng sản phẩm sau khi thanh toán
@@ -1034,17 +1048,22 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private void updateTienThoiLai() {
         // Lấy số tiền khách đưa từ JTextField
         String tienKhachDuaStr = tfTienkhach.getText();
+
         if (!tienKhachDuaStr.isEmpty()) {
-            double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
-            double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
-            double tienThoiLai = tienKhachDua - tongTien;
-            if (tienThoiLai >= 0) {
-                tfTienthoi.setForeground(Color.black);
-            } else {
-                tfTienthoi.setForeground(Color.RED);
+            if (sharedFunction.isPositiveInteger(tienKhachDuaStr)) {
+                double tienKhachDua = Double.parseDouble(tienKhachDuaStr);
+                double tongTien = sharedFunction.parseMoneyString(tfTongtien.getText());
+                double tienThoiLai = tienKhachDua - tongTien;
+                if (tienThoiLai >= 0) {
+                    tfTienthoi.setForeground(Color.black);
+                } else {
+                    tfTienthoi.setForeground(Color.RED);
+                }
+                // Cập nhật giá trị vào JTextField Tiền thối lại
+                tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
+            }else{
+                sharedFunction.displayErrorMessage("Tiền khách đưa không hợp lệ");
             }
-            // Cập nhật giá trị vào JTextField Tiền thối lại
-            tfTienthoi.setText(sharedFunction.formatVND(tienThoiLai));
         }
     }
     private void btnHuydonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuydonActionPerformed
@@ -1109,7 +1128,7 @@ public final class BanHangGUI extends javax.swing.JPanel {
 
     private void tfTienkhachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTienkhachActionPerformed
         // TODO add your handling code here:
-//        updateTienThoiLai();
+
     }//GEN-LAST:event_tfTienkhachActionPerformed
 
     private void tfTienkhachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfTienkhachKeyReleased
@@ -1120,15 +1139,26 @@ public final class BanHangGUI extends javax.swing.JPanel {
     private void timKiemTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timKiemTheoActionPerformed
         // TODO add your handling code here:
         int selectedIndex = timKiemTheo.getSelectedIndex();
-        sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
+
+        if (selectedIndex != 5) {
+            sharedFunction.addPlaceholder(txtTimKiem, sanPhamGUI.getPlaceholderByIndex(selectedIndex));
+        } else {
+
+            LocAnd l = new LocAnd(2);
+            sharedFunction.openNewFrame(l);
+        }
     }//GEN-LAST:event_timKiemTheoActionPerformed
+
+    private void txtTimKiemFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTimKiemFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemFocusGained
 //    public static String FormatMaHD(int MaHD) {
 //        return String.format("HD%02d", MaHD);
 //    }
 
     public JTable createTableHoaDon() {
         // Tiêu đề của các cột
-        String[] columnNames = {"ID", "Tên sản phẩm", "SL", "T.Tiền", "", ""};
+        String[] columnNames = {"ID", "Sản phẩm", "SL", "T.Tiền", "", ""};
         modelHoaDon = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {
@@ -1224,6 +1254,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
             return new JLabel(icon);
         }
 
+    }
+
+    public static DefaultTableModel getModelSanPham() {
+        return modelSanPham;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

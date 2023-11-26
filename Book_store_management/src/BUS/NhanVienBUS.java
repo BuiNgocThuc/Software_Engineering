@@ -22,6 +22,10 @@ public class NhanVienBUS {
     public ArrayList<NhanVienDTO> selectAll(){
         return nvDao.selectAll();
     }
+    
+    public ArrayList<NhanVienDTO> selectAllChuaTaoTK(){
+        return nvDao.selectAllChuaTaoTK();
+    }
     public NhanVienDTO selectNhanVienById(String id){
         return nvDao.selectNhanVienById(id);
     }

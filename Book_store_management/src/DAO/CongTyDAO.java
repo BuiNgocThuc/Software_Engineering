@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class CongTyDAO {
 
-    public ArrayList<CongTyDTO> selectAll() {
+    public static ArrayList<CongTyDTO> selectAll() {
         ArrayList<CongTyDTO> ketQua = new ArrayList<>();
         try {
             Connection conn = ConnectDB.getConnection();

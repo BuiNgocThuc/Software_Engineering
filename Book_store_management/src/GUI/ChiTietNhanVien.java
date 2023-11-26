@@ -7,6 +7,7 @@ package GUI;
 import BUS.NhanVienBUS;
 import DAO.NhanVienDAO;
 import DTO.NhanVienDTO;
+import Util.sharedFunction;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -21,8 +22,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
      */
     NhanVienDAO nvDao = new NhanVienDAO();
     public static int Model;
+
     public ChiTietNhanVien() {
-        initComponents();   
+        initComponents();
     }
     NhanVienBUS nvBus = new NhanVienBUS();
 
@@ -36,13 +38,13 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         txtEmail.setText(nvDto.getEmail());
         txtSdt.setText(nvDto.getSDT());
     }
-    public void setFocusable(int model) {
-        if(model==1){
-            txtId.setFocusable(true);
-        }else{
-            txtId.setFocusable(false);
-        }
+
+    public void setID() {
+        int id = Integer.parseInt(nvDao.selectLastID().substring(3)) + 1;
+        txtId.setText(sharedFunction.FormatID("NV0", id));
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,7 +70,9 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         txtSdt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setLocation(new java.awt.Point(550, 200));
+        setLocation(new java.awt.Point(500, 150));
+        setMaximumSize(new java.awt.Dimension(647, 2147483647));
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setMaximumSize(new java.awt.Dimension(400, 500));
@@ -101,6 +105,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
 
         txtId.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
         txtId.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 2, true), "ID Nhân viên", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Josefin Sans SemiBold", 0, 16), new java.awt.Color(135, 172, 217))); // NOI18N
+        txtId.setFocusable(false);
         txtId.setMaximumSize(new java.awt.Dimension(480, 50));
         txtId.setMinimumSize(new java.awt.Dimension(480, 50));
         txtId.setPreferredSize(new java.awt.Dimension(480, 50));
@@ -160,7 +165,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         jLabel3.setText("Giới tính");
 
         cboGioiTinh.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
-        cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Nam", "Nữ" }));
+        cboGioiTinh.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chọn giới tính", "Nam", "Nữ" }));
         cboGioiTinh.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(135, 172, 217), 1, true));
 
         txtSdt.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 14)); // NOI18N
@@ -173,7 +178,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -247,8 +252,12 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tên nhân viên không được để trống");
         } else if (txtSdt.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Số điện thoại không được để trống");
+        } else if (txtSdt.getText().equals("\\d{10}")) {
+            JOptionPane.showMessageDialog(this, "SĐT phải có 10 số");
         } else if (txtEmail.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Email không được để trống");
+        } else if (txtEmail.getText().equals(".*@gmail\\.com")) {
+            JOptionPane.showMessageDialog(this, "Email không hợp lệ");
         } else if (txtDiaChi.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Địa chỉ không được để trống");
         } else if (cboGioiTinh.getSelectedIndex() == 0) {
@@ -266,6 +275,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                     nv.setDiaChi(txtDiaChi.getText());
                     nv.setTinhTrang("Đang làm việc");
                     if (nvBus.insertNhanVien(nv)) {
+                        NhanVienGUI.update();
                         setVisible(false);
                     }
                 } else {
@@ -281,6 +291,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
                 nv.setDiaChi(txtDiaChi.getText());
                 nv.setTinhTrang("Đang làm việc");
                 if (nvBus.updateNhanVien(nv)) {
+                    NhanVienGUI.update();
                     setVisible(false);
                 }
             }
@@ -298,7 +309,7 @@ public class ChiTietNhanVien extends javax.swing.JFrame {
         for (int i = 0; i < listnv.size(); i++) {
             if (id.toLowerCase().equals(listnv.get(i).getMaNV().toLowerCase())) {
                 System.out.println("false");
-                return false;    
+                return false;
             }
         }
         return true;

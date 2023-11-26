@@ -142,7 +142,7 @@ public class TaiKhoanDAO {
         }
         return null;
     }
-    public ArrayList<TaiKhoanDTO> selectAll() {
+    public static ArrayList<TaiKhoanDTO> selectAll() {
         ArrayList<TaiKhoanDTO> ketQua = new ArrayList<>();
         try {
             Connection conn = ConnectDB.getConnection();

@@ -19,6 +19,7 @@ import java.util.ArrayList;
  * @author NGOC THUC
  */
 public class NhomQuyenDAO {
+
     
     public int getCurrentID() {
         int res = 0;
@@ -41,7 +42,8 @@ public class NhomQuyenDAO {
         }
         return res;
     }
-    public String selectNameByID(String ID) {
+    public static String selectNameByID(String ID) {
+
         try {
             Connection c = ConnectDB.getConnection();
             String sql = "SELECT TenNQ FROM NhomQuyen WHERE MaNQ = ?";

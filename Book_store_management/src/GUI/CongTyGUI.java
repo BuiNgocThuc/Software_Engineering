@@ -39,7 +39,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     /**
      * Creates new form CongTyGUI
      */
-    JTable tableNhanvien = createTableCongty();
+    public static JTable tableNhanvien = createTableCongty();
 
     public CongTyGUI() {
         initComponents();
@@ -55,11 +55,15 @@ public class CongTyGUI extends javax.swing.JPanel {
     private static int count = 1;
     CongTyBUS ctyBus = new CongTyBUS();
 
-    public void loadData(JTable tbl) {
+    public static void update(){
+        count = 1;
+        loadData(tableNhanvien);
+    }
+    public static void loadData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         model.setRowCount(0);
         count = 1;
-        ctyBus.selectAll().forEach((cty) -> {
+        CongTyBUS.selectAll().forEach((cty) -> {
             if (cty.getTinhTrang()) {
                 model.addRow(new Object[]{count++, "CT00" + cty.getMaNCC(), cty.getTenNCC(), cty.getSDT(), cty.getDiaChi()});
             }
@@ -334,7 +338,14 @@ public class CongTyGUI extends javax.swing.JPanel {
 
     private void btnTimkiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimkiemActionPerformed
 
-        TimKiem();
+        String searchKeyword = tfTimkiem.getText().trim();
+        System.err.println(searchKeyword);
+        if (searchKeyword.isEmpty() || searchKeyword.equals("Tìm kiếm công ty")) {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy");
+        } else {
+            TimKiem();
+        }
+
 
     }//GEN-LAST:event_btnTimkiemActionPerformed
 
@@ -359,7 +370,7 @@ public class CongTyGUI extends javax.swing.JPanel {
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         ChiTietCongTy ctcty = new ChiTietCongTy();
         ctcty.Model = 1;
-        ctcty.setId(ctyBus.selectLastId()+1);
+        ctcty.setId(ctyBus.selectLastId() + 1);
         ctcty.setVisible(true);
     }//GEN-LAST:event_btnThemActionPerformed
 
@@ -450,7 +461,7 @@ public class CongTyGUI extends javax.swing.JPanel {
         table.getTableHeader().setResizingAllowed(false);
     }
 
-    public JTable createTableCongty() {
+    public static JTable createTableCongty() {
         // Tiêu đề của các cột
         String[] columnNames = {"STT", "ID Công ty", "Tên công ty", "Số điện thoại", "Địa chỉ"};
         DefaultTableModel model = new DefaultTableModel() {

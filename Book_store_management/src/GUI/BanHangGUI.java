@@ -832,7 +832,10 @@ public final class BanHangGUI extends javax.swing.JPanel {
         txtDonGia.setText("");
         lblImage.setIcon(null);
         txtSoluong.setFocusable(false);
-        tfTienkhach.setFocusable(false);
+        if(!tfTongtien.getText().isEmpty()){
+            tfTienkhach.setFocusable(true);
+        }
+        
     }
 
     // Reset toàn bộ trạng thái

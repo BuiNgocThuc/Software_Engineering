@@ -44,7 +44,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         setDefaultValues(spngaybatdau, spngayketthuc, CbThoiGianSanPham);
         setDefaultValues(tlngaybatdau, tlngayketthuc, CbThoiGianTheLoai);
         setDefaultValues(tgngaybatdau, tgngayketthuc, CbThoiGian);
-         setDefaultValues(DoanhThutgngaybatdau, DoanhThutgngayketthuc, CbThoiGian);
+        setDefaultValues(DoanhThutgngaybatdau, DoanhThutgngayketthuc, CbThoiGian);
         populateComboBoxALL();
         thongKeDoanhThuTuNamDenNam();
         thongKeDoanhThuTheoThangTrongNam();
@@ -1515,14 +1515,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void spngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spngaybatdauPropertyChange
         // TODO add your handling code here:
-        java.util.Date startDate = spngaybatdau.getDate();
-        java.util.Date endDate = spngayketthuc.getDate();
-
-        // Kiểm tra ngày bắt đầu và kết thúc
-        if (!isValidDateRange(startDate, endDate)) {
-            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+      thongKeSanPhamBanTrongKhoangThoiGian();
     }//GEN-LAST:event_spngaybatdauPropertyChange
 
     private void spngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_spngayketthucPropertyChange
@@ -1637,19 +1630,14 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void tgngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tgngaybatdauPropertyChange
         // TODO add your handling code here:
-        java.util.Date startDate = tgngaybatdau.getDate();
-        java.util.Date endDate = tgngayketthuc.getDate();
-
-        // Kiểm tra ngày bắt đầu và kết thúc
-        if (!isValidDateRange(startDate, endDate)) {
-            JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            thongKeHoaDonTrongKhoangThoiGian();
     }//GEN-LAST:event_tgngaybatdauPropertyChange
 
     private void tgngayketthucPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tgngayketthucPropertyChange
         // TODO add your handling code here:
         thongKeHoaDonTrongKhoangThoiGian();
+  
+
     }//GEN-LAST:event_tgngayketthucPropertyChange
 
     private void excelThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excelThoiGianActionPerformed
@@ -1788,7 +1776,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void DoanhThuCbThoiGianActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DoanhThuCbThoiGianActionPerformed
         // TODO add your handling code here:
-            updateDateChoosers(DoanhThutgngaybatdau, DoanhThutgngayketthuc, DoanhThuCbThoiGian);
+        updateDateChoosers(DoanhThutgngaybatdau, DoanhThutgngayketthuc, DoanhThuCbThoiGian);
     }//GEN-LAST:event_DoanhThuCbThoiGianActionPerformed
 
     private void DoanhThutgngaybatdauPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DoanhThutgngaybatdauPropertyChange
@@ -1803,12 +1791,12 @@ public final class ThongKeGUI extends javax.swing.JPanel {
 
     private void cbNamItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbNamItemStateChanged
         // TODO add your handling code here:
-          thongKeDoanhThuTheoThangTrongNam();
+        thongKeDoanhThuTheoThangTrongNam();
     }//GEN-LAST:event_cbNamItemStateChanged
 
     private void cbThangItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbThangItemStateChanged
         // TODO add your handling code here:
-                ThongKeDoanhThuTungNgayTrongThang();
+        ThongKeDoanhThuTungNgayTrongThang();
     }//GEN-LAST:event_cbThangItemStateChanged
 
     private void populateComboBox(JComboBox<String> comboBox) {
@@ -1934,6 +1922,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         int namKetThuc = Integer.parseInt(selectedNamKetThuc);
 
         if (!isValidYearRange(namBatDau, namKetThuc)) {
+            cbNamKetThuc.setSelectedItem(selectedNamBatDau);
             return;
         }
 
@@ -1967,12 +1956,12 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Kiểm tra ngày bắt đầu và kết thúc
         if (!isValidDateRange(startDate, endDate)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            DoanhThutgngayketthuc.setDate(startDate);
             return;
         }
         ArrayList<ThongKeDoanhThuDTO> result = tkBUS.thongKeDoanhThuTuNgayDenNgay(startDate, endDate);
         loadDataTableDoanhThu((DefaultTableModel) TableTuNgayDenNgay.getModel(), result);
-      
-    
+
     }
 
     private void loadDataChartTungNgayTrongThang(ArrayList<ThongKeDoanhThuDTO> list) {
@@ -2116,6 +2105,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Kiểm tra ngày bắt đầu và kết thúc
         if (!isValidDateRange(startDate, endDate)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            spngayketthuc.setDate(startDate);
             return;
         }
 
@@ -2158,6 +2148,7 @@ public final class ThongKeGUI extends javax.swing.JPanel {
         // Kiểm tra ngày bắt đầu và kết thúc
         if (!isValidDateRange(startDate, endDate)) {
             JOptionPane.showMessageDialog(this, "Ngày bắt đầu không được lớn hơn ngày kết thúc", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            tgngayketthuc.setDate(startDate);
             return;
         }
         ArrayList<ThongKeHoaDonBanDTO> result = tkBUS.thongKeHoaDonTrongKhoangThoiGian(startDate, endDate);

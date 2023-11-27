@@ -23,7 +23,7 @@ public class SanPhamDAO {
         ArrayList<SanPhamDTO> ketQua = new ArrayList<>();
         try {
             Connection c = ConnectDB.getConnection();
-            String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL where sp.TinhTrang = 1";
+            String sql = "SELECT * FROM SanPham sp JOIN TheLoai tl on sp.MaTL = tl.MaTL where sp.TinhTrang = 1 and tl.TinhTrang = 1";
             PreparedStatement pst = c.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
 

@@ -53,19 +53,20 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         jpanelPassword6 = new Components.Jpanel();
         txtNewPass2 = new javax.swing.JPasswordField();
         eyePassword6 = new javax.swing.JButton();
+        txtPassword4 = new javax.swing.JPasswordField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         btnXacnhan = new Components.ButtonRadius();
         btnHuy = new Components.ButtonRadius();
         jpanelPassword = new Components.Jpanel();
-        txtNewPass = new javax.swing.JPasswordField();
         eyePassword = new javax.swing.JButton();
+        txtNewPass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jpanelPassword7 = new Components.Jpanel();
-        txtConfirmPass = new javax.swing.JPasswordField();
         eyePassword7 = new javax.swing.JButton();
+        txtConfirmPass = new javax.swing.JPasswordField();
 
         jpanelPassword6.setBackground(new java.awt.Color(243, 243, 244));
         jpanelPassword6.setPreferredSize(new java.awt.Dimension(208, 37));
@@ -136,6 +137,9 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
                 .addComponent(txtNewPass2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        txtPassword4.setBackground(new java.awt.Color(243, 243, 244));
+        txtPassword4.setBorder(null);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -211,22 +215,6 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             }
         });
 
-        txtNewPass.setBackground(new java.awt.Color(243, 243, 244));
-        txtNewPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNewPass.setForeground(new java.awt.Color(0, 0, 0));
-        txtNewPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNewPass.setBorder(null);
-        txtNewPass.setEchoChar('\u0000');
-        txtNewPass.setPreferredSize(new java.awt.Dimension(65, 20));
-        txtNewPass.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNewPassFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNewPassFocusLost(evt);
-            }
-        });
-
         eyePassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
         eyePassword.setBorder(null);
         eyePassword.setContentAreaFilled(false);
@@ -249,15 +237,19 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             }
         });
 
+        txtNewPass.setBackground(new java.awt.Color(243, 243, 244));
+        txtNewPass.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        txtNewPass.setBorder(null);
+
         javax.swing.GroupLayout jpanelPasswordLayout = new javax.swing.GroupLayout(jpanelPassword);
         jpanelPassword.setLayout(jpanelPasswordLayout);
         jpanelPasswordLayout.setHorizontalGroup(
             jpanelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPasswordLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(txtNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
+                .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jpanelPasswordLayout.setVerticalGroup(
@@ -265,7 +257,7 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             .addComponent(eyePassword, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
             .addGroup(jpanelPasswordLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtNewPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtNewPass)
                 .addContainerGap())
         );
 
@@ -291,22 +283,6 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             }
         });
 
-        txtConfirmPass.setBackground(new java.awt.Color(243, 243, 244));
-        txtConfirmPass.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtConfirmPass.setForeground(new java.awt.Color(0, 0, 0));
-        txtConfirmPass.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtConfirmPass.setBorder(null);
-        txtConfirmPass.setEchoChar('\u0000');
-        txtConfirmPass.setPreferredSize(new java.awt.Dimension(65, 20));
-        txtConfirmPass.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtConfirmPassFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtConfirmPassFocusLost(evt);
-            }
-        });
-
         eyePassword7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/icon_24px/eye_open.png"))); // NOI18N
         eyePassword7.setBorder(null);
         eyePassword7.setContentAreaFilled(false);
@@ -329,14 +305,18 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             }
         });
 
+        txtConfirmPass.setBackground(new java.awt.Color(243, 243, 244));
+        txtConfirmPass.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        txtConfirmPass.setBorder(null);
+
         javax.swing.GroupLayout jpanelPassword7Layout = new javax.swing.GroupLayout(jpanelPassword7);
         jpanelPassword7.setLayout(jpanelPassword7Layout);
         jpanelPassword7Layout.setHorizontalGroup(
             jpanelPassword7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpanelPassword7Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(15, 15, 15)
+                .addComponent(txtConfirmPass, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(eyePassword7, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -345,7 +325,7 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
             .addComponent(eyePassword7, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
             .addGroup(jpanelPassword7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtConfirmPass, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtConfirmPass)
                 .addContainerGap())
         );
 
@@ -451,24 +431,6 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jpanelPasswordFocusLost
 
-    private void txtNewPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPassFocusLost
-        // TODO add your handling code here:
-        if (txtNewPass.getText().equals("")) {
-            txtNewPass.setEchoChar('\u0000');
-          
-        }
-    }//GEN-LAST:event_txtNewPassFocusLost
-
-    private void txtNewPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPassFocusGained
-        // TODO add your handling code here:
-        if (txtNewPass.getText().equals("Password")) {
-            txtNewPass.setText("");
-            txtNewPass.requestFocus();
-            txtNewPass.setEchoChar('\u25CF');
-          
-        }
-    }//GEN-LAST:event_txtNewPassFocusGained
-
     private void eyePassword6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword6MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_eyePassword6MouseClicked
@@ -496,14 +458,6 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
     private void txtNewPass2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNewPass2FocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNewPass2FocusGained
-
-    private void txtConfirmPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPassFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConfirmPassFocusGained
-
-    private void txtConfirmPassFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtConfirmPassFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConfirmPassFocusLost
 
     private void eyePassword7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePassword7MouseClicked
         // TODO add your handling code here:
@@ -592,33 +546,19 @@ public class MatKhauMoiGUI extends javax.swing.JFrame {
     private Components.ButtonRadius btnHuy;
     private Components.ButtonRadius btnXacnhan;
     private javax.swing.JButton eyePassword;
-    private javax.swing.JButton eyePassword1;
-    private javax.swing.JButton eyePassword2;
-    private javax.swing.JButton eyePassword3;
-    private javax.swing.JButton eyePassword5;
     private javax.swing.JButton eyePassword6;
     private javax.swing.JButton eyePassword7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelUsername3;
-    private javax.swing.JLabel jLabelUsername4;
-    private javax.swing.JLabel jLabelUsername5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private Components.Jpanel jpanelPassword;
-    private Components.Jpanel jpanelPassword1;
-    private Components.Jpanel jpanelPassword2;
-    private Components.Jpanel jpanelPassword3;
-    private Components.Jpanel jpanelPassword5;
     private Components.Jpanel jpanelPassword6;
     private Components.Jpanel jpanelPassword7;
     private javax.swing.JPasswordField txtConfirmPass;
     private javax.swing.JPasswordField txtNewPass;
-    private javax.swing.JPasswordField txtNewPass1;
     private javax.swing.JPasswordField txtNewPass2;
-    private javax.swing.JPasswordField txtPassword1;
-    private javax.swing.JPasswordField txtPassword2;
-    private javax.swing.JPasswordField txtPassword3;
+    private javax.swing.JPasswordField txtPassword4;
     // End of variables declaration//GEN-END:variables
 }

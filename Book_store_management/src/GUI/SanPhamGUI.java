@@ -719,7 +719,9 @@ public final class SanPhamGUI extends javax.swing.JPanel {
 
     public JTable createTableSanPham() {
         // Tiêu đề của các cột
-        String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng", "Đơn giá"};
+        int arrowUpUnicode = 8593; // Mã Unicode cho mũi tên lên
+        char arrowUpChar = (char) arrowUpUnicode;
+        String[] columnNames = {"STT", "ID Sản phẩm", "Tên sản phẩm", "Tên tác giả", "Thể loại", "Số lượng " + arrowUpChar, "Đơn giá"};
         modelSanPham = new DefaultTableModel() {
             @Override
             public Class<?> getColumnClass(int columnIndex) {

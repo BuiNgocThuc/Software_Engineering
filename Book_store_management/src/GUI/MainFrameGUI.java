@@ -5,10 +5,12 @@
 package GUI;
 
 import BUS.ChucNangBUS;
+import BUS.HoaDonBUS;
 import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.CTQuyenDTO;
 import DTO.ChucNangDTO;
+import DTO.HoaDonDTO;
 import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import Util.sharedFunction;
@@ -50,6 +52,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     private static ArrayList<ChucNangDTO> dscn = new ArrayList<>();
     SanPhamBUS sanPhamBUS = new SanPhamBUS();
     PhieuNhapBUS pnBUS = new PhieuNhapBUS();
+    HoaDonBUS hdBUS = new HoaDonBUS();
     private static JFrame instance;
 
     public MainFrameGUI() {
@@ -234,7 +237,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
     }
 
     public void getChucNang(ArrayList<CTQuyenDTO> listPer) {
-        String nameNewLabel= "";
+        String nameNewLabel = "";
         for (CTQuyenDTO cn : listPer) {
             setAction(cn.getHanhDong(), cn.getMaCN());
             switch (cn.getMaCN()) {
@@ -312,7 +315,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
                 default: //chức năng khác
                     String TenCN = cnBUS.getNameByID(cn.getMaCN());
-                    if(TenCN.equals(nameNewLabel)){
+                    if (TenCN.equals(nameNewLabel)) {
                         continue;
                     }
                     nameNewLabel = TenCN;
@@ -320,7 +323,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
                     pnListItem.add(newLabel);
                     listItems.add(newLabel);
                     newLabel.addMouseListener(new handleMouseEvent(pnContent, developGUI));
-                    
+
                     break;
             }
         }
@@ -357,7 +360,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         solveActionMenu();
         solveHoverMenu();
     }
-    
+
     void createListItems() {
         listItems.add(lblBanHang);
         listItems.add(lblNhapHang);
@@ -377,7 +380,7 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblSanPham.setForeground(Color.white);
         lblSanPham.setOpaque(true);
     }
-    
+
     void solveActionMenu() {
         lblBanHang.addMouseListener(new handleMouseEvent(pnContent, banHangGUI));
         lblNhapHang.addMouseListener(new handleMouseEvent(pnContent, nhapHangGUI));
@@ -670,6 +673,11 @@ public class MainFrameGUI extends javax.swing.JFrame {
         lblHoaDon.setText("Hóa đơn");
         lblHoaDon.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblHoaDon.setPreferredSize(new java.awt.Dimension(260, 80));
+        lblHoaDon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblHoaDonMouseClicked(evt);
+            }
+        });
         pnListItem.add(lblHoaDon);
 
         lblPhieuNhap.setFont(new java.awt.Font("Josefin Sans SemiBold", 0, 22)); // NOI18N
@@ -938,9 +946,16 @@ public class MainFrameGUI extends javax.swing.JFrame {
 
     private void lblPhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhieuNhapMouseClicked
         // TODO add your handling code here:
-                ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
+        ArrayList<PhieuNhapDTO> dspn = pnBUS.loadPhieuNhap();
         PhieuNhapGUI.loadDataTablePhieuNhap(dspn, PhieuNhapGUI.getModelPhieuNhap());
     }//GEN-LAST:event_lblPhieuNhapMouseClicked
+
+    private void lblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHoaDonMouseClicked
+        // TODO add your handling code here:
+
+        ArrayList<HoaDonDTO> dshd = hdBUS.getAll();
+        HoaDonGUI.loadDataTableHoaDon(dshd, HoaDonGUI.getModelHoaDon());
+    }//GEN-LAST:event_lblHoaDonMouseClicked
 
     public static JFrame getMainFrameInstance() {
         return instance;

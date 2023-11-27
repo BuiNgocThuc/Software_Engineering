@@ -310,6 +310,9 @@
                           <Dimension value="[260, 80]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHoaDonMouseClicked"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="lblPhieuNhap">
                       <Properties>
@@ -436,13 +439,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-<<<<<<< HEAD
                               <Component id="lblRole" max="32767" attributes="0"/>
                               <Component id="lblName" pref="153" max="32767" attributes="0"/>
-=======
-                              <Component id="lblName" pref="141" max="32767" attributes="0"/>
-                              <Component id="lblRole" max="32767" attributes="0"/>
->>>>>>> Thuc
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblSetting" min="-2" pref="41" max="-2" attributes="0"/>

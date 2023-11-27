@@ -9,12 +9,19 @@ import BUS.TheLoaiBUS;
 import DTO.SanPhamDTO;
 import DTO.TheLoaiDTO;
 import Util.sharedFunction;
+import com.itextpdf.text.pdf.parser.Path;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -583,29 +590,42 @@ public class ChiTietSanPham extends javax.swing.JFrame {
 
     }
 
-    private String uploadImage() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
-        int result = fileChooser.showOpenDialog(this);
+private String createUniqueFileName(String originalFileName) {
+    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+    return timeStamp + "_" + originalFileName;
+}
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            String imagePath = selectedFile.getName(); // Lấy tên ảnh
-            String imageName = imagePath; // Lưu tên ảnh vào biến
 
-            // Hiển thị hình ảnh trên JLabel với kích thước của JLabel
-            ImageIcon imageIcon = new ImageIcon(getClass().getResource("./../Assets/IMG/" + imagePath));
+
+
+private String uploadImage() {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+    int result = fileChooser.showOpenDialog(this);
+
+    if (result == JFileChooser.APPROVE_OPTION) {
+        File selectedFile = fileChooser.getSelectedFile();
+
+        String uniqueFileName = createUniqueFileName(selectedFile.getName());
+        java.nio.file.Path destinationPath = Paths.get(System.getProperty("user.dir"), "src", "Assets", "IMG", uniqueFileName);
+        
+        try {
+            Files.copy(selectedFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+            ImageIcon imageIcon = new ImageIcon(destinationPath.toString());
             imageIcon = scaleImage(imageIcon, lblImage.getWidth(), lblImage.getHeight());
             lblImage.setIcon(imageIcon);
 
-            // Trả về tên hình ảnh
-            return imageName;
-        } else {
-            // Trường hợp không tải lên ảnh thì trả về tên ảnh ban đầu khi chưa thay đổi
+            return uniqueFileName;
+        } catch (IOException e) {
+            e.printStackTrace(); 
             return hinhAnh;
         }
+    } else {
+        return hinhAnh;
     }
+}
 
     // Hàm thay đổi kích thước hình ảnh vừa với JLabel
     private ImageIcon scaleImage(ImageIcon imageIcon, int width, int height) {

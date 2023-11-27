@@ -37,10 +37,16 @@ public final class HoaDonGUI extends javax.swing.JPanel {
      */
     private JTable tableHoaDon;
     private JTable tableChiTietHoaDon;
-    private DefaultTableModel modelHoaDon;
+    private static DefaultTableModel modelHoaDon;
     private DefaultTableModel modelChiTietHoaDon;
     HoaDonBUS hoaDonBUS = new HoaDonBUS();
 
+    public static DefaultTableModel getModelHoaDon() {
+        return modelHoaDon;
+    }
+
+
+    
     public HoaDonGUI() {
 
         initComponents();
@@ -67,7 +73,7 @@ public final class HoaDonGUI extends javax.swing.JPanel {
         PanelTable2.add(scrollPaneChitiet);
     }
 
-    public void loadDataTableHoaDon(ArrayList<HoaDonDTO> listHoaDon, DefaultTableModel modelHoaDon) {
+    public static void loadDataTableHoaDon(ArrayList<HoaDonDTO> listHoaDon, DefaultTableModel modelHoaDon) {
         modelHoaDon.setRowCount(0);
         int STT = 1;
         for (HoaDonDTO hd : listHoaDon) {

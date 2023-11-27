@@ -5,10 +5,12 @@
 package GUI;
 
 import BUS.TaiKhoanBUS;
+import Components.ButtonRadius;
 import Util.sharedFunction;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.KeyboardFocusManager;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JFrame;
@@ -17,6 +19,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import java.awt.event.KeyEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 
 /**
  *
@@ -39,6 +46,8 @@ public class DangNhapGUI extends javax.swing.JFrame {
         addPlaceholderStyle(txtUsername, "Username");
         addPlaceholderStyle(txtPassword, "Password");
         
+        BTNdangNhap.requestFocusInWindow();
+
     }
 
     public JPasswordField getTxtPassword() {
@@ -87,6 +96,7 @@ public class DangNhapGUI extends javax.swing.JFrame {
     public void removePlaceholderStyle(JTextField textFiled) {
         textFiled.setForeground(Color.black);
     }
+    // bắt sự kiện khi nhấn enter
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,6 +166,8 @@ public class DangNhapGUI extends javax.swing.JFrame {
         jButtonCancel.setBorder(null);
         jButtonCancel.setBorderPainted(false);
         jButtonCancel.setContentAreaFilled(false);
+        jButtonCancel.setFocusPainted(false);
+        jButtonCancel.setFocusable(false);
         jButtonCancel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jButtonCancelMouseEntered(evt);
@@ -193,6 +205,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
                 BTNdangNhapActionPerformed(evt);
             }
         });
+        BTNdangNhap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                BTNdangNhapKeyPressed(evt);
+            }
+        });
 
         jpanelUsername.setBackground(new java.awt.Color(243, 243, 244));
         jpanelUsername.setPreferredSize(new java.awt.Dimension(208, 37));
@@ -225,6 +242,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
+            }
+        });
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
             }
         });
 
@@ -284,6 +306,11 @@ public class DangNhapGUI extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtPasswordFocusLost(evt);
+            }
+        });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
             }
         });
 
@@ -446,7 +473,6 @@ public class DangNhapGUI extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập mật khẩu.");
         } else {
             new TaiKhoanBUS().DangNhap(DangNhapGUI.this);
-
         }
     }//GEN-LAST:event_BTNdangNhapActionPerformed
 
@@ -571,6 +597,34 @@ public class DangNhapGUI extends javax.swing.JFrame {
     private void eyePasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eyePasswordMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_eyePasswordMouseClicked
+
+    private void BTNdangNhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BTNdangNhapKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            BTNdangNhap.doClick(); // Kích hoạt sự kiện của nút đăng nhập
+
+        }
+
+    }//GEN-LAST:event_BTNdangNhapKeyPressed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            BTNdangNhap.doClick(); // Kích hoạt sự kiện của nút đăng nhập
+
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            BTNdangNhap.doClick(); // Kích hoạt sự kiện của nút đăng nhập
+
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
     /**
      * @param args the command line arguments
